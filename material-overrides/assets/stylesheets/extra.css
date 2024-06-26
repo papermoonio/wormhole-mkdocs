@@ -1,0 +1,9 @@
+@font-face {
+  font-family: 'Druk';
+  src: url('fonts/Druk-Heavy.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Druk Wide';
+  src: url('fonts/DrukWide-Medium.otf') format('opentype');
+}

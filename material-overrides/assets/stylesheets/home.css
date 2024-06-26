@@ -1,0 +1,252 @@
+/* Styles for the hero section */
+.hero {
+  text-align: left;
+  padding: 0 0 1em 0;
+  display: flex;
+  align-items: center;
+  min-height: 50em;
+}
+
+.hero-content {
+  width: 40%;
+  position: relative;
+  z-index: 1;
+  padding: 20px;
+}
+
+.md-typeset .hero video {
+  position: absolute;
+  z-index: -1;
+  max-width: 61rem;
+  margin-right: auto;
+  object-fit: fill;
+  object-position: center;
+  margin-left: 3em;
+}
+
+.hero h1 {
+  font-size: 120px;
+  margin-bottom: 0;
+  line-height: 90%;
+}
+
+.hero p {
+  font-size: 16px;
+  margin: 1.5em 0 3em;
+}
+
+.button-wrapper {
+  display: flex;
+  width: max-content;
+}
+
+.button-wrapper .md-button {
+  margin-right: 1em;
+  font-family: 'Druk Wide';
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  border: 1px solid white;
+  padding: 1.5em 2em;
+}
+
+/* Styles for the featured content section */
+.featured-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  background-image: url(../images/home-background.webp);
+  background-repeat: no-repeat;
+  background-position: bottom;
+  padding-bottom: 9em;
+  gap: 3em;
+}
+
+.feature {
+  text-align: center;
+  padding: 20px;
+  max-width: 30%;
+  min-width: 26%;
+  border-radius: var(--md-border-radius);
+  border: 1px solid var(--grey);
+  color: var(--md-default-fg-color);
+  height: 35em;
+}
+
+
+.feature.one {
+  background:
+  radial-gradient(circle at bottom, 
+    rgba(255, 255, 255, 0.08) 0%, /* White at the center */
+    rgba(193, 187, 246, 0.1) 35%, /* Fading outwards */
+    rgba(255, 255, 255, 0) 80%),
+  url(../images/card-1.webp),
+  #0A0A0A;
+  background-repeat: no-repeat;
+  background-position: bottom;
+  background-size: contain;
+}
+
+.feature.two {
+  background:
+  radial-gradient(circle at bottom, 
+    rgba(255, 255, 255, 0.08) 0%, /* White at the center */
+    rgba(193, 187, 246, 0.1) 35%, /* Fading outwards */
+    rgba(255, 255, 255, 0) 80%),
+  url(../images/card-2.webp),
+  #0A0A0A;
+  background-repeat: no-repeat;
+  background-position: bottom;
+  background-size: contain;
+}
+
+.feature.three {
+  background:
+  radial-gradient(circle at bottom, 
+    rgba(255, 255, 255, 0.08) 0%, /* White at the center */
+    rgba(193, 187, 246, 0.1) 35%, /* Fading outwards */
+    rgba(255, 255, 255, 0) 80%),
+  url(../images/card-3.webp),
+  #0A0A0A;
+  background-repeat: no-repeat;
+  background-position: bottom;
+  background-size: contain;
+}
+
+.feature a {
+  display: flex;
+  justify-content: center;
+  margin-top: auto;
+  font-size: 12px;
+}
+
+.md-typeset .feature .md-button {
+  width: fit-content;
+  padding: 1em;
+  margin: 2em auto;
+}
+
+.feature img {
+  max-width: 100%;
+  width: 60%;
+  height: auto;
+}
+
+.feature h2 {
+  color: var(--md-default-fg-color);
+  font-size: 36px;
+  margin: 1em auto 0;
+  margin-bottom: 0;
+  line-height: 90%;
+}
+
+.feature p {
+  font-size: 14px;
+  margin: 1em 4em 0;
+}
+
+.start-building-section {
+  padding: 5em 0 3em;
+}
+
+.start-building-section img {
+  width: 64px;
+  height: 64px;
+}
+
+.start-building-section p {
+  font-size: 60px;
+  font-family: 'Druk', sans-serif;
+  text-transform: uppercase;
+  margin-top: 0;
+  margin-bottom: 0;
+  line-height: 90%;
+  width: 70%;
+}
+
+.start-building-section a.md-typeset.md-button {
+  margin: 0;
+  height: fit-content;
+  gap: 20px;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  font-weight: 500;
+  padding: 1.5em;
+  border: 1px solid white;
+}
+
+.start-building-section .row {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 2em;
+}
+
+.start-building-section a img {
+  height: 30px;
+  width: 30px;
+}
+
+/* Mobile styling */
+@media screen and (max-width: 76.234375em) {
+  .md-content__inner {
+    padding: 1em;
+  }
+
+  /* .md-typeset .hero video {
+    display: none;
+  } */
+}
+
+@media screen and (max-width: 66em) {
+  .featured-content {
+    justify-content: space-evenly;
+    gap: 1.5em;
+  }
+
+  .feature {
+    min-width: 21em;
+  }
+
+  .md-typeset .hero video {
+    display: none;
+  }
+
+  .hero {
+    min-height: unset;
+    padding-bottom: 3em;
+  }
+
+  .hero-content {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 47.5em) {
+  .hero-content {
+    padding: unset;
+  }
+
+  .feature {
+    min-width: 80%;
+  }
+
+  .hero h1 {
+    font-size: 5em;
+  }
+}
+
+
+@media screen and (max-width: 30.125em) { 
+  .hero h1 {
+    font-size: 4em;
+  }
+
+  .button-wrapper {
+    flex-direction: column;
+    margin: auto;
+  }
+
+  .button-wrapper .md-button {
+    margin: 1em 0;
+  }
+}

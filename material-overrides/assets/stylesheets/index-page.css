@@ -1,0 +1,57 @@
+.md-main {
+  display: flex;
+  height: 100%;
+}
+
+.md-main__inner {
+  height: unset;
+  width: 100%;
+}
+
+.index-page,
+.main-page {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-page .subsection-wrapper {
+  margin-top: -1em;
+}
+
+.subsection-wrapper a {
+  text-decoration: none;
+}
+
+.subsection-wrapper .title {
+  font-family: var(--md-text-font-family);
+  color: var(--md-default-fg-color);
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  padding: 1.5em 1.5em 0 1.2em;
+  letter-spacing: 0.12em;
+}
+
+.subsection-wrapper .description {
+  color: var(--md-default-fg-color);
+  margin: 1em 0 0;
+  font-size: 14px;
+  padding: 0 1.5em 1.8em 1.5em;
+}
+
+.subsection-wrapper .card {
+  background-color: var(--md-dropdown-color);
+  border: 1px solid var(--md-border-color);
+  border-radius: var(--md-border-radius);
+  margin: 1em 0;
+  text-decoration: none;
+}
+
+.md-typeset .subsection-wrapper a:hover {
+  text-decoration: none;
+}
+
+.subsection-wrapper .card:last-child {
+  margin-bottom: 4em;
+}

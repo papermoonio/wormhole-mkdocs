@@ -1,0 +1,100 @@
+site_name: Wormhole Docs
+site_url: https://docs.wormhole.com
+docs_dir: wormhole-docs
+copyright: 2024 © Wormhole. All Rights Reserved.
+extra_css:
+  - assets/stylesheets/extra.css
+  - assets/stylesheets/terminal.css
+theme:
+  name: material
+  custom_dir: material-overrides
+  favicon: assets/images/favicon.webp
+  logo: assets/images/wormhole.webp
+  features:
+    - content.code.annotate # Adds annotations to code blocks
+    - content.code.copy # Adds copy to clipboard button to code snippets
+    - content.tooltips # Adds tooltips
+    - navigation.footer # Shows previous and next on the footer
+    - navigation.tabs # Top-level sections are rendered below the header (can be modified to in-line with CSS)
+    - navigation.tabs.sticky # When scrolling, the tabs remain at the top of the page
+    - navigation.sections # Render top-level sections as groups in the sidebar
+    - navigation.indexes # Index pages
+markdown_extensions:
+  - abbr
+  - admonition
+  - attr_list
+  - codehilite
+  - md_in_html
+  - meta 
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+      options:
+        custom_icons:
+          - overrides/.icons
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.snippets:
+      base_path: wormhole-docs/.snippets
+      url_download: true
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - toc:
+      title: Sections
+plugins:
+  - search
+  - awesome-pages
+  # - git-revision-date-localized:
+  #     enabled: !ENV [ENABLED_GIT_REVISION_DATE, True]
+  #     enable_creation_date: !!bool true
+  - redirects:
+      redirect_maps:
+        # Redirects will go here as pages get moved around in the following format:
+        # old-page.md: new-page.md
+  - macros:
+      include_yaml:
+        - wormhole-docs/variables.yml
+extra:
+  generator: false
+  social:
+    - icon: fontawesome/brands/x-twitter
+      link: https://twitter.com/wormhole
+      name: Twitter
+    - icon: fontawesome/brands/discord
+      link: https://discord.gg/wormholecrypto
+      name: Discord
+    - icon: telegram
+      link: https://t.me/wormholecrypto
+      name: Telegram
+    - icon: fontawesome/brands/github
+      link: https://github.com/wormhole-foundation/wormhole
+      name: GitHub
+    - icon: docs
+      link: https://docs.wormhole.com
+      name: Docs
+    - icon: fontawesome/brands/youtube
+      link: https://www.youtube.com/@wormholecrypto
+      name: YouTube
+  analytics:
+    provider: google
+    property: XXX
+    feedback:
+      title: Was this page helpful?
+      ratings:
+        - icon: material/emoticon-happy-outline
+          name: This page was helpful
+          data: 1
+          note: >-
+            Thanks for your feedback!
+        - icon: material/emoticon-sad-outline
+          name: This page could be improved
+          data: 0
+          note: >-
+            Thanks for your feedback! Help us improve this page by submitting
+            <a href="https://github.com/XXX/XXX/issues/new/?title=[Feedback]+{title}+-+{url}" target="_blank" rel="noopener">additional feedback</a>.

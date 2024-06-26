@@ -1,0 +1,65 @@
+{% extends "main.html" %}
+
+{% block htmltitle %}
+  <title>Pepe Docs</title>
+{% endblock %}
+
+{% block styles %}
+	{{ super() }}
+  <link rel="stylesheet" href="{{ 'assets/stylesheets/home.css' | url }}">
+{% endblock %}
+
+{% block content %}
+  <div class="md-typeset">
+    <div class="hero">
+      <div class="hero-content">
+        <h1>Developer Documentation</h1>
+        <p>Welcome to Wormhole Docs, where we explore the innovative and interconnected world of Wormhole projects, from groundbreaking technologies to seamless integrations. <br><br> It's so advanced that even tech giants are envious of our documentation!</p>
+        <div class="button-wrapper">
+          <a href="builders/get-started/">
+            <button class="md-button">Get Started</button>
+          </a>
+          <a href="builders/get-started/endpoints/">
+            <button class="md-button secondary">API Endpoints</button>
+          </a>       
+          <a href="builders/reference/">
+            <button class="md-button secondary">API Reference</button>
+          </a>        
+        </div>
+      </div>
+      <video autoplay loop>
+        <source src="./assets/images/hero-animation.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+
+    <div class="featured-content">
+      <div class="feature one">
+        <h2>Learn <br> the Basics</h2>
+        <p>Access foundational knowledge and content to start your development journey.</p>
+        <a href="learn" class="btn md-button">Learn More</a>
+      </div>
+
+      <div class="feature two">
+        <h2>Get <br> Coding</h2>
+        <p>Find guides on creating projects, API endpoints, and using development libraries.</p>
+        <a href="builders" class="btn md-button">Learn More</a>
+      </div>
+
+      <div class="feature three">
+        <h2>Browse <br> Tutorials</h2>
+        <p>Explore step-by-step tutorials covering a wide range of topics and technologies.</p>
+        <a href="tutorials" class="btn md-button">Learn More</a>
+      </div>
+  </div>
+  <div class="start-building-section">
+    <img src="./assets/images/wormhole-home-logo.webp" alt="">
+    <div class="row">
+      <p class="">Future-proof, permissionless tooling to empower multichain builders</p>
+      <a href="tutorials" class="btn md-typeset md-button"><img src="./assets/images/wormhole-button-logo.webp">Start Building</a>
+    </div>
+  </div>
+  <div>
+
+  </div>
+{% endblock %}
