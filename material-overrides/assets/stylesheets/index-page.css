@@ -27,7 +27,7 @@
   font-family: var(--md-text-font-family);
   color: var(--md-default-fg-color);
   margin: 0;
-  font-size: 16px;
+  font-size: var(--body-l-desktop-size);
   font-weight: 700;
   padding: 1.5em 1.5em 0 1.2em;
   letter-spacing: 0.12em;
@@ -41,7 +41,7 @@
 }
 
 .subsection-wrapper .card {
-  background-color: var(--md-dropdown-color);
+  background-color: var(--light-transparent-10);
   border: 1px solid var(--md-border-color);
   border-radius: var(--md-border-radius);
   margin: 1em 0;

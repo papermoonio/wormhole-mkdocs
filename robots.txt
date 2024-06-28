@@ -1,3 +1,3 @@
 User-agent: * 
 
-Sitemap: https://pepe/sitemap.xml
+Sitemap: https://docs.wormhole.com/sitemap.xml
