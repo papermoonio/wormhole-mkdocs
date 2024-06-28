@@ -1,1 +1,1 @@
-# pepe-docs
+# wormhole-docs
