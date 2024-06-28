@@ -2,7 +2,7 @@ name: ci
 on:
   push:
     branches:
-      - main
+      - eshaben/test
 permissions:
   contents: write
 jobs:

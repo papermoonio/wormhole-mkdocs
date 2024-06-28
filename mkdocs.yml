@@ -1,5 +1,5 @@
 site_name: Wormhole Docs
-site_url: https://docs.wormhole.com
+site_url: https://papermoonio.github.io/wormhole-mkdocs/
 docs_dir: wormhole-docs
 copyright: 2024 © Wormhole. All Rights Reserved.
 extra_css:
