@@ -228,7 +228,7 @@ li.md-nav__item,
 .md-nav__link-wrapper.md-nav__item.md-nav__item--active,
 .md-nav__item div.md-nav__link--active {
   background: var(--grey);
-  margin-left: -1em;
+  margin-left: -.9em;
   border-radius: var(--border-radius);
 }
 
@@ -241,12 +241,12 @@ li.md-nav__item,
 
 /* For links on hover */
 .md-nav__link:hover a {
-  margin-left: 1em;
+  margin-left: .9em;
 }
 
 a.md-nav__link:hover {
-  padding-left: 1.1em;
-  margin-left: -1.1em;
+  padding-left: .8em;
+  margin-left: -.8em;
 }
 
 /* For section links on hover */
@@ -262,7 +262,11 @@ a.md-nav__link.md-nav__link--active {
 
 /* To keep navigation items anchored to the left on hover */
 a.md-nav__link:hover.md-nav__link--active:hover {
-  margin-left: 0;
+  margin-left: .3em;
+}
+
+.md-nav__link--active:hover a {
+  margin-left: 1em;
 }
 
 /* Only show the active items on the left nav */
@@ -311,12 +315,30 @@ a.md-nav__link:hover.md-nav__link--active:hover {
   .md-nav--secondary .md-nav__list {
     padding-bottom: 0;
   }
-}
 
-/* Section lines */
-li>nav.md-nav[data-md-level='3'] ul.md-nav__list,
-li>nav.md-nav[data-md-level='4'] ul.md-nav__list {
-  border-left: 1px solid var(--plum);
+  /* Override mkdocs styling to account for the nav-wrapper */
+  .md-nav__toggle.md-toggle--indeterminate~.md-nav, .md-nav__toggle:checked~.nav-wrapper {
+    display: grid;
+    grid-template-rows: 1fr;
+    opacity: 1;
+    transition: grid-template-rows .25s cubic-bezier(.86,0,.07,1), opacity .15s .1s, visibility 0ms;
+    visibility: visible;
+  }
+
+  .md-nav__toggle~.md-nav>.nav-wrapper {
+    overflow: hidden;
+  }
+
+  .md-nav {
+    margin-bottom: 0;
+  }
+
+  /* Section lines */
+  li>nav.md-nav[data-md-level='3'] ul.md-nav__list,
+  li>nav.md-nav[data-md-level='4'] ul.md-nav__list {
+    border-left: 1px solid var(--plum);
+    margin: 0.75em 0;
+  }
 }
 
 /* Add spacing below the section lines */
@@ -423,6 +445,7 @@ li>nav.md-nav[data-md-level='4'] ul.md-nav__list {
     font-size: var(--body-l-desktop-size);
     font-weight: 400;
     padding: 0.6rem 0.8rem;
+    letter-spacing: normal;
   }
 
   .md-nav--lifted>.md-nav__list>.md-nav__item--active>.md-nav__link:hover {
@@ -450,8 +473,15 @@ li>nav.md-nav[data-md-level='4'] ul.md-nav__list {
     align-items: center;
   }
 
-  .md-nav__link:hover {
-    margin-left: unset;
+  /* For links on hover */
+  .md-nav__link:hover a {
+    margin-left: 1em;
+  }
+
+  .md-nav__link:hover,
+  .md-nav__link-wrapper.md-nav__item.md-nav__item--active,
+  .md-nav__item div.md-nav__link--active {
+    margin-left: -1em;
   }
 
   /* Apply background to active pages and sections */
@@ -469,12 +499,6 @@ li>nav.md-nav[data-md-level='4'] ul.md-nav__list {
   a.md-nav__link:hover {
     margin-left: 0;
     padding-left: 1em;
-  }
-
-  /* Section lines */
-  li>nav.md-nav[data-md-level='3'] ul.md-nav__list,
-  li>nav.md-nav[data-md-level='4'] ul.md-nav__list {
-    border-left: none;
   }
 }
 

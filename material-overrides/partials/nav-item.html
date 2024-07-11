@@ -53,17 +53,19 @@
             <span class="md-nav__icon md-icon"></span>
             {{nav_item.title}}
           </label>
-          {% if page %}
-            {% if indexes[0] %}
-              <ul class="md-nav__list {{ indexes[0].url.replace('/', '-') }}" data-md-scrollfix>
+          <div class="nav-wrapper">
+            {% if page %}
+              {% if indexes[0] %}
+                <ul class="md-nav__list {{ indexes[0].url.replace('/', '-') }}" data-md-scrollfix>
+              {% endif %}
             {% endif %}
-          {% endif %}
-          {% for nav_item in nav_item.children %}
-            {% if not indexes or nav_item != indexes | first %}
-              {{ render(nav_item, path ~ "_" ~ loop.index, level + 1) }}
-            {% endif %}
-          {% endfor %}
-          </ul>
+            {% for nav_item in nav_item.children %}
+              {% if not indexes or nav_item != indexes | first %}
+                {{ render(nav_item, path ~ "_" ~ loop.index, level + 1) }}
+              {% endif %}
+            {% endfor %}
+            </ul>
+          </div>
         </nav>
       </li>
     {% elif nav_item == page %}
