@@ -9,7 +9,7 @@
     padding: 50px 30px 20px;
     position: relative;
     -webkit-box-sizing: border-box;
-            box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 [data-termynal]:before {
@@ -23,17 +23,22 @@
     border-radius: 50%;
     background: #d9515d;
     -webkit-box-shadow: 22.5px 0 0 #f4c025, 45px 0 0 #3ec930;
-            box-shadow: 22.5px 0 0 #f4c025, 45px 0 0 #3ec930;
+    box-shadow: 22.5px 0 0 #f4c025, 45px 0 0 #3ec930;
+    z-index: 1; /* Ensure it's above other content */
 }
 
 [data-termynal]:after {
     content: 'bash';
     position: absolute;
     color: #a2a2a2;
-    top: 6px;
+    top: 0;
     left: 0;
     width: 100%;
     text-align: center;
+    background-color: var(--light-transparent-12); /* Grey background color */
+    padding: 8px; /* Add padding to the background */
+    border-top-left-radius: 4px; /* Optional: Add border radius */
+    border-top-right-radius: 4px; /* Optional: Add border radius */
 }
 
 [data-ty] {
@@ -51,17 +56,28 @@
 
 [data-ty="input"]:before,
 [data-ty-prompt]:before {
-    color: #53cbc9;
-    content: 'moonbeam@ubuntu-jammy:';
+    color: var(--yellow);
+    content: 'wormhole@ubuntu-jammy:';
     size: 14px;
 }
 
 .file-path:before {
     content: '~$';
-    color: #E1147B;
+    color: var(--plum);
     margin-right: 0.75em;
 }
 
 [data-ty][data-ty-prompt]:before {
     content: attr(data-ty-prompt);
+}
+
+/* Code styling on smaller screens */
+@media screen and (max-width: 44.984375em) {
+    [data-ty] {
+        overflow-wrap: normal;
+    }
+
+    [data-termynal] {
+        overflow-x: scroll;
+    }
 }

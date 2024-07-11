@@ -1,3 +1,13 @@
+h1,
+h2,
+h3 {
+  text-transform: uppercase;
+}
+
+.md-typeset {
+  font-family: var(--md-nav-labels-font);
+}
+
 /* Styles for the hero section */
 .hero {
   display: flex;
@@ -26,7 +36,7 @@
 }
 
 .hero h1 {
-  font-size: var(--h2-desktop-size);
+  font-size: 120px;
   line-height: var(--header-line-height);
   margin-bottom: 0;
 }
@@ -51,18 +61,18 @@
   background-repeat: no-repeat;
   background-position: bottom;
   padding-bottom: 9em;
-  gap: 3em;
+  gap: 1em;
 }
 
 .feature {
   text-align: center;
-  padding: 2em;
-  max-width: 30%;
-  min-width: 26%;
+  padding: 1em;
+  flex: 1 1;
+  max-width: 44%;
   border-radius: var(--md-border-radius);
   border: var(--md-border-width) solid var(--grey);
   color: var(--md-default-fg-color);
-  height: 35em;
+  height: 30em;
 }
 
 .feature.one {
@@ -116,15 +126,15 @@
 
 .feature h2 {
   color: var(--md-default-fg-color);
-  font-size: var(--h5-desktop-size);
+  font-size: 36px;
   margin: 1em auto 0;
   margin-bottom: 0;
   line-height: 90%;
 }
 
 .feature p {
-  font-size: var(--body-m-desktop-size);
-  margin: 1em 4em 0;
+  font-size: var(--body-l-desktop-size);
+  margin: 1em 1em 0;
 }
 
 .start-building-section {
@@ -137,7 +147,7 @@
 }
 
 .start-building-section h3 {
-  font-size: var(--h4-desktop-size);
+  font-size: 60px;
   margin-top: 0;
   margin-bottom: 0;
   line-height: 90%;
@@ -182,7 +192,7 @@
   }
 
   .hero h1 {
-    font-size: var(--h1-mobile-size);
+    font-size: 90px;
   }
 
   .hero-content {
@@ -214,23 +224,23 @@
   }
 
   .hero h1 {
-    font-size: var(--h2-mobile-size);
+    font-size: var(--h2-desktop-size);
   }
 
   .hero p {
-    font-size: var(--body-l-mobile-size);
+    font-size: var(--body-l-desktop-size);
   }
 
   .button-wrapper .md-button {
-    font-size: var(--caption-m-mobile-size);
+    font-size: var(--caption-m-desktop-size);
   }
 
   .feature {
-    min-width: 80%;
+    min-width: 66%;
   }
 
   .feature h2 {
-    font-size: var(--h3-mobile-size);
+    font-size: var(--h3-desktop-size);
   }
 
   .feature p {
@@ -242,7 +252,7 @@
   }
 
   .start-building-section h3 {
-    font-size: var(--h2-mobile-size);
+    font-size: var(--h2-desktop-size);
     width: 100%;
   }
 
@@ -255,21 +265,28 @@
 @media screen and (max-width: 30.125em) { 
   .md-content__inner {
     padding: 0;
+    margin: 0 1.2rem;
   }
 
   .hero h1 {
-    font-size: var(--h2-mobile-size);
+    font-size: var(--h2-desktop-size);
   }
 
   .start-building-section h3 {
-    font-size: var(--h3-mobile-size);
+    font-size: var(--h3-desktop-size);
   }
 
   .button-wrapper {
-    justify-content: center;
+    justify-content: left;
+  }
+
+  .button-wrapper .md-button {
+    min-width: 50vw;
   }
 
   .feature {
-    height: 32em;
+    height: 26em;
+    min-width: 100%;
+    padding: 0;
   }
 }

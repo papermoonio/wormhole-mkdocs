@@ -20,8 +20,8 @@ theme:
     - navigation.sections # Render top-level sections as groups in the sidebar
     - navigation.indexes # Index pages
   font:
-    text: Roboto Mono
-    code: Azeret Mono
+    text: Roboto
+    code: Roboto Mono
 markdown_extensions:
   - abbr
   - admonition

@@ -26,8 +26,11 @@
             {% include "partials/tabs.html" %}
             {% if "material/search" in config.plugins %}
               <label class="search" for="__search">
-                {% set icon = config.theme.icon.search or "material/magnify" %}
-                Search
+                <span>
+                  {% set icon = config.theme.icon.search or "material/magnify" %}
+                  {% include ".icons/material/magnify.svg" %}
+                  Search
+                </span>
               </label>
               {% include "partials/search.html" %}
             {% endif %}

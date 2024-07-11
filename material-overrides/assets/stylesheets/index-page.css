@@ -15,10 +15,6 @@
   flex-direction: column;
 }
 
-.main-page .subsection-wrapper {
-  margin-top: -1em;
-}
-
 .subsection-wrapper a {
   text-decoration: none;
 }
@@ -27,16 +23,15 @@
   font-family: var(--md-text-font-family);
   color: var(--md-default-fg-color);
   margin: 0;
-  font-size: var(--body-l-desktop-size);
+  font-size: var(--h4-desktop-size);
   font-weight: 700;
-  padding: 1.5em 1.5em 0 1.2em;
-  letter-spacing: 0.12em;
+  padding: 1.5em 1.5em 0 .9em;
 }
 
 .subsection-wrapper .description {
   color: var(--md-default-fg-color);
   margin: 1em 0 0;
-  font-size: 14px;
+  font-size: var(--body-l-desktop-size);
   padding: 0 1.5em 1.8em 1.5em;
 }
 
@@ -54,4 +49,8 @@
 
 .subsection-wrapper .card:last-child {
   margin-bottom: 4em;
+}
+
+.md-nav--secondary {
+  display: none;
 }
