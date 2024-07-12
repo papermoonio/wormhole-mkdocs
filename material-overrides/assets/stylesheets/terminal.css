@@ -33,7 +33,7 @@
     color: #a2a2a2;
     top: 0;
     left: 0;
-    width: 100%;
+    width: inherit;
     text-align: center;
     background-color: var(--light-transparent-12); /* Grey background color */
     padding: 8px; /* Add padding to the background */

@@ -224,7 +224,7 @@ h3 {
   }
 
   .hero h1 {
-    font-size: var(--h2-desktop-size);
+    font-size: 48px;
   }
 
   .hero p {
@@ -266,10 +266,6 @@ h3 {
   .md-content__inner {
     padding: 0;
     margin: 0 1.2rem;
-  }
-
-  .hero h1 {
-    font-size: var(--h2-desktop-size);
   }
 
   .start-building-section h3 {

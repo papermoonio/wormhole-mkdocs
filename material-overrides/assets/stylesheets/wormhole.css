@@ -209,12 +209,10 @@ li.md-nav__item,
 /* Make the primary section font larger on left nav (i.e., Build, Node Operators, etc.) */
 .md-nav--lifted>.md-nav__list>.md-nav__item--active>.md-nav__link {
   text-transform: uppercase;
-  font-size: 1.3em;
+  font-size: 18px;
   font-weight: 700;
   line-height: 15.6px;
-  color: var(--plum);
   padding: 0;
-  letter-spacing: 0.12em;
 }
 
 /* Make the secondary section font larger on left nav (i.e., Get Started, Build, etc.) */
@@ -235,7 +233,7 @@ li.md-nav__item,
 /* For active sections, when on that section index page */
 .md-nav__item .md-nav__link-wrapper.md-nav__link--active a,
 .md-nav__item .md-nav__link--active a {
-  margin-left: 1em;
+  margin-left: .9em;
   font-weight: 700;
 }
 
@@ -266,7 +264,7 @@ a.md-nav__link:hover.md-nav__link--active:hover {
 }
 
 .md-nav__link--active:hover a {
-  margin-left: 1em;
+  margin-left: em;
 }
 
 /* Only show the active items on the left nav */
@@ -731,10 +729,6 @@ pre .md-clipboard {
     margin: 2em auto;
   }
 
-  .md-feedback {
-    width: fit-content;
-  }
-
   .md-content__inner {
     margin: 0 1.2rem 1.2rem;
   }
@@ -777,6 +771,12 @@ pre .md-clipboard {
 
 .md-feedback__icon:hover svg {
   fill: var(--md-typeset-a-color--hover);
+}
+
+@media screen and (max-width: 30em) {
+  .md-feedback {
+    width: fit-content;
+  }
 }
 
 .md-footer {
