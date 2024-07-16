@@ -20,7 +20,7 @@ h3 {
 
 .hero-content {
   position: relative;
-  width: 44%;
+  width: 49%;
   z-index: 1;
   padding: 2em 0;
 }
@@ -43,7 +43,7 @@ h3 {
 
 .hero p {
   font-size: var(--body-l-desktop-size);
-  margin: 1.5em 0 3em;
+  margin: 3em 0 3.5em;
 }
 
 .button-wrapper {
@@ -141,11 +141,6 @@ h3 {
   padding: 5em 0 3em;
 }
 
-.start-building-section img {
-  width: 64px;
-  height: 64px;
-}
-
 .start-building-section h3 {
   font-size: 60px;
   margin-top: 0;
@@ -154,12 +149,12 @@ h3 {
   width: 66%;
 }
 
-.start-building-section a.md-typeset.md-button {
+.start-building.md-button {
   display: flex;
   align-items: center;
   height: fit-content;
   gap: 2em;
-  padding: 1em;
+  padding: .9em 2.35em;
 }
 
 .start-building-section .row {
@@ -168,7 +163,7 @@ h3 {
   padding-top: 2em;
 }
 
-.start-building-section .md-button img {
+.start-building img {
   height: 30px;
   width: 30px;
 }
