@@ -120,6 +120,12 @@ h3 {
   margin-top: auto;
 }
 
+.md-typeset .feature a:hover {
+  border-color: #8886ab;
+  background-color: #8886ab;
+  opacity: 1;
+}
+
 .md-typeset .feature .md-button {
   margin: 2em auto;
 }
