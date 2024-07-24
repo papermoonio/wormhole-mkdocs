@@ -53,9 +53,9 @@ markdown_extensions:
 plugins:
   - search
   - awesome-pages
-  - git-revision-date-localized:
-      enabled: !ENV [ENABLED_GIT_REVISION_DATE, True]
-      enable_creation_date: !!bool true
+  # - git-revision-date-localized:
+  #     enabled: !ENV [ENABLED_GIT_REVISION_DATE, True]
+  #     enable_creation_date: !!bool true
   - redirects:
       redirect_maps:
         # Redirects will go here as pages get moved around in the following format:
