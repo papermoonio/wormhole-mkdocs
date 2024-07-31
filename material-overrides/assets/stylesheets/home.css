@@ -141,6 +141,7 @@ h3 {
 .feature p {
   font-size: var(--body-l-desktop-size);
   margin: 1em 1em 0;
+  min-height: 5em;
 }
 
 .start-building-section {
@@ -182,6 +183,10 @@ h3 {
 
   .hero {
     margin-top: -5em;
+  }
+
+  .feature p {
+    min-height: 7em;
   }
 }
 
@@ -246,6 +251,7 @@ h3 {
 
   .feature p {
     margin: 1em 1em 0;
+    min-height: unset;
   }
 
   .start-building-section .row {
