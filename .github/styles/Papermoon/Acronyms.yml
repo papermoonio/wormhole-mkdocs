@@ -1,0 +1,92 @@
+extends: conditional
+message: "Spell out '%s', if it's unfamiliar to the audience."
+link: 'https://developers.google.com/style/abbreviations'
+level: suggestion
+ignorecase: false
+# Ensures that the existence of 'first' implies the existence of 'second'.
+first: '\b([A-Z]{3,5})\b'
+second: '(?:\b[A-Z][a-z]+ )+\(([A-Z]{3,5})\)'
+# ... with the exception of these:
+exceptions:
+  - API
+  - APT
+  - ASP
+  - AVAX
+  - BNB
+  - BSC
+  - BUSD
+  - CELO
+  - CLI
+  - CPU
+  - CSS
+  - CSV
+  - DAI
+  - DEBUG
+  - DOM
+  - DPI
+  - EIP
+  - ERC
+  - ETH
+  - FAQ
+  - FTM
+  - GCC
+  - GDB
+  - GET
+  - GLMR
+  - GPU
+  - GTK
+  - GUI
+  - HTML
+  - HTTP
+  - HTTPS
+  - IDE
+  - IOU
+  - JAR
+  - JSON
+  - JSX
+  - LESS
+  - LLDB
+  - MATIC
+  - NET
+  - NOTE
+  - NVDA
+  - OSS
+  - PATH
+  - PDF
+  - PHP
+  - POST
+  - PYTH
+  - RAM
+  - REPL
+  - RPC
+  - RSA
+  - SCM
+  - SCSS
+  - SDK
+  - SOL
+  - SQL
+  - SSH
+  - SSL
+  - SUI
+  - SVG
+  - TBD
+  - TCP
+  - TODO
+  - URI
+  - URL
+  - URN
+  - USB
+  - USDC
+  - USDT
+  - UTF
+  - WAVAX
+  - WBNB
+  - WBTC
+  - WETH
+  - WFTM
+  - WGLMR
+  - WSOL
+  - XML
+  - XSS
+  - YAML
+  - ZIP

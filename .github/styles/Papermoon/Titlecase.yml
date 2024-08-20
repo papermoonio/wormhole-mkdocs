@@ -1,0 +1,12 @@
+extends: capitalization
+message: "'%s' should be in title case"
+level: warning
+scope: heading
+match: '^(.*?)(\s*\{\:\s?#.*\})?$'
+style: Chicago
+
+exceptions:
+  - ABC
+  - add
+
+  
