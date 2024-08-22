@@ -1,0 +1,7 @@
+extends: existence
+message: "Unless this is a heading, title, or start of sentence, please use 'relayer' instead of 'Relayer'"
+level: suggestion
+tokens: 
+  - Relayer
+  - Relayers
+  

@@ -1,6 +1,6 @@
 # LinkTarget.yml
 extends: existence
-message: "Links should include '{target=_blank}' to open in a new tab."
+message: "Links should include '{target=\_blank}' to open in a new tab."
 level: error
 scope: raw
 tokens:

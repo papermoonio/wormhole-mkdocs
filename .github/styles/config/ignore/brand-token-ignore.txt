@@ -1,0 +1,21 @@
+# List of crypto & blockchain brand names and token symbols
+Acala
+Algorand
+Aptos
+Arbitrum
+Astar
+Celo
+CELO
+Ethereum
+Grafana
+Klaytn
+Kujira
+Metamask
+Moonbeam
+Moonriver
+Moonbase Alpha
+Polkadot
+Sei
+Solana
+Uniswap
+Wormhole

@@ -1,28 +1,49 @@
-Algorand
+API
 application
-Aptos
-Arbitrum
 blockchain
+blockchains
 burnable
-Celo
-CELO
-dApp
+certhash
+cron jobs
+daemon
+daemonless
+[Dd]App
+enum
 ERC-\d+
-Ethereum
 EVM 
 EVMs
+GitHub
 href
 Injective
+JavaScript
 JSON-RPC
-Klaytn
-MainNet
+keystore
+keystores
 mintable
-multisig 
-Sei
+[Mm]ultichain
+multisig
+namespace
+namespaces
+no code
+npm
+npx
+onboarded
+onboarding
+Podman
+[Rr]elayer
+RPC
+RPCs
+SDK
 snake_case
-TestNet
+subcommand
+subkeys
 tooltip
-Uniswap
+TypeScript
+validator
+validators
+Wasm
+webRTC
+
 
 
 

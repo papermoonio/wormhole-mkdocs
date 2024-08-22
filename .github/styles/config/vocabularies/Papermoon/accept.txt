@@ -1,0 +1,4 @@
+[Dd]rop off
+MainNet
+TestNet
+time frame
