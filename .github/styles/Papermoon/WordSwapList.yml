@@ -23,6 +23,7 @@ swap:
   file name: filename
   HTTPs: HTTPS
   in order to: to
+  keypair: key pair
   open-source: open source
   repo: repository
   stylesheet: style sheet

@@ -15,8 +15,11 @@ Global Accountant
 Guardian
 IBC
 Inter-Blockchain Communication
+NTT Manager Contract
 nttManual
 nttRelay
+[Oo]wner
+Pauser
 permissioned
 sol_account
 sol_pda

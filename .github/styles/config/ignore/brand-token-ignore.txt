@@ -18,6 +18,7 @@ Moonriver
 Moonbase Alpha
 Polkadot
 Sei
+Sepolia
 Solana
 Tendermint
 Uniswap

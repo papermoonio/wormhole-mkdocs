@@ -8,6 +8,7 @@ CronJobs
 crypto
 daemon
 daemonless
+DAO
 [Dd]App
 docstring
 docstrings
@@ -19,6 +20,7 @@ EVM
 EVMs
 Geth
 GitHub
+hardcode
 hexidecimal
 href
 Injective
@@ -39,6 +41,7 @@ onboarded
 onboarding
 on-chain
 Podman
+Pubkey
 [Rr]elayer
 RPC
 RPCs
