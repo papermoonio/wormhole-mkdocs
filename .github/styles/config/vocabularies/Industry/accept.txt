@@ -4,6 +4,7 @@ blockchain
 blockchains
 burnable
 certhash
+CLI
 CronJobs
 crypto
 daemon

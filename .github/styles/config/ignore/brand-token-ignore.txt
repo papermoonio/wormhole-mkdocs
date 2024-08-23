@@ -16,6 +16,7 @@ Metamask
 Moonbeam
 Moonriver
 Moonbase Alpha
+NEAR
 Polkadot
 Sei
 Sepolia
