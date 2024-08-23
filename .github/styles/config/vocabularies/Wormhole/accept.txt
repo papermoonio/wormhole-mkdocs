@@ -12,6 +12,8 @@ ETHoptimism_sepolia
 ETHsepolia
 Global Accountant
 Guardian
+IBC
+Inter-Blockchain Communication
 nttManual
 nttRelay
 Spy

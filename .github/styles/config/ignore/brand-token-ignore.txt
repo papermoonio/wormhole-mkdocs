@@ -17,5 +17,6 @@ Moonbase Alpha
 Polkadot
 Sei
 Solana
+Tendermint
 Uniswap
 Wormhole

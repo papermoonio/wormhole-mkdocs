@@ -4,10 +4,12 @@ blockchain
 blockchains
 burnable
 certhash
-cron jobs
+CronJobs
+crypto
 daemon
 daemonless
 [Dd]App
+ECDSA
 enum
 ERC-\d+
 EVM 
