@@ -9,12 +9,17 @@ crypto
 daemon
 daemonless
 [Dd]App
+docstring
+docstrings
 ECDSA
 enum
 ERC-\d+
+Etherscan
 EVM 
 EVMs
+Geth
 GitHub
+hexidecimal
 href
 Injective
 JavaScript
@@ -29,8 +34,10 @@ namespaces
 no code
 npm
 npx
+off-chain
 onboarded
 onboarding
+on-chain
 Podman
 [Rr]elayer
 RPC

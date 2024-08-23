@@ -4,10 +4,12 @@ Algorand
 Aptos
 Arbitrum
 Astar
+Axios
 Celo
 CELO
 Ethereum
 Grafana
+Karura
 Klaytn
 Kujira
 Metamask

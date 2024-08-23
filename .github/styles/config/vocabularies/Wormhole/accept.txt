@@ -7,6 +7,7 @@ ETHarbitrum_sepolia
 ethBridge
 ETHbase
 ETHbase_sepolia
+eth_call
 ETHoptimism
 ETHoptimism_sepolia
 ETHsepolia
@@ -16,6 +17,9 @@ IBC
 Inter-Blockchain Communication
 nttManual
 nttRelay
+permissioned
+sol_account
+sol_pda
 Spy
 tBTC
 tBTCarbitrum

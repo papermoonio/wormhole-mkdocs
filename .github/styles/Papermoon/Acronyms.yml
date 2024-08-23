@@ -1,3 +1,5 @@
+# This rule catches instances of first appearance of an acronym without spell out
+# Exception list ignored words should be familiar enough to not need spell out
 extends: conditional
 message: "Spell out '%s', if it's unfamiliar to the audience."
 link: 'https://developers.google.com/style/abbreviations'
@@ -8,6 +10,7 @@ first: '\b([A-Z]{3,5})\b'
 second: '(?:\b[A-Z][a-z]+ )+\(([A-Z]{3,5})\)'
 # ... with the exception of these:
 exceptions:
+  - ABI
   - API
   - APT
   - ASP
@@ -59,6 +62,7 @@ exceptions:
   - PYTH
   - RAM
   - REPL
+  - REST
   - RPC
   - RSA
   - SCM
