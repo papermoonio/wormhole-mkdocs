@@ -1,4 +1,4 @@
-[Dd]rop off
+[Dd]rop [Oo]ff
 MainNet
 TestNet
 time frame
