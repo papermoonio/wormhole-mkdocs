@@ -9,6 +9,7 @@ CronJobs
 crypto
 daemon
 daemonless
+[Dd]ev
 DAO
 [Dd]App
 docstring
