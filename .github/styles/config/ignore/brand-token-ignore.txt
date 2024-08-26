@@ -5,19 +5,24 @@ Aptos
 Arbitrum
 Astar
 Axios
+Berachain
+Celestia
 Celo
 CELO
+Dymension
 Ethereum
 Grafana
 Karura
 Klaytn
 Kujira
+Linea
 Metamask
 Moonbeam
 Moonriver
 Moonbase Alpha
 NEAR
 Polkadot
+Pythnet
 Sei
 Sepolia
 Solana

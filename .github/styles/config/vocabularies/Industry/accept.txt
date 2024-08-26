@@ -1,10 +1,13 @@
+Allo
 API
 application
-blockchain
-blockchains
+[Bb]lockchain
+[Bb]lockchains
+BlockScout
 burnable
 certhash
 CLI
+Cosmos Hub
 CronJobs
 crypto
 daemon
@@ -21,19 +24,25 @@ EVM
 EVMs
 Geth
 GitHub
+Goerli
 hardcode
 hexidecimal
+Holesky
 href
 Injective
 JavaScript
 JSON-RPC
 keystore
 keystores
+Klaytnfinder
+Klaytnscope
 mintable
+Mintscan
 [Mm]ultichain
 multisig
 namespace
 namespaces
+NEAR
 no code
 npm
 npx
@@ -47,15 +56,20 @@ Pubkey
 RPC
 RPCs
 SDK
+SEDA
 snake_case
 subcommand
 subkeys
+Subscan
+Suiscan
+SuiVision
 tooltip
 TypeScript
 validator
 validators
 Wasm
 webRTC
+XPLA
 
 
 
