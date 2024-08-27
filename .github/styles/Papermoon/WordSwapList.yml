@@ -22,6 +22,7 @@ swap:
   check box: checkbox
   Cosmoshub: Cosmos Hub
   disabled?: turn off|off|deactivate
+  "(?:dropoff|drop-off)": drop off
   file name: filename
   HTTPs: HTTPS
   in order to: to
@@ -30,6 +31,7 @@ swap:
   repo: repository
   stylesheet: style sheet
   tablename: table name
+  untrusted: trustless
   url: URL
   vs\.: versus
   wasm: Wasm

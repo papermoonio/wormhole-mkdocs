@@ -13,6 +13,7 @@ exceptions:
   - ABI
   - API
   - APT
+  - ASCII
   - ASP
   - AVAX
   - BNB
@@ -52,6 +53,7 @@ exceptions:
   - LESS
   - LLDB
   - MATIC
+  - MEV
   - NEAR
   - NET
   - NFT

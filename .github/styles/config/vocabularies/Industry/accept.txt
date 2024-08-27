@@ -1,13 +1,17 @@
 Allo
 API
 application
+attester
+attesters
 [Bb]lockchain
 [Bb]lockchains
 BlockScout
+boolean
 burnable
 certhash
 CLI
-Composability
+composable
+[Cc]omposability
 Cosmos Hub
 CronJobs
 crypto
@@ -37,14 +41,19 @@ keystore
 keystores
 Klaytnfinder
 Klaytnscope
+lossy
+MEV
 [Mm]iddleware
 mintable
 Mintscan
+multibyte
 [Mm]ultichain
 multisig
 namespace
 namespaces
 NEAR
+NFT
+NFTs
 no code
 npm
 npx
@@ -52,9 +61,16 @@ off-chain
 onboarded
 onboarding
 on-chain
+performant
+permissionless
 Podman
+preconfigured
+proto
 Pubkey
+reentrancy
 [Rr]elayer
+rollup
+rollups
 RPC
 RPCs
 SDK
@@ -65,7 +81,9 @@ subkeys
 Subscan
 Suiscan
 SuiVision
+tokenomics
 tooltip
+TSdoc
 TypeScript
 validator
 validators
@@ -73,6 +91,8 @@ Wasm
 webRTC
 X Layer
 XPLA
+ZKP
+ZKPs
 
 
 

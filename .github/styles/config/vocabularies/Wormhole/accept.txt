@@ -16,6 +16,8 @@ Global Accountant
 Guardian
 IBC
 Inter-Blockchain Communication
+managers
+[Mm]ulticast
 NTT Manager Contract
 nttManual
 nttRelay
@@ -54,11 +56,16 @@ WETHpolygon
 WETHsepolia
 wstETHarbitrum
 WETHarbitrum_sepolia
+Wormchain
 Wormhole
 wstETHbase
 wstETHBridge
 wstETHoptimism
 wstETHpolygon
+xAssets
+xChain
+xDapp
+xData
 
 
 
