@@ -7,6 +7,7 @@ BlockScout
 burnable
 certhash
 CLI
+Composability
 Cosmos Hub
 CronJobs
 crypto
@@ -36,6 +37,7 @@ keystore
 keystores
 Klaytnfinder
 Klaytnscope
+[Mm]iddleware
 mintable
 Mintscan
 [Mm]ultichain
