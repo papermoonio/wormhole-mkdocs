@@ -24,9 +24,11 @@ nttRelay
 [Oo]wner
 Pauser
 permissioned
+rebalancing
 sol_account
 sol_pda
 Spy
+Susu
 tBTC
 tBTCarbitrum
 tBTCbase
@@ -37,6 +39,7 @@ Token Bridge
 transaction logs
 transceiver
 transceivers
+unbonding
 USDCarbitrum
 USDCavax
 USDCbnb
