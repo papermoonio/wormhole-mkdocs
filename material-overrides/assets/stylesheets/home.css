@@ -1,7 +1,7 @@
 h1,
 h2,
 h3 {
-  text-transform: uppercase;
+  text-transform: var(--header-text-style);
 }
 
 .md-typeset {
@@ -42,7 +42,7 @@ h3 {
 }
 
 .hero p {
-  font-size: var(--body-l-desktop-size);
+  font-size: var(--body-l-size);
   margin: 3em 0 3.5em;
 }
 
@@ -132,14 +132,15 @@ h3 {
 
 .feature h2 {
   color: var(--md-default-fg-color);
+  font-family: var(--md-header-font);
   font-size: 36px;
   margin: 1em auto 0;
   margin-bottom: 0;
-  line-height: 90%;
+  line-height: var(--header-line-height);
 }
 
 .feature p {
-  font-size: var(--body-l-desktop-size);
+  font-size: var(--body-l-size);
   margin: 1em 1em 0;
   min-height: 5em;
 }
@@ -149,10 +150,11 @@ h3 {
 }
 
 .start-building-section h3 {
+  font-family: var(--md-header-font);
   font-size: 60px;
   margin-top: 0;
   margin-bottom: 0;
-  line-height: 90%;
+  line-height: var(--header-line-height);
   width: 66%;
 }
 
@@ -234,11 +236,11 @@ h3 {
   }
 
   .hero p {
-    font-size: var(--body-l-desktop-size);
+    font-size: var(--body-l-size);
   }
 
   .button-wrapper .md-button {
-    font-size: var(--caption-m-desktop-size);
+    font-size: var(--caption-size);
   }
 
   .feature {
@@ -246,7 +248,7 @@ h3 {
   }
 
   .feature h2 {
-    font-size: var(--h3-desktop-size);
+    font-size: var(--h3-size);
   }
 
   .feature p {
@@ -259,7 +261,7 @@ h3 {
   }
 
   .start-building-section h3 {
-    font-size: var(--h2-desktop-size);
+    font-size: var(--h2-size);
     width: 100%;
   }
 
@@ -276,7 +278,7 @@ h3 {
   }
 
   .start-building-section h3 {
-    font-size: var(--h3-desktop-size);
+    font-size: var(--h3-size);
   }
 
   .button-wrapper {

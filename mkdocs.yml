@@ -22,6 +22,10 @@ theme:
   font:
     text: Roboto
     code: Roboto Mono
+  icon:
+    admonition:
+      note: octicons/pencil-16
+      warning: octicons/alert-16
 markdown_extensions:
   - abbr
   - admonition
