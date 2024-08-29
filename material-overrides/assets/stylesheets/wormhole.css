@@ -683,6 +683,12 @@ pre .md-clipboard {
   height: 3px;
 }
 
+.md-typeset .tabbed-block p,
+.md-typeset .tabbed-block ul,
+.md-typeset .tabbed-block ol {
+  margin: 1em;
+}
+
 /* Document date styling */
 .md-source-file small {
   display: flex;
