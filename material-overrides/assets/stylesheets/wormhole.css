@@ -321,7 +321,8 @@ li.md-nav__item,
   }
 
   .md-nav--secondary {
-    border: var(--md-border-width) solid var(--md-border-color);
+    /* TODO: Add this back after all pages have been updated for ## Title usage  */
+    /* border: var(--md-border-width) solid var(--md-border-color); */ 
     border-radius: var(--md-border-radius);
     width: fit-content;
     padding: 1em;
