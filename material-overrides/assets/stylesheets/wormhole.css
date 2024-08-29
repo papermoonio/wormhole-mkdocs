@@ -940,7 +940,7 @@ pre .md-clipboard {
 }
 
 .md-typeset .grid {
-  grid-gap: 3rem;
+  grid-gap: 1rem;
 }
 
 .md-typeset .grid>div:first-child>p:first-child {
