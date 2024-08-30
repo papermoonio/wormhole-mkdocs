@@ -1217,3 +1217,14 @@ label[for='__search']:hover {
     word-break: break-word;
   }
 }
+
+/** Kapa styling **/
+/* Links at bottom of modal */
+.mantine-1k28ke3,
+.mantine-1helznf {
+  font-size: 1em;
+}
+
+.mantine-1yrr1ry {
+  font-size: 1.2em;
+}

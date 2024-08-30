@@ -24,7 +24,7 @@
 
 {%- block htmltitle -%} 
   {%- if page.is_homepage -%} 
-    <title>Documentation for Pepe</title> 
+    <title>Documentation for Wormhole</title> 
   {%- elif page and page.meta and page.meta.title -%} 
     <title>{{ page.meta.title }} | {{ config.site_name }}</title> 
   {%- elif page and page.title and not page.is_homepage -%} 
@@ -33,6 +33,22 @@
     <title>{{ config.site_name }}</title> 
   {%- endif -%} 
 {%- endblock -%} 
+
+{% block libs %}
+  {{ super() }}
+  <link rel="preconnect" href="https://widget.kapa.ai/">
+  <style data-emotion="mantine" data-s=""></style>
+  <script defer
+    src="https://widget.kapa.ai/kapa-widget.bundle.js"
+    data-website-id="a5f481b8-5f4f-43fc-b6bd-11169bac7271"
+    data-project-name="Wormhole"
+    data-project-color="rgb(75, 75, 75)"
+    data-button-box-shadow="0 0 10px rgba(255, 255, 255, 0.2)"
+    data-project-logo="{{ 'assets/images/logo-for-kapa.webp' | url }}"
+    data-font-family="Roboto"
+    data-footer-tos-privacy-links='[{"title": "terms of service", "url": "https://wormhole.com/pages/terms-of-use"}, {"title": "privacy policy", "url": "https://wormhole.com/pages/data-protection-and-privacy-policy"}]'
+  ></script>
+{% endblock %}
 
 {%- block container -%} 
   <div class="md-content" data-md-component="content">
