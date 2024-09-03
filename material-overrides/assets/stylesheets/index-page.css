@@ -53,3 +53,10 @@
 .md-nav--secondary {
   display: none;
 }
+
+@media screen and (min-width: 76.25em) {
+  .main-page-sidebar .md-nav__item .md-nav__link-wrapper.md-nav__link--active a,
+  .main-page-sidebar .md-nav__item .md-nav__link--active a {
+    margin-left: 0;
+  }
+}
