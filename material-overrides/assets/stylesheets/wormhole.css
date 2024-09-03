@@ -951,6 +951,27 @@ pre .md-clipboard {
   margin-top: 0;
 }
 
+.md-typeset .grid.cards>ol>li,
+.md-typeset .grid.cards>ul>li,
+.md-typeset .grid>.card {
+  background-color: var(--grey);
+  border: var(--md-border-width) solid var(--md-border-color);
+}
+
+.md-typeset .grid.cards>ol>li:focus-within,
+.md-typeset .grid.cards>ol>li:hover,
+.md-typeset .grid.cards>ul>li:focus-within,
+.md-typeset .grid.cards>ul>li:hover,
+.md-typeset .grid>.card:focus-within,
+.md-typeset .grid>.card:hover {
+  border: var(--md-border-width) solid var(--md-border-color);
+}
+
+.md-typeset .grid.half {
+  grid-template-columns: repeat(auto-fit, minmax(50%, 0fr));
+  margin: 1em 1.4em 1em 0;
+}
+
 /* Type styling */
 .md-typeset kbd {
   border-radius: 1em;
