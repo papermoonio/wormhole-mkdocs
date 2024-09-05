@@ -11,7 +11,7 @@ The actual content is stored in the wormhole-docs repo and pulled into the wormh
 
 ## Install Dependencies
 
-To get started, you need to install [mkdocs](https://www.mkdocs.org/). All dependencies can be installed with a single command; you can run:
+To get started, you need to install [mkdocs](https://www.mkdocs.org/). All dependencies, including mkdocs, can be installed with a single command; you can run:
 
 ```bash
 pip install -r requirements.txt
