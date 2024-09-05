@@ -1249,3 +1249,8 @@ label[for='__search']:hover {
 .mantine-1yrr1ry {
   font-size: 1.2em;
 }
+
+/* Cookie consent styling */
+.md-consent__inner {
+  box-shadow: 0 0 .2rem #ffffff1a,0 .2rem .4rem #fff3;
+}
