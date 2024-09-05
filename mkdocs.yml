@@ -81,7 +81,7 @@ extra:
       link: https://github.com/wormhole-foundation/wormhole
       name: GitHub
     - icon: docs
-      link: https://docs.wormhole.com
+      link: https://docs.wormhole.com/ # TODO: make sure this is correct
       name: Docs
     - icon: fontawesome/brands/youtube
       link: https://www.youtube.com/@wormholecrypto
