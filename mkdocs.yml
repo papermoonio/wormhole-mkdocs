@@ -66,6 +66,12 @@ plugins:
       include_yaml:
         - wormhole-docs/variables.yml
 extra:
+  consent:
+    title: Cookie consent
+    description: This site uses cookies to deliver its service and to analyse traffic. By browsing this site, you accept the <a href="https://wormhole.com/pages/data-protection-and-privacy-policy" target="_blank" rel="noopener">privacy policy</a>.
+    actions:
+      - accept
+      - reject
   generator: false
   social:
     - icon: fontawesome/brands/x-twitter
