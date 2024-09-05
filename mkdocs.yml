@@ -68,7 +68,7 @@ plugins:
 extra:
   consent:
     title: Cookie consent
-    description: This site uses cookies to deliver its service and to analyse traffic. By browsing this site, you accept the <a href="https://wormhole.com/pages/data-protection-and-privacy-policy" target="_blank" rel="noopener">privacy policy</a>.
+    description: This site uses cookies to deliver its service and to analyze traffic. By browsing this site, you accept the <a href="https://wormhole.com/pages/data-protection-and-privacy-policy" target="_blank" rel="noopener">privacy policy</a>.
     actions:
       - accept
       - reject
