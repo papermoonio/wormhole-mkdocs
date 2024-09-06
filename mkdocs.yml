@@ -108,4 +108,4 @@ extra:
           data: 0
           note: >-
             Thanks for your feedback! Help us improve this page by submitting
-            <a href="https://github.com/XXX/XXX/issues/new/?title=[Feedback]+{title}+-+{url}" target="_blank" rel="noopener">additional feedback</a>.
+            <a href="https://github.com/wormhole-foundation/wormhole-docs/issues/new/?title=[Feedback]+{title}+-+{url}" target="_blank" rel="noopener">additional feedback</a>.
