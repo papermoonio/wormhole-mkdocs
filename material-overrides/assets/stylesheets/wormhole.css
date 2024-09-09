@@ -972,6 +972,10 @@ pre .md-clipboard {
   margin: 1em 1.4em 1em 0;
 }
 
+.md-typeset .grid.cards .twemoji.lg.middle svg {
+  margin-right: .5em;
+}
+
 /* Type styling */
 .md-typeset kbd {
   border-radius: 1em;
