@@ -1106,6 +1106,25 @@ label[for='__drawer'] svg {
   margin-left: 0.5rem;
 }
 
+.md-tab__item a {
+  display: flex;
+}
+
+.dropdown-icon {
+  width: 2em;
+  height: 2em;
+}
+
+.text-col {
+  margin-left: 1.5em;
+  align-content: center;
+}
+
+.icon-col {
+  display: flex;
+  align-items: center;
+}
+
 @media screen and (max-width: 76.234375em) {
   .md-tabs {
     display: none;
