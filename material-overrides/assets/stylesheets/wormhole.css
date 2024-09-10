@@ -951,16 +951,13 @@ pre .md-clipboard {
   margin-top: 0;
 }
 
-.md-typeset .grid.cards {
+.md-typeset .grid.cards.tri {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(30%, 1fr));
   margin: 1em 1em 1em 0;
 }
 
-.md-typeset .grid.cards > * {
-  display: flex;
-  flex-direction: column; /* Stack the content vertically */
-  justify-content: center; /* Center content vertically */
+.md-typeset .grid.cards.tri > * {
   align-items: center; /* Center content horizontally */
   text-align: center; /* Center the text itself */
   padding: 1em; /* Optional: Add padding inside the card */
