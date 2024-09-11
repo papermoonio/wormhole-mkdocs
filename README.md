@@ -19,12 +19,12 @@ pip install -r requirements.txt
 
 ## Getting Started
 
-With the dependencies installed, you can proceed to clone the necessary repos. For everything to work correctly, the file structure needs to be as follows:
+For everything to work correctly, the file structure needs to be as follows:
 
 ```text
 wormhole-mkdocs
 |--- /material-overrides/ (folder)
-|--- /wormhole-docs/ (repository)
+|--- /wormhole-docs/ (submodule)
 |--- mkdocs.yml
 ```
 
@@ -36,11 +36,11 @@ To set up the structure, follow these steps:
     git clone https://github.com/papermoonio/wormhole-mkdocs
     ```
 
-2. Inside the folder just created, clone the [wormhole-docs repository](https://github.com/wormhole-foundation/wormhole-docs):
+2. Inside the folder just created, initialize and update the [wormhole-docs repository](https://github.com/wormhole-foundation/wormhole-docs):
 
     ```bash
     cd wormhole-mkdocs
-    git clone https://github.com/wormhole-foundation/wormhole-docs.git
+    git submodule init && git submodule update
     ```
 
 3. In the `wormhole-mkdocs` folder (which should be the current one), you can build the site by running:
