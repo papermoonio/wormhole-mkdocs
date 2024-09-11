@@ -956,6 +956,8 @@ pre .md-clipboard {
 .md-typeset .grid>.card {
   background-color: var(--grey);
   border: var(--md-border-width) solid var(--md-border-color);
+  display: flex;
+  flex-direction: column;
 }
 
 .md-typeset .grid.cards>ol>li:focus-within,
@@ -965,6 +967,12 @@ pre .md-clipboard {
 .md-typeset .grid>.card:focus-within,
 .md-typeset .grid>.card:hover {
   border: var(--md-border-width) solid var(--md-border-color);
+}
+
+.md-typeset .grid.cards>ol>li>:last-child,
+.md-typeset .grid.cards>ul>li>:last-child,
+.md-typeset .grid>.card>:last-child {
+  margin-top: auto;
 }
 
 .md-typeset .grid.half {
