@@ -1,8 +1,6 @@
 name: Update Submodule on Dev Branch
 
 on:
-  schedule:
-    - cron: '0 * * * *'  # Runs every hour
   workflow_dispatch:
 
 jobs:
