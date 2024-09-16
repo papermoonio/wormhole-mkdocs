@@ -951,18 +951,6 @@ pre .md-clipboard {
   margin-top: 0;
 }
 
-.md-typeset .grid.cards.tri {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(30%, 1fr));
-  margin: 1em 1em 1em 0;
-}
-
-.md-typeset .grid.cards.tri > * {
-  align-items: center; /* Center content horizontally */
-  text-align: center; /* Center the text itself */
-  padding: 1em; /* Optional: Add padding inside the card */
-}
-
 .md-typeset .grid.cards>ol>li,
 .md-typeset .grid.cards>ul>li,
 .md-typeset .grid>.card {
@@ -977,6 +965,17 @@ pre .md-clipboard {
 .md-typeset .grid>.card:focus-within,
 .md-typeset .grid>.card:hover {
   border: var(--md-border-width) solid var(--md-border-color);
+}
+
+.md-typeset .card-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 items per row */
+}
+
+.md-typeset .faucet {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
 }
 
 .md-typeset .grid.half {
