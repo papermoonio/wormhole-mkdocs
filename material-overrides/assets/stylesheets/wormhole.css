@@ -978,6 +978,17 @@ pre .md-clipboard {
   border: var(--md-border-width) solid var(--md-border-color);
 }
 
+.md-typeset .card-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 items per row */
+}
+
+.md-typeset .faucet {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
 .md-typeset .grid.cards>ol>li>:last-child,
 .md-typeset .grid.cards>ul>li>:last-child,
 .md-typeset .grid>.card>:last-child {
