@@ -80,49 +80,30 @@ async function overwriteGenerated(tag: string, content: string) {
 
   const supportedChains: string[] = [];
   const chainPages: Record<string, string> = {};
-  let row: string[] = [];
 
   for (const chain of chains) {
     if (chain.mainnet.extraDetails !== undefined) {
       // Supported chains for intro page
       // Add chain card to the current row
-      row.push(chainCard(chain.mainnet, chain.chainType, '.'));
+      supportedChains.push(chainCard(chain.mainnet, chain.chainType));
 
       // Chain-specific pages
       chainPages[chain.mainnet.name] = chainDetailsPage(chain);
-
-      // Once we have 3 chain cards, wrap them in a <tr> and reset the row
-      if (row.length === 3) {
-        supportedChains.push(`<tr>${row.join('')}</tr>`);
-        row = []; // Reset row
-      }
     }
   }
 
-  // If there are leftover chain cards (less than 3), wrap them in a <tr>
-  if (row.length > 0) {
-    supportedChains.push(`<tr>${row.join('')}</tr>`);
-  }
-
-  const supportedChainsTable = `
-  <table data-view="cards" data-full-width="false">
-    <thead>
-      <th></th>
-      <th data-hidden data-card-target data-type="content-ref"></th>
-      <th data-hidden data-card-cover data-type="files"></th>
-    </thead>
-    <tbody>
-      ${supportedChains.join('\n')}
-    </tbody>
-  </table>
-  `
+  const supportedChainsMarkdown = `
+<div class="card-container" markdown>
+${supportedChains.join('\n')}
+</div>
+  `;
 
   // TODO: concurrent? will that wreck anything?
   // find tags _first_ in one pass and come back to fill them in?
   // currently this searches docs every time we call it
   await overwriteGenerated(
     'SUPPORTED_BLOCKCHAIN_CARDS',
-    formatHTMLTable(supportedChainsTable)
+    supportedChainsMarkdown
   );
 
 

@@ -3,7 +3,6 @@ import { ChainDetails, ChainType } from './config';
 export function chainCard(
   dc: ChainDetails,
   chainType: ChainType,
-  pathToRoot: string
 ): string {
   const { name } = dc;
 
@@ -17,10 +16,11 @@ export function chainCard(
   const link = `/build/start-building/supported-networks/${environment}#${name}`;
 
   return `
-    <td style="vertical-align: top; text-align: center;">
-      <a href="${link}">
-        <strong>${title}</strong><br>
-        <img class="no-lightbox" src="${icon}" alt="${title}" style="width:90px; height:auto;">
-      </a>
-    </td>`;
+<div class="faucet" markdown>
+
+<strong>${title}</strong>
+<br><br>
+<a href="${link}"><img class="no-lightbox" src="${icon}" alt="${title}" style="width:90px; height:auto;"></a>
+
+</div>`;
 }
