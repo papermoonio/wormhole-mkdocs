@@ -60,7 +60,10 @@ markdown_extensions:
 plugins:
   - search
   - awesome-pages
-  - glightbox
+  - glightbox:
+      skip_classes:
+        - no-lightbox
+
   - redirects:
       redirect_maps:
         # Redirects will go here as pages get moved around in the following format:
