@@ -7,7 +7,7 @@ import fs from 'fs';
 export type ChainType =
   | 'EVM'
   | 'Solana'
-  | 'CosmWasm'
+  | 'Cosmos'
   | 'Sui'
   | 'Aptos'
   | 'Algorand'
@@ -16,12 +16,12 @@ export type ChainType =
 // Get the blockchain environment that the chain belongs to (i.e., EVM)
 export function getChainType(cid: wh.ChainId): ChainType {
   if (wh.isEVMChain(cid)) return 'EVM';
-  if (wh.isCosmWasmChain(cid) || wh.isTerraChain(cid)) return 'CosmWasm';
+  if (wh.isCosmWasmChain(cid) || wh.isTerraChain(cid)) return 'Cosmos';
   //if(wh.isSolanaChain(cid) in wh.SolanaChainName)
 
   const name = wh.coalesceChainName(cid);
 
-  if (name === 'osmosis') return 'CosmWasm';
+  if (name === 'osmosis') return 'Cosmos';
   if (name === 'solana' || name === 'pythnet') return 'Solana';
   if (name === 'algorand') return 'Algorand';
   if (name === 'aptos') return 'Aptos';
