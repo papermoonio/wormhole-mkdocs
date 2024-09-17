@@ -14,13 +14,13 @@ export function chainCard(
   if (title === undefined) title = name;
 
   const icon = `/images/build/start-building/supported-networks/${name}.webp`;
-  const link = `/build/start-building/supported-networks/${environment}/${name}/`;
+  const link = `/build/start-building/supported-networks/${environment}#${name}`;
 
   return `
     <td style="vertical-align: top; text-align: center;">
       <a href="${link}">
         <strong>${title}</strong><br>
-        <img src="${icon}" alt="${title}" style="width:90px; height:auto;">
+        <img class="no-lightbox" src="${icon}" alt="${title}" style="width:90px; height:auto;">
       </a>
     </td>`;
 }
