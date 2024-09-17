@@ -1,0 +1,12 @@
+{
+    "title":"Terra",
+    "mainnet":{
+        "name":"Mainnet",
+        "id":"columbus-5"
+    },
+    "testnet":{
+        "name":"Testnet",
+        "id":"bombay-12"
+    }
+
+}

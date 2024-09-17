@@ -1,0 +1,31 @@
+{
+  "title": "Solana",
+  "homepage": "https://solana.com/",
+  "mainnet":{
+    "name":"Mainnet Beta",
+    "id":"5eykt4UsFv8P8NJdTREpY1vzqKqZKvdpKuc147dw2N9d"
+  },
+  "testnet":{
+    "name":"Devnet",
+    "id":"EtWTRABZaYq6iMfeYKouRu166VU2xqa1wcaWoxPkrZBG"
+  },
+  "notes":[
+    "The contract addresess for `testnet` are on the Solana `devnet`"
+  ],
+  "explorer": [
+    {
+      "url": "https://explorer.solana.com/"
+    }
+  ],
+  "developer": [
+    {
+      "url": "https://solana.com/developers",
+      "description": "Developer docs"
+    }
+  ],
+  "finality": {
+    "details":"https://docs.solana.com/cluster/commitments",
+    "confirmed": 0,
+    "finalized": 1
+  }
+}

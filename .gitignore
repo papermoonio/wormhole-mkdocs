@@ -1,2 +1,3 @@
 venv
 .DS_Store
+scripts/node_modules
