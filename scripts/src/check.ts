@@ -1,29 +1,31 @@
-import * as cfg from "./config";
+import * as cfg from './config';
 import {
   ChainConfig as SdkChainConfig,
   Contracts as SdkContracts,
   chainIdToChain,
   CONFIG as newconf,
-} from "@wormhole-foundation/sdk";
+} from '@wormhole-foundation/sdk';
 
 (async function () {
   const chains = cfg.getDocChains();
   for (const chain of chains) {
     const sdkName = chainIdToChain.get(chain.mainnet.id)!;
 
-    const { mainnet: { extraDetails } } = chain;
-    for (const network of ["Mainnet", "Testnet", "Devnet"]) {
+    const {
+      mainnet: { extraDetails },
+    } = chain;
+    for (const network of ['Mainnet', 'Testnet', 'Devnet']) {
       // @ts-ignore
       const sdkChain = newconf[network].chains[sdkName] as SdkChainConfig;
       if (!sdkChain) {
-        console.log("No SDK chain for: " + sdkName + " " + network);
+        console.log('No SDK chain for: ' + sdkName + ' ' + network);
         continue;
       }
 
       const sdkContracts = sdkChain.contracts as SdkContracts;
 
       // @ts-ignore
-      const docContracts = chain[network.toLowerCase()];
+      const docContracts = chain.mainnet[network.toLowerCase()];
 
       if (sdkContracts === undefined) continue;
       if (docContracts === undefined) continue;
@@ -54,15 +56,15 @@ import {
       // @ts-ignore
       const nativeChainId = extraDetails[network.toLowerCase()];
 
-      if (network === "Devnet") continue;
+      if (network === 'Devnet') continue;
 
-      if (!nativeChainId && !sdkName.includes("Sepolia")) {
-        console.log("Missing chain id for: " + sdkName + " " + network);
+      if (!nativeChainId && !sdkName.includes('Sepolia')) {
+        console.log('Missing chain id for: ' + sdkName + ' ' + network);
         continue;
       }
 
       const nativeChainIdVal =
-        nativeChainId && "id" in nativeChainId && nativeChainId.id !== "N/A"
+        nativeChainId && 'id' in nativeChainId && nativeChainId.id !== 'N/A'
           ? nativeChainId.id.toString()
           : undefined;
 
