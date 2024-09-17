@@ -14,8 +14,10 @@
   --light-transparent-90: rgba(255, 255, 255, 0.9);
   --light-transparent-60: rgba(255, 255, 255, 0.6);
   --light-transparent-40: rgba(255, 255, 255, 0.4);
+  --light-transparent-20: rgba(255, 255, 255, 0.2);
   --light-transparent-12: rgba(255, 255, 255, 0.12);
   --light-transparent-10: rgba(255, 255, 255, 0.1);
+  --light-transparent-07: rgba(255, 255, 255, 0.07);
   --plum: #c1bbf6;
   --plum-transparent-70: rgba(193, 187, 246, 0.7);
   --plum-transparent-50: rgba(193, 187, 246, 0.5);
@@ -686,8 +688,15 @@ pre .md-clipboard {
 
 .md-typeset .tabbed-block p,
 .md-typeset .tabbed-block ul,
-.md-typeset .tabbed-block ol {
+.md-typeset .tabbed-block ol,
+.md-typeset .tabbed-block p~div,
+.md-typeset .tabbed-block details {
   margin: 1em;
+}
+
+.md-typeset .tabbed-block ul p,
+.md-typeset .tabbed-block ol p {
+  margin: 0;
 }
 
 /* Document date styling */
@@ -956,6 +965,8 @@ pre .md-clipboard {
 .md-typeset .grid>.card {
   background-color: var(--grey);
   border: var(--md-border-width) solid var(--md-border-color);
+  display: flex;
+  flex-direction: column;
 }
 
 .md-typeset .grid.cards>ol>li:focus-within,
@@ -978,9 +989,19 @@ pre .md-clipboard {
   text-align: center;
 }
 
+.md-typeset .grid.cards>ol>li>:last-child,
+.md-typeset .grid.cards>ul>li>:last-child,
+.md-typeset .grid>.card>:last-child {
+  margin-top: auto;
+}
+
 .md-typeset .grid.half {
   grid-template-columns: repeat(auto-fit, minmax(50%, 0fr));
   margin: 1em 1.4em 1em 0;
+}
+
+.md-typeset .grid.cards .twemoji.lg.middle svg {
+  margin-right: .5em;
 }
 
 /* Type styling */
@@ -1283,4 +1304,52 @@ label[for='__search']:hover {
 /* Cookie consent styling */
 .md-consent__inner {
   box-shadow: 0 0 .2rem #ffffff1a,0 .2rem .4rem #fff3;
+}
+
+/* Interface admonition styling */
+details.interface>summary::before {
+  display: none;
+}
+
+.md-typeset details.interface {
+  border: 1px solid var(--light-transparent-20);
+  box-shadow: none;
+  width: auto;
+}
+
+[dir=ltr] .md-typeset details.interface>summary {
+  padding: 1em 0 1em 1em;
+  background-color: var(--light-transparent-07);
+}
+
+.md-typeset details.interface>summary:after {
+  top: auto;
+}
+
+/* Child admonition styling */
+details.child summary::before {
+  display: none;
+}
+
+details.child {
+  width: fit-content;
+}
+
+[dir=ltr] .md-typeset details.child summary {
+  width: fit-content;
+  padding-left: 1em;
+}
+
+[dir=ltr] .md-typeset details.child[open] {
+  width: auto;
+}
+
+.md-typeset details.child summary {
+  background-color: unset;
+}
+
+.md-typeset details.child {
+  width: fit-content;
+  border: 1px solid var(--light-transparent-20);
+  box-shadow: none;
 }
