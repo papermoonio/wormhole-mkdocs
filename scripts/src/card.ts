@@ -16,7 +16,7 @@ export function chainCard(
   const link = `/docs/build/start-building/supported-networks/${environment}#${name}`;
 
   return `
-<div class="faucet" markdown>
+<div class="chains-list" markdown>
 
 <strong>${title}</strong>
 <br><br>
