@@ -138,6 +138,14 @@ nav {
   font-family: var(--md-text-font-family);
 }
 
+@media screen and (max-width: 30em) {
+  .md-typeset h1 {
+    font-size: 48px;
+    word-break: break-word;
+  }
+}
+
+
 /* General styling */
 .md-typeset {
   font-size: var(--body-l-size);
