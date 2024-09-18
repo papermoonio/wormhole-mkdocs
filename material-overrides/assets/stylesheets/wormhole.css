@@ -145,7 +145,6 @@ nav {
   }
 }
 
-
 /* General styling */
 .md-typeset {
   font-size: var(--body-l-size);
@@ -313,11 +312,6 @@ li.md-nav__item,
     display: block;
     margin-top: 2em;
   }
-
-  /* To align the width of items on the left nav */
-  /* [dir='ltr'] .md-nav--primary .md-nav__item>.md-nav__link {
-    margin-right: 0;
-  } */
 
   /* Allow section headers to be clickable */
   .md-nav--lifted>.md-nav__list>.md-nav__item--active>.md-nav__link:not(.md-nav__container),
@@ -986,17 +980,6 @@ pre .md-clipboard {
   border: var(--md-border-width) solid var(--md-border-color);
 }
 
-.md-typeset .card-container {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 4 items per row */
-}
-
-.md-typeset .faucet {
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-}
-
 .md-typeset .grid.cards>ol>li>:last-child,
 .md-typeset .grid.cards>ul>li>:last-child,
 .md-typeset .grid>.card>:last-child {
@@ -1010,6 +993,24 @@ pre .md-clipboard {
 
 .md-typeset .grid.cards .twemoji.lg.middle svg {
   margin-right: .5em;
+}
+
+/* Chains list styling */
+.md-typeset .card-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 items per row */
+}
+
+.md-typeset .chains-list {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+@media screen and (max-width: 30em) {
+  .md-typeset .card-container {
+    grid-template-columns: repeat(2, 1fr); /* 2 items per row */
+  }
 }
 
 /* Type styling */
