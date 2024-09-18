@@ -1,5 +1,5 @@
 site_name: Wormhole Docs
-site_url: https://docs.wormhole.com/
+site_url: https://wormhole.com/docs/
 docs_dir: wormhole-docs
 copyright: 2024 © Wormhole Foundation. All Rights Reserved.
 extra_css:
@@ -90,7 +90,7 @@ extra:
       link: https://github.com/wormhole-foundation/wormhole
       name: GitHub
     - icon: docs
-      link: https://docs.wormhole.com/
+      link: https://wormhole.com/docs/
       name: Docs
     - icon: fontawesome/brands/youtube
       link: https://www.youtube.com/@wormholecrypto
