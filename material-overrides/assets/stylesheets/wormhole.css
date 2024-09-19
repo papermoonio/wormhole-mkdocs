@@ -1232,7 +1232,7 @@ label[for='__search']:hover {
 
 .md-search-result .md-typeset {
   color: var(--light-transparent-60);
-  text-transform: capitalize;
+  text-transform: none;
 }
 
 .md-search-result .md-typeset h1 {
