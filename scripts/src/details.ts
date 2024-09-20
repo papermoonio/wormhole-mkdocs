@@ -383,7 +383,7 @@ export function generateAllConsistencyLevelsTable(dc: cfg.DocChain[]): string {
     );
     const finalized = fmtNum(f.finalized);
     const otherwise = f.otherwise ? f.otherwise : '';
-    const details = f.details ? `<a href="${f.details}">Details</a>` : ' ';
+    const details = f.details ? `<a href="${f.details}" target="_blank">Details</a>` : ' ';
 
     let sdkChain: Chain;
     try {
