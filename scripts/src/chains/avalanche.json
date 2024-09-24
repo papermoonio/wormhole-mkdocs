@@ -1,0 +1,37 @@
+{
+  "homepage": "https://www.avax.network/",
+  "title": "Avalanche",
+  "mainnet": {
+    "name": "C-Chain",
+    "id": "43114"
+  },
+  "testnet": {
+    "name": "Fuji",
+    "id": "43113"
+  },
+  "explorer": [
+    {
+      "url": "https://snowtrace.io/",
+      "description": "C-Chain Block Explorer"
+    },
+    {
+      "url": "https://subnets.avax.network/"
+    }
+  ],
+  "developer": [
+    {
+      "url": "https://docs.avax.network/",
+      "description": "Developer docs"
+    },
+    {
+      "url": "https://core.app/tools/testnet-faucet/?subnet=c&token=c",
+      "description": "Faucet"
+    }
+  ],
+  "contractSource": "ethereum/contracts/bridge/Bridge.sol",
+  "finality": {
+    "instant": 200,
+    "otherwise": "finalized",
+    "details": "https://docs.avax.network/build/dapp/advanced/integrate-exchange#determining-finality"
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "title": "Moonbeam",
+  "homepage": "https://moonbeam.network/",
+  "mainnet": {
+    "name": "Mainnet",
+    "id": "1284"
+  },
+  "testnet": {
+    "name": "Moonbase-Alphanet",
+    "id": "1287"
+  },
+  "explorer": [
+    {
+      "url": "https://moonscan.io/",
+      "description": "Moonbeam EVM Block Explorer"
+    }
+  ],
+  "contractSource": "ethereum/contracts/bridge/Bridge.sol",
+  "developer": [
+    {
+      "url": "https://docs.moonbeam.network/",
+      "description": "Developer docs"
+    },
+    {
+      "url": "https://faucet.moonbeam.network/",
+      "description": "Faucet"
+    }
+  ],
+  "finality": {
+    "instant": 200,
+    "safe": 201,
+    "otherwise": "finalized",
+    "details": "https://docs.moonbeam.network/builders/build/moonbeam-custom-api/#finality-rpc-endpoints"
+  }
+}
