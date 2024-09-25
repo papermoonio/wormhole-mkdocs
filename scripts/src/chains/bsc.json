@@ -1,0 +1,35 @@
+{
+  "title": "BNB Smart Chain",
+  "homepage": "https://www.bnbchain.org/en/smartChain",
+  "mainnet":{
+    "name":"Mainnet",
+    "id":"56"
+  },
+  "testnet":{
+    "name":"Testnet",
+    "id":"97"
+  },
+  "explorer": [
+    {
+      "url": "https://bscscan.com/",
+      "description": "Etherscan"
+    }
+  ],
+  "developer": [
+      {
+        "url": "https://docs.bnbchain.org/docs/learn/intro",
+        "description":"Developer docs"
+      },
+      {
+        "url":"https://testnet.binance.org/faucet-smart/",
+        "description":"Faucet"
+      }
+    ],
+  "contractSource": "ethereum/contracts/bridge/Bridge.sol",
+  "finality": {
+    "instant": 200,
+    "otherwise": "finalized",
+    "safe":201,
+    "details":"https://docs.bnbchain.org/docs/learn/consensus"
+  }
+}

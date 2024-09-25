@@ -1,0 +1,32 @@
+{
+  "homepage": "https://fantom.foundation/",
+  "title": "Fantom",
+  "mainnet":{
+    "name":"Mainnet",
+    "id":"250"
+  },
+  "testnet":{
+    "name":"Testnet",
+    "id":"4002"
+  },
+  "developer": [
+    {
+      "url": "https://docs.fantom.foundation/",
+      "description": "Developer docs"
+    },
+    {
+      "url": "https://faucet.fantom.network/",
+      "description": "Faucet"
+    }
+  ],
+  "explorer": [
+    {
+      "url": "https://ftmscan.com/"
+    }
+  ],
+  "contractSource": "ethereum/contracts/bridge/Bridge.sol",
+  "finality": {
+    "instant": 200,
+    "otherwise": "finalized"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "title": "Gnosis",
+  "homepage": "https://www.gnosis.io/",
+  "mainnet":{
+    "name":"Mainnet",
+    "id":"100"
+  },
+  "testnet":{
+    "name":"Chaido",
+    "id":"10200"
+  },
+  "contractSource": "ethereum/contracts/bridge/Bridge.sol",
+  "developer":  [
+      {
+        "url": "https://docs.gnosischain.com/developers/overview",
+        "description":"Developer docs"
+      },
+      {
+        "url":"https://faucet.gnosischain.com/",
+        "description":"Faucet"
+      }
+    ]
+}

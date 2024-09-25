@@ -1,0 +1,37 @@
+{
+  "title": "Klaytn",
+  "homepage": "https://klaytn.foundation/",
+  "contractSource": "ethereum/contracts/bridge/Bridge.sol",
+  "mainnet":{
+    "name":"Mainnet",
+    "id":"8217"
+  },
+  "testnet":{
+    "name":"Baobab",
+    "id":"1001"
+  },
+  "explorer": [
+    {
+      "url": "https://www.klaytnfinder.io/",
+      "description": "Klaytnfinder"
+    },
+    {
+      "url": "https://scope.klaytn.com/",
+      "description": "Klaytnscope"
+    }
+  ],
+  "developer": [
+    {
+      "url": "https://docs.klaytn.foundation/",
+      "description": "Developer docs"
+    },
+    {
+      "url": "https://baobab.wallet.klaytn.foundation/faucet",
+      "description": "Faucet"
+    }
+  ],
+  "finality": {
+    "instant": 200,
+    "otherwise": "finalized"
+  }
+}

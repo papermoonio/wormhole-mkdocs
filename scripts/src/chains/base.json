@@ -1,0 +1,34 @@
+{
+  "title": "Base",
+  "homepage": "https://base.org/",
+  "mainnet": {
+    "name": "Base",
+    "id": "8453"
+  },
+  "testnet": {
+    "name": "Base Goerli",
+    "id": "84531"
+  },
+  "developer": [
+    {
+      "url": "https://docs.base.org/",
+      "description": "Developer docs"
+    }
+  ],
+  "explorer": [
+    {
+      "url": "https://goerli.basescan.org/",
+      "description": "Etherscan"
+    },
+    {
+      "url": "https://base-goerli.blockscout.com/",
+      "description": "Blockscout"
+    }
+  ],
+  "contractSource": "ethereum/contracts/bridge/Bridge.sol",
+  "finality": {
+    "instant": 200,
+    "safe": 201,
+    "otherwise": "finalized"
+  }
+}

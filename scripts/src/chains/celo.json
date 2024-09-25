@@ -1,0 +1,35 @@
+{
+  "homepage": "https://celo.org/",
+  "title": "Celo",
+  "mainnet":{
+    "name":"Mainnet",
+    "id":"42220"
+  },
+  "testnet":{
+    "name":"Alfajores",
+    "id":"44787"
+  },
+  "explorer": [
+    {
+      "url": "https://explorer.celo.org/mainnet/"
+    },
+    {
+      "url": "https://celoscan.io/"
+    }
+  ],
+  "developer":  [
+      {
+        "url": "https://docs.celo.org/",
+        "description":"Developer docs"
+      },
+      {
+        "url":"https://faucet.celo.org/alfajores",
+        "description":"Faucet"
+      }
+    ],
+  "contractSource": "ethereum/contracts/bridge/Bridge.sol",
+  "finality": {
+    "instant": 200,
+    "otherwise": "finalized"
+  }
+}
