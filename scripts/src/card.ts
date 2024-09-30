@@ -20,7 +20,7 @@ export function chainCard(
 
 <strong>${title}</strong>
 <br><br>
-<a href="${link}"><img class="no-lightbox" src="${icon}" alt="${title}" style="width:90px; height:auto;"></a>
+<a href="${link}"><img class="no-lightbox" src="${icon}" alt="${title}" style="max-width:90px; max-height:90px;"></a>
 
 </div>`;
 }
