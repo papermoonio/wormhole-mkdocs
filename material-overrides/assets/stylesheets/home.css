@@ -248,6 +248,22 @@ h3 {
     font-size: var(--caption-size);
   }
 
+  .button-wrapper {
+    display: flex;
+    flex-direction: column; /* Stack buttons vertically */
+    align-items: left; /* Center buttons horizontally */
+    gap: 0px;
+  }
+
+  .button-wrapper > div {
+    margin: 0;
+    padding: 0;
+  }
+  
+  .button-wrapper div a button {
+    margin-top: 10px;
+  }
+
   .feature {
     min-width: 66%;
   }
