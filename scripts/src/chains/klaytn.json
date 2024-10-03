@@ -1,32 +1,32 @@
 {
-  "title": "Klaytn",
-  "homepage": "https://klaytn.foundation/",
+  "title": "Kaia",
+  "homepage": "https://kaia.io/",
   "contractSource": "ethereum/contracts/bridge/Bridge.sol",
   "mainnet":{
     "name":"Mainnet",
     "id":"8217"
   },
   "testnet":{
-    "name":"Baobab",
+    "name":"Kairos",
     "id":"1001"
   },
   "explorer": [
     {
-      "url": "https://www.klaytnfinder.io/",
-      "description": "Klaytnfinder"
+      "url": "https://kaiascan.io/",
+      "description": "Kaiascan"
     },
     {
-      "url": "https://scope.klaytn.com/",
-      "description": "Klaytnscope"
+      "url": "https://kaiascope.com/",
+      "description": "Kaiascope"
     }
   ],
   "developer": [
     {
-      "url": "https://docs.klaytn.foundation/",
+      "url": "https://docs.kaia.io/",
       "description": "Developer docs"
     },
     {
-      "url": "https://baobab.wallet.klaytn.foundation/faucet",
+      "url": "https://faucet.kaia.io",
       "description": "Faucet"
     }
   ],
