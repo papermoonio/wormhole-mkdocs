@@ -57,6 +57,7 @@ markdown_extensions:
       alternate_style: true
   - toc:
       title: Sections
+      permalink: ＃
 plugins:
   - search
   - awesome-pages

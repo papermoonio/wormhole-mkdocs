@@ -494,6 +494,11 @@ li.md-nav__item,
   }
 }
 
+/* Hides section permalink hash for H1 sections */
+.md-typeset h1 .headerlink {
+  display: none;
+}
+
 /* Custom admonition styling */
 .md-typeset .admonition {
   border-width: var(--md-border-width);
