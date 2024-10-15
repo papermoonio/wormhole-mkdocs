@@ -177,6 +177,7 @@ export function getDocChains(): DocChain[] {
     wormchain: true,
     btc: true,
     aurora: true,
+    goerli: true,
   };
 
   // Do an initial loop over the chains to get a list of the chains that
