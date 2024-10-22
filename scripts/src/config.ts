@@ -194,6 +194,12 @@ export function getDocChains(): DocChain[] {
 
     if (name in skipChains) continue;
 
+    const [baseChain] = name.split('_');
+
+    // Get the testnet chain name. If Goerli is the testnet, skip it
+    const chain_details =  getChainDetails(baseChain).testnet?.name.toLowerCase();
+    if (chain_details?.includes('goerli')) continue;
+
     if (name.includes('_')) {
       // Need to group the chain with a base chain
       // Split the name by '_'
