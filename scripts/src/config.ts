@@ -196,9 +196,8 @@ export function getDocChains(): DocChain[] {
 
     const [baseChain] = name.split('_');
 
-    // Get the testnet chain name. If Goerli is the testnet, skip it
+    // Get the testnet chain name
     const chain_details =  getChainDetails(baseChain).testnet?.name.toLowerCase();
-    if (chain_details?.includes('goerli')) continue;
 
     if (name.includes('_')) {
       // Need to group the chain with a base chain
@@ -236,7 +235,7 @@ export function getDocChains(): DocChain[] {
           // @ts-ignore
           ...testnetCCTP[name],
         },
-      });
+      });    
 
       // Add the associated devnet chains to the corresponding base chain entry
       // if they exist
@@ -320,23 +319,25 @@ export function getDocChains(): DocChain[] {
         devnets: [],
       };
 
-      if (
-        testnetContracts[name] ||
-        testnetRelayers[name] ||
-        // @ts-ignore
-        testnetCCTP[name]
-      ) {
-        groupedChains[name].testnets.push({
-          name: name,
-          id: chainMap.get(name),
-          contracts: {
-            ...testnetContracts[name],
-            ...testnetRelayers[name],
-            // @ts-ignore
-            ...testnetCCTP[name],
-          },
-          extraDetails: getChainDetails(name),
-        });
+      if (!chain_details?.includes('goerli')){
+        if (
+          testnetContracts[name] ||
+          testnetRelayers[name] ||
+          // @ts-ignore
+          testnetCCTP[name]
+        ) {
+          groupedChains[name].testnets.push({
+            name: name,
+            id: chainMap.get(name),
+            contracts: {
+              ...testnetContracts[name],
+              ...testnetRelayers[name],
+              // @ts-ignore
+              ...testnetCCTP[name],
+            },
+            extraDetails: getChainDetails(name),
+          });
+      }
 
         // Add the associated devnet chains to the corresponding base chain entry
         // if they exist
