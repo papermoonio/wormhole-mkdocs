@@ -321,7 +321,7 @@ export function getDocChains(): DocChain[] {
         devnets: [],
       };
 
-      if (!chain_details?.includes('goerli')){
+      if (!chainDetails?.includes('goerli')){
         if (
           testnetContracts[name] ||
           testnetRelayers[name] ||
