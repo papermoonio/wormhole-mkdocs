@@ -177,6 +177,7 @@ export function getDocChains(): DocChain[] {
     wormchain: true,
     btc: true,
     aurora: true,
+    goerli: true,
   };
 
   // Do an initial loop over the chains to get a list of the chains that
@@ -192,6 +193,13 @@ export function getDocChains(): DocChain[] {
     const name = wh.toChainName(cid);
 
     if (name in skipChains) continue;
+
+    // Need to group the chain with a base chain
+    // Split the name by '_'
+    const [baseChain] = name.split('_');
+
+    // Get the testnet chain name
+    const chainDetails =  getChainDetails(baseChain).testnet?.name.toLowerCase();
 
     if (name.includes('_')) {
       // Need to group the chain with a base chain
@@ -229,7 +237,7 @@ export function getDocChains(): DocChain[] {
           // @ts-ignore
           ...testnetCCTP[name],
         },
-      });
+      });    
 
       // Add the associated devnet chains to the corresponding base chain entry
       // if they exist
@@ -313,23 +321,25 @@ export function getDocChains(): DocChain[] {
         devnets: [],
       };
 
-      if (
-        testnetContracts[name] ||
-        testnetRelayers[name] ||
-        // @ts-ignore
-        testnetCCTP[name]
-      ) {
-        groupedChains[name].testnets.push({
-          name: name,
-          id: chainMap.get(name),
-          contracts: {
-            ...testnetContracts[name],
-            ...testnetRelayers[name],
-            // @ts-ignore
-            ...testnetCCTP[name],
-          },
-          extraDetails: getChainDetails(name),
-        });
+      if (!chainDetails?.includes('goerli')){
+        if (
+          testnetContracts[name] ||
+          testnetRelayers[name] ||
+          // @ts-ignore
+          testnetCCTP[name]
+        ) {
+          groupedChains[name].testnets.push({
+            name: name,
+            id: chainMap.get(name),
+            contracts: {
+              ...testnetContracts[name],
+              ...testnetRelayers[name],
+              // @ts-ignore
+              ...testnetCCTP[name],
+            },
+            extraDetails: getChainDetails(name),
+          });
+      }
 
         // Add the associated devnet chains to the corresponding base chain entry
         // if they exist
