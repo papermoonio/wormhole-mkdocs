@@ -199,7 +199,7 @@ export function getDocChains(): DocChain[] {
     const [baseChain] = name.split('_');
 
     // Get the testnet chain name
-    const chain_details =  getChainDetails(baseChain).testnet?.name.toLowerCase();
+    const chainDetails =  getChainDetails(baseChain).testnet?.name.toLowerCase();
 
     if (name.includes('_')) {
       // Need to group the chain with a base chain
