@@ -194,6 +194,8 @@ export function getDocChains(): DocChain[] {
 
     if (name in skipChains) continue;
 
+    // Need to group the chain with a base chain
+    // Split the name by '_'
     const [baseChain] = name.split('_');
 
     // Get the testnet chain name
