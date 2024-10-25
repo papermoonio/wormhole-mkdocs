@@ -141,7 +141,7 @@ export function chainDetailsPage(chain: cfg.DocChain): string {
   let testNetTables = '';
   for (const testnet of testnets) {
     if (testnet.name === mainnet.name) {
-      testNetTables += `### TestNet Contracts ${testnetAlias}\n${contractTable(
+      testNetTables += `### Testnet Contracts ${testnetAlias}\n${contractTable(
         testnet.contracts
       )}`;
     }
@@ -264,7 +264,7 @@ export function formatHTMLTable(htmlTable: string): string {
 }
 
 export function generateAllChainIdsTable(dc: cfg.DocChain[]): string {
-  // Create MainNet Chain Table
+  // Create Mainnet Chain Table
   const orderedDc = sortChainNames(dc);
   const tableHeader = `
     <thead>
@@ -276,7 +276,7 @@ export function generateAllChainIdsTable(dc: cfg.DocChain[]): string {
   let testNetTableBody: string[] = [];
 
   for (const c of orderedDc) {
-    // Assemble the MainNet table data
+    // Assemble the Mainnet table data
     const mainnetAlias = cfg.networkString(c.mainnet.extraDetails?.mainnet);
     mainNetTableBody.push(
       `<tr>
@@ -288,7 +288,7 @@ export function generateAllChainIdsTable(dc: cfg.DocChain[]): string {
       </tr>`
     );
 
-    // Assemble the TestNet table data
+    // Assemble the Testnet table data
     if (c.testnets.length > 1) {
       const orderedTestnets = c.testnets.sort((a, b) => {
         const aTitle =
@@ -331,11 +331,11 @@ export function generateAllChainIdsTable(dc: cfg.DocChain[]): string {
   }
 
   return `
-=== "MainNet"
+=== "Mainnet"
 
     ${formatHTMLTable(buildHTMLTable(tableHeader, mainNetTableBody.join('')))}
 
-=== "TestNet"
+=== "Testnet"
 
     ${formatHTMLTable(buildHTMLTable(tableHeader, testNetTableBody.join('')))}
 `;
@@ -426,7 +426,7 @@ export function generateAllContractsTable(
   dc: cfg.DocChain[],
   module: string
 ): string {
-  // Create MainNet Chain Table
+  // Create Mainnet Chain Table
   const orderedDc = sortChainNames(dc);
   const tableHeader =`
   <thead>
@@ -440,7 +440,7 @@ export function generateAllContractsTable(
   const m = module as keyof cfg.Contracts;
 
   for (const c of orderedDc) {
-    // Assemble the MainNet table data
+    // Assemble the Mainnet table data
     mainNetTableBody.push(
       `<tr>
         <td>${c.mainnet.extraDetails ? c.mainnet.extraDetails.title : c.mainnet.name}</td>
@@ -448,7 +448,7 @@ export function generateAllContractsTable(
       </tr>`
     )
 
-    // Assemble the TestNet table data
+    // Assemble the Testnet table data
     if (c.testnets.length > 1) {
       const orderedTestnets = c.testnets.sort((a, b) => {
         const aTitle =
@@ -482,7 +482,7 @@ export function generateAllContractsTable(
       });
     }
 
-    // Assemble the DevNet table data
+    // Assemble the Devnet table data
     c.devnets.forEach((devnet) => {
       devNetTableBody.push(`
         <tr>
@@ -494,15 +494,15 @@ export function generateAllContractsTable(
   }
 
   return `
-=== "MainNet"
+=== "Mainnet"
 
     ${formatHTMLTable(buildHTMLTable(tableHeader, mainNetTableBody.join('')))}
 
-=== "TestNet"
+=== "Testnet"
 
     ${formatHTMLTable(buildHTMLTable(tableHeader, testNetTableBody.join('')))}
 
-=== "DevNet"
+=== "Devnet"
 
     ${formatHTMLTable(buildHTMLTable(tableHeader, devNetTableBody.join('')))}
 `;
