@@ -1307,8 +1307,8 @@ label[for='__search']:hover {
 /** Cookbook styling **/
 /* Links at bottom of modal */
 .cookbook-widget {
-  width: 200px;
-  height: 210px;
+  width: min-content;
+  height: fit-content;
   background-color: var(--grey);
   border: var(--md-border-width) solid var(--md-border-color);
   border-right: none;
@@ -1331,8 +1331,8 @@ label[for='__search']:hover {
 }
 
 .md-typeset .cookbook-widget__text h2 {
-  font-size: 31px;
-  line-height: 31px;
+  font-size: 1.5rem;
+  line-height: 1;
   font-family: var(--md-header-font);
   margin: 0;
 }
