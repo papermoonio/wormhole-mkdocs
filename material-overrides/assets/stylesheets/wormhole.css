@@ -1304,15 +1304,42 @@ label[for='__search']:hover {
   }
 }
 
-/** Kapa styling **/
+/** Cookbook styling **/
 /* Links at bottom of modal */
-.mantine-1k28ke3,
-.mantine-1helznf {
-  font-size: 1em;
+.cookbook-widget {
+  width: 200px;
+  height: 210px;
+  background-color: var(--grey);
+  border: var(--md-border-width) solid var(--md-border-color);
+  border-right: none;
+  border-top-left-radius: 12px;
+  border-bottom-left-radius: 12px;
+  position: fixed;
+  right: 0;
+  top: 60%;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  padding: 24px 16px;
+  gap: 24px;
 }
 
-.mantine-1yrr1ry {
-  font-size: 1.2em;
+.md-typeset .cookbook-widget__text {
+  gap: 4px;
+}
+
+.md-typeset .cookbook-widget__text h2 {
+  font-size: 31px;
+  line-height: 31px;
+  font-family: var(--md-header-font);
+  margin: 0;
+}
+
+.md-typeset .cookbook-widget__text p {
+  font-size: var(--body-m-size);
+  margin: 0;
 }
 
 /* Cookie consent styling */
