@@ -72,6 +72,7 @@ plugins:
         build/start-building/supported-networks/cosmos/gateway.md: build/start-building/supported-networks/cosmos.md
         build/start-building/supported-networks/cosmos/cosmos.md: build/start-building/supported-networks/cosmos.md
         build/contract-integrations/gateway.md: build/start-building/supported-networks/cosmos.md
+        learn/messaging/gateway.md: learn/messaging/index.md
   - macros:
       include_yaml:
         - wormhole-docs/variables.yml
