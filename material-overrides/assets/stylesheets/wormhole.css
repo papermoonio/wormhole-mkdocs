@@ -1317,7 +1317,7 @@ label[for='__search']:hover {
   position: fixed;
   right: 0;
   top: 60%;
-  z-index: 1000;
+  z-index: 3;
   display: flex;
   flex-direction: column;
   justify-content: center;
