@@ -1348,6 +1348,11 @@ label[for='__search']:hover {
   margin: 0;
 }
 
+.cookbook-container {
+  /* Specifically needed for Safari */
+  width: max-content;
+}
+
 /* Cookie consent styling */
 .md-consent__inner {
   box-shadow: 0 0 .2rem #ffffff1a,0 .2rem .4rem #fff3;
