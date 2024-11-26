@@ -9,7 +9,7 @@
           {% if nav_item.is_section %}
             <li class="md-tabs__item--custom" tabindex="0">    
               <span class="md-tabs__link">
-                <a href="/docs/{{ nav_item.children[0].url }}">
+                <a href="{{ nav_item.children[0].url | url }}">
                     {{ nav_item.title }} {% include ".icons/material/chevron-down.svg" %}
                 </a>
               </span>
