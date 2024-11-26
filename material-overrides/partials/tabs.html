@@ -8,8 +8,11 @@
         {% for nav_item in nav %}
           {% if nav_item.is_section %}
             <li class="md-tabs__item--custom" tabindex="0">    
-              <span class="md-tabs__link">{{ nav_item.title }} {% include
-                ".icons/material/chevron-down.svg" %}</span>
+              <span class="md-tabs__link">
+                <a href="{{ nav_item.children[0].url | url }}">
+                    {{ nav_item.title }} {% include ".icons/material/chevron-down.svg" %}
+                </a>
+              </span>
               <ul class="md-tab__list">
                 {% for section_item in nav_item.children %}
                   {% if section_item.is_section %}
