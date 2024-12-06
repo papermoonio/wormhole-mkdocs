@@ -34,6 +34,7 @@ markdown_extensions:
   - admonition
   - attr_list
   - codehilite
+  - def_list
   - md_in_html
   - meta 
   - pymdownx.details
@@ -55,6 +56,8 @@ markdown_extensions:
   - pymdownx.superfences
   - pymdownx.tabbed:
       alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
   - toc:
       title: Sections
       permalink: ＃
