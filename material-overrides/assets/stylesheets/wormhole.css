@@ -1000,24 +1000,6 @@ pre .md-clipboard {
   margin-right: .5em;
 }
 
-/* Chains list styling */
-.md-typeset .card-container {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 4 items per row */
-}
-
-.md-typeset .chains-list {
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-}
-
-@media screen and (max-width: 30em) {
-  .md-typeset .card-container {
-    grid-template-columns: repeat(2, 1fr); /* 2 items per row */
-  }
-}
-
 /* Type styling */
 .md-typeset kbd {
   border-radius: 1em;
@@ -1404,4 +1386,9 @@ details.child {
   width: fit-content;
   border: 1px solid var(--light-transparent-20);
   box-shadow: none;
+}
+
+/* Supported Blockchains Tables */
+.full-width .md-typeset__scrollwrap .md-typeset__table {
+  width: 100%;
 }
