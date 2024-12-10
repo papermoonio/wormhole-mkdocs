@@ -329,7 +329,7 @@ export function generateTestnetFaucetsTable(dc: cfg.DocChain[]): string {
         : 'N/A';
       
         const faucet = t.extraDetails?.faucet
-          ? `<a href="${t.extraDetails.faucet.url}">${t.extraDetails.faucet.description}</a>`
+          ? `<a href="${t.extraDetails.faucet.url}" target="_blank">${t.extraDetails.faucet.description}</a>`
           : undefined;
         
         if (!faucet) continue;
