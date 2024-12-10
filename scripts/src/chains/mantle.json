@@ -9,15 +9,21 @@
     "name": "Sepolia",
     "id": "5003"
   },
-  "developer": [
-    {
-      "url": "https://docs.mantle.xyz/network/introduction/overview",
-      "description": "Developer docs"
-    }
-  ],
   "finality": {
     "instant": 200,
     "safe": 201,
     "otherwise": "finalized"
-  }
+  },
+  "devDocs": "https://docs.mantle.xyz/network/introduction/overview",
+  "faucet": {
+    "url": "https://faucet.sepolia.mantle.xyz/",
+    "token": "MNT",
+    "description": "Official Mantle Faucet"
+  },
+  "explorer": [
+    {
+      "url": "https://mantlescan.xyz/",
+      "description": "Mantlescan"
+    }
+  ]
 }

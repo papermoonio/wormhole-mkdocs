@@ -1,33 +1,29 @@
 {
-	"title": "Unichain",
-	"homepage": "https://www.unichain.org/",
-	"mainnet": {
-		"name": "",
-		"id": ""
-	},
-	"testnet": {
-		"name": "Unichain Sepolia",
-		"id": "1301"
-	},
-	"explorer": [
-		{
-			"url": "https://sepolia.uniscan.xyz/",
-			"description": "Unichain Sepolia Testnet Explorer"
-		}
-	],
-	"developer": [
-		{
-			"url": "https://docs.unichain.org/docs",
-			"description": "Developer docs"
-		},
-		{
-			"url": "https://faucet.quicknode.com/unichain/sepolia",
-			"description": "Faucet"
-		}
-	],
-	"finality": {
-		"instant": 200,
-		"safe": 201,
-		"otherwise": "finalized"
-	}
+  "title": "Unichain",
+  "homepage": "https://www.unichain.org/",
+  "mainnet": {
+    "name": "",
+    "id": ""
+  },
+  "testnet": {
+    "name": "Unichain Sepolia",
+    "id": "1301"
+  },
+  "explorer": [
+    {
+      "url": "https://sepolia.uniscan.xyz/",
+      "description": "Unichain Sepolia Testnet Explorer"
+    }
+  ],
+  "finality": {
+    "instant": 200,
+    "safe": 201,
+    "otherwise": "finalized"
+  },
+  "devDocs": "https://docs.unichain.org/docs",
+  "faucet": {
+    "url": "https://faucet.quicknode.com/unichain/sepolia",
+    "token": "ETH",
+    "description": "QuickNode Faucet"
+  }
 }

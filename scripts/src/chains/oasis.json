@@ -13,5 +13,16 @@
   "finality": {
     "instant": 200,
     "otherwise": "finalized"
-  }
+  },
+  "devDocs": "https://docs.oasis.io/",
+  "faucet": {
+    "url": "https://faucet.testnet.oasis.io/",
+    "token": "TEST",
+    "description": "Official Oasis Faucet"
+  },
+  "explorer": [
+    {
+      "url": "https://docs.oasis.io/dapp/cipher/#block-explorers"
+    }
+  ]
 }

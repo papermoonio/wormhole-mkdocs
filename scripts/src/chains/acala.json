@@ -17,20 +17,16 @@
       "url": "https://blockscout.acala.network/"
     }
   ],
-  "developer": [
-    {
-      "url": "https://evmdocs.acala.network/",
-      "description": "Developer docs"
-    },
-    {
-      "url": "https://evmdocs.acala.network/tooling/faucet",
-      "description": "Faucet"
-    }
-  ],
   "contractSource": "ethereum/contracts/bridge/Bridge.sol",
   "finality": {
     "instant": 200,
     "safe": 201,
     "otherwise": "finalized"
+  },
+  "devDocs": "https://evmdocs.acala.network/",
+  "faucet": {
+    "url": "https://discord.gg/5JJgXKSznc",
+    "token": "ACA",
+    "description": "Discord Faucet"
   }
 }

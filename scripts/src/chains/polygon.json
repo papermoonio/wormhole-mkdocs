@@ -1,22 +1,25 @@
 {
   "title": "Polygon",
   "homepage": "https://polygon.technology/",
-  "mainnet":{
-    "name":"Mainnet",
-    "id":"137"
+  "mainnet": {
+    "name": "Mainnet",
+    "id": "137"
   },
-  "testnet":{
-    "name":"Mumbai",
-    "id":"80001"
+  "testnet": {
+    "name": "Amoy",
+    "id": "80002"
   },
   "contractSource": "ethereum/contracts/bridge/Bridge.sol",
-  "developer":[
-    {"url":"https://wiki.polygon.technology/", "description":"Developer docs"},
-    {"url":"https://faucet.polygon.technology/", "description":"Faucet"}
-  ],
   "finality": {
-    "details":"https://docs.polygon.technology/pos/architecture/heimdall/checkpoints/",
+    "details": "https://docs.polygon.technology/pos/architecture/heimdall/checkpoints/",
     "instant": 200,
     "otherwise": "finalized"
-  }
+  },
+  "devDocs": "https://docs.polygon.technology/",
+  "explorer": [
+    {
+      "url": "https://polygonscan.com/",
+      "description": "Polygonscan"
+    }
+  ]
 }

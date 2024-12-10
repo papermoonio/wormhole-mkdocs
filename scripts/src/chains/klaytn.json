@@ -2,13 +2,13 @@
   "title": "Kaia",
   "homepage": "https://kaia.io/",
   "contractSource": "ethereum/contracts/bridge/Bridge.sol",
-  "mainnet":{
-    "name":"Mainnet",
-    "id":"8217"
+  "mainnet": {
+    "name": "Mainnet",
+    "id": "8217"
   },
-  "testnet":{
-    "name":"Kairos",
-    "id":"1001"
+  "testnet": {
+    "name": "Kairos",
+    "id": "1001"
   },
   "explorer": [
     {
@@ -20,18 +20,14 @@
       "description": "Kaiascope"
     }
   ],
-  "developer": [
-    {
-      "url": "https://docs.kaia.io/",
-      "description": "Developer docs"
-    },
-    {
-      "url": "https://faucet.kaia.io",
-      "description": "Faucet"
-    }
-  ],
   "finality": {
     "instant": 200,
     "otherwise": "finalized"
+  },
+  "devDocs": "https://docs.kaia.io/",
+  "faucet": {
+    "url": "https://faucet.kaia.io",
+    "token": "KAIA",
+    "description": "Official Kaia Faucet"
   }
 }
