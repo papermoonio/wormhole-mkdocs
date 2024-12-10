@@ -263,7 +263,7 @@ export function generateSupportedNetworksTable(dc: cfg.DocChain[]): string {
   
       const devDocs = c.mainnet.extraDetails?.devDocs
         ? ':material-file-document: ' +
-          `<a href="${c.mainnet.extraDetails.devDocs}">Developer Docs</a>`
+          `<a href="${c.mainnet.extraDetails.devDocs}" target="_blank">Developer Docs</a>`
         : undefined;
   
       const explorer = c.mainnet.extraDetails?.explorer
