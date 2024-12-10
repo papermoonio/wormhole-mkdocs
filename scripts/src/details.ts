@@ -258,7 +258,7 @@ export function generateSupportedNetworksTable(dc: cfg.DocChain[]): string {
   
       const website = c.mainnet.extraDetails?.homepage
         ? ':material-web: ' +
-          `<a href="${c.mainnet.extraDetails.homepage}">Website</a>`
+          `<a href="${c.mainnet.extraDetails.homepage}" target="_blank">Website</a>`
         : undefined;
   
       const devDocs = c.mainnet.extraDetails?.devDocs
