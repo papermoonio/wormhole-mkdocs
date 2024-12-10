@@ -1,12 +1,11 @@
 import * as cfg from './config';
 import {
-  chainDetailsPage,
-  formatHTMLTable,
   generateAllChainIdsTable,
   generateAllConsistencyLevelsTable,
   generateAllContractsTable,
+  generateSupportedNetworksTable,
+  generateTestnetFaucetsTable,
 } from './details';
-import { chainCard } from './card';
 import * as fs from 'fs';
 
 // Matches for tag search
@@ -76,74 +75,44 @@ async function overwriteGenerated(tag: string, content: string) {
 
 (async function () {
   // Get each of the supported chains
-  const chains = cfg.getDocChains();
-
-  const supportedChains: string[] = [];
-  const chainPages: Record<string, string> = {};
-
-  for (const chain of chains) {
-    if (chain.mainnet.extraDetails !== undefined) {
-      // Supported chains for intro page
-      // Add chain card to the current row
-      supportedChains.push(chainCard(chain.mainnet, chain.chainType));
-
-      // Chain-specific pages
-      chainPages[chain.mainnet.name] = chainDetailsPage(chain);
-    }
-  }
-
-  const supportedChainsMarkdown = `
-<div class="card-container" markdown>
-${supportedChains.join('\n')}
-</div>
-  `;
+  const chains = await cfg.getDocChains();
 
   // TODO: concurrent? will that wreck anything?
   // find tags _first_ in one pass and come back to fill them in?
   // currently this searches docs every time we call it
   await overwriteGenerated(
     'SUPPORTED_BLOCKCHAIN_CARDS',
-    supportedChainsMarkdown
+    generateSupportedNetworksTable(chains)
   );
-
-
-  // TODO: Auto-generate each of the environment pages under Supported Networks
-  // for (const [chainName, chainPage] of Object.entries(chainPages)) {
-  //   await overwriteGenerated(
-  //     `${chainName.toUpperCase()}_CHAIN_DETAILS`,
-  //     chainPage
-  //   );
-  // }
 
   // Contract addresses
   await overwriteGenerated(
     'CORE_ADDRESS',
-    generateAllContractsTable(chains, 'core')
+    generateAllContractsTable(chains, 'coreBridge')
   );
   await overwriteGenerated(
     'TOKEN_BRIDGE_ADDRESS',
-    generateAllContractsTable(chains, 'token_bridge')
-  );
-  await overwriteGenerated(
-    'NFT_BRIDGE_ADDRESS',
-    generateAllContractsTable(chains, 'nft_bridge')
+    generateAllContractsTable(chains, 'tokenBridge')
   );
   await overwriteGenerated(
     'RELAYER_BRIDGE_ADDRESS',
-    generateAllContractsTable(chains, 'wormholeRelayerAddress')
+    generateAllContractsTable(chains, 'relayer')
   );
   await overwriteGenerated(
     'CCTP_ADDRESS',
     generateAllContractsTable(chains, 'cctp')
   );
-  // await overwriteGenerated(
-  //   "GATEWAY_ADDRESS",
-  //   generateAllContractsTable(chains, "cctp")
-  // );
 
+  // Consistency levels
   await overwriteGenerated(
     'CONSISTENCY_LEVELS',
     generateAllConsistencyLevelsTable(chains)
+  );
+
+  // Testnet faucets
+  await overwriteGenerated(
+    'TESTNET_FAUCETS',
+    generateTestnetFaucetsTable(chains)
   );
 
   await overwriteGenerated('CHAIN_IDS', generateAllChainIdsTable(chains));

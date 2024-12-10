@@ -1,15 +1,23 @@
 {
   "title": "Celestia",
   "homepage": "https://celestia.org",
-  "mainnet":{
-    "name":"Mainnet",
-    "id":"celestia"
+  "mainnet": {
+    "name": "Mainnet",
+    "id": "celestia"
   },
-  "testnet":{
-    "name":"Testnet",
-    "id":"mocha-4"
+  "testnet": {
+    "name": "Testnet",
+    "id": "mocha-4"
   },
-  "developer":[
-    {"url":"https://celestia.org/build/", "description":"Developer docs"}
+  "devDocs": "https://docs.celestia.org/",
+  "faucet": {
+    "url": "https://discord.gg/celestiacommunity",
+    "token": "TIA",
+    "description": "Discord Faucet"
+  },
+  "explorer": [
+    {
+      "url": "https://docs.celestia.org/how-to-guides/mocha-testnet#explorers"
+    }
   ]
 }

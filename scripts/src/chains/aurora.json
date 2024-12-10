@@ -1,13 +1,13 @@
 {
   "title": "Aurora",
   "homepage": "https://aurora.dev/",
-  "mainnet":{
-    "name":"Mainnet",
-    "id":"1313161554"
+  "mainnet": {
+    "name": "Mainnet",
+    "id": "1313161554"
   },
-  "testnet":{
-    "name":"Testnet",
-    "id":"1313161555"
+  "testnet": {
+    "name": "Testnet",
+    "id": "1313161555"
   },
   "explorer": [
     {
@@ -15,15 +15,11 @@
       "description": "Block Explorer"
     }
   ],
-  "developer": [
-      {
-        "url": "https://doc.aurora.dev/",
-        "description": "Developer docs"
-      },
-      {
-        "url":"https://aurora.dev/faucet",
-        "description":"Faucet"
-      }
-  ],  
-  "contractSource": "ethereum/contracts/bridge/Bridge.sol"
+  "contractSource": "ethereum/contracts/bridge/Bridge.sol",
+  "devDocs": "https://doc.aurora.dev/",
+  "faucet": {
+    "url": "https://aurora.dev/faucet",
+    "token": "ETH",
+    "description": "Official Aurora Faucet"
+  }
 }

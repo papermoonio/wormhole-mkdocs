@@ -9,12 +9,6 @@
     "name": "Base Goerli",
     "id": "84531"
   },
-  "developer": [
-    {
-      "url": "https://docs.base.org/",
-      "description": "Developer docs"
-    }
-  ],
   "explorer": [
     {
       "url": "https://goerli.basescan.org/",
@@ -30,5 +24,6 @@
     "instant": 200,
     "safe": 201,
     "otherwise": "finalized"
-  }
+  },
+  "devDocs": "https://docs.base.org/"
 }

@@ -1,13 +1,14 @@
 {
-    "homepage": "https://dymension.xyz/",
-    "title": "Dymension",
-    "mainnet":{
-      "name":"Mainnet",
-      "id":"dymension_1100-1"
-    },
-    "explorer": [
-      {
-        "url": "https://www.mintscan.io/dymension"
-      }
-    ]
-  }
+  "homepage": "https://dymension.xyz/",
+  "title": "Dymension",
+  "mainnet": {
+    "name": "Mainnet",
+    "id": "dymension_1100-1"
+  },
+  "explorer": [
+    {
+      "url": "https://www.mintscan.io/dymension"
+    }
+  ],
+  "devDocs": "https://docs.dymension.xyz/"
+}

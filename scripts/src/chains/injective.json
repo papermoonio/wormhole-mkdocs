@@ -15,22 +15,24 @@
       "description": "Injective Testnet Explorer"
     }
   ],
-  "developer": [
-    {
-      "url": "https://docs.injective.network/",
-      "description": "Developer docs"
-    },
+  "testnet": {
+    "name": "Testnet",
+    "id": "injective-888"
+  },
+  "devDocs": "https://docs.injective.network/",
+  "faucet": {
+    "url": "https://testnet.faucet.injective.network/",
+    "token": "INJ",
+    "description": "Official Injective Faucet"
+  },
+  "additionaLinks": [
     {
       "url": "https://docs.ts.injective.network/",
       "description": "Injective Typescript SDK docs"
     },
-     {
+    {
       "url": "https://docs.trading.injective.network/",
       "description": "Injective trading docs"
     }
-  ],
-  "testnet": {
-    "name": "Testnet",
-    "id": "injective-888"
-  }
+  ]
 }

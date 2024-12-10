@@ -1,18 +1,23 @@
 {
   "title": "Sei",
   "homepage": "https://www.sei.io/",
-  "mainnet":{
-    "name":"Mainnet",
-    "id":"pacific-1"
+  "devDocs": "https://www.docs.sei.io/",
+  "mainnet": {
+    "name": "Mainnet",
+    "id": "pacific-1"
   },
-  "testnet":{
-    "name":"Testnet",
-    "id":"atlantic-2"
+  "testnet": {
+    "name": "Testnet",
+    "id": "atlantic-2"
   },
-  "developer": [
+  "faucet": {
+    "url": "https://atlantic-2.app.sei.io/faucet",
+    "token": "SEI",
+    "description": "Sei Atlantic-2 Faucet"
+  },
+  "explorer": [
     {
-      "url": "https://atlantic-2.app.sei.io/faucet",
-      "description": "Faucet"
+      "url": "https://www.docs.sei.io/dev-ecosystem-providers/explorers#sei-explorers"
     }
   ]
 }

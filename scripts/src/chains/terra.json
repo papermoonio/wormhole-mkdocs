@@ -1,12 +1,23 @@
 {
-    "title":"Terra",
-    "mainnet":{
-        "name":"Mainnet",
-        "id":"columbus-5"
-    },
-    "testnet":{
-        "name":"Testnet",
-        "id":"bombay-12"
+  "title": "Terra",
+  "homepage": "https://www.terra.money/",
+  "devDocs": "https://classic-docs.terra.money/docs/full-node/run-a-full-terra-node/join-a-network.html",
+  "faucet": {
+    "url": "https://faucet.terra.money/",
+    "token": "LUNA",
+    "description": "Terra Official Faucet"
+  },
+  "mainnet": {
+    "name": "Mainnet",
+    "id": "columbus-5"
+  },
+  "testnet": {
+    "name": "Testnet",
+    "id": "bombay-12"
+  },
+  "explorer": [
+    {
+      "url": "https://classic-docs.terra.money/docs/ecosystem/explore.html?highlight=explorer#block-explorers"
     }
-
+  ]
 }

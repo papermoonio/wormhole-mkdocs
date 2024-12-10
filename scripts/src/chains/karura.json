@@ -15,5 +15,11 @@
     "instant": 200,
     "safe": 201,
     "otherwise": "finalized"
+  },
+  "devDocs": "https://evmdocs.acala.network/",
+  "faucet": {
+    "url": "https://discord.gg/5JJgXKSznc",
+    "token": "ACA",
+    "description": "Discord Faucet"
   }
 }

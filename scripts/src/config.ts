@@ -1,34 +1,27 @@
-import * as wh from '@certusone/wormhole-sdk';
-import { nativeChainIds, toChain } from '@wormhole-foundation/sdk';
-import { group } from 'console';
+import {
+  wormhole,
+  nativeChainIds,
+  chain,
+  chainToPlatform,
+  Platform,
+  getContracts,
+  chainToChainId,
+  Contracts,
+  Chain,
+} from '@wormhole-foundation/sdk';
 import fs from 'fs';
 
 // Many chains have the same underlying runtime
 export type ChainType =
   | 'EVM'
-  | 'Solana'
-  | 'Cosmos'
-  | 'Sui'
-  | 'Aptos'
-  | 'Algorand'
+  | 'SVM'
+  | 'CosmWasm'
+  | 'Sui Move VM'
+  | 'Move VM'
+  | 'AVM'
+  | 'NEAR VM'
+  | 'BTC'
   | '';
-
-// Get the blockchain environment that the chain belongs to (i.e., EVM)
-export function getChainType(cid: wh.ChainId): ChainType {
-  if (wh.isEVMChain(cid)) return 'EVM';
-  if (wh.isCosmWasmChain(cid) || wh.isTerraChain(cid)) return 'Cosmos';
-  //if(wh.isSolanaChain(cid) in wh.SolanaChainName)
-
-  const name = wh.coalesceChainName(cid);
-
-  if (name === 'osmosis') return 'Cosmos';
-  if (name === 'solana' || name === 'pythnet') return 'Solana';
-  if (name === 'algorand') return 'Algorand';
-  if (name === 'aptos') return 'Aptos';
-  if (name === 'sui') return 'Sui';
-
-  return '';
-}
 
 export type DocChain = {
   chainType: ChainType; // Chain type
@@ -42,19 +35,6 @@ export type ChainDetails = {
   id: number; // Chain ID
   contracts: Contracts; // Contracts
   extraDetails?: ExtraDetails;
-};
-
-export type Contracts = {
-  // core
-  core?: string;
-  token_bridge?: string;
-  nft_bridge?: string;
-  // relayer
-  wormholeRelayerAddress?: string;
-  mockDeliveryProviderAddress?: string;
-  mockIntegrationAddress?: string;
-  // CCTP
-  cctp?: string;
 };
 
 export interface Finality {
@@ -77,6 +57,27 @@ export interface NetworkDescription {
   id: string;
 }
 
+export interface Faucet {
+  url?: string;
+  description?: string;
+  token?: string;
+}
+
+export interface ExtraDetails {
+  [x: string]: any;
+  notes?: string[];
+  finality?: Finality;
+  title?: string; // title case name of the chain
+  homepage?: string; // Url to the homepage of the chain
+  explorer?: SiteDescription[]; // urls to explorer sites
+  devDocs?: string;
+  faucet?: Faucet;
+  contractSource?: string; // url to core contract
+  examples?: SiteDescription[];
+  testnet?: NetworkDescription;
+  mainnet?: NetworkDescription;
+}
+
 export function networkString(net?: NetworkDescription): string {
   if (!net) return '';
 
@@ -88,30 +89,31 @@ export function networkString(net?: NetworkDescription): string {
   return `${alias}<code>${id}</code>`;
 }
 
-export interface ExtraDetails {
-  notes?: string[];
-  finality?: Finality;
-  title?: string; // title case name of the chain
-  homepage?: string; // Url to the homepage of the chain
-  explorer?: SiteDescription[]; // urls to explorer sites
-  developer?: SiteDescription[]; // set of sites to help devs
-  contractSource?: string; // url to core contract
-  examples?: SiteDescription[];
-  testnet?: NetworkDescription;
-  mainnet?: NetworkDescription;
+const chainTypeMapping: Record<Platform, ChainType> = {
+  Solana: 'SVM',
+  Evm: 'EVM',
+  Cosmwasm: 'CosmWasm',
+  Algorand: 'AVM',
+  Near: 'NEAR VM',
+  Sui: 'Sui Move VM',
+  Aptos: 'Move VM',
+  Btc: 'BTC',
+};
+
+function getChainType(platformName: Platform): ChainType {
+  return chainTypeMapping[platformName] ?? '';
 }
 
-function getChainDetails(name: string): ExtraDetails {
+function getChainDetails(chainName: string): ExtraDetails {
   try {
-    const details = fs.readFileSync(`./src/chains/${name}.json`);
+    const details = fs.readFileSync(`./src/chains/${chainName}.json`);
     return JSON.parse(details.toString()) as ExtraDetails;
   } catch (e) {
-    console.error('No detail file for ', name);
+    console.error('No detail file for ', chainName);
 
-    const chain = toChain(wh.coalesceChainId(name as wh.ChainName));
     const testnetId = nativeChainIds.networkChainToNativeChainId.get(
       'Testnet',
-      chain
+      chainName
     );
     const testnet = testnetId
       ? {
@@ -122,7 +124,7 @@ function getChainDetails(name: string): ExtraDetails {
 
     const mainnetId = nativeChainIds.networkChainToNativeChainId.get(
       'Mainnet',
-      chain
+      chainName
     );
     const mainnet = mainnetId
       ? {
@@ -132,233 +134,122 @@ function getChainDetails(name: string): ExtraDetails {
       : undefined;
 
     const deets: ExtraDetails = {
-      title: chain,
+      title: chainName,
       testnet,
       mainnet,
     };
-    fs.writeFileSync(`./src/chains/${name}.json`, JSON.stringify(deets));
+    fs.writeFileSync(`./src/chains/${chainName}.json`, JSON.stringify(deets));
   }
   return {} as ExtraDetails;
 }
 
-export function getDocChains(): DocChain[] {
-  // Uses the Wormhole SDK to get the list of contract addresses for
-  // the core contract, token bridge, and nft bridge
-  const mainnetContracts: wh.ChainContracts = wh.CONTRACTS.MAINNET;
-  const testnetContracts: wh.ChainContracts = wh.CONTRACTS.TESTNET;
-  const devnetContracts: wh.ChainContracts = wh.CONTRACTS.DEVNET;
-
-  // Uses the Wormhole SDK to get the list of relayer contract addresses
-  const mainnetRelayers = wh.relayer.RELAYER_CONTRACTS.MAINNET;
-  const testnetRelayers = wh.relayer.RELAYER_CONTRACTS.TESTNET;
-  const devnetRelayers = wh.relayer.RELAYER_CONTRACTS.DEVNET;
-
-  // Manually define the list of CCTP contract addresses
-  const mainnetCCTP = {
-    arbitrum: { cctp: '0x2703483B1a5a7c577e8680de9Df8Be03c6f30e3c' },
-    avalanche: { cctp: '0x09Fb06A271faFf70A651047395AaEb6265265F13' },
-    ethereum: { cctp: '0xAaDA05BD399372f0b0463744C09113c137636f6a' },
-    optimism: { cctp: '0x2703483B1a5a7c577e8680de9Df8Be03c6f30e3c' },
-    base: { cctp: '0x03faBB06Fa052557143dC28eFCFc63FC12843f1D' },
-    polygon: { cctp: '0x0FF28217dCc90372345954563486528aa865cDd6' },
-  };
-
-  const testnetCCTP = {
-    avalanche: { cctp: '0x58f4c17449c90665891c42e14d34aae7a26a472e' },
-    arbitrum_sepolia: { cctp: '0x2703483B1a5a7c577e8680de9Df8Be03c6f30e3c' },
-    sepolia: { cctp: '0x2703483B1a5a7c577e8680de9Df8Be03c6f30e3c' },
-    optimism_sepolia: { cctp: '0x2703483B1a5a7c577e8680de9Df8Be03c6f30e3c' },
-    base_sepolia: { cctp: '0x2703483B1a5a7c577e8680de9Df8Be03c6f30e3c' },
-    polygon: { cctp: '0x2703483B1a5a7c577e8680de9Df8Be03c6f30e3c' },
-  };
+export async function getDocChains(): Promise<DocChain[]> {
+  // We need to get a list of all of the chains.
+  const chainsList = chain.chains;
 
   // Chains we don't want to appear on the docs
-  const skipChains = {
-    wormchain: true,
-    btc: true,
-    aurora: true,
-    goerli: true,
-  };
+  const skipChains = ['Wormchain', 'Btc', 'Aurora'];
 
-  // Do an initial loop over the chains to get a list of the chains that
-  // map the testnets to the mainnets (i.e., combine arbitrum_sepolia and arbitrum)
-  const groupedChains: any = {};
-  const chainMap = new Map(Object.entries(wh.CHAINS));
+  // Filter Holesky and Sepolia chains
+  const filteredTestnetChains = chainsList.filter((chain) => {
+    return chain.includes('Sepolia') || chain.includes('Holesky');
+  });
 
-  // Iterate over the entries to find ones with underscores and perform the grouping
-  for (const [cn, cid] of chainMap) {
-    if (cid === 0) continue;
+  const chains: DocChain[] = [];
+  for (const c of chainsList) {
+    // Skip iteration if chain is in skipChains
+    if (skipChains.includes(c)) continue;
+    // Skip filtered testnet chains for now
+    if (filteredTestnetChains.includes(c)) continue;
 
-    // Use the Wormhole chain ID to get the chain name
-    const name = wh.toChainName(cid);
+    // Get ChainType
+    const platform = chainToPlatform(c);
+    const chainType = getChainType(platform);
 
-    if (name in skipChains) continue;
+    // Get Contracts
+    const mainnetContracts = getContracts('Mainnet', c);
+    const testnetContracts = getContracts('Testnet', c);
+    const devnetContracts = getContracts('Devnet', c);
 
-    // Need to group the chain with a base chain
-    // Split the name by '_'
-    const [baseChain] = name.split('_');
+    // Get mainnet configs
+    const mainnet = {
+      name: c,
+      id: chainToChainId(c),
+      contracts: {
+        ...mainnetContracts,
+      },
+      extraDetails: getChainDetails(c),
+    };
 
-    // Get the testnet chain name
-    const chainDetails =  getChainDetails(baseChain).testnet?.name.toLowerCase();
-
-    if (name.includes('_')) {
-      // Need to group the chain with a base chain
-      // Split the name by '_'
-      const [baseChain] = name.split('_');
-
-      // Initialize the base chain in groupedChains if it doesn't exist
-      if (!groupedChains[baseChain]) {
-        groupedChains[baseChain] = {
-          chainType: getChainType(cid),
-          mainnet: {
-            name: baseChain,
-            id: chainMap.get(baseChain),
-            contracts: {
-              ...mainnetContracts[baseChain as wh.ChainName],
-              ...mainnetRelayers[baseChain as wh.ChainName],
-              // @ts-ignore
-              ...mainnetCCTP[baseChain],
-            },
-            extraDetails: getChainDetails(baseChain),
-          },
-          testnets: [], // List to hold all testnet chains
-          devnets: [], // List to hold all devnet chains
-        };
-      }
-
-      // Add the associated testnet chains to the corresponding base chain entry
-      groupedChains[baseChain].testnets.push({
-        name: name,
-        id: chainMap.get(name),
-        extraDetails: getChainDetails(name),
-        contracts: {
-          ...testnetContracts[name],
-          ...testnetRelayers[name],
-          // @ts-ignore
-          ...testnetCCTP[name],
-        },
-      });    
-
-      // Add the associated devnet chains to the corresponding base chain entry
-      // if they exist
-      if (devnetContracts[name] || devnetRelayers[name]) {
-        groupedChains[baseChain].devnets.push({
-          name: name,
-          id: chainMap.get(name),
-          contracts: {
-            ...devnetContracts[name],
-            ...devnetRelayers[name],
-          },
-          extraDetails: getChainDetails(name),
-        });
-      }
-    } else if (name === 'sepolia' || name === 'holesky') {
-      // Create grouping for Ethereum chains
-
-      // Initialize the base chain in groupedChains if it doesn't exist
-      const baseChain = 'ethereum';
-      if (!groupedChains[baseChain]) {
-        groupedChains[baseChain] = {
-          chainType: getChainType(cid),
-          mainnet: {
-            name: baseChain,
-            id: chainMap.get(baseChain),
-            contracts: {
-              ...mainnetContracts[baseChain],
-              ...mainnetRelayers[baseChain],
-              // @ts-ignore
-              ...mainnetCCTP[baseChain],
-            },
-            extraDetails: getChainDetails(baseChain),
-          },
-          testnets: [], // List to hold all testnet chains
-          devnets: [], // List to hold all devnet chains
-        };
-      }
-
-      // Add the associated chain to the corresponding base chain entry
-      groupedChains[baseChain].testnets.push({
-        name: name,
-        id: chainMap.get(name),
-        contracts: {
-          ...testnetContracts[name],
-          ...testnetRelayers[name],
-          // @ts-ignore
-          ...testnetCCTP[name],
-        },
-        extraDetails: getChainDetails(name),
+    // Get testnet configs
+    let testnetWh = await wormhole('Testnet', []);
+    const testnetConfigs = testnetWh.config.chains[c];
+    const testnets: ChainDetails[] = [];
+    if (testnetConfigs) {
+      testnets.push({
+        name: c,
+        id: testnetConfigs.chainId,
+        contracts: testnetContracts,
+        extraDetails: getChainDetails(c),
       });
+    }
 
-      // Add the associated devnet chains to the corresponding base chain entry
-      // if they exist
-      if (devnetContracts[name] || devnetRelayers[name]) {
-        groupedChains[baseChain].devnets.push({
-          name: name,
-          id: chainMap.get(name),
-          contracts: {
-            ...devnetContracts[name],
-            ...devnetRelayers[name],
-          },
-          extraDetails: getChainDetails(name),
-        });
-      }
+    // Get devnet configs
+    const devnetWh = await wormhole('Devnet', []);
+    const devnetConfigs = devnetWh.config.chains[c];
+    const devnets: ChainDetails[] = [];
+    if (devnetConfigs) {
+      devnets.push({
+        name: c,
+        id: devnetConfigs?.chainId,
+        contracts: devnetContracts,
+        extraDetails: getChainDetails(c),
+      });
+    }
+
+    chains.push({
+      chainType,
+      mainnet,
+      testnets,
+      devnets,
+    });
+  }
+
+  // Iterate over the filtered testnet chains and override the existing chains
+  // to add them to the mainnet chains
+  for (const c of filteredTestnetChains) {
+    // Find the mainnet the testnet belongs to
+    let mainnetChain: Chain | string = '';
+
+    if (c === 'Holesky') {
+      mainnetChain = 'Ethereum';
     } else {
-      // No grouping necessary
-      groupedChains[name] = {
-        chainType: getChainType(cid),
-        mainnet: {
-          name: name,
-          id: cid,
-          contracts: {
-            ...mainnetContracts[name],
-            ...mainnetRelayers[name],
-            // @ts-ignore
-            ...mainnetCCTP[name],
-          },
-          extraDetails: getChainDetails(name),
-        },
-        testnets: [],
-        devnets: [],
-      };
+      mainnetChain =
+        c.replace('Sepolia', '') === '' ? 'Ethereum' : c.replace('Sepolia', '');
+    }
 
-      if (!chainDetails?.includes('goerli')){
-        if (
-          testnetContracts[name] ||
-          testnetRelayers[name] ||
-          // @ts-ignore
-          testnetCCTP[name]
-        ) {
-          groupedChains[name].testnets.push({
-            name: name,
-            id: chainMap.get(name),
-            contracts: {
-              ...testnetContracts[name],
-              ...testnetRelayers[name],
-              // @ts-ignore
-              ...testnetCCTP[name],
-            },
-            extraDetails: getChainDetails(name),
-          });
-      }
+    const mainnetChainId = chainToChainId(mainnetChain as Chain);
 
-        // Add the associated devnet chains to the corresponding base chain entry
-        // if they exist
-        if (devnetContracts[name] || devnetRelayers[name]) {
-          groupedChains[name].devnets.push({
-            name: name,
-            id: chainMap.get(name),
-            contracts: {
-              ...devnetContracts[name],
-              ...devnetRelayers[name],
-            },
-            extraDetails: getChainDetails(name),
-          });
+    for (const dc of chains) {
+      if (dc.mainnet.name === mainnetChain) {
+        // TODO: implement a more sound way of handling this
+        // If there is an existing testnet entry, and it has the same chain ID as mainnet,
+        // we should remove it. This is a workaround to remove all of the old Goerli chain info.
+        for (const t of dc.testnets) {
+          if (t.id === mainnetChainId) {
+            dc.testnets = dc.testnets.filter(testnet => testnet.id !== mainnetChainId);
+          }
         }
+        // Modify the chain configs to include the testnet information
+        dc.testnets.push({
+          name: c,
+          id: chainToChainId(c),
+          contracts: getContracts('Testnet', c),
+          extraDetails: getChainDetails(c),
+        });
       }
     }
   }
-
-  const chains: DocChain[] = Object.values(groupedChains);
 
   return chains.sort((a, b) => {
     return a.mainnet.name.localeCompare(b.mainnet.name);
