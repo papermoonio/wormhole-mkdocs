@@ -268,7 +268,7 @@ export function generateSupportedNetworksTable(dc: cfg.DocChain[]): string {
   
       const explorer = c.mainnet.extraDetails?.explorer
         ? ':octicons-package-16: ' +
-          `<a href="${c.mainnet.extraDetails.explorer[0].url}">Block Explorer</a>`
+          `<a href="${c.mainnet.extraDetails.explorer[0].url}" target="_blank">Block Explorer</a>`
         : undefined;
   
       tableBody.push(
