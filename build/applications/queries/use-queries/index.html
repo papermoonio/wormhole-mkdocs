@@ -1,0 +1,4153 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+  
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Explore a simple demo of interacting with Wormhole Queries using an eth_call request to query the supply of wETH on Ethereum using a Wormhole query.">
+      
+      
+      
+        <link rel="canonical" href="https://wormhole.com/docs/build/applications/queries/use-queries/">
+      
+      
+        <link rel="prev" href="../overview/">
+      
+      
+        <link rel="next" href="../faqs/">
+      
+      
+      <link rel="icon" href="../../../../assets/images/favicon.webp">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.24">
+    
+  
+
+    <title>Use Queries | Wormhole Docs</title>
+    
+	
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.6543a935.min.css">
+      
+      
+  
+  
+    
+    
+  
+    
+    
+  
+  
+  <style>:root{--md-admonition-icon--note:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M11.013 1.427a1.75 1.75 0 0 1 2.474 0l1.086 1.086a1.75 1.75 0 0 1 0 2.474l-8.61 8.61c-.21.21-.47.364-.756.445l-3.251.93a.75.75 0 0 1-.927-.928l.929-3.25c.081-.286.235-.547.445-.758l8.61-8.61Zm.176 4.823L9.75 4.81l-6.286 6.287a.253.253 0 0 0-.064.108l-.558 1.953 1.953-.558a.253.253 0 0 0 .108-.064Zm1.238-3.763a.25.25 0 0 0-.354 0L10.811 3.75l1.439 1.44 1.263-1.263a.25.25 0 0 0 0-.354Z"/></svg>');--md-admonition-icon--warning:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"/></svg>');}</style>
+
+
+
+    
+  <link rel="stylesheet" href="../../../../assets/stylesheets/wormhole.css">
+
+    
+  
+      
+    
+
+  <link rel="preload" href="https://cdn.jsdelivr.net/npm/@cookbookdev/docsbot/dist/standalone/index.cjs.js" as="script">
+  <script>
+    function initAskCookbook() {
+      // It's a public API key, so it's safe to expose it here
+      const PUBLIC_API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NmQ3MzdmOTE4MjcyOTljZGJlNTQ5ZDEiLCJpYXQiOjE3MjUzODA2MDEsImV4cCI6MjA0MDk1NjYwMX0.Qp6dEbLWFzju37NsD3VD3kNFGsHo8qJohXUSl5-lSiQ";
+
+      let cookbookContainer = document.getElementById("__cookbook");
+      if (!cookbookContainer) {
+        cookbookContainer = document.createElement("div");
+        cookbookContainer.id = "__cookbook";
+        cookbookContainer.dataset.apiKey = PUBLIC_API_KEY;
+        document.body.appendChild(cookbookContainer);
+      }
+
+      let cookbookScript = document.getElementById("__cookbook-script");
+      if (!cookbookScript) {
+        cookbookScript = document.createElement("script");
+        cookbookScript.id = "__cookbook-script";
+        cookbookScript.src = "https://cdn.jsdelivr.net/npm/@cookbookdev/docsbot/dist/standalone/index.cjs.js";
+        cookbookScript.async = true;
+        document.head.appendChild(cookbookScript);
+      }
+    }
+
+    // Check if the document is already loaded and if so, initialize the script, otherwise wait for the load event
+    if (document.readyState === "complete") {
+      initAskCookbook();
+    } else {
+      window.addEventListener("load", initAskCookbook);
+    }
+  </script>
+
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/terminal.css">
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function n(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],n("js",new Date),n("config","G-SGJJFZS9BB"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){this.value&&n("event","search",{search_term:this.value})}),document$.subscribe(function(){var a=document.forms.feedback;if(void 0!==a)for(var e of a.querySelectorAll("[type=submit]"))e.addEventListener("click",function(e){e.preventDefault();var t=document.location.pathname,e=this.getAttribute("data-md-value");n("event","feedback",{page:t,data:e}),a.firstElementChild.disabled=!0;e=a.querySelector(".md-feedback__note [data-md-value='"+e+"']");e&&(e.hidden=!1)}),a.hidden=!1}),location$.subscribe(function(e){n("config","G-SGJJFZS9BB",{page_path:e.pathname})})});var e=document.createElement("script");e.async=!0,e.src="https://www.googletagmanager.com/gtag/js?id=G-SGJJFZS9BB",document.getElementById("__analytics").insertAdjacentElement("afterEnd",e)}</script>
+  
+    <script>var consent;"undefined"==typeof __md_analytics||(consent=__md_get("__consent"))&&consent.analytics&&__md_analytics()</script>
+  
+
+    
+    
+    
+   <link href="../../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../../../assets/javascripts/glightbox.min.js"></script></head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#use-queries" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+  
+    
+  
+  <header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+    <nav class="md-header__inner md-grid" aria-label="Header">
+      <label class="md-header__button md-icon" for="__drawer">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+      </label>
+      <div class="md-header__title" data-md-component="header-title">
+        <div class="md-header__ellipsis">
+          <a href="../../../.." title="Wormhole Docs" class="md-header__button md-logo" aria-label="Wormhole Docs" data-md-component="logo">
+            
+  <img src="../../../../assets/images/wormhole.webp" alt="logo">
+
+          </a>
+        </div>
+      </div>
+      <div class="md-header__buttons">
+        
+          
+            <nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+    <div class="md-grid">
+      <ul class="md-tabs__list">
+        
+          
+        
+          
+            <li class="md-tabs__item--custom" tabindex="0">    
+              <span class="md-tabs__link">
+                <a href="../../../">
+                    Build <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7.41 8.58 12 13.17l4.59-4.59L18 10l-6 6-6-6 1.41-1.42Z"/></svg>
+                </a>
+              </span>
+              <ul class="md-tab__list">
+                
+                  
+                
+                  
+                    <li class="md-tab__item">
+                      <a href="../../../start-building/">
+                        <div class="icon-col">
+                          
+                          <img class="dropdown-icon" src="/docs/assets/images/dropdown-icons/start-building.svg" alt="Start Building" loading="lazy">
+                        </div>
+                        <div class="text-col">
+                          <span class="dropdown-title">Start Building</span>
+                        </div>
+                      </a>
+                    </li>
+                  
+                
+                  
+                    <li class="md-tab__item">
+                      <a href="../../">
+                        <div class="icon-col">
+                          
+                          <img class="dropdown-icon" src="/docs/assets/images/dropdown-icons/applications.svg" alt="Build Frontend Applications" loading="lazy">
+                        </div>
+                        <div class="text-col">
+                          <span class="dropdown-title">Build Frontend Applications</span>
+                        </div>
+                      </a>
+                    </li>
+                  
+                
+                  
+                    <li class="md-tab__item">
+                      <a href="../../../contract-integrations/">
+                        <div class="icon-col">
+                          
+                          <img class="dropdown-icon" src="/docs/assets/images/dropdown-icons/contract-integrations.svg" alt="Build Contract Integrations" loading="lazy">
+                        </div>
+                        <div class="text-col">
+                          <span class="dropdown-title">Build Contract Integrations</span>
+                        </div>
+                      </a>
+                    </li>
+                  
+                
+                  
+                    <li class="md-tab__item">
+                      <a href="../../../toolkit/">
+                        <div class="icon-col">
+                          
+                          <img class="dropdown-icon" src="/docs/assets/images/dropdown-icons/toolkit.svg" alt="Toolkit" loading="lazy">
+                        </div>
+                        <div class="text-col">
+                          <span class="dropdown-title">Toolkit</span>
+                        </div>
+                      </a>
+                    </li>
+                  
+                
+                  
+                    <li class="md-tab__item">
+                      <a href="../../../reference/">
+                        <div class="icon-col">
+                          
+                          <img class="dropdown-icon" src="/docs/assets/images/dropdown-icons/reference.svg" alt="Reference" loading="lazy">
+                        </div>
+                        <div class="text-col">
+                          <span class="dropdown-title">Reference</span>
+                        </div>
+                      </a>
+                    </li>
+                  
+                
+              </ul>
+            </li>
+          
+        
+          
+            <li class="md-tabs__item--custom" tabindex="0">    
+              <span class="md-tabs__link">
+                <a href="../../../../infrastructure/">
+                    Infrastructure <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7.41 8.58 12 13.17l4.59-4.59L18 10l-6 6-6-6 1.41-1.42Z"/></svg>
+                </a>
+              </span>
+              <ul class="md-tab__list">
+                
+                  
+                
+                  
+                    <li class="md-tab__item">
+                      <a href="../../../../infrastructure/relayers/">
+                        <div class="icon-col">
+                          
+                          <img class="dropdown-icon" src="/docs/assets/images/dropdown-icons/relayers.svg" alt="Relayers" loading="lazy">
+                        </div>
+                        <div class="text-col">
+                          <span class="dropdown-title">Relayers</span>
+                        </div>
+                      </a>
+                    </li>
+                  
+                
+                  
+                    <li class="md-tab__item">
+                      <a href="../../../../infrastructure/spy/">
+                        <div class="icon-col">
+                          
+                          <img class="dropdown-icon" src="/docs/assets/images/dropdown-icons/spy.svg" alt="Spy" loading="lazy">
+                        </div>
+                        <div class="text-col">
+                          <span class="dropdown-title">Spy</span>
+                        </div>
+                      </a>
+                    </li>
+                  
+                
+              </ul>
+            </li>
+          
+        
+          
+            <li class="md-tabs__item--custom" tabindex="0">    
+              <span class="md-tabs__link">
+                <a href="../../../../tutorials/">
+                    Tutorials <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7.41 8.58 12 13.17l4.59-4.59L18 10l-6 6-6-6 1.41-1.42Z"/></svg>
+                </a>
+              </span>
+              <ul class="md-tab__list">
+                
+                  
+                
+                  
+                    <li class="md-tab__item">
+                      <a href="../../../../tutorials/messaging/">
+                        <div class="icon-col">
+                          
+                          <img class="dropdown-icon" src="/docs/assets/images/dropdown-icons/messaging.svg" alt="Messaging" loading="lazy">
+                        </div>
+                        <div class="text-col">
+                          <span class="dropdown-title">Messaging</span>
+                        </div>
+                      </a>
+                    </li>
+                  
+                
+                  
+                    <li class="md-tab__item">
+                      <a href="../../../../tutorials/multigov/">
+                        <div class="icon-col">
+                          
+                          <img class="dropdown-icon" src="/docs/assets/images/dropdown-icons/multigov.svg" alt="MultiGov" loading="lazy">
+                        </div>
+                        <div class="text-col">
+                          <span class="dropdown-title">MultiGov</span>
+                        </div>
+                      </a>
+                    </li>
+                  
+                
+              </ul>
+            </li>
+          
+        
+          
+            <li class="md-tabs__item--custom" tabindex="0">    
+              <span class="md-tabs__link">
+                <a href="../../../../learn/">
+                    Learn <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7.41 8.58 12 13.17l4.59-4.59L18 10l-6 6-6-6 1.41-1.42Z"/></svg>
+                </a>
+              </span>
+              <ul class="md-tab__list">
+                
+                  
+                
+                  
+                    <li class="md-tab__item">
+                      <a href="../../../../learn/fundamentals/">
+                        <div class="icon-col">
+                          
+                          <img class="dropdown-icon" src="/docs/assets/images/dropdown-icons/fundamentals.svg" alt="Fundamentals" loading="lazy">
+                        </div>
+                        <div class="text-col">
+                          <span class="dropdown-title">Fundamentals</span>
+                        </div>
+                      </a>
+                    </li>
+                  
+                
+                  
+                    <li class="md-tab__item">
+                      <a href="../../../../learn/infrastructure/">
+                        <div class="icon-col">
+                          
+                          <img class="dropdown-icon" src="/docs/assets/images/dropdown-icons/infrastructure.svg" alt="Infrastructure Components" loading="lazy">
+                        </div>
+                        <div class="text-col">
+                          <span class="dropdown-title">Infrastructure Components</span>
+                        </div>
+                      </a>
+                    </li>
+                  
+                
+                  
+                    <li class="md-tab__item">
+                      <a href="../../../../learn/messaging/">
+                        <div class="icon-col">
+                          
+                          <img class="dropdown-icon" src="/docs/assets/images/dropdown-icons/messaging.svg" alt="Messaging" loading="lazy">
+                        </div>
+                        <div class="text-col">
+                          <span class="dropdown-title">Messaging</span>
+                        </div>
+                      </a>
+                    </li>
+                  
+                
+                  
+                    <li class="md-tab__item">
+                      <a href="../../../../learn/governance/">
+                        <div class="icon-col">
+                          
+                          <img class="dropdown-icon" src="/docs/assets/images/dropdown-icons/governance.svg" alt="Multichain Governance" loading="lazy">
+                        </div>
+                        <div class="text-col">
+                          <span class="dropdown-title">Multichain Governance</span>
+                        </div>
+                      </a>
+                    </li>
+                  
+                
+              </ul>
+            </li>
+          
+        
+      </ul>
+    </div>
+  </nav>
+            
+              <label class="search" for="__search">
+                <span>
+                  
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+                  Search
+                </span>
+              </label>
+              <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input
+        type="text"
+        class="md-search__input"
+        name="query"
+        aria-label="Search"
+        autocapitalize="off"
+        autocorrect="off"
+        autocomplete="off"
+        spellcheck="false"
+        data-md-component="search-query"
+        required
+      />
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button
+          type="reset"
+          class="md-search__icon md-icon"
+          title="Clear"
+          aria-label="Clear"
+          tabindex="-1"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+            
+          
+        
+        
+        
+
+        
+      </div>
+    </nav>
+  </header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="Wormhole Docs" class="md-nav__button md-logo" aria-label="Wormhole Docs" data-md-component="logo">
+      
+  <img src="../../../../assets/images/wormhole.webp" alt="logo">
+
+    </a>
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+  
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../.." class="md-nav__link">
+          Home
+        </a>
+      </li>
+    
+  
+    
+      
+      
+      
+  
+    
+    
+      
+    
+    
+      
+      <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+        
+          
+            
+            
+              
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+        
+        
+          
+          
+          <div class="md-nav__link md-nav__link--index ">
+            <a href="../../../">Build</a>
+            
+              <label for="__nav_2">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Build
+          </label>
+          <div class="nav-wrapper">
+            
+              
+                <ul class="md-nav__list build-" data-md-scrollfix>
+              
+            
+            
+              
+            
+              
+                
+    
+    
+    
+      
+        
+      
+      <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+        
+          
+            
+            
+              
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+        
+        
+          
+          
+          <div class="md-nav__link md-nav__link--index ">
+            <a href="../../../start-building/">Start Building</a>
+            
+              <label for="__nav_2_2">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Start Building
+          </label>
+          <div class="nav-wrapper">
+            
+              
+                <ul class="md-nav__list build-start-building-" data-md-scrollfix>
+              
+            
+            
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../start-building/supported-networks/" class="md-nav__link">
+          Supported Networks
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../start-building/testnet-faucets/" class="md-nav__link">
+          Testnet Faucets
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../start-building/demos/" class="md-nav__link">
+          Demos
+        </a>
+      </li>
+    
+  
+              
+            
+            </ul>
+          </div>
+        </nav>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+      
+    
+    
+      
+        
+      
+      <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" checked>
+        
+        
+          
+            
+            
+              
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+        
+        
+          
+          
+          <div class="md-nav__link md-nav__link--index ">
+            <a href="../../">Build Frontend Applications</a>
+            
+              <label for="__nav_2_3">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Build Frontend Applications
+          </label>
+          <div class="nav-wrapper">
+            
+              
+                <ul class="md-nav__list build-applications-" data-md-scrollfix>
+              
+            
+            
+              
+            
+              
+                
+    
+    
+    
+      
+      <li class="md-nav__item md-nav__item--nested">
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_2" >
+        
+        
+          
+            
+            
+              
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+        
+        
+          
+          
+          <div class="md-nav__link md-nav__link--index ">
+            <a href="../../wormhole-sdk/">Wormhole SDK</a>
+            
+              <label for="__nav_2_3_2">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            Wormhole SDK
+          </label>
+          <div class="nav-wrapper">
+            
+              
+                <ul class="md-nav__list build-applications-wormhole-sdk-" data-md-scrollfix>
+              
+            
+            
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../wormhole-sdk/wormhole-sdk/" class="md-nav__link">
+          TypeScript SDK
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../wormhole-sdk/sdk-layout/" class="md-nav__link">
+          Data Layouts
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../wormhole-sdk/protocols-payloads/" class="md-nav__link">
+          Building Protocols and Payloads
+        </a>
+      </li>
+    
+  
+              
+            
+            </ul>
+          </div>
+        </nav>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+      
+    
+    
+      
+      <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_3" checked>
+        
+        
+          
+            
+            
+              
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+        
+        
+          
+          
+          <div class="md-nav__link md-nav__link--index ">
+            <a href="../">Queries</a>
+            
+              <label for="__nav_2_3_3">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            Queries
+          </label>
+          <div class="nav-wrapper">
+            
+              
+                <ul class="md-nav__list build-applications-queries-" data-md-scrollfix>
+              
+            
+            
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../overview/" class="md-nav__link">
+          Overview
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+      
+    
+    
+      <li class="md-nav__item md-nav__item--active">
+        
+        <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+        
+        
+          
+        
+        
+          <label class="md-nav__link md-nav__link--active" for="__toc">
+            Use Queries
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <div class="md-nav__link-wrapper md-nav__item md-nav__item--active">
+          <a href="./" class="md-nav__link md-nav__link--active">
+            Use Queries
+          </a>
+        </div>
+        
+          
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="Sections">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Sections
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#rpc-basics" class="md-nav__link">
+    <span class="md-ellipsis">
+      RPC Basics
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#construct-a-query" class="md-nav__link">
+    <span class="md-ellipsis">
+      Construct a Query
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mock-a-query" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mock a Query
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Mock a Query">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fork-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fork Testing
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#make-a-query-request" class="md-nav__link">
+    <span class="md-ellipsis">
+      Make a Query Request
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#verify-a-query-response-on-chain" class="md-nav__link">
+    <span class="md-ellipsis">
+      Verify a Query Response On-Chain
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#submit-a-query-response-on-chain" class="md-nav__link">
+    <span class="md-ellipsis">
+      Submit a Query Response On-Chain
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+        
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../faqs/" class="md-nav__link">
+          FAQs
+        </a>
+      </li>
+    
+  
+              
+            
+            </ul>
+          </div>
+        </nav>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      
+      <li class="md-nav__item md-nav__item--nested">
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_4" >
+        
+        
+          
+            
+            
+              
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+        
+        
+          
+          
+          <div class="md-nav__link md-nav__link--index ">
+            <a href="../../connect/">Connect</a>
+            
+              <label for="__nav_2_3_4">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            Connect
+          </label>
+          <div class="nav-wrapper">
+            
+              
+                <ul class="md-nav__list build-applications-connect-" data-md-scrollfix>
+              
+            
+            
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../connect/overview/" class="md-nav__link">
+          Overview
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../connect/routes/" class="md-nav__link">
+          Routes
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../connect/features/" class="md-nav__link">
+          Features
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../connect/configuration/" class="md-nav__link">
+          Configuration
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../connect/upgrade/" class="md-nav__link">
+          v1 Migration
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../connect/faqs/" class="md-nav__link">
+          FAQS
+        </a>
+      </li>
+    
+  
+              
+            
+            </ul>
+          </div>
+        </nav>
+      </li>
+    
+  
+              
+            
+            </ul>
+          </div>
+        </nav>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      
+        
+      
+      <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
+        
+        
+          
+            
+            
+              
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+        
+        
+          
+          
+          <div class="md-nav__link md-nav__link--index ">
+            <a href="../../../contract-integrations/">Build Contract Integrations</a>
+            
+              <label for="__nav_2_4">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            Build Contract Integrations
+          </label>
+          <div class="nav-wrapper">
+            
+              
+                <ul class="md-nav__list build-contract-integrations-" data-md-scrollfix>
+              
+            
+            
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../contract-integrations/wormhole-relayers/" class="md-nav__link">
+          Wormhole Relayer
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../contract-integrations/core-contracts/" class="md-nav__link">
+          Core Contracts
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../contract-integrations/cctp/" class="md-nav__link">
+          CCTP
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      
+      <li class="md-nav__item md-nav__item--nested">
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_5" >
+        
+        
+          
+            
+            
+              
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+        
+        
+          
+          
+          <div class="md-nav__link md-nav__link--index ">
+            <a href="../../../contract-integrations/native-token-transfers/">Native Token Transfers</a>
+            
+              <label for="__nav_2_4_5">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_5">
+            <span class="md-nav__icon md-icon"></span>
+            Native Token Transfers
+          </label>
+          <div class="nav-wrapper">
+            
+              
+                <ul class="md-nav__list build-contract-integrations-native-token-transfers-" data-md-scrollfix>
+              
+            
+            
+              
+            
+              
+                
+    
+    
+    
+      
+      <li class="md-nav__item md-nav__item--nested">
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_5_2" >
+        
+        
+          
+            
+            
+              
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+        
+        
+          
+          
+          <div class="md-nav__link md-nav__link--index ">
+            <a href="../../../contract-integrations/native-token-transfers/deployment-process/">Deployment Process</a>
+            
+              <label for="__nav_2_4_5_2">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_2_4_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Deployment Process
+          </label>
+          <div class="nav-wrapper">
+            
+              
+                <ul class="md-nav__list build-contract-integrations-native-token-transfers-deployment-process-" data-md-scrollfix>
+              
+            
+            
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../contract-integrations/native-token-transfers/deployment-process/installation/" class="md-nav__link">
+          Installation
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../contract-integrations/native-token-transfers/deployment-process/deploy-to-evm/" class="md-nav__link">
+          Deploy to EVM
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../contract-integrations/native-token-transfers/deployment-process/deploy-to-solana/" class="md-nav__link">
+          Deploy to Solana
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../contract-integrations/native-token-transfers/deployment-process/post-deployment/" class="md-nav__link">
+          Post Deployment
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../contract-integrations/native-token-transfers/deployment-process/troubleshooting/" class="md-nav__link">
+          Troubleshooting
+        </a>
+      </li>
+    
+  
+              
+            
+            </ul>
+          </div>
+        </nav>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      
+      <li class="md-nav__item md-nav__item--nested">
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_5_3" >
+        
+        
+          
+            
+            
+              
+            
+          
+            
+            
+          
+            
+            
+          
+        
+        
+          
+          
+          <div class="md-nav__link md-nav__link--index ">
+            <a href="../../../contract-integrations/native-token-transfers/configuration/">NTT Configuration</a>
+            
+              <label for="__nav_2_4_5_3">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_2_4_5_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_5_3">
+            <span class="md-nav__icon md-icon"></span>
+            NTT Configuration
+          </label>
+          <div class="nav-wrapper">
+            
+              
+                <ul class="md-nav__list build-contract-integrations-native-token-transfers-configuration-" data-md-scrollfix>
+              
+            
+            
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../contract-integrations/native-token-transfers/configuration/rate-limiting/" class="md-nav__link">
+          Rate Limiting
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../contract-integrations/native-token-transfers/configuration/access-control/" class="md-nav__link">
+          Access Control
+        </a>
+      </li>
+    
+  
+              
+            
+            </ul>
+          </div>
+        </nav>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../contract-integrations/native-token-transfers/managers-transceivers/" class="md-nav__link">
+          Managers and Transceivers
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../contract-integrations/native-token-transfers/faqs/" class="md-nav__link">
+          FAQS
+        </a>
+      </li>
+    
+  
+              
+            
+            </ul>
+          </div>
+        </nav>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      
+      <li class="md-nav__item md-nav__item--nested">
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_6" >
+        
+        
+          
+            
+            
+              
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+        
+        
+          
+          
+          <div class="md-nav__link md-nav__link--index ">
+            <a href="../../../contract-integrations/multigov/">MultiGov</a>
+            
+              <label for="__nav_2_4_6">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_6">
+            <span class="md-nav__icon md-icon"></span>
+            MultiGov
+          </label>
+          <div class="nav-wrapper">
+            
+              
+                <ul class="md-nav__list build-contract-integrations-multigov-" data-md-scrollfix>
+              
+            
+            
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../contract-integrations/multigov/deployment/" class="md-nav__link">
+          Deployment
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../contract-integrations/multigov/upgrade/" class="md-nav__link">
+          Upgrade Contracts
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../contract-integrations/multigov/faq/" class="md-nav__link">
+          Technical FAQs
+        </a>
+      </li>
+    
+  
+              
+            
+            </ul>
+          </div>
+        </nav>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../contract-integrations/dev-env/" class="md-nav__link">
+          Development Environment
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../contract-integrations/faqs/" class="md-nav__link">
+          FAQs
+        </a>
+      </li>
+    
+  
+              
+            
+            </ul>
+          </div>
+        </nav>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      
+        
+      
+      <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" >
+        
+        
+          
+            
+            
+              
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+        
+        
+          
+          
+          <div class="md-nav__link md-nav__link--index ">
+            <a href="../../../toolkit/">Toolkit</a>
+            
+              <label for="__nav_2_5">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            Toolkit
+          </label>
+          <div class="nav-wrapper">
+            
+              
+                <ul class="md-nav__list build-toolkit-" data-md-scrollfix>
+              
+            
+            
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="https://wormholescan.io/" class="md-nav__link">
+          Wormholescan
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../toolkit/cli/" class="md-nav__link">
+          Wormhole CLI
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      
+      <li class="md-nav__item md-nav__item--nested">
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_4" >
+        
+        
+          
+            
+            
+              
+            
+          
+            
+            
+          
+            
+            
+          
+        
+        
+          
+          
+          <div class="md-nav__link md-nav__link--index ">
+            <a href="../../../toolkit/wormhole-sdk/">Wormhole SDK</a>
+            
+              <label for="__nav_2_5_4">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5_4">
+            <span class="md-nav__icon md-icon"></span>
+            Wormhole SDK
+          </label>
+          <div class="nav-wrapper">
+            
+              
+                <ul class="md-nav__list build-toolkit-wormhole-sdk-" data-md-scrollfix>
+              
+            
+            
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="/docs/build/applications/wormhole-sdk/wormhole-sdk/" class="md-nav__link">
+          TypeScript SDK
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="/docs/build/applications/wormhole-sdk/sdk-layout/" class="md-nav__link">
+          Data Layouts
+        </a>
+      </li>
+    
+  
+              
+            
+            </ul>
+          </div>
+        </nav>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../toolkit/solidity-sdk/" class="md-nav__link">
+          Solidity SDK
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../toolkit/tilt/" class="md-nav__link">
+          Tilt
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../toolkit/faqs/" class="md-nav__link">
+          FAQs
+        </a>
+      </li>
+    
+  
+              
+            
+            </ul>
+          </div>
+        </nav>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      
+        
+      
+      <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6" >
+        
+        
+          
+            
+            
+              
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+        
+        
+          
+          
+          <div class="md-nav__link md-nav__link--index ">
+            <a href="../../../reference/">Reference</a>
+            
+              <label for="__nav_2_6">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_6">
+            <span class="md-nav__icon md-icon"></span>
+            Reference
+          </label>
+          <div class="nav-wrapper">
+            
+              
+                <ul class="md-nav__list build-reference-" data-md-scrollfix>
+              
+            
+            
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../reference/chain-ids/" class="md-nav__link">
+          Chain IDs
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../reference/contract-addresses/" class="md-nav__link">
+          Contract Addresses
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../reference/consistency-levels/" class="md-nav__link">
+          Consistency Levels
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../reference/wormhole-formatted-addresses/" class="md-nav__link">
+          Wormhole Formatted Addresses
+        </a>
+      </li>
+    
+  
+              
+            
+            </ul>
+          </div>
+        </nav>
+      </li>
+    
+  
+              
+            
+            </ul>
+          </div>
+        </nav>
+      </li>
+    
+  
+    
+      
+      
+      
+  
+    
+    
+    
+      
+      <li class="md-nav__item md-nav__item--nested">
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+        
+          
+            
+            
+              
+            
+          
+            
+            
+          
+            
+            
+          
+        
+        
+          
+          
+          <div class="md-nav__link md-nav__link--index ">
+            <a href="../../../../infrastructure/">Infrastructure</a>
+            
+              <label for="__nav_3">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Infrastructure
+          </label>
+          <div class="nav-wrapper">
+            
+              
+                <ul class="md-nav__list infrastructure-" data-md-scrollfix>
+              
+            
+            
+              
+            
+              
+                
+    
+    
+    
+      
+        
+      
+      <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+        
+          
+            
+            
+              
+            
+          
+            
+            
+          
+        
+        
+          
+          
+          <div class="md-nav__link md-nav__link--index ">
+            <a href="../../../../infrastructure/relayers/">Relayers</a>
+            
+              <label for="__nav_3_2">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            Relayers
+          </label>
+          <div class="nav-wrapper">
+            
+              
+                <ul class="md-nav__list infrastructure-relayers-" data-md-scrollfix>
+              
+            
+            
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../../infrastructure/relayers/run-relayer/" class="md-nav__link">
+          Run a Custom Relayer
+        </a>
+      </li>
+    
+  
+              
+            
+            </ul>
+          </div>
+        </nav>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      
+        
+      
+      <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+        
+          
+            
+            
+              
+            
+          
+            
+            
+          
+        
+        
+          
+          
+          <div class="md-nav__link md-nav__link--index ">
+            <a href="../../../../infrastructure/spy/">Spy</a>
+            
+              <label for="__nav_3_3">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            Spy
+          </label>
+          <div class="nav-wrapper">
+            
+              
+                <ul class="md-nav__list infrastructure-spy-" data-md-scrollfix>
+              
+            
+            
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../../infrastructure/spy/run-spy/" class="md-nav__link">
+          Run a Spy
+        </a>
+      </li>
+    
+  
+              
+            
+            </ul>
+          </div>
+        </nav>
+      </li>
+    
+  
+              
+            
+            </ul>
+          </div>
+        </nav>
+      </li>
+    
+  
+    
+      
+      
+      
+  
+    
+    
+    
+      
+      <li class="md-nav__item md-nav__item--nested">
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+        
+          
+            
+            
+              
+            
+          
+            
+            
+          
+            
+            
+          
+        
+        
+          
+          
+          <div class="md-nav__link md-nav__link--index ">
+            <a href="../../../../tutorials/">Tutorials</a>
+            
+              <label for="__nav_4">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Tutorials
+          </label>
+          <div class="nav-wrapper">
+            
+              
+                <ul class="md-nav__list tutorials-" data-md-scrollfix>
+              
+            
+            
+              
+            
+              
+                
+    
+    
+    
+      
+        
+      
+      <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        
+        
+          
+            
+            
+              
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+        
+        
+          
+          
+          <div class="md-nav__link md-nav__link--index ">
+            <a href="../../../../tutorials/messaging/">Messaging</a>
+            
+              <label for="__nav_4_2">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            Messaging
+          </label>
+          <div class="nav-wrapper">
+            
+              
+                <ul class="md-nav__list tutorials-messaging-" data-md-scrollfix>
+              
+            
+            
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../../tutorials/messaging/cross-chain-contracts/" class="md-nav__link">
+          Create Cross-Chain Contracts
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../../tutorials/messaging/cross-chain-token-contracts/" class="md-nav__link">
+          Create Cross-Chain Token Transfers
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../../tutorials/messaging/cctp/" class="md-nav__link">
+          Transfer USDC via Wormhole SDK
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../../tutorials/messaging/sui-connect/" class="md-nav__link">
+          Transfer Tokens Cross-Chain with Connect
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../../tutorials/messaging/token-bridge/" class="md-nav__link">
+          Transfer Tokens via Token Bridge
+        </a>
+      </li>
+    
+  
+              
+            
+            </ul>
+          </div>
+        </nav>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      
+        
+      
+      <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
+        
+        
+          
+            
+            
+              
+            
+          
+            
+            
+          
+        
+        
+          
+          
+          <div class="md-nav__link md-nav__link--index ">
+            <a href="../../../../tutorials/multigov/">MultiGov</a>
+            
+              <label for="__nav_4_3">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            MultiGov
+          </label>
+          <div class="nav-wrapper">
+            
+              
+                <ul class="md-nav__list tutorials-multigov-" data-md-scrollfix>
+              
+            
+            
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../../tutorials/multigov/treasury-proposal/" class="md-nav__link">
+          Cross-Chain Treasury Management Proposal
+        </a>
+      </li>
+    
+  
+              
+            
+            </ul>
+          </div>
+        </nav>
+      </li>
+    
+  
+              
+            
+            </ul>
+          </div>
+        </nav>
+      </li>
+    
+  
+    
+      
+      
+      
+  
+    
+    
+    
+      
+      <li class="md-nav__item md-nav__item--nested">
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+        
+          
+            
+            
+              
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+        
+        
+          
+          
+          <div class="md-nav__link md-nav__link--index ">
+            <a href="../../../../learn/">Learn</a>
+            
+              <label for="__nav_5">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Learn
+          </label>
+          <div class="nav-wrapper">
+            
+              
+                <ul class="md-nav__list learn-" data-md-scrollfix>
+              
+            
+            
+              
+            
+              
+                
+    
+    
+    
+      
+        
+      
+      <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+        
+          
+            
+            
+              
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+        
+        
+          
+          
+          <div class="md-nav__link md-nav__link--index ">
+            <a href="../../../../learn/fundamentals/">Fundamentals</a>
+            
+              <label for="__nav_5_2">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Fundamentals
+          </label>
+          <div class="nav-wrapper">
+            
+              
+                <ul class="md-nav__list learn-fundamentals-" data-md-scrollfix>
+              
+            
+            
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../../learn/fundamentals/introduction/" class="md-nav__link">
+          Introduction to Wormhole
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../../learn/fundamentals/security/" class="md-nav__link">
+          Security
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../../learn/fundamentals/architecture/" class="md-nav__link">
+          Architecture Overview
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../../learn/fundamentals/glossary/" class="md-nav__link">
+          Glossary
+        </a>
+      </li>
+    
+  
+              
+            
+            </ul>
+          </div>
+        </nav>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      
+        
+      
+      <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_3" >
+        
+        
+          
+            
+            
+              
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+        
+        
+          
+          
+          <div class="md-nav__link md-nav__link--index ">
+            <a href="../../../../learn/infrastructure/">Infrastructure Components</a>
+            
+              <label for="__nav_5_3">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_3">
+            <span class="md-nav__icon md-icon"></span>
+            Infrastructure Components
+          </label>
+          <div class="nav-wrapper">
+            
+              
+                <ul class="md-nav__list learn-infrastructure-" data-md-scrollfix>
+              
+            
+            
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../../learn/infrastructure/core-contracts/" class="md-nav__link">
+          Core Contracts
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../../learn/infrastructure/vaas/" class="md-nav__link">
+          VAAs
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../../learn/infrastructure/guardians/" class="md-nav__link">
+          Guardians
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../../learn/infrastructure/spy/" class="md-nav__link">
+          Spy
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../../learn/infrastructure/relayer/" class="md-nav__link">
+          Relayers
+        </a>
+      </li>
+    
+  
+              
+            
+            </ul>
+          </div>
+        </nav>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      
+        
+      
+      <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_4" >
+        
+        
+          
+            
+            
+              
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+        
+        
+          
+          
+          <div class="md-nav__link md-nav__link--index ">
+            <a href="../../../../learn/messaging/">Messaging</a>
+            
+              <label for="__nav_5_4">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_4">
+            <span class="md-nav__icon md-icon"></span>
+            Messaging
+          </label>
+          <div class="nav-wrapper">
+            
+              
+                <ul class="md-nav__list learn-messaging-" data-md-scrollfix>
+              
+            
+            
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../../learn/messaging/token-bridge/" class="md-nav__link">
+          Token Bridge
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../../learn/messaging/cctp/" class="md-nav__link">
+          CCTP Bridge
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      
+      <li class="md-nav__item md-nav__item--nested">
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_4_4" >
+        
+        
+          
+            
+            
+              
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+        
+        
+          
+          
+          <div class="md-nav__link md-nav__link--index ">
+            <a href="../../../../learn/messaging/native-token-transfers/">Native Token Transfers</a>
+            
+              <label for="__nav_5_4_4">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            Native Token Transfers
+          </label>
+          <div class="nav-wrapper">
+            
+              
+                <ul class="md-nav__list learn-messaging-native-token-transfers-" data-md-scrollfix>
+              
+            
+            
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../../learn/messaging/native-token-transfers/overview/" class="md-nav__link">
+          Overview
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../../learn/messaging/native-token-transfers/architecture/" class="md-nav__link">
+          Architecture
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../../learn/messaging/native-token-transfers/deployment/" class="md-nav__link">
+          Deployment Models
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../../learn/messaging/native-token-transfers/security/" class="md-nav__link">
+          Security
+        </a>
+      </li>
+    
+  
+              
+            
+            </ul>
+          </div>
+        </nav>
+      </li>
+    
+  
+              
+            
+            </ul>
+          </div>
+        </nav>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      
+        
+      
+      <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_5" >
+        
+        
+          
+            
+            
+              
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+        
+        
+          
+          
+          <div class="md-nav__link md-nav__link--index ">
+            <a href="../../../../learn/governance/">Multichain Governance</a>
+            
+              <label for="__nav_5_5">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_5">
+            <span class="md-nav__icon md-icon"></span>
+            Multichain Governance
+          </label>
+          <div class="nav-wrapper">
+            
+              
+                <ul class="md-nav__list learn-governance-" data-md-scrollfix>
+              
+            
+            
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../../learn/governance/overview/" class="md-nav__link">
+          Overview
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../../learn/governance/architecture/" class="md-nav__link">
+          Architecture
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../../learn/governance/faq/" class="md-nav__link">
+          Theoretical FAQs
+        </a>
+      </li>
+    
+  
+              
+            
+            </ul>
+          </div>
+        </nav>
+      </li>
+    
+  
+              
+            
+            </ul>
+          </div>
+        </nav>
+      </li>
+    
+  
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="Sections">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Sections
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#rpc-basics" class="md-nav__link">
+    <span class="md-ellipsis">
+      RPC Basics
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#construct-a-query" class="md-nav__link">
+    <span class="md-ellipsis">
+      Construct a Query
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mock-a-query" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mock a Query
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Mock a Query">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fork-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fork Testing
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#make-a-query-request" class="md-nav__link">
+    <span class="md-ellipsis">
+      Make a Query Request
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#verify-a-query-response-on-chain" class="md-nav__link">
+    <span class="md-ellipsis">
+      Verify a Query Response On-Chain
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#submit-a-query-response-on-chain" class="md-nav__link">
+    <span class="md-ellipsis">
+      Submit a Query Response On-Chain
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+    
+    <article class="md-content__inner md-typeset ">
+      
+        
+
+
+<h1 id="use-queries">Use Queries<a class="headerlink" href="#use-queries" title="Permanent link">＃</a></h1>
+<p>You can visit the <a href="https://wormholelabs-xyz.github.io/example-queries-demo/" target="_blank">Example Queries Demo</a> to view an interactive example of an application interacting with the <a href="https://github.com/wormholelabs-xyz/example-queries-demo/blob/main/src/QueryDemo.sol" target="_blank">Query Demo</a> contract.</p>
+<p>This guide covers using a simple <code>eth_call</code> request to get the total supply of WETH on Ethereum.</p>
+<h2 id="rpc-basics">RPC Basics<a class="headerlink" href="#rpc-basics" title="Permanent link">＃</a></h2>
+<p>Before digging into anything Queries-specific, this page will look at how to make an <a href="https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_call" target="_blank"><code>eth_call</code></a> against a public Ethereum RPC. Suppose you'd like to query the WETH contract for its total supply; before making a request, you need some information about the contract you want to call, including:</p>
+<ul>
+<li><strong>To</strong> - the contract to call. WETH is <a href="https://etherscan.io/token/0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2" target="_blank">0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2</a></li>
+<li><strong>Data</strong> - the method identifier and ABI-encoded parameters, which can be obtained as follows: <code>web3.eth.abi.encodeFunctionSignature("totalSupply()")</code> which yields <code>0x18160ddd</code></li>
+<li><strong>Block ID</strong> - the block number, hash, or tag. Tag options include <code>latest,</code> <code>safe,</code> or <code>finalized</code></li>
+</ul>
+<p>The prepared curl request is as follows:</p>
+<div class="language-bash highlight"><span class="filename">eth_call JSON-RPC request</span><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>curl<span class="w"> </span>https://ethereum.publicnode.com<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>--data<span class="w"> </span><span class="s1">&#39;{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;method&quot;:&quot;eth_call&quot;,&quot;params&quot;:[{&quot;to&quot;:&quot;0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2&quot;,&quot;data&quot;:&quot;0x18160ddd&quot;},&quot;latest&quot;],&quot;id&quot;:1}&#39;</span>
+</span></code></pre></div>
+<p>And the corresponding response is:</p>
+<div class="language-bash highlight"><span class="filename">eth_call JSON-RPC reponse</span><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="o">{</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="s2">&quot;jsonrpc&quot;</span>:<span class="s2">&quot;2.0&quot;</span>,
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">  </span><span class="s2">&quot;id&quot;</span>:1,
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">  </span><span class="s2">&quot;result&quot;</span>:<span class="s2">&quot;0x000000000000000000000000000000000000000000029fd3d129b582d7949e71&quot;</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="o">}</span>
+</span></code></pre></div>
+<p>Converting the returned value of the executed call from hexidecimal results in the value <code>3172615244782286193073777</code>. You can compare your result to the <a href="https://etherscan.io/token/0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2#readContract" target="_blank"><strong>Read Contract</strong></a> tab in Etherscan. Your result will be different as WETH is minted/burned over time.</p>
+<h2 id="construct-a-query">Construct a Query<a class="headerlink" href="#construct-a-query" title="Permanent link">＃</a></h2>
+<p>You can use the <a href="https://www.npmjs.com/package/@wormhole-foundation/wormhole-query-sdk" target="_blank">Wormhole Query SDK</a> to construct a query. You will also need an RPC endpoint from the provider of your choice. This example uses <a href="https://www.npmjs.com/package/axios" target="_blank">Axios</a> for RPC requests. Ensure that you also have <a href="https://www.typescriptlang.org/download/" target="_blank">TypeScript</a> installed. </p>
+<div class="language-jsx highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nx">npm</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="err">@</span><span class="nx">wormhole</span><span class="o">-</span><span class="nx">foundation</span><span class="o">/</span><span class="nx">wormhole</span><span class="o">-</span><span class="nx">query</span><span class="o">-</span><span class="nx">sdk</span><span class="w"> </span><span class="nx">axios</span>
+</span></code></pre></div>
+<p>In order to make an <code>EthCallQueryRequest</code>, you need a specific block number or hash as well as the call data to request.</p>
+<p>You can request the latest block from a public node using <code>eth_getBlockByNumber</code>.</p>
+<div class="language-jsx highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kd">const</span><span class="w"> </span><span class="nx">rpc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;https://ethereum.publicnode.com&#39;</span><span class="p">;</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">latestBlock</span><span class="o">:</span><span class="w"> </span><span class="nx">string</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="k">await</span><span class="w"> </span><span class="nx">axios</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="nx">rpc</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">      </span><span class="nx">method</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;eth_getBlockByNumber&#39;</span><span class="p">,</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">      </span><span class="nx">params</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;latest&#39;</span><span class="p">,</span><span class="w"> </span><span class="kc">false</span><span class="p">],</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">      </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="mf">1</span><span class="p">,</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">      </span><span class="nx">jsonrpc</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;2.0&#39;</span><span class="p">,</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">    </span><span class="p">})</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">  </span><span class="p">).</span><span class="nx">data</span><span class="o">?</span><span class="p">.</span><span class="nx">result</span><span class="o">?</span><span class="p">.</span><span class="nx">number</span><span class="p">;</span>
+</span></code></pre></div>
+<p>Then construct the call data.</p>
+<div class="language-jsx highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kd">const</span><span class="w"> </span><span class="nx">callData</span><span class="o">:</span><span class="w"> </span><span class="nx">EthCallData</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span><span class="nx">to</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1">// WETH</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">  </span><span class="nx">data</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;0x18160ddd&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1">// web3.eth.abi.encodeFunctionSignature(&quot;totalSupply()&quot;)</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="p">};</span>
+</span></code></pre></div>
+<p>Finally, put it all together in a <code>QueryRequest</code>.</p>
+<div class="language-jsx highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="w">  </span><span class="c1">// Form the query request</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">request</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">QueryRequest</span><span class="p">(</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="mf">0</span><span class="p">,</span><span class="w"> </span><span class="c1">// Nonce</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">    </span><span class="p">[</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">      </span><span class="ow">new</span><span class="w"> </span><span class="nx">PerChainQueryRequest</span><span class="p">(</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">        </span><span class="mf">2</span><span class="p">,</span><span class="w"> </span><span class="c1">// Ethereum Wormhole Chain ID</span>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="w">        </span><span class="ow">new</span><span class="w"> </span><span class="nx">EthCallQueryRequest</span><span class="p">(</span><span class="nx">latestBlock</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="nx">callData</span><span class="p">])</span>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="w">      </span><span class="p">),</span>
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="w">    </span><span class="p">]</span>
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="w">  </span><span class="p">);</span>
+</span></code></pre></div>
+<p>This request consists of one <code>PerChainQueryRequest</code>, which is an <code>EthCallQueryRequest</code> to Ethereum. You can use <code>console.log</code> to print the JSON object and review the structure.</p>
+<div class="language-jsx highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nb">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">request</span><span class="p">,</span><span class="w"> </span><span class="kc">undefined</span><span class="p">,</span><span class="w"> </span><span class="mf">2</span><span class="p">));</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="c1">// {</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="c1">//   &quot;nonce&quot;: 0,</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="c1">//   &quot;requests&quot;: [</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="c1">//     {</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="c1">//       &quot;chainId&quot;: 2,</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="c1">//       &quot;query&quot;: {</span>
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="c1">//         &quot;callData&quot;: [</span>
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="c1">//           {</span>
+</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="c1">//             &quot;to&quot;: &quot;0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2&quot;,</span>
+</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="c1">//             &quot;data&quot;: &quot;0x18160ddd&quot;</span>
+</span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a><span class="c1">//           }</span>
+</span><span id="__span-6-13"><a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a><span class="c1">//         ],</span>
+</span><span id="__span-6-14"><a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a><span class="c1">//         &quot;blockTag&quot;: &quot;0x11e9068&quot;</span>
+</span><span id="__span-6-15"><a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a><span class="c1">//       }</span>
+</span><span id="__span-6-16"><a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a><span class="c1">//     }</span>
+</span><span id="__span-6-17"><a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a><span class="c1">//   ],</span>
+</span><span id="__span-6-18"><a id="__codelineno-6-18" name="__codelineno-6-18" href="#__codelineno-6-18"></a><span class="c1">//   &quot;version&quot;: 1</span>
+</span><span id="__span-6-19"><a id="__codelineno-6-19" name="__codelineno-6-19" href="#__codelineno-6-19"></a><span class="c1">// }</span>
+</span></code></pre></div>
+<h2 id="mock-a-query">Mock a Query<a class="headerlink" href="#mock-a-query" title="Permanent link">＃</a></h2>
+<p>For easier testing, the Query SDK provides a <code>QueryProxyMock</code> method. This method will perform the request and sign the result with the <a href="/docs/build/toolkit/tilt/" target="_blank">Devnet</a> Guardian key. The <code>mock</code> call returns the same format as the Query Proxy.</p>
+<div class="language-jsx highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">mock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">QueryProxyMock</span><span class="p">({</span><span class="w"> </span><span class="mf">2</span><span class="o">:</span><span class="w"> </span><span class="nx">rpc</span><span class="w"> </span><span class="p">});</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">mockData</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">mock</span><span class="p">.</span><span class="nx">mock</span><span class="p">(</span><span class="nx">request</span><span class="p">);</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">mockData</span><span class="p">);</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="c1">// {</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="c1">//   signatures: [&#39;...&#39;],</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="c1">//   bytes: &#39;...&#39;</span>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="c1">// }</span>
+</span></code></pre></div>
+<p>This response is suited for on-chain use, but the SDK also includes a parser to make the results readable via the client.</p>
+<div class="language-jsx highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">mockQueryResponse</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">QueryResponse</span><span class="p">.</span><span class="kr">from</span><span class="p">(</span><span class="nx">mockData</span><span class="p">.</span><span class="nx">bytes</span><span class="p">);</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">mockQueryResult</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">    </span><span class="nx">mockQueryResponse</span><span class="p">.</span><span class="nx">responses</span><span class="p">[</span><span class="mf">0</span><span class="p">].</span><span class="nx">response</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="nx">EthCallQueryResponse</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">  </span><span class="p">).</span><span class="nx">results</span><span class="p">[</span><span class="mf">0</span><span class="p">];</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="w">    </span><span class="sb">`Mock Query Result: </span><span class="si">${</span><span class="nx">mockQueryResult</span><span class="si">}</span><span class="sb"> (</span><span class="si">${</span><span class="nb">BigInt</span><span class="p">(</span><span class="nx">mockQueryResult</span><span class="p">)</span><span class="si">}</span><span class="sb">)`</span>
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="w">  </span><span class="p">);</span>
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="c1">// Mock Query Result: 0x000000000000000000000000000000000000000000029fd09d4d81addb3ccfee (3172556167631284394053614)</span>
+</span></code></pre></div>
+<p>Testing this all together might look like the following:</p>
+<div class="language-jsx highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">  </span><span class="nx">EthCallData</span><span class="p">,</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">  </span><span class="nx">EthCallQueryRequest</span><span class="p">,</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">  </span><span class="nx">EthCallQueryResponse</span><span class="p">,</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="w">  </span><span class="nx">PerChainQueryRequest</span><span class="p">,</span>
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="w">  </span><span class="nx">QueryProxyMock</span><span class="p">,</span>
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="w">  </span><span class="nx">QueryRequest</span><span class="p">,</span>
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="w">  </span><span class="nx">QueryResponse</span><span class="p">,</span>
+</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@wormhole-foundation/wormhole-query-sdk&#39;</span><span class="p">;</span>
+</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a><span class="k">import</span><span class="w"> </span><span class="nx">axios</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;axios&#39;</span><span class="p">;</span>
+</span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a>
+</span><span id="__span-9-12"><a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a><span class="kd">const</span><span class="w"> </span><span class="nx">rpc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;https://ethereum.publicnode.com&#39;</span><span class="p">;</span>
+</span><span id="__span-9-13"><a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a><span class="kd">const</span><span class="w"> </span><span class="nx">callData</span><span class="o">:</span><span class="w"> </span><span class="nx">EthCallData</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-9-14"><a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a><span class="w">  </span><span class="nx">to</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1">// WETH</span>
+</span><span id="__span-9-15"><a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a><span class="w">  </span><span class="nx">data</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;0x18160ddd&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1">// web3.eth.abi.encodeFunctionSignature(&quot;totalSupply()&quot;)</span>
+</span><span id="__span-9-16"><a id="__codelineno-9-16" name="__codelineno-9-16" href="#__codelineno-9-16"></a><span class="p">};</span>
+</span><span id="__span-9-17"><a id="__codelineno-9-17" name="__codelineno-9-17" href="#__codelineno-9-17"></a>
+</span><span id="__span-9-18"><a id="__codelineno-9-18" name="__codelineno-9-18" href="#__codelineno-9-18"></a><span class="p">(</span><span class="k">async</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-9-19"><a id="__codelineno-9-19" name="__codelineno-9-19" href="#__codelineno-9-19"></a><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">latestBlock</span><span class="o">:</span><span class="w"> </span><span class="nx">string</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span>
+</span><span id="__span-9-20"><a id="__codelineno-9-20" name="__codelineno-9-20" href="#__codelineno-9-20"></a><span class="w">    </span><span class="k">await</span><span class="w"> </span><span class="nx">axios</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="nx">rpc</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-9-21"><a id="__codelineno-9-21" name="__codelineno-9-21" href="#__codelineno-9-21"></a><span class="w">      </span><span class="nx">method</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;eth_getBlockByNumber&#39;</span><span class="p">,</span>
+</span><span id="__span-9-22"><a id="__codelineno-9-22" name="__codelineno-9-22" href="#__codelineno-9-22"></a><span class="w">      </span><span class="nx">params</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;latest&#39;</span><span class="p">,</span><span class="w"> </span><span class="kc">false</span><span class="p">],</span>
+</span><span id="__span-9-23"><a id="__codelineno-9-23" name="__codelineno-9-23" href="#__codelineno-9-23"></a><span class="w">      </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="mf">1</span><span class="p">,</span>
+</span><span id="__span-9-24"><a id="__codelineno-9-24" name="__codelineno-9-24" href="#__codelineno-9-24"></a><span class="w">      </span><span class="nx">jsonrpc</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;2.0&#39;</span><span class="p">,</span>
+</span><span id="__span-9-25"><a id="__codelineno-9-25" name="__codelineno-9-25" href="#__codelineno-9-25"></a><span class="w">    </span><span class="p">})</span>
+</span><span id="__span-9-26"><a id="__codelineno-9-26" name="__codelineno-9-26" href="#__codelineno-9-26"></a><span class="w">  </span><span class="p">).</span><span class="nx">data</span><span class="o">?</span><span class="p">.</span><span class="nx">result</span><span class="o">?</span><span class="p">.</span><span class="nx">number</span><span class="p">;</span>
+</span><span id="__span-9-27"><a id="__codelineno-9-27" name="__codelineno-9-27" href="#__codelineno-9-27"></a><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="nx">latestBlock</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-9-28"><a id="__codelineno-9-28" name="__codelineno-9-28" href="#__codelineno-9-28"></a><span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="sb">`❌ Invalid block returned`</span><span class="p">);</span>
+</span><span id="__span-9-29"><a id="__codelineno-9-29" name="__codelineno-9-29" href="#__codelineno-9-29"></a><span class="w">    </span><span class="k">return</span><span class="p">;</span>
+</span><span id="__span-9-30"><a id="__codelineno-9-30" name="__codelineno-9-30" href="#__codelineno-9-30"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-9-31"><a id="__codelineno-9-31" name="__codelineno-9-31" href="#__codelineno-9-31"></a><span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Latest Block:     &#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">latestBlock</span><span class="p">,</span><span class="w"> </span><span class="sb">`(</span><span class="si">${</span><span class="nb">BigInt</span><span class="p">(</span><span class="nx">latestBlock</span><span class="p">)</span><span class="si">}</span><span class="sb">)`</span><span class="p">);</span>
+</span><span id="__span-9-32"><a id="__codelineno-9-32" name="__codelineno-9-32" href="#__codelineno-9-32"></a><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">targetResponse</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">axios</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="nx">rpc</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-9-33"><a id="__codelineno-9-33" name="__codelineno-9-33" href="#__codelineno-9-33"></a><span class="w">    </span><span class="nx">method</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;eth_call&#39;</span><span class="p">,</span>
+</span><span id="__span-9-34"><a id="__codelineno-9-34" name="__codelineno-9-34" href="#__codelineno-9-34"></a><span class="w">    </span><span class="nx">params</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="nx">callData</span><span class="p">,</span><span class="w"> </span><span class="nx">latestBlock</span><span class="p">],</span>
+</span><span id="__span-9-35"><a id="__codelineno-9-35" name="__codelineno-9-35" href="#__codelineno-9-35"></a><span class="w">    </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="mf">1</span><span class="p">,</span>
+</span><span id="__span-9-36"><a id="__codelineno-9-36" name="__codelineno-9-36" href="#__codelineno-9-36"></a><span class="w">    </span><span class="nx">jsonrpc</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;2.0&#39;</span><span class="p">,</span>
+</span><span id="__span-9-37"><a id="__codelineno-9-37" name="__codelineno-9-37" href="#__codelineno-9-37"></a><span class="w">  </span><span class="p">});</span>
+</span><span id="__span-9-38"><a id="__codelineno-9-38" name="__codelineno-9-38" href="#__codelineno-9-38"></a><span class="w">  </span><span class="c1">// console.log(finalizedResponse.data);</span>
+</span><span id="__span-9-39"><a id="__codelineno-9-39" name="__codelineno-9-39" href="#__codelineno-9-39"></a><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">targetResponse</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-9-40"><a id="__codelineno-9-40" name="__codelineno-9-40" href="#__codelineno-9-40"></a><span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="sb">`❌ </span><span class="si">${</span><span class="nx">targetResponse</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">error</span><span class="p">.</span><span class="nx">message</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
+</span><span id="__span-9-41"><a id="__codelineno-9-41" name="__codelineno-9-41" href="#__codelineno-9-41"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-9-42"><a id="__codelineno-9-42" name="__codelineno-9-42" href="#__codelineno-9-42"></a><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">targetResult</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">targetResponse</span><span class="p">.</span><span class="nx">data</span><span class="o">?</span><span class="p">.</span><span class="nx">result</span><span class="p">;</span>
+</span><span id="__span-9-43"><a id="__codelineno-9-43" name="__codelineno-9-43" href="#__codelineno-9-43"></a><span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Target Result:    &#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">targetResult</span><span class="p">,</span><span class="w"> </span><span class="sb">`(</span><span class="si">${</span><span class="nb">BigInt</span><span class="p">(</span><span class="nx">targetResult</span><span class="p">)</span><span class="si">}</span><span class="sb">)`</span><span class="p">);</span>
+</span><span id="__span-9-44"><a id="__codelineno-9-44" name="__codelineno-9-44" href="#__codelineno-9-44"></a><span class="w">  </span><span class="c1">// Form the query request</span>
+</span><span id="__span-9-45"><a id="__codelineno-9-45" name="__codelineno-9-45" href="#__codelineno-9-45"></a><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">request</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">QueryRequest</span><span class="p">(</span>
+</span><span id="__span-9-46"><a id="__codelineno-9-46" name="__codelineno-9-46" href="#__codelineno-9-46"></a><span class="w">    </span><span class="mf">0</span><span class="p">,</span><span class="w"> </span><span class="c1">// Nonce</span>
+</span><span id="__span-9-47"><a id="__codelineno-9-47" name="__codelineno-9-47" href="#__codelineno-9-47"></a><span class="w">    </span><span class="p">[</span>
+</span><span id="__span-9-48"><a id="__codelineno-9-48" name="__codelineno-9-48" href="#__codelineno-9-48"></a><span class="w">      </span><span class="ow">new</span><span class="w"> </span><span class="nx">PerChainQueryRequest</span><span class="p">(</span>
+</span><span id="__span-9-49"><a id="__codelineno-9-49" name="__codelineno-9-49" href="#__codelineno-9-49"></a><span class="w">        </span><span class="mf">2</span><span class="p">,</span><span class="w"> </span><span class="c1">// Ethereum Wormhole Chain ID</span>
+</span><span id="__span-9-50"><a id="__codelineno-9-50" name="__codelineno-9-50" href="#__codelineno-9-50"></a><span class="w">        </span><span class="ow">new</span><span class="w"> </span><span class="nx">EthCallQueryRequest</span><span class="p">(</span><span class="nx">latestBlock</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="nx">callData</span><span class="p">])</span>
+</span><span id="__span-9-51"><a id="__codelineno-9-51" name="__codelineno-9-51" href="#__codelineno-9-51"></a><span class="w">      </span><span class="p">),</span>
+</span><span id="__span-9-52"><a id="__codelineno-9-52" name="__codelineno-9-52" href="#__codelineno-9-52"></a><span class="w">    </span><span class="p">]</span>
+</span><span id="__span-9-53"><a id="__codelineno-9-53" name="__codelineno-9-53" href="#__codelineno-9-53"></a><span class="w">  </span><span class="p">);</span>
+</span><span id="__span-9-54"><a id="__codelineno-9-54" name="__codelineno-9-54" href="#__codelineno-9-54"></a><span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nb">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">request</span><span class="p">,</span><span class="w"> </span><span class="kc">undefined</span><span class="p">,</span><span class="w"> </span><span class="mf">2</span><span class="p">));</span>
+</span><span id="__span-9-55"><a id="__codelineno-9-55" name="__codelineno-9-55" href="#__codelineno-9-55"></a><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">mock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">QueryProxyMock</span><span class="p">({</span><span class="w"> </span><span class="mf">2</span><span class="o">:</span><span class="w"> </span><span class="nx">rpc</span><span class="w"> </span><span class="p">});</span>
+</span><span id="__span-9-56"><a id="__codelineno-9-56" name="__codelineno-9-56" href="#__codelineno-9-56"></a><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">mockData</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">mock</span><span class="p">.</span><span class="nx">mock</span><span class="p">(</span><span class="nx">request</span><span class="p">);</span>
+</span><span id="__span-9-57"><a id="__codelineno-9-57" name="__codelineno-9-57" href="#__codelineno-9-57"></a><span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">mockData</span><span class="p">);</span>
+</span><span id="__span-9-58"><a id="__codelineno-9-58" name="__codelineno-9-58" href="#__codelineno-9-58"></a><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">mockQueryResponse</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">QueryResponse</span><span class="p">.</span><span class="kr">from</span><span class="p">(</span><span class="nx">mockData</span><span class="p">.</span><span class="nx">bytes</span><span class="p">);</span>
+</span><span id="__span-9-59"><a id="__codelineno-9-59" name="__codelineno-9-59" href="#__codelineno-9-59"></a><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">mockQueryResult</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span>
+</span><span id="__span-9-60"><a id="__codelineno-9-60" name="__codelineno-9-60" href="#__codelineno-9-60"></a><span class="w">    </span><span class="nx">mockQueryResponse</span><span class="p">.</span><span class="nx">responses</span><span class="p">[</span><span class="mf">0</span><span class="p">].</span><span class="nx">response</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="nx">EthCallQueryResponse</span>
+</span><span id="__span-9-61"><a id="__codelineno-9-61" name="__codelineno-9-61" href="#__codelineno-9-61"></a><span class="w">  </span><span class="p">).</span><span class="nx">results</span><span class="p">[</span><span class="mf">0</span><span class="p">];</span>
+</span><span id="__span-9-62"><a id="__codelineno-9-62" name="__codelineno-9-62" href="#__codelineno-9-62"></a><span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span>
+</span><span id="__span-9-63"><a id="__codelineno-9-63" name="__codelineno-9-63" href="#__codelineno-9-63"></a><span class="w">    </span><span class="sb">`Mock Query Result: </span><span class="si">${</span><span class="nx">mockQueryResult</span><span class="si">}</span><span class="sb"> (</span><span class="si">${</span><span class="nb">BigInt</span><span class="p">(</span><span class="nx">mockQueryResult</span><span class="p">)</span><span class="si">}</span><span class="sb">)`</span>
+</span><span id="__span-9-64"><a id="__codelineno-9-64" name="__codelineno-9-64" href="#__codelineno-9-64"></a><span class="w">  </span><span class="p">);</span>
+</span><span id="__span-9-65"><a id="__codelineno-9-65" name="__codelineno-9-65" href="#__codelineno-9-65"></a><span class="p">})();</span>
+</span></code></pre></div>
+<h3 id="fork-testing">Fork Testing<a class="headerlink" href="#fork-testing" title="Permanent link">＃</a></h3>
+<p>It is common to test against a local fork of Mainnet with something like</p>
+<div class="language-jsx highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="nx">anvil</span><span class="w"> </span><span class="o">--</span><span class="nx">fork</span><span class="o">-</span><span class="nx">url</span><span class="w"> </span><span class="nx">https</span><span class="o">:</span><span class="c1">//ethereum.publicnode.com</span>
+</span></code></pre></div>
+<p>In order for mock requests to verify against the Mainnet Core Contract, you need to replace the current Guardian set with the single Devnet key used by the mock.</p>
+<p>Here's an example for Ethereum Mainnet, where the <code>-a</code> parameter is the <a href="/docs/build/reference/contract-addresses/#core-contracts" target="_blank">Core Contract address</a> on that chain.</p>
+<div class="language-jsx highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="nx">npx</span><span class="w"> </span><span class="err">@</span><span class="nx">wormhole</span><span class="o">-</span><span class="nx">foundation</span><span class="o">/</span><span class="nx">wormhole</span><span class="o">-</span><span class="nx">cli</span><span class="w"> </span><span class="nx">evm</span><span class="w"> </span><span class="nx">hijack</span><span class="w"> </span><span class="o">-</span><span class="nx">a</span><span class="w"> </span><span class="mh">0x98f3c9e6E3fAce36bAAd05FE09d375Ef1464288B</span><span class="w"> </span><span class="o">-</span><span class="nx">g</span><span class="w"> </span><span class="mh">0xbeFA429d57cD18b7F8A4d91A2da9AB4AF05d0FBe</span>
+</span></code></pre></div>
+<p>If you are using <code>EthCallWithFinality</code>, you will need to mine additional blocks (32 if using <a href="https://book.getfoundry.sh/anvil/" target="_blank">Anvil</a>) after the latest transaction for it to become finalized. Anvil supports <a href="https://book.getfoundry.sh/reference/anvil/#mining-modes" target="_blank">auto-mining</a> with the <code>-b</code> flag if you want to test code that waits naturally for the chain to advance. For integration tests, you may want to simply <code>anvil_mine</code> with <code>0x20</code>.</p>
+<h2 id="make-a-query-request">Make a Query Request<a class="headerlink" href="#make-a-query-request" title="Permanent link">＃</a></h2>
+<p>The standardized means of making a <code>QueryRequest</code> with an API key is as follows:</p>
+<div class="language-jsx highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="kd">const</span><span class="w"> </span><span class="nx">serialized</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">request</span><span class="p">.</span><span class="nx">serialize</span><span class="p">();</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="kd">const</span><span class="w"> </span><span class="nx">proxyResponse</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="k">await</span><span class="w"> </span><span class="nx">axios</span><span class="p">.</span><span class="nx">post</span><span class="p">)&lt;</span><span class="nt">QueryProxyQueryResponse</span><span class="p">&gt;(</span>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="w">  </span><span class="nx">QUERY_URL</span><span class="p">,</span>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="w">  </span><span class="p">{</span>
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="w">    </span><span class="nx">bytes</span><span class="o">:</span><span class="w"> </span><span class="nx">Buffer</span><span class="p">.</span><span class="kr">from</span><span class="p">(</span><span class="nx">serialized</span><span class="p">).</span><span class="nx">toString</span><span class="p">(</span><span class="s1">&#39;hex&#39;</span><span class="p">),</span>
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="w">  </span><span class="p">},</span>
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="nx">headers</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s1">&#39;X-API-Key&#39;</span><span class="o">:</span><span class="w"> </span><span class="nx">YOUR_API_KEY</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a><span class="p">);</span>
+</span></code></pre></div>
+<p>Remember to always take steps to protect your sensitive API keys, such as defining them in <code>.env</code> files and including such files in your <code>.gitignore</code>.</p>
+<p>A Testnet Query Proxy is available at <code>https://testnet.query.wormhole.com/v1/query</code></p>
+<p>A Mainnet Query Proxy is available at <code>https://query.wormhole.com/v1/query</code></p>
+<h2 id="verify-a-query-response-on-chain">Verify a Query Response On-Chain<a class="headerlink" href="#verify-a-query-response-on-chain" title="Permanent link">＃</a></h2>
+<p>A <a href="https://github.com/wormhole-foundation/wormhole-solidity-sdk/blob/main/src/QueryResponse.sol" target="_blank"><code>QueryResponse</code> abstract contract</a> is provided to assist with verifying query responses. You can begin by installing the <a href="https://github.com/wormhole-foundation/wormhole-solidity-sdk" target="_blank">Wormhole Solidity SDK</a> with the following command:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>forge<span class="w"> </span>install<span class="w"> </span>wormhole-foundation/wormhole-solidity-sdk
+</span></code></pre></div>
+<p>Broadly, using a query response on-chain comes down to three main steps:</p>
+<ol>
+<li>Parse and verify the query response</li>
+<li>The <code>parseAndVerifyQueryResponse</code> handles verifying the Guardian signatures against the current Guardian set stored in the Core bridge contract</li>
+<li>Validate the request details. This may be different for every integrator depending on their use case, but generally checks the following:<ul>
+<li>Is the request against the expected chain?</li>
+<li>Is the request of the expected type? The <code>parseEthCall</code> helpers perform this check when parsing</li>
+<li>Is the resulting block number and time expected? Some consumers might require that a block number be higher than the last, or the block time be within the last 5 minutes. <code>validateBlockNum</code> and <code>validateBlockTime</code> can help with the checks</li>
+<li>Is the request for the expected contract and function signature? The <code>validateMultipleEthCallData</code> can help with non-parameter-dependent cases</li>
+<li>Is the result of the expected length for the expected result type?</li>
+</ul>
+</li>
+<li>Run <code>abi.decode</code> on the result </li>
+</ol>
+<p>See the <a href="https://github.com/wormholelabs-xyz/example-queries-demo/blob/main/src/QueryDemo.sol" target="_blank">QueryDemo</a> contract for an example and read the docstrings of the preceding methods for detailed usage instructions.</p>
+<details class="code">
+<summary>View the complete <code>QueryDemo</code></summary>
+<div class="language-solidity highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="c1">// contracts/query/QueryDemo.sol</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="c1">// SPDX-License-Identifier: Apache 2</span>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="k">pragma solidity</span><span class="w"> </span><span class="o">^</span><span class="k">0.8.0</span><span class="p">;</span>
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="kt">import</span><span class="w"> </span><span class="s2">&quot;wormhole-solidity-sdk/libraries/BytesParsing.sol&quot;</span><span class="p">;</span>
+</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a><span class="kt">import</span><span class="w"> </span><span class="s2">&quot;wormhole-solidity-sdk/interfaces/IWormhole.sol&quot;</span><span class="p">;</span>
+</span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a><span class="kt">import</span><span class="w"> </span><span class="s2">&quot;wormhole-solidity-sdk/QueryResponse.sol&quot;</span><span class="p">;</span>
+</span><span id="__span-14-9"><a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a>
+</span><span id="__span-14-10"><a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a>error<span class="w"> </span>InvalidOwner<span class="p">();</span>
+</span><span id="__span-14-11"><a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a><span class="c1">// @dev for the onlyOwner modifier</span>
+</span><span id="__span-14-12"><a id="__codelineno-14-12" name="__codelineno-14-12" href="#__codelineno-14-12"></a>error<span class="w"> </span>InvalidCaller<span class="p">();</span>
+</span><span id="__span-14-13"><a id="__codelineno-14-13" name="__codelineno-14-13" href="#__codelineno-14-13"></a>error<span class="w"> </span>InvalidCalldata<span class="p">();</span>
+</span><span id="__span-14-14"><a id="__codelineno-14-14" name="__codelineno-14-14" href="#__codelineno-14-14"></a>error<span class="w"> </span>InvalidForeignChainID<span class="p">();</span>
+</span><span id="__span-14-15"><a id="__codelineno-14-15" name="__codelineno-14-15" href="#__codelineno-14-15"></a>error<span class="w"> </span>ObsoleteUpdate<span class="p">();</span>
+</span><span id="__span-14-16"><a id="__codelineno-14-16" name="__codelineno-14-16" href="#__codelineno-14-16"></a>error<span class="w"> </span>StaleUpdate<span class="p">();</span>
+</span><span id="__span-14-17"><a id="__codelineno-14-17" name="__codelineno-14-17" href="#__codelineno-14-17"></a>error<span class="w"> </span>UnexpectedResultLength<span class="p">();</span>
+</span><span id="__span-14-18"><a id="__codelineno-14-18" name="__codelineno-14-18" href="#__codelineno-14-18"></a>error<span class="w"> </span>UnexpectedResultMismatch<span class="p">();</span>
+</span><span id="__span-14-19"><a id="__codelineno-14-19" name="__codelineno-14-19" href="#__codelineno-14-19"></a>
+</span><span id="__span-14-20"><a id="__codelineno-14-20" name="__codelineno-14-20" href="#__codelineno-14-20"></a><span class="c1">/// @dev QueryDemo is an example of using the QueryResponse library to parse and verify Cross Chain Query (CCQ) responses.</span>
+</span><span id="__span-14-21"><a id="__codelineno-14-21" name="__codelineno-14-21" href="#__codelineno-14-21"></a><span class="k">contract</span><span class="w"> </span><span class="ni">QueryDemo</span><span class="w"> </span><span class="kt">is</span><span class="w"> </span>QueryResponse<span class="w"> </span><span class="p">{</span>
+</span><span id="__span-14-22"><a id="__codelineno-14-22" name="__codelineno-14-22" href="#__codelineno-14-22"></a><span class="w">    </span>using<span class="w"> </span>BytesParsing<span class="w"> </span><span class="kt">for</span><span class="w"> </span><span class="kt">bytes</span><span class="p">;</span>
+</span><span id="__span-14-23"><a id="__codelineno-14-23" name="__codelineno-14-23" href="#__codelineno-14-23"></a>
+</span><span id="__span-14-24"><a id="__codelineno-14-24" name="__codelineno-14-24" href="#__codelineno-14-24"></a><span class="w">    </span><span class="kt">struct</span><span class="w"> </span><span class="nv">ChainEntry</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-14-25"><a id="__codelineno-14-25" name="__codelineno-14-25" href="#__codelineno-14-25"></a><span class="w">        </span><span class="kt">uint16</span><span class="w"> </span><span class="nv">chainID</span><span class="p">;</span>
+</span><span id="__span-14-26"><a id="__codelineno-14-26" name="__codelineno-14-26" href="#__codelineno-14-26"></a><span class="w">        </span><span class="kt">address</span><span class="w"> </span><span class="nv">contractAddress</span><span class="p">;</span>
+</span><span id="__span-14-27"><a id="__codelineno-14-27" name="__codelineno-14-27" href="#__codelineno-14-27"></a><span class="w">        </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">counter</span><span class="p">;</span>
+</span><span id="__span-14-28"><a id="__codelineno-14-28" name="__codelineno-14-28" href="#__codelineno-14-28"></a><span class="w">        </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">blockNum</span><span class="p">;</span>
+</span><span id="__span-14-29"><a id="__codelineno-14-29" name="__codelineno-14-29" href="#__codelineno-14-29"></a><span class="w">        </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">blockTime</span><span class="p">;</span>
+</span><span id="__span-14-30"><a id="__codelineno-14-30" name="__codelineno-14-30" href="#__codelineno-14-30"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-14-31"><a id="__codelineno-14-31" name="__codelineno-14-31" href="#__codelineno-14-31"></a>
+</span><span id="__span-14-32"><a id="__codelineno-14-32" name="__codelineno-14-32" href="#__codelineno-14-32"></a><span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="k">private </span><span class="nv">immutable</span><span class="w"> </span>owner<span class="p">;</span>
+</span><span id="__span-14-33"><a id="__codelineno-14-33" name="__codelineno-14-33" href="#__codelineno-14-33"></a><span class="w">    </span><span class="kt">uint16</span><span class="w"> </span><span class="k">private </span><span class="nv">immutable</span><span class="w"> </span>myChainID<span class="p">;</span>
+</span><span id="__span-14-34"><a id="__codelineno-14-34" name="__codelineno-14-34" href="#__codelineno-14-34"></a><span class="w">    </span><span class="kt">mapping</span><span class="p">(</span><span class="kt">uint16</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span>ChainEntry<span class="p">)</span><span class="w"> </span><span class="kt">private</span><span class="w"> </span>counters<span class="p">;</span>
+</span><span id="__span-14-35"><a id="__codelineno-14-35" name="__codelineno-14-35" href="#__codelineno-14-35"></a><span class="w">    </span><span class="kt">uint16</span><span class="p">[]</span><span class="w"> </span><span class="kt">private</span><span class="w"> </span>foreignChainIDs<span class="p">;</span>
+</span><span id="__span-14-36"><a id="__codelineno-14-36" name="__codelineno-14-36" href="#__codelineno-14-36"></a>
+</span><span id="__span-14-37"><a id="__codelineno-14-37" name="__codelineno-14-37" href="#__codelineno-14-37"></a><span class="w">    </span>bytes4<span class="w"> </span><span class="kt">public</span><span class="w"> </span>GetMyCounter<span class="w"> </span><span class="o">=</span><span class="w"> </span>bytes4<span class="p">(</span>hex<span class="s2">&quot;916d5743&quot;</span><span class="p">);</span>
+</span><span id="__span-14-38"><a id="__codelineno-14-38" name="__codelineno-14-38" href="#__codelineno-14-38"></a>
+</span><span id="__span-14-39"><a id="__codelineno-14-39" name="__codelineno-14-39" href="#__codelineno-14-39"></a><span class="w">    </span><span class="kt">constructor</span><span class="p">(</span><span class="kt">address</span><span class="w"> </span><span class="nv">_owner</span><span class="p">,</span><span class="w"> </span><span class="kt">address</span><span class="w"> </span><span class="nv">_wormhole</span><span class="p">,</span><span class="w"> </span><span class="kt">uint16</span><span class="w"> </span><span class="nv">_myChainID</span><span class="p">)</span><span class="w"> </span>QueryResponse<span class="p">(</span>_wormhole<span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-14-40"><a id="__codelineno-14-40" name="__codelineno-14-40" href="#__codelineno-14-40"></a><span class="w">        </span><span class="kt">if</span><span class="w"> </span><span class="p">(</span>_owner<span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kt">address</span><span class="p">(</span><span class="m m-Decimal">0</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-14-41"><a id="__codelineno-14-41" name="__codelineno-14-41" href="#__codelineno-14-41"></a><span class="w">            </span>revert<span class="w"> </span>InvalidOwner<span class="p">();</span>
+</span><span id="__span-14-42"><a id="__codelineno-14-42" name="__codelineno-14-42" href="#__codelineno-14-42"></a><span class="w">        </span><span class="p">}</span>
+</span><span id="__span-14-43"><a id="__codelineno-14-43" name="__codelineno-14-43" href="#__codelineno-14-43"></a><span class="w">        </span>owner<span class="w"> </span><span class="o">=</span><span class="w"> </span>_owner<span class="p">;</span>
+</span><span id="__span-14-44"><a id="__codelineno-14-44" name="__codelineno-14-44" href="#__codelineno-14-44"></a>
+</span><span id="__span-14-45"><a id="__codelineno-14-45" name="__codelineno-14-45" href="#__codelineno-14-45"></a><span class="w">        </span>myChainID<span class="w"> </span><span class="o">=</span><span class="w"> </span>_myChainID<span class="p">;</span>
+</span><span id="__span-14-46"><a id="__codelineno-14-46" name="__codelineno-14-46" href="#__codelineno-14-46"></a><span class="w">        </span>counters<span class="p">[</span>_myChainID<span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>ChainEntry<span class="p">(</span>_myChainID<span class="p">,</span><span class="w"> </span><span class="kt">address</span><span class="p">(</span><span class="kt">this</span><span class="p">),</span><span class="w"> </span><span class="m m-Decimal">0</span><span class="p">,</span><span class="w"> </span><span class="m m-Decimal">0</span><span class="p">,</span><span class="w"> </span><span class="m m-Decimal">0</span><span class="p">);</span>
+</span><span id="__span-14-47"><a id="__codelineno-14-47" name="__codelineno-14-47" href="#__codelineno-14-47"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-14-48"><a id="__codelineno-14-48" name="__codelineno-14-48" href="#__codelineno-14-48"></a>
+</span><span id="__span-14-49"><a id="__codelineno-14-49" name="__codelineno-14-49" href="#__codelineno-14-49"></a><span class="w">    </span><span class="c1">// updateRegistration should be used to add the other chains and to set / update contract addresses.</span>
+</span><span id="__span-14-50"><a id="__codelineno-14-50" name="__codelineno-14-50" href="#__codelineno-14-50"></a><span class="w">    </span><span class="kt">function</span><span class="w"> </span><span class="nv">updateRegistration</span><span class="p">(</span><span class="kt">uint16</span><span class="w"> </span><span class="nv">_chainID</span><span class="p">,</span><span class="w"> </span><span class="kt">address</span><span class="w"> </span><span class="nv">_contractAddress</span><span class="p">)</span><span class="w"> </span><span class="kt">public</span><span class="w"> </span>onlyOwner<span class="w"> </span><span class="p">{</span>
+</span><span id="__span-14-51"><a id="__codelineno-14-51" name="__codelineno-14-51" href="#__codelineno-14-51"></a><span class="w">        </span><span class="kt">if</span><span class="w"> </span><span class="p">(</span>counters<span class="p">[</span>_chainID<span class="p">].</span>chainID<span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m m-Decimal">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-14-52"><a id="__codelineno-14-52" name="__codelineno-14-52" href="#__codelineno-14-52"></a><span class="w">            </span>foreignChainIDs<span class="p">.</span>push<span class="p">(</span>_chainID<span class="p">);</span>
+</span><span id="__span-14-53"><a id="__codelineno-14-53" name="__codelineno-14-53" href="#__codelineno-14-53"></a><span class="w">            </span>counters<span class="p">[</span>_chainID<span class="p">].</span>chainID<span class="w"> </span><span class="o">=</span><span class="w"> </span>_chainID<span class="p">;</span>
+</span><span id="__span-14-54"><a id="__codelineno-14-54" name="__codelineno-14-54" href="#__codelineno-14-54"></a><span class="w">        </span><span class="p">}</span>
+</span><span id="__span-14-55"><a id="__codelineno-14-55" name="__codelineno-14-55" href="#__codelineno-14-55"></a>
+</span><span id="__span-14-56"><a id="__codelineno-14-56" name="__codelineno-14-56" href="#__codelineno-14-56"></a><span class="w">        </span>counters<span class="p">[</span>_chainID<span class="p">].</span>contractAddress<span class="w"> </span><span class="o">=</span><span class="w"> </span>_contractAddress<span class="p">;</span>
+</span><span id="__span-14-57"><a id="__codelineno-14-57" name="__codelineno-14-57" href="#__codelineno-14-57"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-14-58"><a id="__codelineno-14-58" name="__codelineno-14-58" href="#__codelineno-14-58"></a>
+</span><span id="__span-14-59"><a id="__codelineno-14-59" name="__codelineno-14-59" href="#__codelineno-14-59"></a><span class="w">    </span><span class="c1">// getMyCounter (call signature 916d5743) returns the counter value for this chain. It is meant to be used in a cross chain query.</span>
+</span><span id="__span-14-60"><a id="__codelineno-14-60" name="__codelineno-14-60" href="#__codelineno-14-60"></a><span class="w">    </span><span class="kt">function</span><span class="w"> </span><span class="nv">getMyCounter</span><span class="p">()</span><span class="w"> </span><span class="kt">public</span><span class="w"> </span>view<span class="w"> </span><span class="kt">returns</span><span class="w"> </span><span class="p">(</span><span class="kt">uint256</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-14-61"><a id="__codelineno-14-61" name="__codelineno-14-61" href="#__codelineno-14-61"></a><span class="w">        </span><span class="kt">return</span><span class="w"> </span>counters<span class="p">[</span>myChainID<span class="p">].</span>counter<span class="p">;</span>
+</span><span id="__span-14-62"><a id="__codelineno-14-62" name="__codelineno-14-62" href="#__codelineno-14-62"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-14-63"><a id="__codelineno-14-63" name="__codelineno-14-63" href="#__codelineno-14-63"></a>
+</span><span id="__span-14-64"><a id="__codelineno-14-64" name="__codelineno-14-64" href="#__codelineno-14-64"></a><span class="w">    </span><span class="c1">// getState() returns this chain&#39;s view of all the counters. It is meant to be used in the front end.</span>
+</span><span id="__span-14-65"><a id="__codelineno-14-65" name="__codelineno-14-65" href="#__codelineno-14-65"></a><span class="w">    </span><span class="kt">function</span><span class="w"> </span><span class="nv">getState</span><span class="p">()</span><span class="w"> </span><span class="kt">public</span><span class="w"> </span>view<span class="w"> </span><span class="kt">returns</span><span class="w"> </span><span class="p">(</span>ChainEntry<span class="p">[]</span><span class="w"> </span><span class="kt">memory</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-14-66"><a id="__codelineno-14-66" name="__codelineno-14-66" href="#__codelineno-14-66"></a><span class="w">        </span>ChainEntry<span class="p">[]</span><span class="w"> </span><span class="kt">memory</span><span class="w"> </span>ret<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">new</span><span class="w"> </span>ChainEntry<span class="p">[](</span>foreignChainIDs<span class="p">.</span>length<span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m m-Decimal">1</span><span class="p">);</span>
+</span><span id="__span-14-67"><a id="__codelineno-14-67" name="__codelineno-14-67" href="#__codelineno-14-67"></a><span class="w">        </span>ret<span class="p">[</span><span class="m m-Decimal">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>counters<span class="p">[</span>myChainID<span class="p">];</span>
+</span><span id="__span-14-68"><a id="__codelineno-14-68" name="__codelineno-14-68" href="#__codelineno-14-68"></a><span class="w">        </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>foreignChainIDs<span class="p">.</span>length<span class="p">;</span>
+</span><span id="__span-14-69"><a id="__codelineno-14-69" name="__codelineno-14-69" href="#__codelineno-14-69"></a>
+</span><span id="__span-14-70"><a id="__codelineno-14-70" name="__codelineno-14-70" href="#__codelineno-14-70"></a><span class="w">        </span><span class="kt">for</span><span class="w"> </span><span class="p">(</span><span class="kt">uint256</span><span class="w"> </span><span class="nv">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m m-Decimal">0</span><span class="p">;</span><span class="w"> </span>i<span class="w"> </span><span class="o">&lt;</span><span class="w"> </span>length<span class="p">;)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-14-71"><a id="__codelineno-14-71" name="__codelineno-14-71" href="#__codelineno-14-71"></a><span class="w">            </span>ret<span class="p">[</span>i<span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m m-Decimal">1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>counters<span class="p">[</span>foreignChainIDs<span class="p">[</span>i<span class="p">]];</span>
+</span><span id="__span-14-72"><a id="__codelineno-14-72" name="__codelineno-14-72" href="#__codelineno-14-72"></a><span class="w">            </span>unchecked<span class="w"> </span><span class="p">{</span>
+</span><span id="__span-14-73"><a id="__codelineno-14-73" name="__codelineno-14-73" href="#__codelineno-14-73"></a><span class="w">                </span><span class="o">++</span>i<span class="p">;</span>
+</span><span id="__span-14-74"><a id="__codelineno-14-74" name="__codelineno-14-74" href="#__codelineno-14-74"></a><span class="w">            </span><span class="p">}</span>
+</span><span id="__span-14-75"><a id="__codelineno-14-75" name="__codelineno-14-75" href="#__codelineno-14-75"></a><span class="w">        </span><span class="p">}</span>
+</span><span id="__span-14-76"><a id="__codelineno-14-76" name="__codelineno-14-76" href="#__codelineno-14-76"></a>
+</span><span id="__span-14-77"><a id="__codelineno-14-77" name="__codelineno-14-77" href="#__codelineno-14-77"></a><span class="w">        </span><span class="kt">return</span><span class="w"> </span>ret<span class="p">;</span>
+</span><span id="__span-14-78"><a id="__codelineno-14-78" name="__codelineno-14-78" href="#__codelineno-14-78"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-14-79"><a id="__codelineno-14-79" name="__codelineno-14-79" href="#__codelineno-14-79"></a>
+</span><span id="__span-14-80"><a id="__codelineno-14-80" name="__codelineno-14-80" href="#__codelineno-14-80"></a><span class="w">    </span><span class="c1">// @notice Takes the cross chain query response for the other counters, stores the results for the other chains, and updates the counter for this chain.</span>
+</span><span id="__span-14-81"><a id="__codelineno-14-81" name="__codelineno-14-81" href="#__codelineno-14-81"></a><span class="w">    </span><span class="kt">function</span><span class="w"> </span><span class="nv">updateCounters</span><span class="p">(</span><span class="kt">bytes</span><span class="w"> </span><span class="nv">memory</span><span class="w"> </span>response<span class="p">,</span><span class="w"> </span>IWormhole<span class="p">.</span>Signature<span class="p">[]</span><span class="w"> </span><span class="kt">memory</span><span class="w"> </span>signatures<span class="p">)</span><span class="w"> </span><span class="kt">public</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-14-82"><a id="__codelineno-14-82" name="__codelineno-14-82" href="#__codelineno-14-82"></a><span class="w">        </span>ParsedQueryResponse<span class="w"> </span><span class="kt">memory</span><span class="w"> </span>r<span class="w"> </span><span class="o">=</span><span class="w"> </span>parseAndVerifyQueryResponse<span class="p">(</span>response<span class="p">,</span><span class="w"> </span>signatures<span class="p">);</span>
+</span><span id="__span-14-83"><a id="__codelineno-14-83" name="__codelineno-14-83" href="#__codelineno-14-83"></a><span class="w">        </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">numResponses</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>r<span class="p">.</span>responses<span class="p">.</span>length<span class="p">;</span>
+</span><span id="__span-14-84"><a id="__codelineno-14-84" name="__codelineno-14-84" href="#__codelineno-14-84"></a><span class="w">        </span><span class="kt">if</span><span class="w"> </span><span class="p">(</span>numResponses<span class="w"> </span><span class="o">!=</span><span class="w"> </span>foreignChainIDs<span class="p">.</span>length<span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-14-85"><a id="__codelineno-14-85" name="__codelineno-14-85" href="#__codelineno-14-85"></a><span class="w">            </span>revert<span class="w"> </span>UnexpectedResultLength<span class="p">();</span>
+</span><span id="__span-14-86"><a id="__codelineno-14-86" name="__codelineno-14-86" href="#__codelineno-14-86"></a><span class="w">        </span><span class="p">}</span>
+</span><span id="__span-14-87"><a id="__codelineno-14-87" name="__codelineno-14-87" href="#__codelineno-14-87"></a>
+</span><span id="__span-14-88"><a id="__codelineno-14-88" name="__codelineno-14-88" href="#__codelineno-14-88"></a><span class="w">        </span><span class="kt">for</span><span class="w"> </span><span class="p">(</span><span class="kt">uint256</span><span class="w"> </span><span class="nv">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m m-Decimal">0</span><span class="p">;</span><span class="w"> </span>i<span class="w"> </span><span class="o">&lt;</span><span class="w"> </span>numResponses<span class="p">;)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-14-89"><a id="__codelineno-14-89" name="__codelineno-14-89" href="#__codelineno-14-89"></a><span class="w">            </span><span class="c1">// Create a storage pointer for frequently read and updated data stored on the blockchain</span>
+</span><span id="__span-14-90"><a id="__codelineno-14-90" name="__codelineno-14-90" href="#__codelineno-14-90"></a><span class="w">            </span>ChainEntry<span class="w"> </span>storage<span class="w"> </span>chainEntry<span class="w"> </span><span class="o">=</span><span class="w"> </span>counters<span class="p">[</span>r<span class="p">.</span>responses<span class="p">[</span>i<span class="p">].</span>chainId<span class="p">];</span>
+</span><span id="__span-14-91"><a id="__codelineno-14-91" name="__codelineno-14-91" href="#__codelineno-14-91"></a><span class="w">            </span><span class="kt">if</span><span class="w"> </span><span class="p">(</span>chainEntry<span class="p">.</span>chainID<span class="w"> </span><span class="o">!=</span><span class="w"> </span>foreignChainIDs<span class="p">[</span>i<span class="p">])</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-14-92"><a id="__codelineno-14-92" name="__codelineno-14-92" href="#__codelineno-14-92"></a><span class="w">                </span>revert<span class="w"> </span>InvalidForeignChainID<span class="p">();</span>
+</span><span id="__span-14-93"><a id="__codelineno-14-93" name="__codelineno-14-93" href="#__codelineno-14-93"></a><span class="w">            </span><span class="p">}</span>
+</span><span id="__span-14-94"><a id="__codelineno-14-94" name="__codelineno-14-94" href="#__codelineno-14-94"></a>
+</span><span id="__span-14-95"><a id="__codelineno-14-95" name="__codelineno-14-95" href="#__codelineno-14-95"></a><span class="w">            </span>EthCallQueryResponse<span class="w"> </span><span class="kt">memory</span><span class="w"> </span>eqr<span class="w"> </span><span class="o">=</span><span class="w"> </span>parseEthCallQueryResponse<span class="p">(</span>r<span class="p">.</span>responses<span class="p">[</span>i<span class="p">]);</span>
+</span><span id="__span-14-96"><a id="__codelineno-14-96" name="__codelineno-14-96" href="#__codelineno-14-96"></a>
+</span><span id="__span-14-97"><a id="__codelineno-14-97" name="__codelineno-14-97" href="#__codelineno-14-97"></a><span class="w">            </span><span class="c1">// Validate that update is not obsolete</span>
+</span><span id="__span-14-98"><a id="__codelineno-14-98" name="__codelineno-14-98" href="#__codelineno-14-98"></a><span class="w">            </span>validateBlockNum<span class="p">(</span>eqr<span class="p">.</span>blockNum<span class="p">,</span><span class="w"> </span>chainEntry<span class="p">.</span>blockNum<span class="p">);</span>
+</span><span id="__span-14-99"><a id="__codelineno-14-99" name="__codelineno-14-99" href="#__codelineno-14-99"></a>
+</span><span id="__span-14-100"><a id="__codelineno-14-100" name="__codelineno-14-100" href="#__codelineno-14-100"></a><span class="w">            </span><span class="c1">// Validate that update is not stale</span>
+</span><span id="__span-14-101"><a id="__codelineno-14-101" name="__codelineno-14-101" href="#__codelineno-14-101"></a><span class="w">            </span>validateBlockTime<span class="p">(</span>eqr<span class="p">.</span>blockTime<span class="p">,</span><span class="w"> </span><span class="k">block.timestamp</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="m m-Decimal">300</span><span class="p">);</span>
+</span><span id="__span-14-102"><a id="__codelineno-14-102" name="__codelineno-14-102" href="#__codelineno-14-102"></a>
+</span><span id="__span-14-103"><a id="__codelineno-14-103" name="__codelineno-14-103" href="#__codelineno-14-103"></a><span class="w">            </span><span class="kt">if</span><span class="w"> </span><span class="p">(</span>eqr<span class="p">.</span>result<span class="p">.</span>length<span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="m m-Decimal">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-14-104"><a id="__codelineno-14-104" name="__codelineno-14-104" href="#__codelineno-14-104"></a><span class="w">                </span>revert<span class="w"> </span>UnexpectedResultMismatch<span class="p">();</span>
+</span><span id="__span-14-105"><a id="__codelineno-14-105" name="__codelineno-14-105" href="#__codelineno-14-105"></a><span class="w">            </span><span class="p">}</span>
+</span><span id="__span-14-106"><a id="__codelineno-14-106" name="__codelineno-14-106" href="#__codelineno-14-106"></a>
+</span><span id="__span-14-107"><a id="__codelineno-14-107" name="__codelineno-14-107" href="#__codelineno-14-107"></a><span class="w">            </span><span class="c1">// Validate addresses and function signatures</span>
+</span><span id="__span-14-108"><a id="__codelineno-14-108" name="__codelineno-14-108" href="#__codelineno-14-108"></a><span class="w">            </span><span class="kt">address</span><span class="p">[]</span><span class="w"> </span><span class="kt">memory</span><span class="w"> </span>validAddresses<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">new</span><span class="w"> </span><span class="kt">address</span><span class="p">[](</span><span class="m m-Decimal">1</span><span class="p">);</span>
+</span><span id="__span-14-109"><a id="__codelineno-14-109" name="__codelineno-14-109" href="#__codelineno-14-109"></a><span class="w">            </span>bytes4<span class="p">[]</span><span class="w"> </span><span class="kt">memory</span><span class="w"> </span>validFunctionSignatures<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">new</span><span class="w"> </span>bytes4<span class="p">[](</span><span class="m m-Decimal">1</span><span class="p">);</span>
+</span><span id="__span-14-110"><a id="__codelineno-14-110" name="__codelineno-14-110" href="#__codelineno-14-110"></a><span class="w">            </span>validAddresses<span class="p">[</span><span class="m m-Decimal">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>chainEntry<span class="p">.</span>contractAddress<span class="p">;</span>
+</span><span id="__span-14-111"><a id="__codelineno-14-111" name="__codelineno-14-111" href="#__codelineno-14-111"></a><span class="w">            </span>validFunctionSignatures<span class="p">[</span><span class="m m-Decimal">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>GetMyCounter<span class="p">;</span>
+</span><span id="__span-14-112"><a id="__codelineno-14-112" name="__codelineno-14-112" href="#__codelineno-14-112"></a>
+</span><span id="__span-14-113"><a id="__codelineno-14-113" name="__codelineno-14-113" href="#__codelineno-14-113"></a><span class="w">            </span>validateMultipleEthCallData<span class="p">(</span>eqr<span class="p">.</span>result<span class="p">,</span><span class="w"> </span>validAddresses<span class="p">,</span><span class="w"> </span>validFunctionSignatures<span class="p">);</span>
+</span><span id="__span-14-114"><a id="__codelineno-14-114" name="__codelineno-14-114" href="#__codelineno-14-114"></a>
+</span><span id="__span-14-115"><a id="__codelineno-14-115" name="__codelineno-14-115" href="#__codelineno-14-115"></a><span class="w">            </span><span class="kt">require</span><span class="p">(</span>eqr<span class="p">.</span>result<span class="p">[</span><span class="m m-Decimal">0</span><span class="p">].</span>result<span class="p">.</span>length<span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m m-Decimal">32</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;result is not a uint256&quot;</span><span class="p">);</span>
+</span><span id="__span-14-116"><a id="__codelineno-14-116" name="__codelineno-14-116" href="#__codelineno-14-116"></a>
+</span><span id="__span-14-117"><a id="__codelineno-14-117" name="__codelineno-14-117" href="#__codelineno-14-117"></a><span class="w">            </span>chainEntry<span class="p">.</span>blockNum<span class="w"> </span><span class="o">=</span><span class="w"> </span>eqr<span class="p">.</span>blockNum<span class="p">;</span>
+</span><span id="__span-14-118"><a id="__codelineno-14-118" name="__codelineno-14-118" href="#__codelineno-14-118"></a><span class="w">            </span>chainEntry<span class="p">.</span>blockTime<span class="w"> </span><span class="o">=</span><span class="w"> </span>eqr<span class="p">.</span>blockTime<span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="err">1</span>_000_000<span class="p">;</span>
+</span><span id="__span-14-119"><a id="__codelineno-14-119" name="__codelineno-14-119" href="#__codelineno-14-119"></a><span class="w">            </span>chainEntry<span class="p">.</span>counter<span class="w"> </span><span class="o">=</span><span class="w"> </span>abi<span class="p">.</span>decode<span class="p">(</span>eqr<span class="p">.</span>result<span class="p">[</span><span class="m m-Decimal">0</span><span class="p">].</span>result<span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="kt">uint256</span><span class="p">));</span>
+</span><span id="__span-14-120"><a id="__codelineno-14-120" name="__codelineno-14-120" href="#__codelineno-14-120"></a>
+</span><span id="__span-14-121"><a id="__codelineno-14-121" name="__codelineno-14-121" href="#__codelineno-14-121"></a><span class="w">            </span>unchecked<span class="w"> </span><span class="p">{</span>
+</span><span id="__span-14-122"><a id="__codelineno-14-122" name="__codelineno-14-122" href="#__codelineno-14-122"></a><span class="w">                </span><span class="o">++</span>i<span class="p">;</span>
+</span><span id="__span-14-123"><a id="__codelineno-14-123" name="__codelineno-14-123" href="#__codelineno-14-123"></a><span class="w">            </span><span class="p">}</span>
+</span><span id="__span-14-124"><a id="__codelineno-14-124" name="__codelineno-14-124" href="#__codelineno-14-124"></a><span class="w">        </span><span class="p">}</span>
+</span><span id="__span-14-125"><a id="__codelineno-14-125" name="__codelineno-14-125" href="#__codelineno-14-125"></a>
+</span><span id="__span-14-126"><a id="__codelineno-14-126" name="__codelineno-14-126" href="#__codelineno-14-126"></a><span class="w">        </span>counters<span class="p">[</span>myChainID<span class="p">].</span>blockNum<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">block.number</span><span class="p">;</span>
+</span><span id="__span-14-127"><a id="__codelineno-14-127" name="__codelineno-14-127" href="#__codelineno-14-127"></a><span class="w">        </span>counters<span class="p">[</span>myChainID<span class="p">].</span>blockTime<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">block.timestamp</span><span class="p">;</span>
+</span><span id="__span-14-128"><a id="__codelineno-14-128" name="__codelineno-14-128" href="#__codelineno-14-128"></a><span class="w">        </span>counters<span class="p">[</span>myChainID<span class="p">].</span>counter<span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="m m-Decimal">1</span><span class="p">;</span>
+</span><span id="__span-14-129"><a id="__codelineno-14-129" name="__codelineno-14-129" href="#__codelineno-14-129"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-14-130"><a id="__codelineno-14-130" name="__codelineno-14-130" href="#__codelineno-14-130"></a>
+</span><span id="__span-14-131"><a id="__codelineno-14-131" name="__codelineno-14-131" href="#__codelineno-14-131"></a><span class="w">    </span><span class="kt">modifier</span><span class="w"> </span>onlyOwner<span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-14-132"><a id="__codelineno-14-132" name="__codelineno-14-132" href="#__codelineno-14-132"></a><span class="w">        </span><span class="kt">if</span><span class="w"> </span><span class="p">(</span>owner<span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="k">msg.sender</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-14-133"><a id="__codelineno-14-133" name="__codelineno-14-133" href="#__codelineno-14-133"></a><span class="w">            </span>revert<span class="w"> </span>InvalidOwner<span class="p">();</span>
+</span><span id="__span-14-134"><a id="__codelineno-14-134" name="__codelineno-14-134" href="#__codelineno-14-134"></a><span class="w">        </span><span class="p">}</span>
+</span><span id="__span-14-135"><a id="__codelineno-14-135" name="__codelineno-14-135" href="#__codelineno-14-135"></a><span class="w">        </span>_<span class="p">;</span>
+</span><span id="__span-14-136"><a id="__codelineno-14-136" name="__codelineno-14-136" href="#__codelineno-14-136"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-14-137"><a id="__codelineno-14-137" name="__codelineno-14-137" href="#__codelineno-14-137"></a><span class="p">}</span>
+</span></code></pre></div>
+</details>
+<h2 id="submit-a-query-response-on-chain">Submit a Query Response On-Chain<a class="headerlink" href="#submit-a-query-response-on-chain" title="Permanent link">＃</a></h2>
+<p>The <code>QueryProxyQueryResponse</code> result requires a slight tweak when submitting to the contract to match the format of <code>function parseAndVerifyQueryResponse(bytes memory response, IWormhole.Signature[] memory signatures)</code>. A helper function, <code>signaturesToEvmStruct</code>, is provided in the SDK for this.</p>
+<p>This example submits the transaction to the demo contract:</p>
+<div class="language-jsx highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="kd">const</span><span class="w"> </span><span class="nx">tx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">contract</span><span class="p">.</span><span class="nx">updateCounters</span><span class="p">(</span>
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="w">  </span><span class="sb">`0x</span><span class="si">${</span><span class="nx">response</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">bytes</span><span class="si">}</span><span class="sb">`</span><span class="p">,</span>
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="w">  </span><span class="nx">signaturesToEvmStruct</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">signatures</span><span class="p">)</span>
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="p">);</span>
+</span></code></pre></div>
+<div class="md-source-file">
+  <small>
+    
+  </small>
+</div>
+
+  
+
+
+
+  <form class="md-feedback" name="feedback" hidden>
+    <fieldset>
+      <legend class="md-feedback__title">
+        Was this page helpful?
+      </legend>
+      <div class="md-feedback__inner">
+        <div class="md-feedback__list">
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="This page was helpful" data-md-value="1">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 12a8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8 8 8 0 0 0 8-8m2 0a10 10 0 0 1-10 10A10 10 0 0 1 2 12 10 10 0 0 1 12 2a10 10 0 0 1 10 10M10 9.5c0 .8-.7 1.5-1.5 1.5S7 10.3 7 9.5 7.7 8 8.5 8s1.5.7 1.5 1.5m7 0c0 .8-.7 1.5-1.5 1.5S14 10.3 14 9.5 14.7 8 15.5 8s1.5.7 1.5 1.5m-5 7.73c-1.75 0-3.29-.73-4.19-1.81L9.23 14c.45.72 1.52 1.23 2.77 1.23s2.32-.51 2.77-1.23l1.42 1.42c-.9 1.08-2.44 1.81-4.19 1.81Z"/></svg>
+            </button>
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="This page could be improved" data-md-value="0">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 12a8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8 8 8 0 0 0 8-8m2 0a10 10 0 0 1-10 10A10 10 0 0 1 2 12 10 10 0 0 1 12 2a10 10 0 0 1 10 10m-6.5-4c.8 0 1.5.7 1.5 1.5s-.7 1.5-1.5 1.5-1.5-.7-1.5-1.5.7-1.5 1.5-1.5M10 9.5c0 .8-.7 1.5-1.5 1.5S7 10.3 7 9.5 7.7 8 8.5 8s1.5.7 1.5 1.5m2 4.5c1.75 0 3.29.72 4.19 1.81l-1.42 1.42C14.32 16.5 13.25 16 12 16s-2.32.5-2.77 1.23l-1.42-1.42C8.71 14.72 10.25 14 12 14Z"/></svg>
+            </button>
+          
+        </div>
+        <div class="md-feedback__note">
+          
+            <div data-md-value="1" hidden>
+              
+              
+                
+              
+              Thanks for your feedback!
+            </div>
+          
+            <div data-md-value="0" hidden>
+              
+              
+                
+              
+              Thanks for your feedback! Help us improve this page by submitting <a href="https://github.com/wormhole-foundation/wormhole-docs/issues/new/?title=[Feedback]+Use%20Queries+-+/build/applications/queries/use-queries/" target="_blank" rel="noopener">additional feedback</a>.
+            </div>
+          
+        </div>
+      </div>
+    </fieldset>
+  </form>
+
+
+      
+    </article>
+  </div>
+  <div class="cookbook-widget md-typeset">
+    <div class="cookbook-widget__text">
+      <h2>Got any questions?</h2>
+      <p>Find out more</p>
+    </div>
+  </div>
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        
+  <footer class="md-footer">
+    
+    <nav class="md-footer__inner md-grid" aria-label="footer.title">
+      
+      <a href="../overview/" class="md-footer__link md-footer__link--prev" rel="prev">
+        <div class="md-footer__button md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22 12a10 10 0 0 1-10 10A10 10 0 0 1 2 12 10 10 0 0 1 12 2a10 10 0 0 1 10 10m-6.6 4.6L10.8 12l4.6-4.6L14 6l-6 6 6 6 1.4-1.4Z"/></svg>
+        </div>
+        <div class="md-footer__title">
+          <span class="md-footer__direction">
+            Previous
+          </span>
+          <span class="md-footer__page-name">
+          Overview
+          </span>
+        </div>
+      </a>
+      
+      
+      <a href="../faqs/" class="md-footer__link md-footer__link--next" rel="next">
+        <div class="md-footer__title">
+          <span class="md-footer__direction">
+            Next
+          </span>
+          <span class="md-footer__page-name">
+          FAQs
+          </span>
+        </div>
+        <div class="md-footer__button md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22 12a10 10 0 0 1-10 10A10 10 0 0 1 2 12 10 10 0 0 1 12 2a10 10 0 0 1 10 10m-12 6 6-6-6-6-1.4 1.4 4.6 4.6-4.6 4.6L10 18Z"/></svg>
+        </div>
+      </a>
+      
+    </nav>
+    
+    <div class="md-footer-meta md-typeset">
+      <div class="md-footer-meta__inner md-grid">
+        <div class="column newsletter">
+          <label for="email" class="newsletter-label">Subscribe for updates</label>
+          <form action="https://formspree.io/f/{form_id}" method="post" class="md-footer-newsletter">
+            <input name="Email" id="email" type="email" placeholder="Your email">
+            <button type="submit">Subscribe</button>
+          </form>
+        </div>
+        <div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://twitter.com/wormhole" target="_blank" rel="noopener" title="Twitter" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8l164.9-188.5L26.8 48h145.6l100.5 132.9L389.2 48zm-24.8 373.8h39.1L151.1 88h-42l255.3 333.8z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://discord.gg/wormholecrypto" target="_blank" rel="noopener" title="Discord" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M524.531 69.836a1.5 1.5 0 0 0-.764-.7A485.065 485.065 0 0 0 404.081 32.03a1.816 1.816 0 0 0-1.923.91 337.461 337.461 0 0 0-14.9 30.6 447.848 447.848 0 0 0-134.426 0 309.541 309.541 0 0 0-15.135-30.6 1.89 1.89 0 0 0-1.924-.91 483.689 483.689 0 0 0-119.688 37.107 1.712 1.712 0 0 0-.788.676C39.068 183.651 18.186 294.69 28.43 404.354a2.016 2.016 0 0 0 .765 1.375 487.666 487.666 0 0 0 146.825 74.189 1.9 1.9 0 0 0 2.063-.676A348.2 348.2 0 0 0 208.12 430.4a1.86 1.86 0 0 0-1.019-2.588 321.173 321.173 0 0 1-45.868-21.853 1.885 1.885 0 0 1-.185-3.126 251.047 251.047 0 0 0 9.109-7.137 1.819 1.819 0 0 1 1.9-.256c96.229 43.917 200.41 43.917 295.5 0a1.812 1.812 0 0 1 1.924.233 234.533 234.533 0 0 0 9.132 7.16 1.884 1.884 0 0 1-.162 3.126 301.407 301.407 0 0 1-45.89 21.83 1.875 1.875 0 0 0-1 2.611 391.055 391.055 0 0 0 30.014 48.815 1.864 1.864 0 0 0 2.063.7A486.048 486.048 0 0 0 610.7 405.729a1.882 1.882 0 0 0 .765-1.352c12.264-126.783-20.532-236.912-86.934-334.541ZM222.491 337.58c-28.972 0-52.844-26.587-52.844-59.239s23.409-59.241 52.844-59.241c29.665 0 53.306 26.82 52.843 59.239 0 32.654-23.41 59.241-52.843 59.241Zm195.38 0c-28.971 0-52.843-26.587-52.843-59.239s23.409-59.241 52.843-59.241c29.667 0 53.307 26.82 52.844 59.239 0 32.654-23.177 59.241-52.844 59.241Z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://t.me/wormholecrypto" target="_blank" rel="noopener" title="Telegram" class="md-social__link">
+      <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="22"
+   height="22"
+   fill="none"
+   version="1.1"
+   id="svg499"
+   sodipodi:docname="telegram.svg"
+   inkscape:version="1.2.1 (9c6d41e4, 2022-07-14)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs503" />
+  <sodipodi:namedview
+     id="namedview501"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="10.727273"
+     inkscape:cx="0.13983051"
+     inkscape:cy="11"
+     inkscape:window-width="1309"
+     inkscape:window-height="430"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg499" />
+  <path
+     fill="#fff"
+     d="M18.984 3.35s1.78-.694 1.632.993c-.05.694-.494 3.124-.84 5.753l-1.188 7.787s-.099 1.14-.99 1.34c-.89.198-2.225-.695-2.472-.894-.198-.149-3.71-2.38-4.947-3.472-.346-.297-.742-.892.05-1.587l5.193-4.96c.594-.595 1.188-1.983-1.286-.297l-6.925 4.712s-.791.496-2.275.05l-3.216-.993s-1.187-.744.841-1.488c4.947-2.33 11.031-4.711 16.423-6.943Z"
+     id="path497" />
+</svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://github.com/wormhole-foundation/wormhole" target="_blank" rel="noopener" title="GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://wormhole.com/docs/" target="_blank" rel="noopener" title="Docs" class="md-social__link">
+      <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="22"
+   height="22"
+   fill="none"
+   version="1.1"
+   id="svg191"
+   sodipodi:docname="docs.svg"
+   inkscape:version="1.2.1 (9c6d41e4, 2022-07-14)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview193"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="6.8787622"
+     inkscape:cx="-11.848062"
+     inkscape:cy="9.4493745"
+     inkscape:window-width="1309"
+     inkscape:window-height="430"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg191" />
+  <g
+     clipPath="url(#a)"
+     id="g184">
+    <path
+       fill="#fff"
+       d="M9.901 16.289a.644.644 0 1 1-.001 1.287.644.644 0 0 1 .001-1.287Zm10.106-3.985a.644.644 0 1 1 .001-1.289.644.644 0 0 1-.001 1.289Zm0-2.636a1.994 1.994 0 0 0-1.888 2.626l-6.582 3.504A1.984 1.984 0 0 0 9.9 14.94c-.76 0-1.452.436-1.787 1.115l-5.913-3.118c-.626-.329-1.093-1.357-1.044-2.294.026-.489.195-.868.452-1.015.163-.091.36-.084.569.025l.038.021c1.568.825 6.695 3.527 6.912 3.627.333.154.518.217 1.086-.053l10.6-5.513c.156-.058.338-.208.338-.434 0-.314-.325-.437-.326-.437-.603-.29-1.53-.723-2.433-1.146-1.933-.905-4.123-1.93-5.084-2.434-.83-.434-1.499-.068-1.618.006l-.231.114C7.13 5.543 1.338 8.413 1.008 8.613c-.59.36-.955 1.076-1.003 1.964-.073 1.409.645 2.878 1.672 3.416l6.254 3.225a1.994 1.994 0 0 0 1.97 1.707 1.996 1.996 0 0 0 1.992-1.962l6.888-3.733A1.99 1.99 0 0 0 22 11.66a1.995 1.995 0 0 0-1.993-1.993"
+       id="path182" />
+  </g>
+  <defs
+     id="defs189">
+    <clipPath
+       id="a">
+      <path
+         fill="#fff"
+         d="M0 0h22v22H0z"
+         id="path186" />
+    </clipPath>
+  </defs>
+</svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://www.youtube.com/@wormholecrypto" target="_blank" rel="noopener" title="YouTube" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M549.655 124.083c-6.281-23.65-24.787-42.276-48.284-48.597C458.781 64 288 64 288 64S117.22 64 74.629 75.486c-23.497 6.322-42.003 24.947-48.284 48.597-11.412 42.867-11.412 132.305-11.412 132.305s0 89.438 11.412 132.305c6.281 23.65 24.787 41.5 48.284 47.821C117.22 448 288 448 288 448s170.78 0 213.371-11.486c23.497-6.321 42.003-24.171 48.284-47.821 11.412-42.867 11.412-132.305 11.412-132.305s0-89.438-11.412-132.305zm-317.51 213.508V175.185l142.739 81.205-142.739 81.201z"/></svg>
+    </a>
+  
+</div>
+      </div>
+      <div class="md-footer-copyright md-grid">
+        
+        <div class="md-footer-copyright__highlight">
+          2024 © Wormhole Foundation. All Rights Reserved.
+        </div>
+        
+        <div class="papermoon">
+          <span>Made with 🩵 by <a href="https://papermoon.io/" target="_blank">PaperMoon</a></span>
+        </div>
+        <div class="policy-links">
+          <a href="https://wormhole.com/pages/terms-of-use" target="_blank">Terms of use</a>
+          <a href="https://wormhole.com/pages/data-protection-and-privacy-policy" target="_blank">Privacy policy</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+  
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+      <div class="md-consent" data-md-component="consent" id="__consent" hidden>
+        <div class="md-consent__overlay"></div>
+        <aside class="md-consent__inner">
+          <form class="md-consent__form md-grid md-typeset" name="consent">
+            
+
+  
+    
+  
+
+
+
+
+
+  
+
+<h4>Cookie consent</h4>
+<p>This site uses cookies to deliver its service and to analyze traffic. By browsing this site, you accept the <a href="https://wormhole.com/pages/data-protection-and-privacy-policy" target="_blank" rel="noopener">privacy policy</a>.</p>
+<input class="md-toggle" type="checkbox" id="__settings" checked>
+<div class="md-consent__settings">
+  <ul class="task-list">
+    
+      
+      
+        
+        
+      
+      <li class="task-list-item">
+        <label class="task-list-control">
+          <input type="checkbox" name="analytics" checked>
+          <span class="task-list-indicator"></span>
+          Google Analytics
+        </label>
+      </li>
+    
+  </ul>
+</div>
+<div class="md-consent__controls">
+  
+    
+      <button class="md-button md-button--primary">Accept</button>
+    
+    
+    
+  
+    
+    
+      <button type="reset" class="md-button md-button--primary">Reject</button>
+    
+    
+  
+</div>
+          </form>
+        </aside>
+      </div>
+      <script>var consent=__md_get("__consent");if(consent)for(var input of document.forms.consent.elements)input.name&&(input.checked=consent[input.name]||!1);else"file:"!==location.protocol&&setTimeout(function(){document.querySelector("[data-md-component=consent]").hidden=!1},250);var action,form=document.forms.consent;for(action of["submit","reset"])form.addEventListener(action,function(e){if(e.preventDefault(),"reset"===e.type)for(var n of document.forms.consent.elements)n.name&&(n.checked=!1);__md_set("__consent",Object.fromEntries(Array.from(new FormData(form).keys()).map(function(e){return[e,!0]}))),location.hash="",location.reload()})</script>
+    
+    <script id="__config" type="application/json">{"base": "../../../..", "features": ["content.code.annotate", "content.code.copy", "content.tooltips", "navigation.footer", "navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.indexes"], "search": "../../../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.081f42fc.min.js"></script>
+      
+    
+  <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>
