@@ -1,271 +1,18 @@
 import { Chain, finality, toChain } from '@wormhole-foundation/sdk';
 import * as cfg from './config';
-import { fmtNum, fmtStr, fmtCodeStr } from './util';
-
-const SRC_BASE = 'https://github.com/wormhole-foundation/wormhole/blob/main/';
-
-export function contractTable(contracts: cfg.Contracts): string {
-  let core = `
-|Type|Contract|
-|----|--------|
-|Core|${fmtStr(contracts.core)}|
-|Token Bridge|${fmtStr(contracts.token_bridge)}|
-|NFT Bridge|${fmtStr(contracts.nft_bridge)}|`;
-
-  if (contracts.wormholeRelayerAddress !== undefined) {
-    core += `\n|Relayer|${fmtStr(contracts.wormholeRelayerAddress)}|`;
-    if (contracts.mockDeliveryProviderAddress)
-      core += `\n|MockProvider|${fmtStr(
-        contracts.mockDeliveryProviderAddress
-      )}|`;
-    if (contracts.mockIntegrationAddress)
-      core += `\n|MockIntegration|${fmtStr(contracts.mockIntegrationAddress)}|`;
-  }
-
-  if (contracts.cctp !== undefined) {
-    core += `\n|CCTP|${fmtStr(contracts.cctp)}|`;
-  }
-
-  return core;
-}
-
-export function finalityOptionTable(
-  finality: cfg.Finality | undefined
-): [string, string] {
-  let finalityOptions = '';
-  let finalityDetails = '';
-
-  if (finality === undefined) return [finalityOptions, finalityDetails];
-
-  const { confirmed, finalized, instant, safe, otherwise, details } = finality;
-
-  if (details !== undefined) {
-    finalityDetails = `\nFor more information see [${details}](${details})\n`;
-  }
-
-  let otherwiseText = '';
-  if (otherwise) {
-    otherwiseText = `\nIf a value is passed that is _not_ in the set above it's assumed to mean ${otherwise}`;
-  }
-
-  let settingTexts = {
-    Confirmed: fmtNum(confirmed),
-    Instant: fmtNum(instant),
-    Safe: fmtNum(safe),
-    Finalized: fmtNum(finalized),
-  };
-
-  if (finalized === 0) {
-    otherwiseText += `\n\nThis field is may be ignored since the chain provides instant finality.`;
-  }
-
-  finalityOptions = `|Level|Value|\n|-----|-----|`;
-  for (const [level, value] of Object.entries(settingTexts)) {
-    if (value !== ' ') finalityOptions += `\n|${level}|${value}|`;
-  }
-
-  finalityOptions += otherwiseText;
-
-  return [finalityOptions, finalityDetails];
-}
-
-export function chainDetailsPage(chain: cfg.DocChain): string {
-  const { mainnet, testnets, devnets } = chain;
-  const { name, id, extraDetails } = mainnet;
-
-  const updateLink = `https://github.com/wormhole-foundation/docs.wormhole.com/blob/main/scripts/src/chains/${name}.json`;
-
-  let webpage = `No webpage, update [here](${updateLink})`;
-  let explorerLinks = `No explorer, update [here](${updateLink})`;
-  let devdocs = `No dev docs, update [here](${updateLink})`;
-  let src = `No source file, update [here](${updateLink})`;
-
-  let mainnetAlias = '';
-  let testnetAlias = '';
-
-  let noteHints = '';
-
-  const [finalityOptions, finalityDetails] = finalityOptionTable(
-    extraDetails?.finality
-  );
-
-  let title = extraDetails?.title || name;
-
-  if (extraDetails !== undefined) {
-    const { contractSource, homepage, explorer, finality, notes } =
-      extraDetails;
-
-    if (notes !== undefined) {
-      noteHints = `\n${notes
-        .map((n) => {
-          return `{% hint style='info' %}\n${n}\n{% endhint %}`;
-        })
-        .join('\n')}\n`;
-    }
-
-    if (contractSource !== undefined) {
-      src = `[${contractSource}](${SRC_BASE}${contractSource})`;
-    }
-
-    if (homepage !== undefined) {
-      webpage = `[Web site](${homepage})`;
-    }
-
-    if (explorer !== undefined) {
-      const explorers: string[] = [];
-      for (const exp of explorer) {
-        explorers.push(
-          `[${exp.description ? exp.description : exp.url}](${exp.url})`
-        );
-      }
-      explorerLinks = explorers.join(' | ');
-    }
-
-    if (extraDetails.developer !== undefined) {
-      const docs: string[] = [];
-      for (const dd of extraDetails.developer) {
-        docs.push(`[${dd.description ? dd.description : dd.url}](${dd.url})`);
-      }
-      devdocs = docs.join(' | ');
-    }
-
-    if (extraDetails.mainnet !== undefined) {
-      mainnetAlias = `(${cfg.networkString(extraDetails.mainnet)})`;
-    }
-
-    if (extraDetails.testnet !== undefined) {
-      testnetAlias = `(${cfg.networkString(extraDetails.testnet)})`;
-    }
-  }
-
-  let testNetTables = '';
-  for (const testnet of testnets) {
-    if (testnet.name === mainnet.name) {
-      testNetTables += `### Testnet Contracts ${testnetAlias}\n${contractTable(
-        testnet.contracts
-      )}`;
-    }
-  }
-
-  let devNetTables = '';
-  for (const devnet of devnets) {
-    if (devnet.name === mainnet.name) {
-      devNetTables += `### Local Network Contracts\n${contractTable(
-        devnet.contracts
-      )}`;
-    }
-  }
-
-  return `
-# ${title}
-${noteHints}
-## Ecosystem
-
-- ${webpage}
-- ${explorerLinks}
-- ${devdocs}
-
-## Wormhole Details
-
-- **Name**: \`${name}\`
-- **Chain ID**: \`${id}\`
-- **Contract Source**: ${src}
-
-${
-  finalityOptions === ''
-    ? ''
-    : `### Consistency Levels
-
-The options for [consistencyLevel](../../reference/components/core-contracts.md#consistencyLevel) (i.e finality) are:`
-}
-
-${finalityOptions}
-
-${finalityDetails}
-
-### Mainnet Contracts ${mainnetAlias}
-${contractTable(mainnet.contracts)}
-
-${testNetTables}
-
-${devNetTables}
-`;
-}
-
-function sortChainNames(dc: cfg.DocChain[]): cfg.DocChain[] {
-  return dc.sort((a, b) => {
-    const aTitle =
-      a.mainnet.extraDetails && a.mainnet.extraDetails.title
-        ? a.mainnet.extraDetails.title
-        : 'N/A';
-    const bTitle =
-      b.mainnet.extraDetails && b.mainnet.extraDetails.title
-        ? b.mainnet.extraDetails.title
-        : 'N/A';
-
-    if (aTitle === 'Ethereum') return -1; // Ethereum should be first
-    if (bTitle === 'Ethereum') return 1; // Ethereum should be first
-    if (aTitle === 'Solana') return -1; // Solana should be second
-    if (bTitle === 'Solana') return 1; // Solana should be second
-    return aTitle.localeCompare(bTitle); // Sort the rest alphabetically
-  });
-}
-
-function buildHTMLTable(tableHeader: string, tableBody: string): string {
-  return `
-    <table data-full-width="true">
-      ${tableHeader}
-      <tbody>
-        ${tableBody}
-      </tbody>
-    </table>
-  `;
- 
-}
-
-// Function to format an HTML table string with consistent indentation and newlines
-export function formatHTMLTable(htmlTable: string): string {
-  const indentStep = '  '; // Define the indent step
-  let indentLevel = 0; // Initial indentation level
-
-  // Helper function to add proper indentation
-  function addIndentation(html: string): string {
-    return html
-      .split('\n')
-      .map((line) => indentStep.repeat(indentLevel) + line.trim())
-      .join('\n');
-  }
-
-  // Clean up extra spaces and newlines around tags
-  const cleanedHtmlTable = htmlTable
-    .replace(/>\s+</g, '><') // Remove spaces between tags
-    .replace(/(^|\n)\s+</g, '\n<') // Remove leading spaces before opening tags
-    .replace(/\s+(<\/\w+>)/g, '$1') // Remove trailing spaces before closing tags
-    .trim(); // Remove leading and trailing whitespace
-
-  const lines = cleanedHtmlTable.split('\n');
-  const result: string[] = [];
-
-  for (const line of lines) {
-    // Handle opening and closing tags for indentation levels
-    if (line.match(/^<\/\w/)) {
-      indentLevel--; // Decrease indentation level for closing tags
-    }
-
-    result.push(addIndentation(line));
-
-    if (line.match(/^<\w[^>]*[^\/]>/)) {
-      indentLevel++; // Increase indentation level for opening tags
-    }
-  }
-
-  // Handle the case where the last line is not properly closed
-  return result.join('\n').trim();
-}
+import {
+  fmtNum,
+  fmtCodeStr,
+  buildHTMLTable,
+  formatHTMLTable,
+  sortMainnets,
+  sortTestnets,
+  sortChainTypes,
+} from './util';
 
 export function generateAllChainIdsTable(dc: cfg.DocChain[]): string {
   // Create Mainnet Chain Table
-  const orderedDc = sortChainNames(dc);
+  const orderedDc = sortMainnets(dc);
   const tableHeader = `
     <thead>
       <th>Chain Name</th>
@@ -288,45 +35,27 @@ export function generateAllChainIdsTable(dc: cfg.DocChain[]): string {
       </tr>`
     );
 
+    function processTestnets(testnets: cfg.ChainDetails[]) {
+      testnets.forEach((testnet) => {
+        const testnetAlias = cfg.networkString(testnet.extraDetails?.testnet);
+
+        testNetTableBody.push(`
+          <tr>
+            <td>${
+              testnet.extraDetails ? testnet.extraDetails.title : testnet.name
+            }</td>
+            <td><code>${testnet.id}</code></td>
+            <td>${testnetAlias}</td>
+          </tr>`);
+      });
+    }
+
     // Assemble the Testnet table data
     if (c.testnets.length > 1) {
-      const orderedTestnets = c.testnets.sort((a, b) => {
-        const aTitle =
-          a.extraDetails && a.extraDetails.title ? a.extraDetails.title : 'N/A';
-        const bTitle =
-          b.extraDetails && b.extraDetails.title ? b.extraDetails.title : 'N/A';
-
-        if (aTitle === 'Ethereum') return -1; // Ethereum should be first
-        if (bTitle === 'Ethereum') return 1; // Ethereum should be first
-        if (aTitle === 'Solana') return -1; // Solana should be second
-        if (bTitle === 'Solana') return 1; // Solana should be second
-        return aTitle.localeCompare(bTitle); // Sort the rest alphabetically
-      });
-
-      orderedTestnets.forEach((testnet) => {
-        const testnetAlias = cfg.networkString(testnet.extraDetails?.testnet);
-
-        testNetTableBody.push(`
-          <tr>
-            <td>${
-              testnet.extraDetails ? testnet.extraDetails.title : testnet.name
-            }</td>
-            <td><code>${testnet.id}</code></td>
-            <td>${testnetAlias}</td>
-          </tr>`);
-      });
+      const orderedTestnets = sortTestnets(c.testnets);
+      processTestnets(orderedTestnets);
     } else {
-      c.testnets.forEach((testnet) => {
-        const testnetAlias = cfg.networkString(testnet.extraDetails?.testnet);
-        testNetTableBody.push(`
-          <tr>
-            <td>${
-              testnet.extraDetails ? testnet.extraDetails.title : testnet.name
-            }</td>
-            <td><code>${testnet.id}</code></td>
-            <td>${testnetAlias}</td>
-          </tr>`);
-      });
+      processTestnets(c.testnets);
     }
   }
 
@@ -342,9 +71,9 @@ export function generateAllChainIdsTable(dc: cfg.DocChain[]): string {
 }
 
 export function generateAllConsistencyLevelsTable(dc: cfg.DocChain[]): string {
-  const orderedDc = sortChainNames(dc);
+  const orderedDc = sortMainnets(dc);
 
-  const header = `
+  const tableHeader = `
 <thead>
   <th>Chain</th>
   <th>Instant</th>
@@ -355,7 +84,7 @@ export function generateAllConsistencyLevelsTable(dc: cfg.DocChain[]): string {
   <th>Details</th>
 </thead>`;
 
-  const rows: string[] = [];
+  const tableBody: string[] = [];
   for (const c of orderedDc) {
     if (!c.mainnet.extraDetails) {
       console.log('No extra details for: ', c.mainnet.name);
@@ -383,7 +112,9 @@ export function generateAllConsistencyLevelsTable(dc: cfg.DocChain[]): string {
     );
     const finalized = fmtNum(f.finalized);
     const otherwise = f.otherwise ? f.otherwise : '';
-    const details = f.details ? `<a href="${f.details}" target="_blank">Details</a>` : ' ';
+    const details = f.details
+      ? `<a href="${f.details}" target="_blank">Details</a>`
+      : ' ';
 
     let sdkChain: Chain;
     try {
@@ -405,7 +136,7 @@ export function generateAllConsistencyLevelsTable(dc: cfg.DocChain[]): string {
       const finalizationTime = `~ ${Math.ceil(
         ((finalizationBlocks + 1) * blockTime) / 1000
       )}s`;
-      rows.push(`
+      tableBody.push(`
 <tr>
   <td>${header}</td>
   <td>${instant}</td>
@@ -419,80 +150,55 @@ export function generateAllConsistencyLevelsTable(dc: cfg.DocChain[]): string {
     }
   }
 
-  return formatHTMLTable(buildHTMLTable(header, rows.join('\n')))
+  return formatHTMLTable(buildHTMLTable(tableHeader, tableBody.join('\n')));
 }
 
 export function generateAllContractsTable(
-  dc: cfg.DocChain[],
+  chains: cfg.DocChain[],
   module: string
 ): string {
-  // Create Mainnet Chain Table
-  const orderedDc = sortChainNames(dc);
-  const tableHeader =`
+  const orderedChains = sortMainnets(chains);
+  const tableHeader = `
   <thead>
     <th>Chain Name</th>
     <th>Contract Address</th>
   </thead>`;
-  let mainNetTableBody: string[] = [];
-  let testNetTableBody: string[] = [];
-  let devNetTableBody: string[] = [];
 
-  const m = module as keyof cfg.Contracts;
-
-  for (const c of orderedDc) {
-    // Assemble the Mainnet table data
-    mainNetTableBody.push(
-      `<tr>
-        <td>${c.mainnet.extraDetails ? c.mainnet.extraDetails.title : c.mainnet.name}</td>
-        <td>${fmtCodeStr(c.mainnet.contracts[m])}</td>
-      </tr>`
-    )
-
-    // Assemble the Testnet table data
-    if (c.testnets.length > 1) {
-      const orderedTestnets = c.testnets.sort((a, b) => {
-        const aTitle =
-          a.extraDetails && a.extraDetails.title ? a.extraDetails.title : 'N/A';
-        const bTitle =
-          b.extraDetails && b.extraDetails.title ? b.extraDetails.title : 'N/A';
-
-        if (aTitle === 'Ethereum') return -1; // Ethereum should be first
-        if (bTitle === 'Ethereum') return 1; // Ethereum should be first
-        if (aTitle === 'Solana') return -1; // Solana should be second
-        if (bTitle === 'Solana') return 1; // Solana should be second
-        return aTitle.localeCompare(bTitle); // Sort the rest alphabetically
-      });
-
-      orderedTestnets.forEach((testnet) => {
-        testNetTableBody.push(`
+  // Helper function to generate table rows
+  const generateRows = (networks: cfg.ChainDetails[]): string[] => {
+    return networks
+      .filter((network) =>
+        module === 'cctp'
+          ? network.contracts?.[module]?.wormhole
+          : network.contracts?.[module]
+      )
+      .map(
+        (network) => `
           <tr>
-            <td>${testnet.extraDetails ? testnet.extraDetails.title : testnet.name}</td>
-            <td>${fmtCodeStr(testnet.contracts[m])}</td>
-          </tr>`,
-        );
-      });
-    } else {
-      c.testnets.forEach((testnet) => {
-        testNetTableBody.push(`
-          <tr>
-            <td>${testnet.extraDetails ? testnet.extraDetails.title : testnet.name}</td>
-            <td>${fmtCodeStr(testnet.contracts[m])}</td>
-          </tr>`,
-        );
-      });
-    }
-
-    // Assemble the Devnet table data
-    c.devnets.forEach((devnet) => {
-      devNetTableBody.push(`
-        <tr>
-          <td>${devnet.extraDetails ? devnet.extraDetails.title : devnet.name}</td>
-          <td>${fmtCodeStr(devnet.contracts[m])}</td>
-        </tr>`,
+            <td>${network.extraDetails?.title || network.name}</td>
+            <td>${fmtCodeStr(
+              module === 'cctp'
+                ? network.contracts?.[module]?.wormhole
+                : network.contracts?.[module]
+            )}</td>
+          </tr>`
       );
-    });
-  }
+  };
 
+  // Generate table rows
+  const mainNetTableBody = orderedChains.flatMap((chain) =>
+    generateRows([chain.mainnet])
+  );
+
+  const testNetTableBody = orderedChains.flatMap((chain) =>
+    generateRows(sortTestnets(chain.testnets || []))
+  );
+
+  const devNetTableBody = orderedChains.flatMap((chain) =>
+    generateRows(chain.devnets || [])
+  );
+
+  // Combine everything into the final table
   return `
 === "Mainnet"
 
@@ -505,5 +211,147 @@ export function generateAllContractsTable(
 === "Devnet"
 
     ${formatHTMLTable(buildHTMLTable(tableHeader, devNetTableBody.join('')))}
-`;
+  `;
+}
+
+export function generateSupportedNetworksTable(dc: cfg.DocChain[]): string {
+  const orderedDc = sortChainTypes(dc);
+
+  // Group chains by their chainType
+  const chainsByType: Record<string, cfg.DocChain[]> = {};
+  for (const chain of orderedDc) {
+    if (!chainsByType[chain.chainType]) {
+      chainsByType[chain.chainType] = [];
+    }
+    chainsByType[chain.chainType].push(chain);
+  }
+
+  const tableHeader = `
+  <thead>
+    <th>Blockchain</th>
+    <th>Environment</th>
+    <th>Mainnet</th>
+    <th>Testnet</th>
+    <th>Quick Links</th>
+  </thead>`;
+
+  // Generate tables for each chain type
+  let tables: string[] = [];
+  for (const [chainType, chains] of Object.entries(chainsByType)) {
+    let tableBody: string[] = [];
+
+    for (const c of chains) {
+      const mainnetSupport =
+        c.mainnet.contracts.coreBridge || c.mainnet.contracts.gateway
+          ? ':white_check_mark:'
+          : ':x:';
+      const testnetSupport =
+        c.testnets[0]?.contracts.coreBridge || c.testnets[0]?.contracts.gateway
+          ? ':white_check_mark:'
+          : ':x:';
+  
+      // Filter out unsupported chains that have chain IDs (i.e., if they were previously
+      // supported) but are no longer supported
+      if (mainnetSupport === ':x:' && testnetSupport === ':x:') {
+        continue;
+      }
+  
+      const website = c.mainnet.extraDetails?.homepage
+        ? ':material-web: ' +
+          `<a href="${c.mainnet.extraDetails.homepage}" target="_blank">Website</a>`
+        : undefined;
+  
+      const devDocs = c.mainnet.extraDetails?.devDocs
+        ? ':material-file-document: ' +
+          `<a href="${c.mainnet.extraDetails.devDocs}" target="_blank">Developer Docs</a>`
+        : undefined;
+  
+      const explorer = c.mainnet.extraDetails?.explorer
+        ? ':octicons-package-16: ' +
+          `<a href="${c.mainnet.extraDetails.explorer[0].url}" target="_blank">Block Explorer</a>`
+        : undefined;
+  
+      tableBody.push(
+        `<tr>
+          <td>${c.mainnet.extraDetails?.title ?? c.mainnet.name}</td>
+          <td>${c.chainType}</td>
+          <td>${mainnetSupport}</td>
+          <td>${testnetSupport}</td>
+          <td>
+            ${website ? website + '<br>' : ''}
+            ${devDocs ? devDocs + '<br>' : ''}
+            ${explorer ? explorer : ''}
+          </td>
+        </tr>`
+      );
+    }
+
+    tables.push(`### ${chainType}\n\n${formatHTMLTable(
+      buildHTMLTable(tableHeader, tableBody.join('\n'))
+    )}`);
+  }
+
+  // Combine all tables into one string
+  return `<div class="full-width" markdown>\n\n${tables.join(
+    '\n\n'
+  )}\n\n</div>`;
+}
+
+export function generateTestnetFaucetsTable(dc: cfg.DocChain[]): string {
+  const orderedDc = sortChainTypes(dc);
+
+  // Group chains by their chainType
+  const chainsByType: Record<string, cfg.DocChain[]> = {};
+  for (const chain of orderedDc) {
+    if (!chainsByType[chain.chainType]) {
+      chainsByType[chain.chainType] = [];
+    }
+    chainsByType[chain.chainType].push(chain);
+  }
+
+  const tableHeader = `
+  <thead>
+    <th>Testnet</th>
+    <th>Environment</th>
+    <th>Token</th>
+    <th>Faucet</th>
+  </thead>`;
+
+  // Generate tables for each chain type
+  let tables: string[] = [];
+  for (const [chainType, chains] of Object.entries(chainsByType)) {
+    let tableBody: string[] = [];
+
+    for (const c of chains) {
+      for (const t of c.testnets) {
+        const token = t.extraDetails?.faucet
+        ? t.extraDetails.faucet.token
+        : 'N/A';
+      
+        const faucet = t.extraDetails?.faucet
+          ? `<a href="${t.extraDetails.faucet.url}" target="_blank">${t.extraDetails.faucet.description}</a>`
+          : undefined;
+        
+        if (!faucet) continue;
+    
+        tableBody.push(
+          `<tr>
+            <td>${t.extraDetails?.title ?? t.name}</td>
+            <td>${c.chainType}</td>
+            <td>${token}</td>
+            <td>${faucet ? faucet : ''}</td>
+          </tr>`
+        );
+      }
+    }
+
+    tables.push(`### ${chainType}\n\n${formatHTMLTable(
+      buildHTMLTable(tableHeader, tableBody.join('\n'))
+    )}`);
+  }
+
+  // Combine all tables into one string
+  return `<div class="full-width" markdown>\n\n${tables.join(
+    '\n\n'
+  )}\n\n</div>`;
 }

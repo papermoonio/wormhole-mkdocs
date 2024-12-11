@@ -70,9 +70,16 @@ plugins:
         # Redirects will go here as pages get moved around in the following format:
         # old-page.md: new-page.md
         build/start-building/supported-networks/cosmos/gateway.md: build/start-building/supported-networks/cosmos.md
-        build/start-building/supported-networks/cosmos/cosmos.md: build/start-building/supported-networks/cosmos.md
+        build/start-building/supported-networks/cosmos/cosmos.md: build/start-building/supported-networks.md
+        build/start-building/supported-networks/cosmos.md: build/start-building/supported-networks.md
         build/contract-integrations/gateway.md: build/start-building/supported-networks/cosmos.md
         learn/messaging/gateway.md: learn/messaging/index.md
+        build/start-building/supported-networks/evm.md: build/start-building/supported-networks.md
+        build/start-building/supported-networks/algorand.md: build/start-building/supported-networks.md
+        build/start-building/supported-networks/aptos.md: build/start-building/supported-networks.md
+        build/start-building/supported-networks/near.md: build/start-building/supported-networks.md
+        build/start-building/supported-networks/solana.md: build/start-building/supported-networks.md
+        build/start-building/supported-networks/sui.md: build/start-building/supported-networks.md
   - macros:
       include_yaml:
         - wormhole-docs/variables.yml
