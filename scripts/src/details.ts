@@ -25,7 +25,9 @@ export function generateAllChainIdsTable(dc: cfg.DocChain[]): string {
   for (const c of orderedDc) {
     // Assemble the Mainnet table data
     const mainnetAlias = cfg.networkString(c.mainnet.extraDetails?.mainnet);
-    const mainnetName = c.mainnet.extraDetails?.title ? c.mainnet.extraDetails.title : c.mainnet.name
+    const mainnetName = c.mainnet.extraDetails?.title
+      ? c.mainnet.extraDetails.title
+      : c.mainnet.name;
 
     mainNetTableBody.push(
       `<tr>
@@ -164,38 +166,68 @@ export function generateAllContractsTable(
     <th>Contract Address</th>
   </thead>`;
 
+  // If addresses aren't yet available in the SDK, we can manually add them here
+  const newMainnetAddresses: Partial<cfg.ChainDetails>[] = [
+    {
+      name: 'Worldchain',
+      contracts: { relayer: '0x1520cc9e779c56dab5866bebfb885c86840c33d3' },
+    },
+  ];
+  const newTestnetAddresses: Partial<cfg.ChainDetails>[] = []
+  const newDevnetAddress: Partial<cfg.ChainDetails>[] = [];
+
   // Helper function to generate table rows
-  const generateRows = (networks: cfg.ChainDetails[]): string[] => {
+  const generateRows = (networks: cfg.ChainDetails[], chainType: string): string[] => {
     return networks
-      .filter((network) =>
-        module === 'cctp'
-          ? network.contracts?.[module]?.wormhole
-          : network.contracts?.[module]
-      )
-      .map(
-        (network) => `
+      .map((network) => {
+        let address =
+          module === 'cctp'
+            ? network.contracts?.[module]?.wormhole
+            : network.contracts?.[module];
+  
+        if (!address) {
+          let newAddress: Partial<cfg.ChainDetails> | undefined;
+
+          if (chainType === 'mainnet') {
+            newAddress = newMainnetAddresses.find((chain) => chain?.name === network.name);
+          } else if (chainType === 'testnet') {
+            newAddress = newTestnetAddresses.find((chain) => chain?.name === network.name);
+          } else {
+            newAddress = newDevnetAddress.find((chain) => chain?.name === network.name);
+          }
+
+          if (newAddress?.contracts?.[module] && module !== 'cctp') {
+            address = newAddress.contracts[module];
+            // Update the network object directly if necessary
+            network.contracts = network.contracts || {};
+            network.contracts[module] = address;
+          }
+        }
+  
+        if (!address) {
+          return null; // Skip this network
+        }
+  
+        return `
           <tr>
             <td>${network.extraDetails?.title || network.name}</td>
-            <td>${fmtCodeStr(
-              module === 'cctp'
-                ? network.contracts?.[module]?.wormhole
-                : network.contracts?.[module]
-            )}</td>
-          </tr>`
-      );
+            <td>${fmtCodeStr(address)}</td>
+          </tr>`;
+      })
+      .filter((row) => row !== null); // Filter out null rows
   };
 
   // Generate table rows
   const mainNetTableBody = orderedChains.flatMap((chain) =>
-    generateRows([chain.mainnet])
+    generateRows([chain.mainnet], 'mainnet')
   );
 
   const testNetTableBody = orderedChains.flatMap((chain) =>
-    generateRows(sortTestnets(chain.testnets || []))
+    generateRows(sortTestnets(chain.testnets || []), 'testnet')
   );
 
   const devNetTableBody = orderedChains.flatMap((chain) =>
-    generateRows(chain.devnets || [])
+    generateRows(chain.devnets || [], 'devnet')
   );
 
   // Combine everything into the final table
@@ -249,28 +281,28 @@ export function generateSupportedNetworksTable(dc: cfg.DocChain[]): string {
         c.testnets[0]?.contracts.coreBridge || c.testnets[0]?.contracts.gateway
           ? ':white_check_mark:'
           : ':x:';
-  
+
       // Filter out unsupported chains that have chain IDs (i.e., if they were previously
       // supported) but are no longer supported
       if (mainnetSupport === ':x:' && testnetSupport === ':x:') {
         continue;
       }
-  
+
       const website = c.mainnet.extraDetails?.homepage
         ? ':material-web: ' +
           `<a href="${c.mainnet.extraDetails.homepage}" target="_blank">Website</a>`
         : undefined;
-  
+
       const devDocs = c.mainnet.extraDetails?.devDocs
         ? ':material-file-document: ' +
           `<a href="${c.mainnet.extraDetails.devDocs}" target="_blank">Developer Docs</a>`
         : undefined;
-  
+
       const explorer = c.mainnet.extraDetails?.explorer
         ? ':octicons-package-16: ' +
           `<a href="${c.mainnet.extraDetails.explorer[0].url}" target="_blank">Block Explorer</a>`
         : undefined;
-  
+
       tableBody.push(
         `<tr>
           <td>${c.mainnet.extraDetails?.title ?? c.mainnet.name}</td>
@@ -286,9 +318,11 @@ export function generateSupportedNetworksTable(dc: cfg.DocChain[]): string {
       );
     }
 
-    tables.push(`### ${chainType}\n\n${formatHTMLTable(
-      buildHTMLTable(tableHeader, tableBody.join('\n'))
-    )}`);
+    tables.push(
+      `### ${chainType}\n\n${formatHTMLTable(
+        buildHTMLTable(tableHeader, tableBody.join('\n'))
+      )}`
+    );
   }
 
   // Combine all tables into one string
@@ -325,15 +359,15 @@ export function generateTestnetFaucetsTable(dc: cfg.DocChain[]): string {
     for (const c of chains) {
       for (const t of c.testnets) {
         const token = t.extraDetails?.faucet
-        ? t.extraDetails.faucet.token
-        : 'N/A';
-      
+          ? t.extraDetails.faucet.token
+          : 'N/A';
+
         const faucet = t.extraDetails?.faucet
           ? `<a href="${t.extraDetails.faucet.url}" target="_blank">${t.extraDetails.faucet.description}</a>`
           : undefined;
-        
+
         if (!faucet) continue;
-    
+
         tableBody.push(
           `<tr>
             <td>${t.extraDetails?.title ?? t.name}</td>
@@ -345,9 +379,11 @@ export function generateTestnetFaucetsTable(dc: cfg.DocChain[]): string {
       }
     }
 
-    tables.push(`### ${chainType}\n\n${formatHTMLTable(
-      buildHTMLTable(tableHeader, tableBody.join('\n'))
-    )}`);
+    tables.push(
+      `### ${chainType}\n\n${formatHTMLTable(
+        buildHTMLTable(tableHeader, tableBody.join('\n'))
+      )}`
+    );
   }
 
   // Combine all tables into one string
