@@ -25,11 +25,11 @@ export function generateAllChainIdsTable(dc: cfg.DocChain[]): string {
   for (const c of orderedDc) {
     // Assemble the Mainnet table data
     const mainnetAlias = cfg.networkString(c.mainnet.extraDetails?.mainnet);
+    const mainnetName = c.mainnet.extraDetails?.title ? c.mainnet.extraDetails.title : c.mainnet.name
+
     mainNetTableBody.push(
       `<tr>
-        <td>${
-          c.mainnet.extraDetails ? c.mainnet.extraDetails.title : c.mainnet.name
-        }</td>
+        <td>${mainnetName}</td>
         <td><code>${c.mainnet.id}</code></td>
         <td>${mainnetAlias}</td>
       </tr>`
