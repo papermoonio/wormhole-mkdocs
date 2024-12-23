@@ -69,14 +69,21 @@ plugins:
       redirect_maps:
         # Redirects will go here as pages get moved around in the following format:
         # old-page.md: new-page.md
+        build/start-building/supported-networks/algorand.md: build/start-building/supported-networks.md
+        build/start-building/supported-networks/aptos.md: build/start-building/supported-networks.md
         build/start-building/supported-networks/cosmos/gateway.md: build/start-building/supported-networks/cosmos.md
-        build/start-building/supported-networks/cosmos/cosmos.md: build/start-building/supported-networks/cosmos.md
+        build/start-building/supported-networks/cosmos/cosmos.md: build/start-building/supported-networks.md
+        build/start-building/supported-networks/cosmos.md: build/start-building/supported-networks.md
+        build/start-building/supported-networks/evm.md: build/start-building/supported-networks.md
+        build/start-building/supported-networks/near.md: build/start-building/supported-networks.md
+        build/start-building/supported-networks/solana.md: build/start-building/supported-networks.md
+        build/start-building/supported-networks/sui.md: build/start-building/supported-networks.md
         build/contract-integrations/gateway.md: build/start-building/supported-networks/cosmos.md
         learn/messaging/gateway.md: learn/messaging/index.md
-        tutorials/messaging/index.md: tutorials/by-product/index.md
+        tutorials/messaging/cctp.md: tutorials/by-product/wormhole-sdk/usdc-via-cctp.md
         tutorials/messaging/cross-chain-contracts.md: tutorials/by-product/contract-integrations/cross-chain-contracts.md
         tutorials/messaging/cross-chain-token-contracts.md: tutorials/by-product/contract-integrations/cross-chain-token-contracts.md
-        tutorials/messaging/cctp.md: tutorials/by-product/wormhole-sdk/usdc-via-cctp.md
+        tutorials/messaging/index.md: tutorials/by-product/index.md
         tutorials/messaging/sui-connect.md: tutorials/by-product/connect/react-dapp.md
         tutorials/messaging/token-bridge.md: tutorials/by-product/wormhole-sdk/tokens-via-token-bridge.md
         tutorials/multigov/index.md: tutorials/by-product/multigov/index.md
