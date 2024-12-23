@@ -74,8 +74,8 @@ plugins:
         build/contract-integrations/gateway.md: build/start-building/supported-networks/cosmos.md
         learn/messaging/gateway.md: learn/messaging/index.md
         tutorials/messaging/index.md: tutorials/by-product/index.md
-        tutorials/messaging/cross-chain-contracts.md: tutorials/by-product/cross-chain-contracts/cross-chain-contracts.md
-        tutorials/messaging/cross-chain-token-contracts.md: tutorials/by-product/cross-chain-contracts/cross-chain-token-contracts.md
+        tutorials/messaging/cross-chain-contracts.md: tutorials/by-product/contract-integrations/cross-chain-contracts.md
+        tutorials/messaging/cross-chain-token-contracts.md: tutorials/by-product/contract-integrations/cross-chain-token-contracts.md
         tutorials/messaging/cctp.md: tutorials/by-product/wormhole-sdk/usdc-via-cctp.md
         tutorials/messaging/sui-connect.md: tutorials/by-product/connect/react-dapp.md
         tutorials/messaging/token-bridge.md: tutorials/by-product/wormhole-sdk/tokens-via-token-bridge.md
