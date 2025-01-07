@@ -3,7 +3,9 @@
   "homepage": "https://www.pyth.network/",
   "devDocs": "https://docs.pyth.network/home",
   "faucet": {
-    "url": "https://console.optimism.io/faucet"
+    "url": "https://console.optimism.io/faucet",
+    "description": "Superchain Faucet",
+    "token": "ETH"
   },
   "explorer": [
     {
