@@ -24,6 +24,10 @@
         {% if "navigation.tabs.sticky" in features %}
           {% if "navigation.tabs" in features %}
             {% include "partials/tabs.html" %}
+            {#-
+              This empty div needs to be here as a target container for Cookbook
+            -#}
+            <div class="for-cookbook"></div>
             {% if "material/search" in config.plugins %}
               <label class="search" for="__search">
                 <span>
