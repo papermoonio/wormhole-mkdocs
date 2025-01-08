@@ -1000,24 +1000,6 @@ pre .md-clipboard {
   margin-right: .5em;
 }
 
-/* Chains list styling */
-.md-typeset .card-container {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 4 items per row */
-}
-
-.md-typeset .chains-list {
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-}
-
-@media screen and (max-width: 30em) {
-  .md-typeset .card-container {
-    grid-template-columns: repeat(2, 1fr); /* 2 items per row */
-  }
-}
-
 /* Type styling */
 .md-typeset kbd {
   border-radius: 1em;
@@ -1063,6 +1045,7 @@ pre .md-clipboard {
 /* Header buttons */
 .md-header__buttons {
   display: flex;
+  gap: 1em;
 }
 
 .md-header__buttons>* {
@@ -1105,7 +1088,7 @@ label[for='__drawer'] svg {
   z-index: 3;
   list-style: none;
   padding: 0;
-  margin: 1em -1em;
+  margin: 1.5em -1em;
   transform: translateZ(0);
 }
 
@@ -1196,8 +1179,6 @@ label[for='__drawer'] svg {
 }
 
 label[for='__search'] span {
-  margin-left: 1.25em;
-  margin-right: 2em;
   border: var(--md-border-width) solid var(--plum);
   border-radius: var(--md-border-radius);
   font-family: var(--md-cta-font);
@@ -1206,6 +1187,7 @@ label[for='__search'] span {
   padding: .8em 1.5em;
   align-items: center;
   gap: 0.5em;
+  font-size: var(--caption-size);
 }
 
 label[for='__search'] svg {
@@ -1305,47 +1287,18 @@ label[for='__search']:hover {
 }
 
 /** Cookbook styling **/
-/* Links at bottom of modal */
-.cookbook-widget {
-  width: min-content;
-  height: fit-content;
-  background-color: var(--grey);
-  border: var(--md-border-width) solid var(--md-border-color);
-  border-right: none;
-  border-top-left-radius: 12px;
-  border-bottom-left-radius: 12px;
-  position: fixed;
-  right: 0;
-  top: 60%;
-  /* Set z-index to be the same value as the header */
-  z-index: 4;
+.md-typeset .md-button.cookbook-button {
+  padding: .8em 1.5em;
+  width: max-content;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  text-align: center;
-  padding: 24px 16px;
-  gap: 24px;
+  align-items: center;
+  height: fit-content;
+  gap: 1em;
 }
 
-/* Set the z-index to be greater than .cookbook-widget when search is active */
-[data-md-toggle=search]:checked~.md-header {
-  z-index: 5;
-}
-
-.md-typeset .cookbook-widget__text {
-  gap: 4px;
-}
-
-.md-typeset .cookbook-widget__text h2 {
-  font-size: 1.5rem;
-  line-height: 1;
-  font-family: var(--md-header-font);
-  margin: 0;
-}
-
-.md-typeset .cookbook-widget__text p {
-  font-size: var(--body-m-size);
-  margin: 0;
+.md-typeset .md-button.cookbook-button img {
+  height: 1.2rem;
+  width: 1.2rem;
 }
 
 .cookbook-container {
@@ -1404,4 +1357,9 @@ details.child {
   width: fit-content;
   border: 1px solid var(--light-transparent-20);
   box-shadow: none;
+}
+
+/* Supported Blockchains Tables */
+.full-width .md-typeset__scrollwrap .md-typeset__table {
+  width: 100%;
 }

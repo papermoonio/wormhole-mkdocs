@@ -15,16 +15,11 @@
       "description": "Arbitrum Explorer"
     }
   ],
-  "developer": [
-    {
-      "url": "https://developer.arbitrum.io/getting-started-devs",
-      "description": "Developer Docs"
-    }
-  ],
   "finality": {
-    "details": "https://developer.arbitrum.io/tx-lifecycle",
+    "details": "https://docs.arbitrum.io/how-arbitrum-works/tx-lifecycle",
     "instant": 200,
     "safe": 201,
     "otherwise": "finalized"
-  }
+  },
+  "devDocs": "https://docs.arbitrum.io/"
 }

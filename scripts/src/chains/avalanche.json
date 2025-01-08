@@ -18,20 +18,16 @@
       "url": "https://subnets.avax.network/"
     }
   ],
-  "developer": [
-    {
-      "url": "https://docs.avax.network/",
-      "description": "Developer docs"
-    },
-    {
-      "url": "https://core.app/tools/testnet-faucet/?subnet=c&token=c",
-      "description": "Faucet"
-    }
-  ],
   "contractSource": "ethereum/contracts/bridge/Bridge.sol",
   "finality": {
     "instant": 200,
     "otherwise": "finalized",
-    "details": "https://docs.avax.network/build/dapp/advanced/integrate-exchange#determining-finality"
+    "details": "https://docs.avax.network/dapps/advanced-tutorials/exchange-integration#determining-finality"
+  },
+  "devDocs": "https://docs.avax.network/",
+  "faucet": {
+    "url": "https://core.app/tools/testnet-faucet/?subnet=c&token=c",
+    "token": "AVAX",
+    "description": "Official Avalanche Faucet"
   }
 }
