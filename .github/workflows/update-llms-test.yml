@@ -1,7 +1,9 @@
 name: Update llms.txt (Test)
 
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - ilariae/llms-sript
 jobs:
   update-llms:
     runs-on: ubuntu-latest
