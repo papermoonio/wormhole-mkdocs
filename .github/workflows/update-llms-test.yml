@@ -27,12 +27,6 @@ jobs:
         run: node src/generate-llms.js
         working-directory: ./scripts
 
-      # Verify llms.txt was generated
-      - name: Verify llms.txt
-        run: |
-          ls -la ../llms.txt
-          cat ../llms.txt | head -n 20  # Display first 20 lines for verification
-
       - name: Commit and push changes (if any)
         run: |
           git config user.name "github-actions"
