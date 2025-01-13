@@ -21,19 +21,24 @@ jobs:
 
       - name: Install dependencies
         run: npm install
+        working-directory: ./scripts
 
       - name: Generate llms.txt
-        run: node scripts/src/generate-llms.js
+        run: node src/generate-llms.js
+        working-directory: ./scripts
 
       - name: Commit and push changes (if any)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          cd ..
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
 
           # Check if llms.txt changed
-          if [ -n "$(git status --porcelain llms.txt)" ]; then
+          if git diff --name-only | grep -q '^llms.txt$'; then
             git add llms.txt
             git commit -m "ci: update llms.txt"
-            git push
+            git push origin ilariae/llms-sript
           else
             echo "No changes to llms.txt."
