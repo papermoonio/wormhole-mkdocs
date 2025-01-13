@@ -12,7 +12,7 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v3
         with:
-          persist-credentials: false
+          persist-credentials: true
 
       - name: Set up Node
         uses: actions/setup-node@v3
@@ -27,9 +27,13 @@ jobs:
         run: node src/generate-llms.js
         working-directory: ./scripts
 
+      # Verify llms.txt was generated
+      - name: Verify llms.txt
+        run: |
+          ls -la ../llms.txt
+          cat ../llms.txt | head -n 20  # Display first 20 lines for verification
+
       - name: Commit and push changes (if any)
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
@@ -41,3 +45,6 @@ jobs:
             git push origin ilariae/llms-sript
           else
             echo "No changes to llms.txt."
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
