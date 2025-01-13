@@ -1,0 +1,37 @@
+name: Update llms.txt (Test)
+
+on:
+  workflow_dispatch:
+jobs:
+  update-llms:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+        with:
+          persist-credentials: false
+
+      - name: Set up Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '22' 
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Generate llms.txt
+        run: node scripts/src/generate-llms.js
+
+      - name: Commit and push changes (if any)
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+
+          # Check if llms.txt changed
+          if [ -n "$(git status --porcelain llms.txt)" ]; then
+            git add llms.txt
+            git commit -m "ci: update llms.txt"
+            git push
+          else
+            echo "No changes to llms.txt."
