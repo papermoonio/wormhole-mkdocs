@@ -2,9 +2,11 @@ site_name: Wormhole Docs
 site_url: https://wormhole.com/docs/
 docs_dir: wormhole-docs
 copyright: 2024 © Wormhole Foundation. All Rights Reserved.
+edit_uri: https://github.com/wormhole-foundation/wormhole-docs/edit/main/
 extra_css:
   - assets/stylesheets/extra.css
   - assets/stylesheets/terminal.css
+  - content.action.edit
 theme:
   name: material
   custom_dir: material-overrides
@@ -19,6 +21,7 @@ theme:
     - navigation.tabs.sticky # When scrolling, the tabs remain at the top of the page
     - navigation.sections # Render top-level sections as groups in the sidebar
     - navigation.indexes # Index pages
+    - content.action.edit
   font:
     text: Roboto
     code: Roboto Mono
