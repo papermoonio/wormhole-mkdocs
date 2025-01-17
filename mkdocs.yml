@@ -6,7 +6,6 @@ edit_uri: https://github.com/wormhole-foundation/wormhole-docs/edit/main/
 extra_css:
   - assets/stylesheets/extra.css
   - assets/stylesheets/terminal.css
-  - content.action.edit
 theme:
   name: material
   custom_dir: material-overrides
