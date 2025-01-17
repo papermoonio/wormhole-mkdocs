@@ -20,7 +20,6 @@ theme:
     - navigation.tabs.sticky # When scrolling, the tabs remain at the top of the page
     - navigation.sections # Render top-level sections as groups in the sidebar
     - navigation.indexes # Index pages
-    - content.action.edit
   font:
     text: Roboto
     code: Roboto Mono
