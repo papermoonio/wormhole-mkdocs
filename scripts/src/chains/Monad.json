@@ -1,1 +1,6 @@
-{"title":"Monad","testnet":{"name":"Testnet","id":"10143"}}
+{
+	"title": "Monad",
+	"homepage": "https://www.monad.xyz/",
+	"testnet": { "name": "Testnet", "id": "10143" },
+	"devDocs": "https://docs.monad.xyz/"
+}
