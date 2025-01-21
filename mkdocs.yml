@@ -2,6 +2,7 @@ site_name: Wormhole Docs
 site_url: https://wormhole.com/docs/
 docs_dir: wormhole-docs
 copyright: 2024 © Wormhole Foundation. All Rights Reserved.
+edit_uri: https://github.com/wormhole-foundation/wormhole-docs/edit/main/
 extra_css:
   - assets/stylesheets/extra.css
   - assets/stylesheets/terminal.css
@@ -134,4 +135,4 @@ extra:
           data: 0
           note: >-
             Thanks for your feedback! Help us improve this page by submitting
-            <a href="https://github.com/wormhole-foundation/wormhole-docs/issues/new/?title=[Feedback]+{title}+-+{url}" target="_blank" rel="noopener">additional feedback</a>.
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSdRjp_CJ2jEC0gPvK242zRzJoN_x9-Nlt_KXkCy7QPYiD4OlA/viewform?usp=pp_url&entry.2090824420=[Feedback]+{title}+-+{url}" target="_blank" rel="noopener">additional feedback</a>.
