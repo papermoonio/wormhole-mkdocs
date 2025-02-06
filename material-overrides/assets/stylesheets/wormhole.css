@@ -873,7 +873,6 @@ pre .md-clipboard {
 
 .md-feedback {
   margin-top: 0;
-  margin-bottom: 0;
 }
 
 .md-feedback__title {
@@ -892,8 +891,6 @@ pre .md-clipboard {
 }
 
 .md-feedback__list {
-  display: flex;
-  justify-content: center;
   gap: 1.5em;
   margin-top: 0.75em;
   margin-bottom: 0.75em;
@@ -922,7 +919,6 @@ a.md-content__button.md-icon {
   font-size: 14px;
   font-family: var(--md-nav-labels-font);
   display: flex;
-  padding: 0.5em 1em;
   color: var(--light);
   gap: 10px;
   margin: auto;
