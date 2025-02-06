@@ -159,6 +159,8 @@ nav {
 
 /* All icons (i.e., Next, Prev, Feedback, etc. */
 .md-icon svg {
+  width: 1.5rem;
+  height: 1.5rem;
   fill: var(--md-typeset-a-color);
 }
 
@@ -341,6 +343,7 @@ li.md-nav__item,
 
   .md-nav--secondary .md-nav__list {
     padding-bottom: 0;
+    
   }
 
   /* Override mkdocs styling to account for the nav-wrapper */
@@ -865,6 +868,7 @@ pre .md-clipboard {
   padding: 1.5em;
   width: calc(100% - 2em);
   margin-top: 3em;
+  margin-left:auto;
 }
 
 .md-feedback {
@@ -881,8 +885,10 @@ pre .md-clipboard {
 }
 
 .md-feedback__note > * {
-  color: var(--light-transparent-60);
-  font-size: var(--label-size);
+  color: var(--light);
+  font-family: var(--md-nav-labels-font);
+  font-size: 14px;
+  
 }
 
 .md-feedback__list {
