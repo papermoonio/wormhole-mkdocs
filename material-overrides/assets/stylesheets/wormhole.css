@@ -343,7 +343,6 @@ li.md-nav__item,
 
   .md-nav--secondary .md-nav__list {
     padding-bottom: 0;
-    
   }
 
   /* Override mkdocs styling to account for the nav-wrapper */
@@ -868,7 +867,7 @@ pre .md-clipboard {
   padding: 1.5em;
   width: calc(100% - 2em);
   margin-top: 3em;
-  margin-left:auto;
+  margin-left: auto;
 }
 
 .md-feedback {
@@ -887,7 +886,6 @@ pre .md-clipboard {
   color: var(--light);
   font-family: var(--md-nav-labels-font);
   font-size: 14px;
-  
 }
 
 .md-feedback__list {
@@ -910,8 +908,7 @@ pre .md-clipboard {
   width: 100%;
   height: 1px;
   background-color: var(--light-transparent-20);
-  margin-top: 0.75em;
-    margin-bottom: 1.5em;
+  margin: 0.75em auto 0;
 }
 
 /* Edit this page button Styling */
@@ -921,9 +918,22 @@ a.md-content__button.md-icon {
   display: flex;
   color: var(--light);
   gap: 10px;
-  margin: auto;
   padding: 0;
   align-items: center;
+}
+
+.feedback-actions-container
+  .feedback-section
+  ~ .edit-section
+  a.md-content__button.md-icon {
+  margin: 0.75em auto 0;
+}
+
+.feedback-actions-container
+  .feedback-section:has(.md-feedback[hidden])
+  ~ .edit-section
+  a.md-content__button.md-icon {
+  margin: auto;
 }
 
 @media screen and (max-width: 30em) {
