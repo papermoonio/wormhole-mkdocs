@@ -937,12 +937,6 @@ a.md-content__button.md-icon {
   width: 1.2rem;
 }
 
-@media screen and (max-width: 30em) {
-  .md-feedback {
-    width: fit-content;
-  }
-}
-
 .md-footer {
   font-family: var(--md-nav-labels-font);
 }
