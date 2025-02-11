@@ -872,6 +872,7 @@ pre .md-clipboard {
 
 .md-feedback {
   margin-top: 0;
+  margin-bottom: 0.75em;
 }
 
 .md-feedback__title {
@@ -892,11 +893,6 @@ pre .md-clipboard {
   gap: 1.5em;
   margin-top: 0.75em;
   margin-bottom: 0.75em;
-}
-
-.md-feedback__icon svg {
-  height: 1.5rem;
-  width: 1.5rem;
 }
 
 .md-feedback__icon:hover svg {
