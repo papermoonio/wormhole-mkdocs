@@ -932,6 +932,11 @@ a.md-content__button.md-icon {
   margin: auto;
 }
 
+.feedback-actions-container .md-icon svg {
+  height: 1.2rem;
+  width: 1.2rem;
+}
+
 @media screen and (max-width: 30em) {
   .md-feedback {
     width: fit-content;
