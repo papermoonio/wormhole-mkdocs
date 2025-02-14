@@ -919,10 +919,12 @@ pre .md-clipboard {
   align-items: center;
   border: var(--md-border-width) solid var(--light-transparent-20);
   border-radius: var(--md-border-radius);
+  background-color: var(--grey);
   padding: 1.5em;
-  width: calc(100% - 2em);
   margin-top: 3em;
   margin-left: auto;
+  color: #9a9a9a;
+  font-size: var(--body-xs-text-size)
 }
 
 .md-feedback {
@@ -932,16 +934,8 @@ pre .md-clipboard {
 
 .md-feedback__title {
   margin: 0;
-  font-size: 14px;
   font-weight: 400;
-  font-family: var(--md-nav-labels-font);
   text-wrap-mode: nowrap;
-}
-
-.md-feedback__note > * {
-  color: var(--light);
-  font-family: var(--md-nav-labels-font);
-  font-size: 14px;
 }
 
 .md-feedback__list {
@@ -956,7 +950,7 @@ pre .md-clipboard {
 
 /* Divider Styling */
 .divider {
-  width: 100%;
+  width: 15vw;
   height: 1px;
   background-color: var(--light-transparent-20);
   margin: 0.75em auto 0;
@@ -964,10 +958,7 @@ pre .md-clipboard {
 
 /* Edit this page button Styling */
 a.md-content__button.md-icon {
-  font-size: 14px;
-  font-family: var(--md-nav-labels-font);
   display: flex;
-  color: var(--light);
   gap: 10px;
   padding: 0;
   align-items: center;
