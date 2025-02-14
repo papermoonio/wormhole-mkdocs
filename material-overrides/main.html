@@ -126,13 +126,15 @@
 
 {% block scripts %}
   {{ super() }}
-  <script>
-    document.body.addEventListener('click', (event) => {
-      if (event.target.tagName === 'ASK-COOKBOOK') {
-        event.target.addEventListener('keydown', (event) => {
-          event.stopPropagation()
-        })
-      }
+  <script defer>
+    document.addEventListener('DOMContentLoaded', () => {
+      document.body.addEventListener('click', (event) => {
+        if (event.target.tagName === 'ASK-COOKBOOK') {
+          event.target.addEventListener('keydown', (event) => {
+            event.stopPropagation();
+          });
+        }
+      });
     });
   </script>
 {% endblock %}
