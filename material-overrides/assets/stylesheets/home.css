@@ -8,6 +8,10 @@ h3 {
   font-family: var(--md-nav-labels-font);
 }
 
+.md-typeset.md-content__inner a {
+  text-decoration: none;
+}
+
 /* Styles for the hero section */
 .hero {
   display: flex;
@@ -42,7 +46,7 @@ h3 {
 }
 
 .hero p {
-  font-size: var(--body-l-size);
+  font-size: var(--body-text-size);
   margin: 4em 0 6em;
 }
 
@@ -76,39 +80,39 @@ h3 {
 }
 
 .feature.one {
-  background:
-  radial-gradient(circle at bottom, 
-    rgba(255, 255, 255, 0.08) 0%, /* White at the center */
-    rgba(193, 187, 246, 0.1) 35%, /* Fading outwards */
-    rgba(255, 255, 255, 0) 80%),
-  url(../images/card-1.webp),
-  #0A0A0A;
+  background: radial-gradient(
+      circle at bottom,
+      rgba(255, 255, 255, 0.08) 0%,
+      /* White at the center */ rgba(193, 187, 246, 0.1) 35%,
+      /* Fading outwards */ rgba(255, 255, 255, 0) 80%
+    ),
+    url(../images/card-1.webp), #0a0a0a;
   background-repeat: no-repeat;
   background-position: bottom;
   background-size: contain;
 }
 
 .feature.two {
-  background:
-  radial-gradient(circle at bottom, 
-    rgba(255, 255, 255, 0.08) 0%, /* White at the center */
-    rgba(193, 187, 246, 0.1) 35%, /* Fading outwards */
-    rgba(255, 255, 255, 0) 80%),
-  url(../images/card-2.webp),
-  #0A0A0A;
+  background: radial-gradient(
+      circle at bottom,
+      rgba(255, 255, 255, 0.08) 0%,
+      /* White at the center */ rgba(193, 187, 246, 0.1) 35%,
+      /* Fading outwards */ rgba(255, 255, 255, 0) 80%
+    ),
+    url(../images/card-2.webp), #0a0a0a;
   background-repeat: no-repeat;
   background-position: bottom;
   background-size: contain;
 }
 
 .feature.three {
-  background:
-  radial-gradient(circle at bottom, 
-    rgba(255, 255, 255, 0.08) 0%, /* White at the center */
-    rgba(193, 187, 246, 0.1) 35%, /* Fading outwards */
-    rgba(255, 255, 255, 0) 80%),
-  url(../images/card-3.webp),
-  #0A0A0A;
+  background: radial-gradient(
+      circle at bottom,
+      rgba(255, 255, 255, 0.08) 0%,
+      /* White at the center */ rgba(193, 187, 246, 0.1) 35%,
+      /* Fading outwards */ rgba(255, 255, 255, 0) 80%
+    ),
+    url(../images/card-3.webp), #0a0a0a;
   background-repeat: no-repeat;
   background-position: bottom;
   background-size: contain;
@@ -140,7 +144,7 @@ h3 {
 }
 
 .feature p {
-  font-size: var(--body-l-size);
+  font-size: var(--body-text-size);
   margin: 1em 1em 0;
   min-height: 5em;
 }
@@ -163,7 +167,7 @@ h3 {
   align-items: center;
   height: fit-content;
   gap: 1em;
-  padding: .9em 2.35em;
+  padding: 0.9em 2.35em;
 }
 
 .start-building-section .row {
@@ -188,7 +192,7 @@ h3 {
   }
 
   .hero p {
-    font-size: var(--body-l-size);
+    font-size: var(--body-text-size);
     margin: 3em 0;
   }
 
@@ -219,7 +223,7 @@ h3 {
   .featured-content {
     justify-content: space-evenly;
     gap: 1.5em;
-    padding-bottom: 5em
+    padding-bottom: 5em;
   }
 
   .feature {
@@ -231,7 +235,7 @@ h3 {
   .hero {
     margin-top: 0;
   }
-  
+
   .hero-content {
     padding: unset;
   }
@@ -241,7 +245,7 @@ h3 {
   }
 
   .hero p {
-    font-size: var(--body-l-size);
+    font-size: var(--body-text-size);
   }
 
   .button-wrapper .md-button {
@@ -250,8 +254,8 @@ h3 {
 
   .button-wrapper {
     display: flex;
-    flex-direction: column; 
-    align-items: left; 
+    flex-direction: column;
+    align-items: left;
     gap: 0px;
   }
 
@@ -259,7 +263,7 @@ h3 {
     margin: 0;
     padding: 0;
   }
-  
+
   .button-wrapper div a button {
     margin-top: 10px;
   }
@@ -269,7 +273,7 @@ h3 {
   }
 
   .feature h2 {
-    font-size: var(--h3-size);
+    font-size: 26px;
   }
 
   .feature p {
@@ -282,7 +286,7 @@ h3 {
   }
 
   .start-building-section h3 {
-    font-size: var(--h2-size);
+    font-size: 32px;
     width: 100%;
   }
 
@@ -292,14 +296,14 @@ h3 {
   }
 }
 
-@media screen and (max-width: 30.125em) { 
+@media screen and (max-width: 30.125em) {
   .md-content__inner {
     padding: 0;
     margin: 0 1.2rem;
   }
 
   .start-building-section h3 {
-    font-size: var(--h3-size);
+    font-size: 26px;
   }
 
   .button-wrapper {

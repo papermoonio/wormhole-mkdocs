@@ -15,15 +15,17 @@ theme:
     - content.code.annotate # Adds annotations to code blocks
     - content.code.copy # Adds copy to clipboard button to code snippets
     - content.tooltips # Adds tooltips
+    - content.action.edit # Adds "Edit this page" button
     - navigation.footer # Shows previous and next on the footer
     - navigation.tabs # Top-level sections are rendered below the header (can be modified to in-line with CSS)
     - navigation.tabs.sticky # When scrolling, the tabs remain at the top of the page
     - navigation.sections # Render top-level sections as groups in the sidebar
     - navigation.indexes # Index pages
   font:
-    text: Roboto
+    text: Inter
     code: Roboto Mono
   icon:
+    edit: material/github
     admonition:
       note: octicons/pencil-16
       warning: octicons/alert-16
@@ -43,7 +45,7 @@ markdown_extensions:
       emoji_generator: !!python/name:material.extensions.emoji.to_svg
       options:
         custom_icons:
-          - overrides/.icons
+          - material-overrides/.icons
   - pymdownx.highlight:
       anchor_linenums: true
       line_spans: __span
@@ -70,6 +72,7 @@ plugins:
       redirect_maps:
         # Redirects will go here as pages get moved around in the following format:
         # old-page.md: new-page.md
+        build/applications/connect/configuration-v1.md: build/applications/connect/configuration/index.md
         build/start-building/supported-networks/algorand.md: build/start-building/supported-networks.md
         build/start-building/supported-networks/aptos.md: build/start-building/supported-networks.md
         build/start-building/supported-networks/cosmos/gateway.md: build/start-building/supported-networks/cosmos.md
