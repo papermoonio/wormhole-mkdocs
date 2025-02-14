@@ -15,41 +15,6 @@
   flex-direction: column;
 }
 
-.subsection-wrapper a {
-  text-decoration: none;
-}
-
-.subsection-wrapper .title {
-  color: var(--md-default-fg-color);
-  margin: 0;
-  font-size: var(--h4-size);
-  font-weight: 700;
-  padding: 1em 1.5em 0 .9em;
-}
-
-.subsection-wrapper .description {
-  color: var(--md-default-fg-color);
-  margin: 1em 0 0;
-  font-size: var(--body-l-size);
-  padding: 0 1.5em 1.8em 1.5em;
-}
-
-.subsection-wrapper .card {
-  background-color: var(--light-transparent-10);
-  border: var(--md-border-width) solid var(--md-border-color);
-  border-radius: var(--md-border-radius);
-  margin: 1em 0;
-  text-decoration: none;
-}
-
-.md-typeset .subsection-wrapper a:hover {
-  text-decoration: none;
-}
-
-.subsection-wrapper .card:last-child {
-  margin-bottom: 4em;
-}
-
 .md-nav--secondary {
   display: none;
 }

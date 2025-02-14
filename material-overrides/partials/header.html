@@ -20,25 +20,25 @@
           </a>
         </div>
       </div>
+      {% if "navigation.tabs.sticky" in features %}
+        {% if "navigation.tabs" in features %}
+          {% include "partials/tabs.html" %}
+          {#-
+            This empty div needs to be here as a target container for Cookbook
+          -#}
+        {% endif %}
+      {% endif %}
       <div class="md-header__buttons">
-        {% if "navigation.tabs.sticky" in features %}
-          {% if "navigation.tabs" in features %}
-            {% include "partials/tabs.html" %}
-            {#-
-              This empty div needs to be here as a target container for Cookbook
-            -#}
-            <div class="for-cookbook"></div>
-            {% if "material/search" in config.plugins %}
-              <label class="search" for="__search">
-                <span>
-                  {% set icon = config.theme.icon.search or "material/magnify" %}
-                  {% include ".icons/material/magnify.svg" %}
-                  Search
-                </span>
-              </label>
-              {% include "partials/search.html" %}
-            {% endif %}
-          {% endif %}
+        <div class="for-cookbook"></div>
+        {% if "material/search" in config.plugins %}
+          <label class="search" for="__search">
+            <span>
+              {% set icon = config.theme.icon.search or "material/magnify" %}
+              {% include ".icons/material/magnify.svg" %}
+              <span class="search-text">Search</span>
+            </span>
+          </label>
+          {% include "partials/search.html" %}
         {% endif %}
         {% if config.theme.palette %}
           {% if not config.theme.palette is mapping %}
@@ -48,7 +48,6 @@
         {% if config.extra.alternate %}
           {% include "partials/alternate.html" %}
         {% endif %}
-
         {% if config.repo_url %}
           <div class="md-header__source">
             {% include "partials/source.html" %}

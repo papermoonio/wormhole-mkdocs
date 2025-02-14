@@ -22,7 +22,7 @@ theme:
     - navigation.sections # Render top-level sections as groups in the sidebar
     - navigation.indexes # Index pages
   font:
-    text: Roboto
+    text: Inter
     code: Roboto Mono
   icon:
     edit: material/github
@@ -45,7 +45,7 @@ markdown_extensions:
       emoji_generator: !!python/name:material.extensions.emoji.to_svg
       options:
         custom_icons:
-          - overrides/.icons
+          - material-overrides/.icons
   - pymdownx.highlight:
       anchor_linenums: true
       line_spans: __span
