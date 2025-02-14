@@ -15,6 +15,7 @@ theme:
     - content.code.annotate # Adds annotations to code blocks
     - content.code.copy # Adds copy to clipboard button to code snippets
     - content.tooltips # Adds tooltips
+    - content.action.edit # Adds "Edit this page" button
     - navigation.footer # Shows previous and next on the footer
     - navigation.tabs # Top-level sections are rendered below the header (can be modified to in-line with CSS)
     - navigation.tabs.sticky # When scrolling, the tabs remain at the top of the page
@@ -24,6 +25,7 @@ theme:
     text: Roboto
     code: Roboto Mono
   icon:
+    edit: material/github
     admonition:
       note: octicons/pencil-16
       warning: octicons/alert-16
