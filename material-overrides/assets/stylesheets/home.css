@@ -8,6 +8,10 @@ h3 {
   font-family: var(--md-nav-labels-font);
 }
 
+.md-typeset.md-content__inner a {
+  text-decoration: none;
+}
+
 /* Styles for the hero section */
 .hero {
   display: flex;
@@ -42,7 +46,7 @@ h3 {
 }
 
 .hero p {
-  font-size: var(--body-l-size);
+  font-size: var(--body-text-size);
   margin: 4em 0 6em;
 }
 
@@ -140,7 +144,7 @@ h3 {
 }
 
 .feature p {
-  font-size: var(--body-l-size);
+  font-size: var(--body-text-size);
   margin: 1em 1em 0;
   min-height: 5em;
 }
@@ -188,7 +192,7 @@ h3 {
   }
 
   .hero p {
-    font-size: var(--body-l-size);
+    font-size: var(--body-text-size);
     margin: 3em 0;
   }
 
@@ -241,7 +245,7 @@ h3 {
   }
 
   .hero p {
-    font-size: var(--body-l-size);
+    font-size: var(--body-text-size);
   }
 
   .button-wrapper .md-button {
@@ -269,7 +273,7 @@ h3 {
   }
 
   .feature h2 {
-    font-size: var(--h3-size);
+    font-size: 26px;
   }
 
   .feature p {
@@ -282,7 +286,7 @@ h3 {
   }
 
   .start-building-section h3 {
-    font-size: var(--h2-size);
+    font-size: 32px;
     width: 100%;
   }
 
@@ -299,7 +303,7 @@ h3 {
   }
 
   .start-building-section h3 {
-    font-size: var(--h3-size);
+    font-size: 26px;
   }
 
   .button-wrapper {
