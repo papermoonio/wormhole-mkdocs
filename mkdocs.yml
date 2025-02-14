@@ -72,6 +72,7 @@ plugins:
       redirect_maps:
         # Redirects will go here as pages get moved around in the following format:
         # old-page.md: new-page.md
+        build/applications/connect/configuration-v1.md: build/applications/connect/configuration/index.md
         build/start-building/supported-networks/algorand.md: build/start-building/supported-networks.md
         build/start-building/supported-networks/aptos.md: build/start-building/supported-networks.md
         build/start-building/supported-networks/cosmos/gateway.md: build/start-building/supported-networks/cosmos.md
