@@ -217,6 +217,10 @@
   height: unset;
 }
 
+.md-header__title>.md-header__ellipsis {
+  width: 12.1rem;
+}
+
 .md-header__button.md-logo {
   margin: 0.1rem;
   padding: 0;
@@ -1241,6 +1245,7 @@ a.md-content__button.md-icon {
 .md-header__buttons {
   display: flex;
   gap: 1em;
+  margin-left: auto;
 }
 
 .md-header__buttons > * {
@@ -1511,6 +1516,13 @@ label[for='__search']:hover {
 .cookbook-container {
   /* Specifically needed for Safari */
   width: max-content;
+}
+
+/* To avoid shifting after cookbook loads */
+.for-cookbook {
+  width: 10em;
+  position: fixed;
+  right: 20em;
 }
 
 /* Cookie consent styling */
