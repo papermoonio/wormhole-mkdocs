@@ -919,7 +919,7 @@ pre .md-clipboard {
   display: flex;
   flex-direction: column;
   align-items: center;
-  border: var(--md-border-width) solid var(--light-transparent-20);
+  border: var(--md-border-width) solid var(--md-border-color);
   border-radius: var(--md-border-radius);
   background-color: var(--grey);
   padding: 1.5em;
