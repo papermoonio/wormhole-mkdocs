@@ -929,6 +929,10 @@ pre .md-clipboard {
   font-size: var(--body-xs-text-size);
 }
 
+.feedback__section {
+  width: 100%;
+}
+
 .md-feedback {
   margin-top: 0;
   margin-bottom: 0.75em;
@@ -952,7 +956,6 @@ pre .md-clipboard {
 
 /* Divider Styling */
 .divider {
-  width: 15vw;
   height: 1px;
   background-color: var(--light-transparent-20);
   margin: 0.75em auto 0;
