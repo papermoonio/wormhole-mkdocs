@@ -119,7 +119,7 @@
 .md-typeset h4 {
   font-family: var(--md-header-font);
   text-transform: var(--header-text-style);
-  line-height: var(--header-line-height)
+  line-height: var(--header-line-height);
 }
 
 .md-typeset h1 {
@@ -217,7 +217,7 @@
   height: unset;
 }
 
-.md-header__title>.md-header__ellipsis {
+.md-header__title > .md-header__ellipsis {
   width: 12.1rem;
 }
 
@@ -245,22 +245,21 @@ li.md-nav__item,
 }
 
 /* Make the secondary section font larger on left capitalized (i.e., Get Started, Build, etc.) */
-.md-nav__item--section>.md-nav__link {
+.md-nav__item--section > .md-nav__link {
   text-transform: var(--label-text-style);
 }
 
 /** Styling for nav items that are active or hovered over on larger screens **/
 @media screen and (min-width: 76.25em) {
-
   /* Make the primary section font larger on left nav (i.e., Build, Learn, etc.) */
-  .md-nav--lifted>.md-nav__list>.md-nav__item--active>.md-nav__link {
+  .md-nav--lifted > .md-nav__list > .md-nav__item--active > .md-nav__link {
     font-family: var(--md-header-font);
     font-size: 26px;
     font-weight: 700;
     text-transform: var(--label-text-style);
     line-height: 33.8px;
-    padding: 0 0 .5em .9em;
-    margin-left: -.9em;
+    padding: 0 0 0.5em 0.9em;
+    margin-left: -0.9em;
     background-color: var(--dark);
     border-bottom: var(--md-border-width) solid var(--md-border-color);
     box-shadow: none;
@@ -280,8 +279,8 @@ li.md-nav__item,
   }
 
   .md-nav__link-wrapper.md-nav__item.md-nav__item--active {
-    margin-left: -.8em;
-    padding-left: .8em;
+    margin-left: -0.8em;
+    padding-left: 0.8em;
   }
 
   .md-nav__item div.md-nav__link--active {
@@ -292,7 +291,7 @@ li.md-nav__item,
   /* For active sections, when on that section index page */
   .md-nav__item .md-nav__link-wrapper.md-nav__link--active a,
   .md-nav__item .md-nav__link--active a {
-    margin-left: .9em;
+    margin-left: 0.9em;
   }
 
   /* For section links on hover */
@@ -300,8 +299,8 @@ li.md-nav__item,
     color: var(--md-typeset-a-color);
   }
 
-  [dir=ltr] .md-nav--primary .md-nav__item>.md-nav__link,
-  [dir=ltr] .md-nav--primary .md-nav__item>.md-nav__link:hover {
+  [dir='ltr'] .md-nav--primary .md-nav__item > .md-nav__link,
+  [dir='ltr'] .md-nav--primary .md-nav__item > .md-nav__link:hover {
     margin-right: 0;
   }
 }
@@ -369,12 +368,13 @@ li.md-nav__item,
   }
 
   /* Override mkdocs styling to account for the nav-wrapper */
-  .md-nav__toggle.md-toggle--indeterminate~.md-nav,
-  .md-nav__toggle:checked~.nav-wrapper {
+  .md-nav__toggle.md-toggle--indeterminate ~ .md-nav,
+  .md-nav__toggle:checked ~ .nav-wrapper {
     display: grid;
     grid-template-rows: 1fr;
     opacity: 1;
-    transition: grid-template-rows .25s cubic-bezier(.86, 0, .07, 1), opacity .15s .1s, visibility 0ms;
+    transition: grid-template-rows 0.25s cubic-bezier(0.86, 0, 0.07, 1),
+      opacity 0.15s 0.1s, visibility 0ms;
     visibility: visible;
   }
 
@@ -445,7 +445,6 @@ li.md-nav__item,
   color: var(--plum);
 }
 
-
 /* Apply opacity to sections in TOC as scrolling past them */
 .md-nav__link--passed {
   color: var(--light-transparent-60);
@@ -484,7 +483,7 @@ li.md-nav__item,
 
   /* Adjust font of nav items */
   .md-nav__link,
-  .md-nav__item--section>.md-nav__link {
+  .md-nav__item--section > .md-nav__link {
     font-size: var(--body-text-size);
   }
 
@@ -534,7 +533,7 @@ li.md-nav__item,
     padding: 1em 0.6rem;
   }
 
-  [dir=ltr] .md-nav--secondary .md-nav__list[data-md-component="toc"] {
+  [dir='ltr'] .md-nav--secondary .md-nav__list[data-md-component='toc'] {
     padding: 0;
   }
 
@@ -546,7 +545,7 @@ li.md-nav__item,
     margin: 0.3em 0;
   }
 
-  [dir=ltr] .md-nav--secondary .md-nav__item>.md-nav__link {
+  [dir='ltr'] .md-nav--secondary .md-nav__item > .md-nav__link {
     margin-right: 0;
     font-size: var(--body-xs-text-size);
   }
@@ -555,14 +554,14 @@ li.md-nav__item,
     padding: 0.4em 0;
   }
 
-  [dir=ltr] .md-nav--secondary .md-nav__item>a.md-nav__link:hover {
+  [dir='ltr'] .md-nav--secondary .md-nav__item > a.md-nav__link:hover {
     padding-left: 0;
     margin-left: 0;
   }
 
-  [dir=ltr] .md-nav--secondary a.md-nav__link.md-nav__link--active,
-  [dir=ltr] .md-nav--secondary a.md-nav__link.md-nav__link--active:hover {
-    padding: .4em 0;
+  [dir='ltr'] .md-nav--secondary a.md-nav__link.md-nav__link--active,
+  [dir='ltr'] .md-nav--secondary a.md-nav__link.md-nav__link--active:hover {
+    padding: 0.4em 0;
   }
 }
 
@@ -889,7 +888,6 @@ pre .md-clipboard {
 }
 
 @media screen and (max-width: 30em) {
-
   /* Stack dates in two lines */
   .md-source-file small {
     display: block;
@@ -928,7 +926,7 @@ pre .md-clipboard {
   margin-top: 3em;
   margin-left: auto;
   color: #9a9a9a;
-  font-size: var(--body-xs-text-size)
+  font-size: var(--body-xs-text-size);
 }
 
 .md-feedback {
@@ -1108,7 +1106,6 @@ a.md-content__button.md-icon {
 
 /* Footer styling on small screens */
 @media screen and (max-width: 47.5em) {
-
   .md-footer-meta__inner,
   .md-footer-meta__inner.md-grid {
     justify-content: center;
@@ -1181,20 +1178,20 @@ a.md-content__button.md-icon {
   margin: 1em 1.4em 1em 0;
 }
 
-.md-typeset .grid.cards>ol>li>p:last-child a,
-.md-typeset .grid.cards>ul>li>p:last-child a {
+.md-typeset .grid.cards > ol > li > p:last-child a,
+.md-typeset .grid.cards > ul > li > p:last-child a {
   text-decoration: none;
   font-family: var(--md-cta-font);
   text-transform: var(--label-text-style);
   font-size: 10px;
   line-height: 12px;
   display: flex;
-  gap: .5em;
+  gap: 0.5em;
   margin-top: 1.5em;
 }
 
 .md-typeset .grid.cards .twemoji svg {
-  margin-right: .5em;
+  margin-right: 0.5em;
   fill: var(--plum);
   width: auto;
 }
@@ -1475,7 +1472,7 @@ label[for='__search']:hover {
 }
 
 @media screen and (min-width: 60em) and (max-width: 76.1875em) {
-  [data-md-toggle='search']:checked~.md-header .md-search__inner,
+  [data-md-toggle='search']:checked ~ .md-header .md-search__inner,
   .md-search__scrollwrap {
     width: 34.4rem;
   }
@@ -1527,7 +1524,7 @@ label[for='__search']:hover {
 
 /* Cookie consent styling */
 .md-consent__inner {
-  box-shadow: 0 0 .2rem #ffffff1a, 0 .2rem .4rem #fff3;
+  box-shadow: 0 0 0.2rem #ffffff1a, 0 0.2rem 0.4rem #fff3;
 }
 
 /* Interface admonition styling */
