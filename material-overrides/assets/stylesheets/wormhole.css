@@ -1027,9 +1027,7 @@ a.md-content__button.md-icon {
 
 /* Social icons styling */
 .md-social {
-  padding: 0.6rem 0 0;
   gap: 0.75em;
-  align-self: end;
   flex-wrap: wrap;
 }
 
@@ -1052,41 +1050,83 @@ a.md-content__button.md-icon {
 }
 
 /* Newsletter styling */
-.newsletter {
-  display: grid;
-  gap: 0.5em;
-}
-
-.newsletter-label {
+.hs-email > *,
+.no-list.hs-error-msgs.inputs-list {
   text-transform: var(--label-text-style);
   font-size: var(--label-size);
-  font-weight: 500;
   color: var(--md-default-fg-color);
+  margin: 0 0 .5em;
+  width: 25em;
 }
 
-.md-footer-newsletter {
+.hs-email .hs-form-required {
+  display: none;
+} 
+
+.hs-input {
   border: var(--md-border-width) solid var(--md-border-color);
   border-radius: var(--md-border-radius);
-  padding: 0.75em;
-}
-
-.md-footer-newsletter input {
-  width: 25em;
+  padding: 1em !important;
   background-color: var(--md-default-bg-color);
 }
 
-.md-footer-newsletter button {
+.hs-submit .actions .hs-button {
   color: var(--plum);
   font-family: var(--md-cta-font);
   text-transform: var(--label-text-style);
   font-size: var(--caption-size);
-  padding-right: 1em;
   vertical-align: middle;
   cursor: pointer;
+  background-color: var(--md-default-bg-color);
+  padding: 1em 1.5em;
+  margin: 1em 0 0;
+  border: var(--md-border-width) solid var(--plum);
+  border-radius: var(--md-border-radius);
 }
 
-.md-footer-newsletter button:hover {
+.hs-submit .actions .hs-button:hover {
   opacity: var(--md-hover-opacity);
+}
+
+.hs_error_rollup .no-list.hs-error-msgs.inputs-list {
+  display: none !important;
+}
+
+.no-list.hs-error-msgs.inputs-list {
+  background-color: var(--grey);
+  border-radius: var(--md-border-radius);
+}
+
+.hs-error-msgs {
+  visibility: hidden;
+  background-color: var(--purple-light);
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+}
+
+.hs-error-msgs:not([hidden]) {
+  /* Used to hide the tooltip after 3 seconds */
+  animation: hideAnimation 0s ease-in 3s;
+  animation-fill-mode: forwards;
+  visibility: visible;
+  margin: 0;
+  list-style: none;
+  padding: 0.5em;
+}
+
+/* Used to hide the tooltip */
+@keyframes hideAnimation {
+  to {
+    visibility: hidden;
+    width: 0;
+    height: 0;
+  }
+}
+
+.submitted-message {
+  text-transform: var(--label-text-style);
+  font-size: var(--label-size);
 }
 
 /* Bottom of footer styling (i.e. copyright, terms of use, etc. */

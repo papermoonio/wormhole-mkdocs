@@ -40,11 +40,22 @@
     <div class="md-footer-meta md-typeset">
       <div class="md-footer-meta__inner md-grid">
         <div class="column newsletter">
-          <label for="email" class="newsletter-label">Subscribe for updates</label>
-          <form action="https://formspree.io/f/{form_id}" method="post" class="md-footer-newsletter">
-            <input name="Email" id="email" type="email" placeholder="Your email">
-            <button type="submit">Subscribe</button>
-          </form>
+          {#- These script tags are for the newsletter signup and must be here -#}
+          <script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/embed/v2.js"></script>
+          <script>hbspt.forms.create({portalId: "46857712", formId: "24dad166-ab48-4a89-84b4-8ae30aa59ada", region: "na1", css: "color: white;", cssClass: "hello", locale: "en", "translations": {
+            en: {
+              fieldLabels: {
+                email: "Subscribe for updates",
+              }
+            }
+          },
+          onFormReady: function(form) {
+            const emailInput = form.querySelector('input[name="email"]');
+            if (emailInput) {
+              emailInput.setAttribute("placeholder", "Enter your email");
+            }
+          }
+          });</script>
         </div>
         {% include "partials/social.html" %}
       </div>
