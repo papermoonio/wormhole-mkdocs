@@ -231,6 +231,12 @@
   width: 132px;
 }
 
+@media screen and (max-width: 60em) {
+  [dir='ltr'] .md-header__title {
+    display: none;
+  }
+}
+
 /* Make spacing of nav items slightly larger */
 li.md-nav__item,
 .md-nav__item--section > .md-nav > .md-nav__list > .md-nav__item {
@@ -1148,14 +1154,11 @@ a.md-content__button.md-icon {
 }
 
 /* Footer styling on small screens */
-@media screen and (max-width: 47.5em) {
+@media screen and (max-width: 43.5em) {
   .md-footer-meta__inner,
   .md-footer-meta__inner.md-grid {
     justify-content: center;
-  }
-
-  .md-footer-newsletter input {
-    width: 15em;
+    gap: 2em;
   }
 
   .md-footer-copyright {
