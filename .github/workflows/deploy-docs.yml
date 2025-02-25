@@ -51,11 +51,15 @@ jobs:
           python -m pip install --upgrade pip setuptools 'cython<3.0.0' wheel
           # install dependencies quietly
           python -m pip install -r requirements.txt
-          
+
+      - name: Update mkdocs.yml with correct site_url
+        run: |
+          sed -i 's|^site_url:.*|site_url: "https://papermoonio.github.io/wormhole-mkdocs/docs/"|' mkdocs.yml
+          cat mkdocs.yml | grep "site_url"  # Debug: Verify the change
+      
       - name: Update image paths in Markdown files
         run: |
-          # Replace old image paths with new paths in Markdown files
           find wormhole-docs -type f -name "*.md" -exec sed -i -e 's|](/|](/wormhole-mkdocs/|g' -e 's|href="/|href="/wormhole-mkdocs/|g' {} \;
-      
+
       - name: Deploy Docs
         run: mkdocs gh-deploy --force --clean --site-dir ./site
