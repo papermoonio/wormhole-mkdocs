@@ -708,6 +708,11 @@ pre .md-clipboard {
   text-align: center;
 }
 
+/* Supported Blockchains Tables */
+.full-width .md-typeset__scrollwrap .md-typeset__table {
+  width: 100%;
+}
+
 /* Tables in tabs */
 .tabbed-content .md-typeset__scrollwrap {
   margin: 0;
@@ -1659,7 +1664,3 @@ details.child {
   box-shadow: none;
 }
 
-/* Supported Blockchains Tables */
-.full-width .md-typeset__scrollwrap .md-typeset__table {
-  width: 100%;
-}
