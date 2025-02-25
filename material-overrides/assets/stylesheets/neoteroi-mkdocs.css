@@ -46,6 +46,7 @@
 .span-table tr:not(:first-child):has(:nth-child(5)) > td:first-child {
   border-left: 0.05rem solid var(--md-typeset-table-color);
   border-right: 0.05rem solid var(--md-typeset-table-color);
+  font-weight: bold;
 }
 
 /* Only select rows with one column (used to break up tables) */
