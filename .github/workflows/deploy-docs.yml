@@ -55,7 +55,7 @@ jobs:
       - name: Update image paths in Markdown files
         run: |
           find wormhole-docs -type f -name "*.md" -exec sed -i -e 's|](/docs/|](/wormhole-mkdocs/|g' -e 's|href="/docs/|href="/wormhole-mkdocs/|g' {} \;
-          find material-overrides -type f -name "*.html" -exec sed -i -e 's|/docs/||g' {} \;
+          find material-overrides -type f -name "*.html" -exec sed -i -e 's|/docs/|/|g' {} \;
 
       - name: Deploy Docs
         run: mkdocs gh-deploy --force --clean --site-dir ./site
