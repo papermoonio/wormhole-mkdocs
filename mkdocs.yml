@@ -41,6 +41,7 @@ markdown_extensions:
   - md_in_html
   - meta 
   - neoteroi.spantable
+  - neoteroi.timeline
   - pymdownx.details
   - pymdownx.emoji:
       emoji_index: !!python/name:material.extensions.emoji.twemoji
@@ -66,9 +67,9 @@ markdown_extensions:
 plugins:
   - search
   - awesome-pages
-  - glightbox:
-      skip_classes:
-        - no-lightbox
+  # - glightbox:
+      # skip_classes:
+        # - no-lightbox
 
   - redirects:
       redirect_maps:
