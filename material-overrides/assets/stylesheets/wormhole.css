@@ -1671,7 +1671,7 @@ details.child {
   background-color: var(--grey);
   border: var(--md-border-width) solid var(--md-border-color);
   border-radius: var(--md-border-radius);
-  margin: 1em 0;
+  margin: 2em 0;
   gap: .25em;
   padding-bottom: .25em;
 }
