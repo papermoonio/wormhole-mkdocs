@@ -1664,3 +1664,38 @@ details.child {
   box-shadow: none;
 }
 
+/** Use Case Cards */
+.use-case-card {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--grey);
+  border: var(--md-border-width) solid var(--md-border-color);
+  border-radius: var(--md-border-radius);
+  margin: 2em 0;
+  gap: .25em;
+  padding-bottom: .25em;
+}
+
+.use-case-card h2 {
+  font-size: var(--h4-size);
+  background-color: #2E2E2E;
+  border-radius: var(--md-border-radius);
+  margin: 0;
+  padding: 24px;
+}
+
+.use-case-card p,
+.use-case-card ul,
+.use-case-card ol {
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+.md-typeset .use-case-card hr {
+  margin: 0;
+  border-color: #343434;
+}
+
+.use-case-card li::marker {
+  color: var(--plum);
+}
