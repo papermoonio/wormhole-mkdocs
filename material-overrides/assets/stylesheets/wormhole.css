@@ -713,6 +713,37 @@ pre .md-clipboard {
   width: 100%;
 }
 
+
+/* Fixed table headers */
+.md-typeset__scrollwrap .md-typeset__table {
+  max-height: 82vh;
+  overflow: auto;
+}
+
+thead {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+/* Something I thought about adding to make it clear that there are more table
+ rows to see. But we would probably need to add some JavaScript to put the indicator
+ in a meaningful place. We'd also need to fix it to the bottom of the table and 
+ conditionally show it if the table is long. Might be a bit much for now.
+*/
+/* .scroll-indicator {
+  text-align: center;
+  font-size: 12px;
+  color: gray;
+  padding: 8px;
+  animation: bounce 1.5s infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(5px); }
+} */
+
 /* Tables in tabs */
 .tabbed-content .md-typeset__scrollwrap {
   margin: 0;
