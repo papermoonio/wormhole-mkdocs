@@ -68,9 +68,9 @@ markdown_extensions:
 plugins:
   - search
   - awesome-pages
-  # - glightbox:
-      # skip_classes:
-        # - no-lightbox
+   - glightbox:
+       skip_classes:
+         - no-lightbox
 
   - redirects:
       redirect_maps:
