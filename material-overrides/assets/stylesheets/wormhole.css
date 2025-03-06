@@ -53,6 +53,7 @@
   --header-text-style: uppercase;
 
   --md-cta-font: 'Druk Wide', sans-serif;
+  --md-cta-text-style: uppercase;
 
   --md-nav-labels-font: 'Roboto Mono', monospace;
   --label-text-style: uppercase;
@@ -1318,7 +1319,7 @@ a.md-content__button.md-icon {
 }
 
 .md-typeset .md-button.secondary {
-  background: var(--md-default-bg-color);
+  background: transparent;
   border-color: var(--plum);
   color: var(--plum);
 }
