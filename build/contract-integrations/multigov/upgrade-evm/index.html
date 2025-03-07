@@ -7,17 +7,17 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Learn the process and key considerations for upgrading MultiGov, ensuring system integrity and careful planning across cross-chain components.">
+        <meta name="description" content="Learn the process and key considerations for upgrading MultiGov on EVM, ensuring system integrity and careful planning across cross-chain components.">
       
       
       
-        <link rel="canonical" href="https://wormhole.com/docs/build/contract-integrations/multigov/upgrade/">
+        <link rel="canonical" href="https://wormhole.com/docs/build/contract-integrations/multigov/upgrade-evm/">
       
       
-        <link rel="prev" href="../deployment/">
+        <link rel="prev" href="../deploy-to-solana/">
       
       
-        <link rel="next" href="../faq/">
+        <link rel="next" href="../upgrade-solana/">
       
       
       <link rel="icon" href="../../../../assets/images/favicon.webp">
@@ -25,7 +25,7 @@
     
   
 
-    <title>Upgrading MultiGov | Wormhole Docs</title>
+    <title>Upgrading MultiGov on EVM | Wormhole Docs</title>
     
 	
       <link rel="stylesheet" href="../../../../assets/stylesheets/main.6543a935.min.css">
@@ -142,7 +142,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#upgrade-multigov-contracts" class="md-skip">
+        <a href="#upgrade-multigov-contracts-on-evm" class="md-skip">
           Skip to content
         </a>
       
@@ -195,7 +195,7 @@
                       <a href="../../../start-building/">
                         <div class="icon-col">
                           
-                          <img class="dropdown-icon" src="/docs/assets/images/dropdown-icons/start-building.svg" alt="Start Building" loading="lazy">
+                          <img class="dropdown-icon" src="/wormhole-mkdocs/assets/images/dropdown-icons/start-building.svg" alt="Start Building" loading="lazy">
                         </div>
                         <div class="text-col">
                           <span class="dropdown-title">Start Building</span>
@@ -209,7 +209,7 @@
                       <a href="../../../applications/">
                         <div class="icon-col">
                           
-                          <img class="dropdown-icon" src="/docs/assets/images/dropdown-icons/applications.svg" alt="Build Frontend Applications" loading="lazy">
+                          <img class="dropdown-icon" src="/wormhole-mkdocs/assets/images/dropdown-icons/applications.svg" alt="Build Frontend Applications" loading="lazy">
                         </div>
                         <div class="text-col">
                           <span class="dropdown-title">Build Frontend Applications</span>
@@ -223,7 +223,7 @@
                       <a href="../../">
                         <div class="icon-col">
                           
-                          <img class="dropdown-icon" src="/docs/assets/images/dropdown-icons/contract-integrations.svg" alt="Build Contract Integrations" loading="lazy">
+                          <img class="dropdown-icon" src="/wormhole-mkdocs/assets/images/dropdown-icons/contract-integrations.svg" alt="Build Contract Integrations" loading="lazy">
                         </div>
                         <div class="text-col">
                           <span class="dropdown-title">Build Contract Integrations</span>
@@ -237,7 +237,7 @@
                       <a href="../../../toolkit/">
                         <div class="icon-col">
                           
-                          <img class="dropdown-icon" src="/docs/assets/images/dropdown-icons/toolkit.svg" alt="Toolkit" loading="lazy">
+                          <img class="dropdown-icon" src="/wormhole-mkdocs/assets/images/dropdown-icons/toolkit.svg" alt="Toolkit" loading="lazy">
                         </div>
                         <div class="text-col">
                           <span class="dropdown-title">Toolkit</span>
@@ -251,7 +251,7 @@
                       <a href="../../../reference/">
                         <div class="icon-col">
                           
-                          <img class="dropdown-icon" src="/docs/assets/images/dropdown-icons/reference.svg" alt="Reference" loading="lazy">
+                          <img class="dropdown-icon" src="/wormhole-mkdocs/assets/images/dropdown-icons/reference.svg" alt="Reference" loading="lazy">
                         </div>
                         <div class="text-col">
                           <span class="dropdown-title">Reference</span>
@@ -280,7 +280,7 @@
                       <a href="../../../../infrastructure/relayers/">
                         <div class="icon-col">
                           
-                          <img class="dropdown-icon" src="/docs/assets/images/dropdown-icons/relayers.svg" alt="Relayers" loading="lazy">
+                          <img class="dropdown-icon" src="/wormhole-mkdocs/assets/images/dropdown-icons/relayers.svg" alt="Relayers" loading="lazy">
                         </div>
                         <div class="text-col">
                           <span class="dropdown-title">Relayers</span>
@@ -294,7 +294,7 @@
                       <a href="../../../../infrastructure/spy/">
                         <div class="icon-col">
                           
-                          <img class="dropdown-icon" src="/docs/assets/images/dropdown-icons/spy.svg" alt="Spy" loading="lazy">
+                          <img class="dropdown-icon" src="/wormhole-mkdocs/assets/images/dropdown-icons/spy.svg" alt="Spy" loading="lazy">
                         </div>
                         <div class="text-col">
                           <span class="dropdown-title">Spy</span>
@@ -323,7 +323,7 @@
                       <a href="../../../../tutorials/by-product/">
                         <div class="icon-col">
                           
-                          <img class="dropdown-icon" src="/docs/assets/images/dropdown-icons/by-product.svg" alt="Tutorials by Product" loading="lazy">
+                          <img class="dropdown-icon" src="/wormhole-mkdocs/assets/images/dropdown-icons/by-product.svg" alt="Tutorials by Product" loading="lazy">
                         </div>
                         <div class="text-col">
                           <span class="dropdown-title">Tutorials by Product</span>
@@ -352,7 +352,7 @@
                       <a href="../../../../learn/fundamentals/">
                         <div class="icon-col">
                           
-                          <img class="dropdown-icon" src="/docs/assets/images/dropdown-icons/fundamentals.svg" alt="Fundamentals" loading="lazy">
+                          <img class="dropdown-icon" src="/wormhole-mkdocs/assets/images/dropdown-icons/fundamentals.svg" alt="Fundamentals" loading="lazy">
                         </div>
                         <div class="text-col">
                           <span class="dropdown-title">Fundamentals</span>
@@ -366,7 +366,7 @@
                       <a href="../../../../learn/infrastructure/">
                         <div class="icon-col">
                           
-                          <img class="dropdown-icon" src="/docs/assets/images/dropdown-icons/infrastructure.svg" alt="Infrastructure Components" loading="lazy">
+                          <img class="dropdown-icon" src="/wormhole-mkdocs/assets/images/dropdown-icons/infrastructure.svg" alt="Infrastructure Components" loading="lazy">
                         </div>
                         <div class="text-col">
                           <span class="dropdown-title">Infrastructure Components</span>
@@ -380,7 +380,7 @@
                       <a href="../../../../learn/messaging/">
                         <div class="icon-col">
                           
-                          <img class="dropdown-icon" src="/docs/assets/images/dropdown-icons/messaging.svg" alt="Messaging" loading="lazy">
+                          <img class="dropdown-icon" src="/wormhole-mkdocs/assets/images/dropdown-icons/messaging.svg" alt="Messaging" loading="lazy">
                         </div>
                         <div class="text-col">
                           <span class="dropdown-title">Messaging</span>
@@ -394,7 +394,7 @@
                       <a href="../../../../learn/governance/">
                         <div class="icon-col">
                           
-                          <img class="dropdown-icon" src="/docs/assets/images/dropdown-icons/governance.svg" alt="Multichain Governance" loading="lazy">
+                          <img class="dropdown-icon" src="/wormhole-mkdocs/assets/images/dropdown-icons/governance.svg" alt="Multichain Governance" loading="lazy">
                         </div>
                         <div class="text-col">
                           <span class="dropdown-title">Multichain Governance</span>
@@ -1780,6 +1780,12 @@
             
             
           
+            
+            
+          
+            
+            
+          
         
         
           
@@ -1813,8 +1819,22 @@
     
     
       <li class="md-nav__item">
-        <a href="../deployment/" class="md-nav__link">
-          Deployment
+        <a href="../deploy-to-evm/" class="md-nav__link">
+          Deploy to EVM
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../deploy-to-solana/" class="md-nav__link">
+          Deploy to Solana
         </a>
       </li>
     
@@ -1837,13 +1857,13 @@
         
         
           <label class="md-nav__link md-nav__link--active" for="__toc">
-            Upgrade Contracts
+            Upgrade Contracts on EVM
             <span class="md-nav__icon md-icon"></span>
           </label>
         
         <div class="md-nav__link-wrapper md-nav__item md-nav__item--active">
           <a href="./" class="md-nav__link md-nav__link--active">
-            Upgrade Contracts
+            Upgrade Contracts on EVM
           </a>
         </div>
         
@@ -1895,6 +1915,20 @@
   
 </nav>
         
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../upgrade-solana/" class="md-nav__link">
+          Upgrade Contracts on Solana
+        </a>
       </li>
     
   
@@ -3965,7 +3999,7 @@
                 
                   
                 
-                Thanks for your feedback! Help us improve this page by submitting <a href="https://docs.google.com/forms/d/e/1FAIpQLSdRjp_CJ2jEC0gPvK242zRzJoN_x9-Nlt_KXkCy7QPYiD4OlA/viewform?usp=pp_url&entry.2090824420=[Feedback]+Upgrading%20MultiGov+-+/build/contract-integrations/multigov/upgrade/" target="_blank" rel="noopener">additional feedback</a>.
+                Thanks for your feedback! Help us improve this page by submitting <a href="https://docs.google.com/forms/d/e/1FAIpQLSdRjp_CJ2jEC0gPvK242zRzJoN_x9-Nlt_KXkCy7QPYiD4OlA/viewform?usp=pp_url&entry.2090824420=[Feedback]+Upgrading%20MultiGov%20on%20EVM+-+/build/contract-integrations/multigov/upgrade-evm/" target="_blank" rel="noopener">additional feedback</a>.
               </div>
             
           </div>
@@ -3976,7 +4010,7 @@
           </div><div class="edit-section">
             
     
-      <a href="https://github.com/wormhole-foundation/wormhole-docs/edit/main/build/contract-integrations/multigov/upgrade.md" title="Edit this page" class="md-content__button md-icon">
+      <a href="https://github.com/wormhole-foundation/wormhole-docs/edit/main/build/contract-integrations/multigov/upgrade-evm.md" title="Edit this page" class="md-content__button md-icon">
         
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2Z"/></svg> Edit this page
       </a>
@@ -3995,14 +4029,14 @@
       
         
 
-<h1 id="upgrade-multigov-contracts">Upgrade MultiGov Contracts<a class="headerlink" href="#upgrade-multigov-contracts" title="Permanent link">＃</a></h1>
-<p>MultiGov is designed to be flexible but stable. Upgrades should be rare and carefully considered due to the system's complexity and cross-chain nature. When upgrades are necessary, they must be meticulously planned and executed to ensure system integrity and continuity.</p>
+<h1 id="upgrade-multigov-contracts-on-evm">Upgrade MultiGov Contracts on EVM<a class="headerlink" href="#upgrade-multigov-contracts-on-evm" title="Permanent link">＃</a></h1>
+<p>MultiGov is designed to be flexible but stable. Due to the system's complexity and cross-chain nature, upgrades should be rare and carefully considered. When upgrades are necessary, they must be meticulously planned and executed to ensure system integrity and continuity.</p>
 <h2 id="key-considerations-for-upgrades">Key Considerations for Upgrades<a class="headerlink" href="#key-considerations-for-upgrades" title="Permanent link">＃</a></h2>
 <ul>
 <li>
 <p><strong><code>HubGovernor</code></strong>:</p>
 <ul>
-<li>Not upgradeable. A new deployment requires redeploying several components of the MultiGov system. Refer to the <a href="/docs/build/contract-integrations/multigov/upgrade/#process-for-major-system-upgrade">Process for Major System Upgrade</a> section for more details </li>
+<li>Not upgradeable. A new deployment requires redeploying several components of the MultiGov system. Refer to the <a href="/wormhole-mkdocs/build/contract-integrations/multigov/upgrade/#process-for-major-system-upgrade">Process for Major System Upgrade</a> section for more details </li>
 </ul>
 </li>
 <li>
@@ -4107,7 +4141,7 @@
     
     <nav class="md-footer__inner md-grid" aria-label="footer.title">
       
-      <a href="../deployment/" class="md-footer__link md-footer__link--prev" rel="prev">
+      <a href="../deploy-to-solana/" class="md-footer__link md-footer__link--prev" rel="prev">
         <div class="md-footer__button md-icon">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22 12a10 10 0 0 1-10 10A10 10 0 0 1 2 12 10 10 0 0 1 12 2a10 10 0 0 1 10 10m-6.6 4.6L10.8 12l4.6-4.6L14 6l-6 6 6 6 1.4-1.4Z"/></svg>
         </div>
@@ -4116,19 +4150,19 @@
             Previous
           </span>
           <span class="md-footer__page-name">
-          Deployment
+          Deploy to Solana
           </span>
         </div>
       </a>
       
       
-      <a href="../faq/" class="md-footer__link md-footer__link--next" rel="next">
+      <a href="../upgrade-solana/" class="md-footer__link md-footer__link--next" rel="next">
         <div class="md-footer__title">
           <span class="md-footer__direction">
             Next
           </span>
           <span class="md-footer__page-name">
-          Technical FAQs
+          Upgrade Contracts on Solana
           </span>
         </div>
         <div class="md-footer__button md-icon">
