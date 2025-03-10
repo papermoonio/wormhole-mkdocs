@@ -144,7 +144,7 @@ Neoteroi Mkdocs timeline extension: https://github.com/Neoteroi/mkdocs-plugins/b
 
       .nt-timeline-dot {
         left: 21px;
-        top: 8px;
+        top: 0px;
 
         &.bigger {
           top: 0px;
@@ -207,13 +207,13 @@ Neoteroi Mkdocs timeline extension: https://github.com/Neoteroi/mkdocs-plugins/b
   &.bigger {
     width: 40px;
     height: 40px;
-
     padding: 3px;
   }
 
   .icon {
     color: white;
     position: relative;
+    bottom: 1px;
   }
 }
 
