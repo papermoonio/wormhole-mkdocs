@@ -135,9 +135,16 @@ export function generateAllConsistencyLevelsTable(dc: cfg.DocChain[]): string {
     const blockTime = finality.blockTime.get(toChain(c.mainnet.id));
 
     if (finalizationBlocks !== undefined && blockTime !== undefined) {
-      const finalizationTime = `~ ${Math.ceil(
-        ((finalizationBlocks + 1) * blockTime) / 1000 / 60
-      )}min`;
+      // const finalizationTime = `~ ${Math.ceil(
+      //   ((finalizationBlocks + 1) * blockTime) / 1000 / 60
+      // )}min`;
+
+      const finalizationSeconds = ((finalizationBlocks + 1) * blockTime) / 1000;
+  
+      const finalizationTime = finalizationSeconds < 120
+      ? `~ ${Math.ceil(finalizationSeconds)}s`
+      : `~ ${Math.ceil(finalizationSeconds / 60)}min`;
+
       tableBody.push(`
 <tr>
   <td>${header}</td>
