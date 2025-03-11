@@ -28,7 +28,6 @@ Neoteroi Mkdocs timeline extension: https://github.com/Neoteroi/mkdocs-plugins/b
   /** content blocks for each timeline item**/
   /** border between timeline items **/
   .nt-timeline-content {
-    font-size: 0.8rem;
     border-bottom: 2px dashed var(--light-transparent-20);
     padding-bottom: 1.2rem;
   }
