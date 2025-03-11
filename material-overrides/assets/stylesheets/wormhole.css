@@ -910,6 +910,19 @@ pre .md-clipboard {
   margin-top: 3em;
 }
 
+/** Badge styling **/
+.md-typeset span.badge {
+  border-radius: var(--md-border-radius);
+  font-size: 0.8em;
+  padding: 0.4em 0.8em;
+  margin-right: 0.5em;
+}
+
+.md-typeset span.badge.product {
+  background-color: var(--plum);
+  color: var(--dark);
+}
+
 @media screen and (max-width: 30em) {
   /* Stack dates in two lines */
   .md-source-file small {
