@@ -85,6 +85,8 @@ plugins:
         build/start-building/supported-networks/solana.md: build/start-building/supported-networks.md
         build/start-building/supported-networks/sui.md: build/start-building/supported-networks.md
         build/contract-integrations/gateway.md: build/start-building/supported-networks/cosmos.md
+        build/contract-integrations/multigov/deployment.md: build/contract-integrations/multigov/deploy-to-evm.md
+        build/contract-integrations/multigov/upgrade.md: build/contract-integrations/multigov/upgrade-evm.md
         learn/messaging/gateway.md: learn/messaging/index.md
         tutorials/by-product/native-token-transfers/index.md: tutorials/by-product/index.md
         tutorials/by-product/native-token-transfers/multichain-token.md: tutorials/by-product/multichain-assets/multichain-token.md
