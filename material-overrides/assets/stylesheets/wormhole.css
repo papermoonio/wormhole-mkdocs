@@ -218,6 +218,10 @@
   font-size: var(--label-size);
 }
 
+.md-tabs {
+  z-index: unset;
+}
+
 /* To align with Wormhole website */
 .md-header {
   /* Make header a little thicker */
@@ -1376,6 +1380,7 @@ label[for='__drawer'] svg {
   padding: 0;
   margin: 1.5em -1em;
   transform: translateZ(0);
+  will-change: transform;
 }
 
 .md-tabs__item--custom:hover .md-tab__list,
