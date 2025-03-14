@@ -6,7 +6,8 @@ edit_uri: https://github.com/wormhole-foundation/wormhole-docs/edit/main/
 extra_css:
   - assets/stylesheets/extra.css
   - assets/stylesheets/terminal.css
-  - assets/stylesheets/neoteroi-mkdocs.css
+  - assets/stylesheets/spantable-neoteroi.css
+  - assets/stylesheets/timeline-neoteroi.css
 theme:
   name: material
   custom_dir: material-overrides
@@ -41,6 +42,7 @@ markdown_extensions:
   - md_in_html
   - meta 
   - neoteroi.spantable
+  - neoteroi.timeline
   - pymdownx.details
   - pymdownx.emoji:
       emoji_index: !!python/name:material.extensions.emoji.twemoji
