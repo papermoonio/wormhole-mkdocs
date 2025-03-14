@@ -53,6 +53,7 @@
   --header-text-style: uppercase;
 
   --md-cta-font: 'Druk Wide', sans-serif;
+  --md-cta-text-style: uppercase;
 
   --md-nav-labels-font: 'Roboto Mono', monospace;
   --label-text-style: uppercase;
@@ -216,10 +217,6 @@
   font-family: var(--md-nav-labels-font);
   text-transform: var(--label-text-style);
   font-size: var(--label-size);
-}
-
-.md-tabs {
-  z-index: unset;
 }
 
 /* To align with Wormhole website */
@@ -1322,7 +1319,7 @@ a.md-content__button.md-icon {
 }
 
 .md-typeset .md-button.secondary {
-  background: var(--md-default-bg-color);
+  background: transparent;
   border-color: var(--plum);
   color: var(--plum);
 }
@@ -1380,7 +1377,6 @@ label[for='__drawer'] svg {
   padding: 0;
   margin: 1.5em -1em;
   transform: translateZ(0);
-  will-change: transform;
 }
 
 .md-tabs__item--custom:hover .md-tab__list,
@@ -1681,23 +1677,12 @@ details.child {
   padding-bottom: .25em;
 }
 
-.use-case-card .title {
-  display: flex;
-  flex-direction: column;
-  gap: .25em;
-  background-color: #2E2E2E;
-  border-radius: var(--md-border-radius);
-  padding: 24px;
-}
-
 .use-case-card h2 {
   font-size: var(--h4-size);
+  background-color: #2E2E2E;
+  border-radius: var(--md-border-radius);
   margin: 0;
-}
-
-.use-case-card .title p {
-  padding: 0;
-  margin: 0;
+  padding: 24px;
 }
 
 .use-case-card p,
