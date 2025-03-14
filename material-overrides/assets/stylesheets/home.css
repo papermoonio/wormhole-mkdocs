@@ -36,7 +36,7 @@
 
 .hero-content {
   position: relative;
-  width: 49%;
+  width: 40%;
   z-index: 1;
   padding: 2em 0;
 }
@@ -58,7 +58,7 @@
 
 .hero p {
   font-size: var(--body-text-size);
-  margin: 4em 0 6em;
+  margin: 1em 0 3em;
 }
 
 .button-wrapper {
@@ -80,7 +80,7 @@
 }
 
 .integrate-products h2 {
-  max-width: 75%;
+  max-width: 70%;
   margin: 0;
   text-align: center;
 }
@@ -101,7 +101,7 @@
   background-size: cover;
   border-radius: 16px;
   padding: 32px 0;
-  border: 1px solid hsl(270 1.1% 62.7%/.3);
+  border: 1px solid hsl(270 1.1% 62.7%/.15);
 }
 
 .product-card:hover {
@@ -160,19 +160,22 @@
  Styles for explore products section
 -------------------------------- **/
 .explore-products {
-  background: url(../images/explore-products-bg.png) no-repeat center center;
-  background-size: cover;
-  width: 80%;
   max-width: 61rem;
   margin: auto;
+  position: relative;
+}
+
+.explore-products img {
+  position: absolute;
+  z-index: -1;
 }
 
 .explore-products-content {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 30em;
-  padding-top: 5em;
+  padding-top: 8em;
+  padding-bottom: 8em;
 }
 
 .explore-products h2 {
@@ -180,12 +183,15 @@
   text-align: center;
 }
 
-.explore-products .button-wrapper a {
-  flex: 1;
+.explore-products-content .button-wrapper {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1em;
 }
 
-.explore-products .md-button {
+.explore-products-content button.md-button {
   width: 100%;
+  padding: 1.6em 2.35em;
 }
 
 /** -----------------------
@@ -197,25 +203,36 @@
   display: flex;
   justify-content: space-between;
   gap: 2em;
-  margin-top: -5em;
 }
 
 .feature-card {
-  border-radius: 16px;
-  padding: 2em;
   display: flex;
   flex-direction: column;
   flex: 1;
+  border-radius: 16px;
+  padding: 4em;
+  position: relative;
+  border: 1px solid hsl(270 1.1% 62.7%/.15);
+}
+
+.feature-card p {
+  width: 75%;
 }
 
 .feature-card:nth-child(1){
-  background: url(../images/card-1.svg) no-repeat center center,  #1C1C1C;
+  background: url(../images/card-bg-1.svg);
   background-size: cover;
+  background-repeat: no-repeat;
+  background-position: top;
+  border: 1px solid hsl(270 1.1% 62.7%/.15);
 }
 
 .feature-card:nth-child(2){
-  background: url(../images/card-2.svg) no-repeat center center, #1C1C1C;
+  background: url(../images/card-bg-2.svg);
   background-size: cover;
+  background-repeat: no-repeat;
+  background-position: top;
+  border: 1px solid hsl(270 1.1% 62.7%/.15);
 }
 
 .feature-card .start-building.md-button {
@@ -349,7 +366,7 @@
   }
 
   .explore-products h2 {
-    max-width: 75%;
+    max-width: 70%;
   }
 
   .feature {
