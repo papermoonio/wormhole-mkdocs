@@ -348,6 +348,24 @@ li.md-nav__item,
   [dir='ltr'] .md-nav--primary .md-nav__item > .md-nav__link:hover {
     margin-right: 0;
   }
+
+  /* Styling for top-level pages (i.e., Learn > Introduction) that are not part of a subsection */
+  .md-nav__list > .md-nav__item {
+    display: none;
+  }
+
+  .md-nav--primary .md-nav__list:first-child .md-nav__item--section.md-nav__item--nested .md-nav__item {
+    display: block;
+  }
+
+  .md-nav--primary .md-nav__list:first-child .md-nav__item.md-nav__item--active:not(.md-nav__item--nested) {
+    display: block;
+    margin-top: 1rem;
+  }
+
+  .md-nav--secondary .md-nav__list > .md-nav__item {
+    display: block;
+  }
 }
 
 /** Styling for nav items that are active or hovered over on smaller screens **/
