@@ -350,7 +350,7 @@ li.md-nav__item,
   }
 
   /* Styling for top-level pages (i.e., Learn > Introduction) that are not part of a subsection */
-  .md-nav__list > .md-nav__item {
+  /* .md-nav__list > .md-nav__item {
     display: none;
   }
 
@@ -365,7 +365,7 @@ li.md-nav__item,
 
   .md-nav--secondary .md-nav__list > .md-nav__item {
     display: block;
-  }
+  } */
 }
 
 /** Styling for nav items that are active or hovered over on smaller screens **/
