@@ -1,9 +1,0 @@
-{
-  "title": "MonadDevnet",
-  "homepage": "https://www.monad.xyz/",
-  "devDocs": "https://docs.monad.xyz/",
-  "testnet": {
-    "name": "Testnet",
-    "id": "41454"
-  }
-}
