@@ -105,7 +105,11 @@
 
 .product-card:hover {
   background-color: rgb(55 55 55/1);
-  cursor: pointer;
+}
+
+.md-typeset a.product-card:focus,
+.md-typeset a.product-card:hover {
+  opacity: 1;
 }
 
 .product-card > * {
