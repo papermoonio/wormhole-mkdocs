@@ -1775,3 +1775,12 @@ details.child {
 .use-case-card li::marker {
   color: var(--plum);
 }
+
+/** External Link Styling **/
+.md-nav__link .external-link svg {
+  height: 1em;
+}
+
+.md-nav__list .md-nav__link {
+  gap: .5em;
+}
