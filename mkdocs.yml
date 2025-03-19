@@ -133,7 +133,7 @@ plugins:
         build/start-building/supported-networks/aptos.md: build/start-building/supported-networks.md
         build/start-building/supported-networks/cosmos.md: build/start-building/supported-networks.md
         build/start-building/supported-networks/cosmos/cosmos.md: build/start-building/supported-networks.md
-        build/start-building/supported-networks/cosmos/gateway.md: build/start-building/supported-networks/cosmos.md
+        build/start-building/supported-networks/cosmos/gateway.md: build/start-building/supported-networks.md
         build/start-building/supported-networks/evm.md: build/start-building/supported-networks.md
         build/start-building/supported-networks/near.md: build/start-building/supported-networks.md
         build/start-building/supported-networks/solana.md: build/start-building/supported-networks.md
@@ -154,9 +154,9 @@ plugins:
         learn/messaging/native-token-transfers/overview.md: learn/transfers/native-token-transfers/overview.md
         learn/messaging/native-token-transfers/security.md: learn/transfers/native-token-transfers/security.md
         learn/messaging/token-bridge.md: learn/transfers/token-bridge.md
-        learn/messaging/wormhole-settlement/architecture.md: learn/transfers/wormhole-settlement/architecture.md
-        learn/messaging/wormhole-settlement/index.md: learn/transfers/wormhole-settlement/index.md
-        learn/messaging/wormhole-settlement/overview.md: learn/transfers/wormhole-settlement/overview.md
+        learn/messaging/wormhole-settlement/architecture.md: learn/transfers/settlement/architecture.md
+        learn/messaging/wormhole-settlement/index.md: learn/transfers/settlement/index.md
+        learn/messaging/wormhole-settlement/overview.md: learn/transfers/settlement/overview.md
         tutorials/by-product/native-token-transfers/index.md: tutorials/by-product/index.md
         tutorials/by-product/native-token-transfers/multichain-token.md: tutorials/by-product/multichain-assets/multichain-token.md
         tutorials/messaging/cctp.md: tutorials/by-product/wormhole-sdk/usdc-via-cctp.md
