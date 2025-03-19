@@ -348,24 +348,6 @@ li.md-nav__item,
   [dir='ltr'] .md-nav--primary .md-nav__item > .md-nav__link:hover {
     margin-right: 0;
   }
-
-  /* Styling for top-level pages (i.e., Learn > Introduction) that are not part of a subsection */
-  /* .md-nav__list > .md-nav__item {
-    display: none;
-  }
-
-  .md-nav--primary .md-nav__list:first-child .md-nav__item--section.md-nav__item--nested .md-nav__item {
-    display: block;
-  }
-
-  .md-nav--primary .md-nav__list:first-child .md-nav__item.md-nav__item--active:not(.md-nav__item--nested) {
-    display: block;
-    margin-top: 1rem;
-  }
-
-  .md-nav--secondary .md-nav__list > .md-nav__item {
-    display: block;
-  } */
 }
 
 /** Styling for nav items that are active or hovered over on smaller screens **/
@@ -408,7 +390,7 @@ li.md-nav__item,
   .main-page-sidebar .md-nav > .md-nav__list .md-nav__item--section,
   .md-nav > .md-nav__list .md-nav__item--section.md-nav__item--active {
     display: block;
-    margin-top: 2em;
+    /* margin-top: 2em; */
   }
 
   /* Allow section headers to be clickable */
@@ -454,6 +436,53 @@ li.md-nav__item,
   li > nav.md-nav[data-md-level='4'] ul.md-nav__list {
     border-left: var(--md-border-width) solid var(--plum);
     margin: 0.75em 0;
+  }
+
+  /**
+  NOTE: The rest of the styling in this media query follows a simple
+  principle: apply a base style to all items, then selectively override
+  styles where necessary.
+
+  These styles are specific to dropdown items for pages and sections.
+  */
+
+  /* Put display none on all the nav items*/
+  .md-nav__list > .md-nav__item {
+    display: none;
+  }
+
+  /* Ensures pages are shown for dropdown items that are sections */
+  .md-nav--primary .md-nav__list:first-child .md-nav__item--section.md-nav__item--nested .md-nav__item {
+    display: block;
+  }
+
+  /* For dropdown items that are pages, ensure they show up prominently on root-level index pages
+  by applying the styling to all nav items (including sections) */
+  .md-nav--primary ul.md-nav__list:first-child > li.md-nav__item {
+    margin-top: 1em;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  /* For dropdown items that are pages, ensure the page is shown in nav when on that page and reset
+  the styles applied in the above declaration. For example, this modifies the Introduction to Wormhole
+  title in the nav on the Learn > Introduction page */
+  .md-nav--primary .md-nav__list:first-child .md-nav__item.md-nav__item--active:not(.md-nav__item--nested) {
+    display: block;
+    font-weight: 400;
+    text-transform: capitalize;
+  }
+
+  /* For dropdown items that are sections, maintain the preexisting styling */
+  .md-nav--primary ul.md-nav__list:first-child > li.md-nav__item ul.md-nav__list > li.md-nav__item {
+    margin-top: unset;
+    font-weight: 400;
+    text-transform: capitalize;
+  }
+
+  /* For the TOC, display all nav items */
+  .md-nav--secondary .md-nav__list > .md-nav__item {
+    display: block;
   }
 }
 
