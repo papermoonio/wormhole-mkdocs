@@ -1650,20 +1650,6 @@ label[for='__search']:hover {
 }
 
 /** Cookbook styling **/
-.md-typeset .md-button.cookbook-button {
-  padding: 0.8em 1.5em;
-  width: max-content;
-  display: flex;
-  align-items: center;
-  height: fit-content;
-  gap: 1em;
-}
-
-.md-typeset .md-button.cookbook-button img {
-  height: 1.2rem;
-  width: 1.2rem;
-}
-
 .cookbook-container {
   /* Specifically needed for Safari */
   width: max-content;
@@ -1674,6 +1660,11 @@ label[for='__search']:hover {
   width: 10em;
   position: fixed;
   right: 20em;
+}
+
+::part(ask-cookbook-button) {
+  padding-top: 8.8px;
+  padding-bottom: 8.8px;
 }
 
 /* Cookie consent styling */
