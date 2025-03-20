@@ -1,8 +1,13 @@
 /**
- *   Extra CSS file recommended for MkDocs and neoteroi.spantable extension.
+ *   Extra CSS file for neoteroi spantable, modified from the orginal:
+
+ https://github.com/Neoteroi/mkdocs-plugins/blob/main/styles/spantable.scss
  *
  *   https://github.com/Neoteroi/mkdocs-plugins
 **/
+
+/** Span Table CSS **/
+
 .span-table-wrapper table {
   border-collapse: collapse;
   margin-bottom: 2rem;
@@ -65,3 +70,5 @@
   border-left: 0.05rem solid var(--md-typeset-table-color);
   border-right: 0.05rem solid var(--md-typeset-table-color);
 }
+
+

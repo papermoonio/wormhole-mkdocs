@@ -53,6 +53,7 @@
   --header-text-style: uppercase;
 
   --md-cta-font: 'Druk Wide', sans-serif;
+  --md-cta-text-style: uppercase;
 
   --md-nav-labels-font: 'Roboto Mono', monospace;
   --label-text-style: uppercase;
@@ -247,9 +248,31 @@
   width: 132px;
 }
 
+@media screen and (max-width: 80em) {
+  .md-header__inner {
+    margin: 0 1rem;
+  }
+
+  .md-header__title > .md-header__ellipsis {
+    width: 11.1rem;
+  }
+}
+
+@media screen and (max-width: 76.234375em) {
+  .md-header__button:not(.focus-visible) {
+    margin-left: 0;
+  }
+}
+
 @media screen and (max-width: 60em) {
   [dir='ltr'] .md-header__title {
     display: none;
+  }
+}
+
+@media screen and (max-width: 47.5em) {
+  .md-header__inner {
+    margin: 0 1rem;
   }
 }
 
@@ -367,7 +390,6 @@ li.md-nav__item,
   .main-page-sidebar .md-nav > .md-nav__list .md-nav__item--section,
   .md-nav > .md-nav__list .md-nav__item--section.md-nav__item--active {
     display: block;
-    margin-top: 2em;
   }
 
   /* Allow section headers to be clickable */
@@ -413,6 +435,53 @@ li.md-nav__item,
   li > nav.md-nav[data-md-level='4'] ul.md-nav__list {
     border-left: var(--md-border-width) solid var(--plum);
     margin: 0.75em 0;
+  }
+
+  /**
+  NOTE: The rest of the styling in this media query follows a simple
+  principle: apply a base style to all items, then selectively override
+  styles where necessary.
+
+  These styles are specific to dropdown items for pages and sections.
+  */
+
+  /* Put display none on all the nav items*/
+  .md-nav__list > .md-nav__item {
+    display: none;
+  }
+
+  /* Ensures pages are shown for dropdown items that are sections */
+  .md-nav--primary .md-nav__list:first-child .md-nav__item--section.md-nav__item--nested .md-nav__item {
+    display: block;
+  }
+
+  /* For dropdown items that are pages, ensure they show up prominently on root-level index pages
+  by applying the styling to all nav items (including sections) */
+  .md-nav--primary ul.md-nav__list:first-child > li.md-nav__item {
+    margin-top: 1em;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  /* For dropdown items that are pages, ensure the page is shown in nav when on that page and reset
+  the styles applied in the above declaration. For example, this modifies the Introduction to Wormhole
+  title in the nav on the Learn > Introduction page */
+  .md-nav--primary .md-nav__list:first-child .md-nav__item.md-nav__item--active:not(.md-nav__item--nested) {
+    display: block;
+    font-weight: 400;
+    text-transform: capitalize;
+  }
+
+  /* For dropdown items that are sections, maintain the preexisting styling */
+  .md-nav--primary ul.md-nav__list:first-child > li.md-nav__item ul.md-nav__list > li.md-nav__item {
+    margin-top: unset;
+    font-weight: 400;
+    text-transform: none;
+  }
+
+  /* For the TOC, display all nav items */
+  .md-nav--secondary .md-nav__list > .md-nav__item {
+    display: block;
   }
 }
 
@@ -914,6 +983,19 @@ pre .md-clipboard {
   margin-top: 3em;
 }
 
+/** Badge styling **/
+.md-typeset span.badge {
+  border-radius: var(--md-border-radius);
+  font-size: 0.8em;
+  padding: 0.4em 0.8em;
+  margin-right: 0.5em;
+}
+
+.md-typeset span.badge.product {
+  background-color: var(--plum);
+  color: var(--dark);
+}
+
 @media screen and (max-width: 30em) {
   /* Stack dates in two lines */
   .md-source-file small {
@@ -1163,6 +1245,7 @@ a.md-content__button.md-icon {
   font-size: var(--body-xs-text-size);
   height: 48px;
   align-items: center;
+  padding: 0 1em;
 }
 
 .md-footer-copyright__highlight {
@@ -1175,7 +1258,7 @@ a.md-content__button.md-icon {
 }
 
 /* Footer styling on small screens */
-@media screen and (max-width: 43.5em) {
+@media screen and (max-width: 49.5em) {
   .md-footer-meta__inner,
   .md-footer-meta__inner.md-grid {
     justify-content: center;
@@ -1184,6 +1267,7 @@ a.md-content__button.md-icon {
 
   .md-footer-copyright {
     flex-direction: column;
+    text-align: center;
   }
 }
 
@@ -1322,7 +1406,7 @@ a.md-content__button.md-icon {
 }
 
 .md-typeset .md-button.secondary {
-  background: var(--md-default-bg-color);
+  background: transparent;
   border-color: var(--plum);
   color: var(--plum);
 }
@@ -1334,7 +1418,6 @@ a.md-content__button.md-icon {
 /* Header buttons */
 .md-header__buttons {
   display: flex;
-  gap: 1em;
   margin-left: auto;
 }
 
@@ -1351,6 +1434,11 @@ a.md-content__button.md-icon {
 label[for='__drawer'] svg {
   height: 40px;
   width: 40px;
+}
+
+.md-header__buttons .cookbook-container,
+.md-header__buttons .search {
+  margin-left: 1em;
 }
 
 /* Dropdown menu styling */
@@ -1481,9 +1569,14 @@ label[for='__search'] span:first-child {
   font-size: var(--caption-size);
 }
 
+label[for='__search'] span:first-child:hover {
+  opacity: var(--md-hover-opacity);
+}
+
 label[for='__search'] svg {
   fill: var(--plum);
   width: 1.2rem;
+  height: auto;
 }
 
 label[for='__search']:hover {
@@ -1590,30 +1683,20 @@ label[for='__search']:hover {
 }
 
 /** Cookbook styling **/
-.md-typeset .md-button.cookbook-button {
-  padding: 0.8em 1.5em;
-  width: max-content;
-  display: flex;
-  align-items: center;
-  height: fit-content;
-  gap: 1em;
-}
-
-.md-typeset .md-button.cookbook-button img {
-  height: 1.2rem;
-  width: 1.2rem;
-}
-
 .cookbook-container {
   /* Specifically needed for Safari */
   width: max-content;
 }
 
-/* To avoid shifting after cookbook loads */
-.for-cookbook {
-  width: 10em;
-  position: fixed;
-  right: 20em;
+
+::part(ask-cookbook-button) {
+  padding: 11px 1.5em;
+  border-radius: var(--md-border-radius);
+  gap: .5em;
+}
+
+::part(ask-cookbook-button):hover {
+  opacity: var(--md-hover-opacity);
 }
 
 /* Cookie consent styling */
@@ -1714,4 +1797,13 @@ details.child {
 
 .use-case-card li::marker {
   color: var(--plum);
+}
+
+/** External Link Styling **/
+.md-nav__link .external-link svg {
+  height: 1em;
+}
+
+.md-nav__list .md-nav__link {
+  gap: .5em;
 }
