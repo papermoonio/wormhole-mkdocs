@@ -390,7 +390,6 @@ li.md-nav__item,
   .main-page-sidebar .md-nav > .md-nav__list .md-nav__item--section,
   .md-nav > .md-nav__list .md-nav__item--section.md-nav__item--active {
     display: block;
-    /* margin-top: 2em; */
   }
 
   /* Allow section headers to be clickable */
@@ -477,7 +476,7 @@ li.md-nav__item,
   .md-nav--primary ul.md-nav__list:first-child > li.md-nav__item ul.md-nav__list > li.md-nav__item {
     margin-top: unset;
     font-weight: 400;
-    text-transform: capitalize;
+    text-transform: none;
   }
 
   /* For the TOC, display all nav items */
@@ -1570,9 +1569,14 @@ label[for='__search'] span:first-child {
   font-size: var(--caption-size);
 }
 
+label[for='__search'] span:first-child:hover {
+  opacity: var(--md-hover-opacity);
+}
+
 label[for='__search'] svg {
   fill: var(--plum);
   width: 1.2rem;
+  height: auto;
 }
 
 label[for='__search']:hover {
@@ -1684,16 +1688,15 @@ label[for='__search']:hover {
   width: max-content;
 }
 
-/* To avoid shifting after cookbook loads */
-.for-cookbook {
-  width: 10em;
-  position: fixed;
-  right: 20em;
-}
 
 ::part(ask-cookbook-button) {
-  padding-top: 8.8px;
-  padding-bottom: 8.8px;
+  padding: 11px 1.5em;
+  border-radius: var(--md-border-radius);
+  gap: .5em;
+}
+
+::part(ask-cookbook-button):hover {
+  opacity: var(--md-hover-opacity);
 }
 
 /* Cookie consent styling */
