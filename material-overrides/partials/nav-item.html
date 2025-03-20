@@ -95,6 +95,9 @@
       <li class="{{ class }}">
         <a href="{{ nav_item.url | url }}" class="md-nav__link">
           {{ nav_item.title }}
+          {% if nav_item.url.startswith('https') %}
+            <span class="external-link">{% include ".icons/octicons/link-external-16.svg" %}</span>
+          {% endif %}
         </a>
       </li>
     {% endif %}
