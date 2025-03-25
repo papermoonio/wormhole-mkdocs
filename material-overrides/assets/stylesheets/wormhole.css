@@ -713,36 +713,53 @@ pre .md-clipboard {
   width: 100%;
 }
 
-
 /* Fixed table headers */
-.md-typeset__scrollwrap .md-typeset__table {
-  max-height: 82vh;
-  overflow: auto;
+@media screen and (min-width: 42em) {
+  .md-typeset table:not([class]) {
+    overflow: unset;
+  }
+
+  .md-typeset__scrollwrap {
+    overflow-x: unset;
+  }
+
+  thead {
+    position: sticky;
+    top: 104.39px;
+    z-index: 3;
+  }
+
+  .md-typeset table:not([class])+* {
+    margin-top: 0;
+  }
+
+  /* Blocker div that sits just below the header to remove the left and right border
+  so they don't stick out over the table header */
+  .header-blocker {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: var(--md-default-bg-color);
+    z-index: 2;
+    height: .5em;
+    max-width: 61rem;
+    margin: auto;
+  }
 }
 
-thead {
-  position: sticky;
-  top: 0;
-  z-index: 1;
+@media screen and (max-width: 42em) {
+  .md-typeset__scrollwrap .md-typeset__table {
+    max-height: 82vh;
+    overflow: auto;
+  }
+  
+  thead {
+    position: sticky;
+    top: -1px !important;
+    z-index: 1;
+  }
 }
-
-/* Something I thought about adding to make it clear that there are more table
- rows to see. But we would probably need to add some JavaScript to put the indicator
- in a meaningful place. We'd also need to fix it to the bottom of the table and 
- conditionally show it if the table is long. Might be a bit much for now.
-*/
-/* .scroll-indicator {
-  text-align: center;
-  font-size: 12px;
-  color: gray;
-  padding: 8px;
-  animation: bounce 1.5s infinite;
-}
-
-@keyframes bounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(5px); }
-} */
 
 /* Tables in tabs */
 .tabbed-content .md-typeset__scrollwrap {
