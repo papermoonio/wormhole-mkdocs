@@ -137,6 +137,42 @@
       });
     });
   </script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      function setTableHeaderOffset(navbarSelector, tableSelector) {
+        const navbar = document.querySelector(navbarSelector);
+        const navbarHeight = navbar ? navbar.offsetHeight : 0;
+
+        // Loop through each table
+        document.querySelectorAll(tableSelector).forEach((tableWrapper) => {
+          const thead = tableWrapper.querySelector('thead');
+          const tbody = tableWrapper.querySelector('tbody');
+          const table = tableWrapper.querySelector('table');
+
+          // This blocking div is used to prevent the left and right borders from
+          // sticking out of the top of the table
+          const blockingDiv = tableWrapper.querySelector('.header-blocker');
+          thead.style.top = `${navbarHeight}px`;
+          if (blockingDiv) {
+            // If the blocker div already exists, modify the styles          
+            blockingDiv.style.top = `${navbarHeight}px`;
+            return;
+          } else {
+            // Create the blocker div and append it below the header and modify styles           
+            const blockingDiv = document.createElement('div');
+            blockingDiv.classList.add('header-blocker');
+            tableWrapper.appendChild(blockingDiv);
+            blockingDiv.style.top = `${navbarHeight}px`;
+          }
+        });
+      }
+
+      // Call it on load and on resize:
+      window.addEventListener('load', () => setTableHeaderOffset('.md-header', '.md-typeset__table'));
+      window.addEventListener('resize', () => setTableHeaderOffset('.md-header', '.md-typeset__table'));
+    });
+  </script>
 {% endblock %}
 
 {%- block container -%} 
