@@ -787,7 +787,7 @@ pre .md-clipboard {
 }
 
 /* Fixed table headers */
-@media screen and (min-width: 42em) {
+@media screen and (min-width: 45em) {
   .md-typeset table:not([class]) {
     overflow: unset;
   }
@@ -821,7 +821,7 @@ pre .md-clipboard {
   }
 }
 
-@media screen and (max-width: 42em) {
+@media screen and (max-width: 45em) {
   .md-typeset__scrollwrap .md-typeset__table {
     max-height: 82vh;
     overflow: auto;
