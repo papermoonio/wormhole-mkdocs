@@ -6,7 +6,8 @@ edit_uri: https://github.com/wormhole-foundation/wormhole-docs/edit/main/
 extra_css:
   - assets/stylesheets/extra.css
   - assets/stylesheets/terminal.css
-  - assets/stylesheets/neoteroi-mkdocs.css
+  - assets/stylesheets/spantable-neoteroi.css
+  - assets/stylesheets/timeline-neoteroi.css
 theme:
   name: material
   custom_dir: material-overrides
@@ -41,6 +42,7 @@ markdown_extensions:
   - md_in_html
   - meta 
   - neoteroi.spantable
+  - neoteroi.timeline
   - pymdownx.details
   - pymdownx.emoji:
       emoji_index: !!python/name:material.extensions.emoji.twemoji
@@ -72,20 +74,89 @@ plugins:
 
   - redirects:
       redirect_maps:
-        # Redirects will go here as pages get moved around in the following format:
-        # old-page.md: new-page.md
-        build/applications/connect/configuration-v1.md: build/applications/connect/configuration/index.md
+        build/applications/connect/configuration-v0.md: build/transfers/connect/configuration-v0.md
+        build/applications/connect/configuration-v1.md: build/transfers/connect/configuration/index.md
+        build/applications/connect/configuration/configure-data.md: build/transfers/connect/configuration/configure-data.md
+        build/applications/connect/configuration/configure-theme.md: build/transfers/connect/configuration/configure-theme.md
+        build/applications/connect/configuration/index.md: build/transfers/connect/configuration/index.md
+        build/applications/connect/faqs.md: build/transfers/connect/faqs.md
+        build/applications/connect/features.md: build/transfers/connect/features.md
+        build/applications/connect/index.md: build/transfers/connect/index.md
+        build/applications/connect/overview.md: build/transfers/connect/overview.md
+        build/applications/connect/routes.md: build/transfers/connect/routes.md
+        build/applications/connect/upgrade.md: build/transfers/connect/upgrade.md
+        build/applications/index.md: build/index.md
+        build/applications/queries/faqs.md: build/queries/faqs.md
+        build/applications/queries/index.md: build/queries/index.md
+        build/applications/queries/overview.md: build/queries/overview.md
+        build/applications/queries/use-queries.md: build/queries/use-queries.md
+        build/applications/wormhole-sdk/index.md: build/toolkit/typescript-sdk/index.md
+        build/applications/wormhole-sdk/protocols-payloads.md: build/toolkit/typescript-sdk/protocols-payloads.md
+        build/applications/wormhole-sdk/sdk-layout.md: build/toolkit/typescript-sdk/sdk-layout.md
+        build/applications/wormhole-sdk/vaas-protocols.md: build/toolkit/typescript-sdk/vaas-protocols.md
+        build/applications/wormhole-sdk/wormhole-sdk.md: build/toolkit/typescript-sdk/wormhole-sdk.md
+        build/contract-integrations/cctp.md: build/transfers/cctp.md
+        build/contract-integrations/core-contracts.md: build/core-messaging/core-contracts.md
+        build/contract-integrations/dev-env.md: build/toolkit/dev-env.md
+        build/contract-integrations/faqs.md: build/transfers/index.md
+        build/contract-integrations/gateway.md: build/start-building/supported-networks.md
+        build/contract-integrations/index.md: build/transfers/index.md
+        build/contract-integrations/multigov/deployment.md: build/multigov/deploy-to-evm.md
+        build/contract-integrations/multigov/deploy-to-evm.md: build/multigov/deploy-to-evm.md
+        build/contract-integrations/multigov/deploy-to-solana.md: build/multigov/deploy-to-solana.md
+        build/contract-integrations/multigov/faq.md: build/multigov/faq.md
+        build/contract-integrations/multigov/index.md: build/multigov/index.md
+        build/contract-integrations/multigov/upgrade.md: build/multigov/upgrade-evm.md
+        build/contract-integrations/multigov/upgrade-evm.md: build/multigov/upgrade-evm.md
+        build/contract-integrations/multigov/upgrade-solana.md: build/multigov/upgrade-solana.md
+        build/contract-integrations/native-token-transfers/cli-commands.md: build/transfers/native-token-transfers/cli-commands.md
+        build/contract-integrations/native-token-transfers/configuration/access-control.md: build/transfers/native-token-transfers/configuration/access-control.md
+        build/contract-integrations/native-token-transfers/configuration/index.md: build/transfers/native-token-transfers/configuration/index.md
+        build/contract-integrations/native-token-transfers/configuration/rate-limiting.md: build/transfers/native-token-transfers/configuration/rate-limiting.md
+        build/contract-integrations/native-token-transfers/deployment-process/deploy-to-evm.md: build/transfers/native-token-transfers/deployment-process/deploy-to-evm.md
+        build/contract-integrations/native-token-transfers/deployment-process/deploy-to-solana.md: build/transfers/native-token-transfers/deployment-process/deploy-to-solana.md
+        build/contract-integrations/native-token-transfers/deployment-process/evm-launchpad.md: build/transfers/native-token-transfers/deployment-process/evm-launchpad.md
+        build/contract-integrations/native-token-transfers/deployment-process/index.md: build/transfers/native-token-transfers/deployment-process/index.md
+        build/contract-integrations/native-token-transfers/deployment-process/installation.md: build/transfers/native-token-transfers/deployment-process/installation.md
+        build/contract-integrations/native-token-transfers/deployment-process/post-deployment.md: build/transfers/native-token-transfers/deployment-process/post-deployment.md
+        build/contract-integrations/native-token-transfers/deployment-process/troubleshooting.md: build/transfers/native-token-transfers/deployment-process/troubleshooting.md
+        build/contract-integrations/native-token-transfers/faqs.md: build/transfers/native-token-transfers/faqs.md
+        build/contract-integrations/native-token-transfers/index.md: build/transfers/native-token-transfers/index.md
+        build/contract-integrations/native-token-transfers/managers-transceivers.md: build/transfers/native-token-transfers/managers-transceivers.md
+        build/contract-integrations/token-bridge.md: build/transfers/token-bridge.md
+        build/contract-integrations/wormhole-relayers.md: build/core-messaging/wormhole-relayers.md
+        build/contract-integrations/settlement/index.md: build/transfers/settlement/index.md
+        build/contract-integrations/settlement/liquidity-layer.md: build/transfers/settlement/liquidity-layer.md
+        build/contract-integrations/settlement/solver.md: build/transfers/settlement/solver.md
+        build/start-building/demos.md: build/start-building/index.md
         build/start-building/supported-networks/algorand.md: build/start-building/supported-networks.md
         build/start-building/supported-networks/aptos.md: build/start-building/supported-networks.md
-        build/start-building/supported-networks/cosmos/gateway.md: build/start-building/supported-networks/cosmos.md
-        build/start-building/supported-networks/cosmos/cosmos.md: build/start-building/supported-networks.md
         build/start-building/supported-networks/cosmos.md: build/start-building/supported-networks.md
+        build/start-building/supported-networks/cosmos/cosmos.md: build/start-building/supported-networks.md
+        build/start-building/supported-networks/cosmos/gateway.md: build/start-building/supported-networks.md
         build/start-building/supported-networks/evm.md: build/start-building/supported-networks.md
         build/start-building/supported-networks/near.md: build/start-building/supported-networks.md
         build/start-building/supported-networks/solana.md: build/start-building/supported-networks.md
         build/start-building/supported-networks/sui.md: build/start-building/supported-networks.md
-        build/contract-integrations/gateway.md: build/start-building/supported-networks/cosmos.md
-        learn/messaging/gateway.md: learn/messaging/index.md
+        build/toolkit/tilt.md: build/toolkit/index.md
+        build/toolkit/wormhole-sdk/index.md: build/toolkit/typescript-sdk/index.md
+        learn/fundamentals/architecture.md: learn/infrastructure/architecture.md
+        learn/fundamentals/glossary.md: learn/glossary.md
+        learn/fundamentals/index.md: learn/index.md
+        learn/fundamentals/introduction.md: learn/introduction.md
+        learn/fundamentals/security.md: learn/security.md
+        learn/messaging/cctp.md: learn/transfers/cctp.md
+        learn/messaging/gateway.md: learn/transfers/index.md
+        learn/messaging/index.md: learn/transfers/index.md
+        learn/messaging/native-token-transfers/architecture.md: learn/transfers/native-token-transfers/architecture.md
+        learn/messaging/native-token-transfers/deployment.md: learn/transfers/native-token-transfers/deployment.md
+        learn/messaging/native-token-transfers/index.md: learn/transfers/native-token-transfers/index.md
+        learn/messaging/native-token-transfers/overview.md: learn/transfers/native-token-transfers/overview.md
+        learn/messaging/native-token-transfers/security.md: learn/transfers/native-token-transfers/security.md
+        learn/messaging/token-bridge.md: learn/transfers/token-bridge.md
+        learn/messaging/wormhole-settlement/architecture.md: learn/transfers/settlement/architecture.md
+        learn/messaging/wormhole-settlement/index.md: learn/transfers/settlement/index.md
+        learn/messaging/wormhole-settlement/overview.md: learn/transfers/settlement/overview.md
         tutorials/by-product/native-token-transfers/index.md: tutorials/by-product/index.md
         tutorials/by-product/native-token-transfers/multichain-token.md: tutorials/by-product/multichain-assets/multichain-token.md
         tutorials/messaging/cctp.md: tutorials/by-product/wormhole-sdk/usdc-via-cctp.md
@@ -96,7 +167,6 @@ plugins:
         tutorials/messaging/token-bridge.md: tutorials/by-product/wormhole-sdk/tokens-via-token-bridge.md
         tutorials/multigov/index.md: tutorials/by-product/multigov/index.md
         tutorials/multigov/treasury-proposal.md: tutorials/by-product/multigov/treasury-proposal.md
-      
   - macros:
       include_yaml:
         - wormhole-docs/variables.yml

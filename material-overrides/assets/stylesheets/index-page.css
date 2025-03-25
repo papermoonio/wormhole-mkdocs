@@ -19,6 +19,10 @@
   display: none;
 }
 
+.md-nav__list .md-nav__item {
+  display: block;
+}
+
 @media screen and (min-width: 76.25em) {
   .main-page-sidebar .md-nav__item .md-nav__link-wrapper.md-nav__link--active a,
   .main-page-sidebar .md-nav__item .md-nav__link--active a {

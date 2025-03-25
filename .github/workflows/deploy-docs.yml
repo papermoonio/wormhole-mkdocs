@@ -11,7 +11,7 @@ permissions:
   contents: write
 jobs:
   deploy:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
@@ -54,7 +54,8 @@ jobs:
       
       - name: Update image paths in Markdown files
         run: |
-          find wormhole-docs -type f -name "*.md" -exec sed -i -e 's|](/docs/|](/wormhole-mkdocs/|g' -e 's|href="/docs/|href="/wormhole-mkdocs/|g' {} \;
+          # Change /docs/ for /wormhole/mkdocs in all .md files inside wormhole-docs and all .md and .json files inside .snippets
+          find wormhole-docs -type f \( -name "*.md" -or \( -path "wormhole-docs/.snippets/*" -a \( -name "*.md" -or -name "*.json" \) \) \) -exec sed -i -e 's|](/docs/|](/wormhole-mkdocs/|g' -e 's|href="/docs/|href="/wormhole-mkdocs/|g' {} \;
           find material-overrides -type f -name "*.html" -exec sed -i -e 's|/docs/|/wormhole-mkdocs/|g' {} \;
       
       - name: Deploy Docs
