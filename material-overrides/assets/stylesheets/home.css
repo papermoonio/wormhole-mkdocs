@@ -1,11 +1,32 @@
+:root {
+  --md-header-font: 'Druk', sans-serif;
+  --line-height-90: 90%;
+  --line-height-100: 100%;
+  --header-font-weight: 800;
+  --header-text-style: uppercase;
+}
+
 .md-typeset h1 {
   font-size: 120px;
-  line-height: 108px;
+  font-family: var(--md-header-font);
+  line-height: var(--line-height-90);
+  text-transform: var(--header-text-style);
+  font-weight: var(--header-font-weight);
 }
 
 .md-typeset h2 {
   font-size: 72px;
-  line-height: 72px;
+  font-family: var(--md-header-font);
+  line-height: var(--line-height-100);
+  text-transform: var(--header-text-style);
+  font-weight: var(--header-font-weight);
+}
+
+.md-typeset h3 {
+  font-family: var(--md-header-font);
+  line-height: var(--line-height-100);
+  text-transform: var(--header-text-style);
+  font-weight: var(--header-font-weight);
 }
 
 .md-typeset.md-content__inner a {
@@ -50,13 +71,7 @@
   object-position: center;
 }
 
-.hero h1 {
-  font-size: 120px;
-  margin-bottom: 0;
-}
-
 .hero p {
-  font-size: var(--body-text-size);
   margin: 1em 0 3em;
 }
 
@@ -96,7 +111,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: url(../images/card-bg.svg), #1C1C1C;
+  background: url(../images/card-bg.svg), var(--grey);
   background-size: cover;
   border-radius: 16px;
   padding: 32px 0;
@@ -119,12 +134,11 @@
 }
 
 .product-card > *:nth-child(2) {
-  border-left: 1px solid #FFFFFF26;
+  border-left: 1px solid var(--light-transparent-26);
 }
 
 .product-card h3 {
   font-size: 36px;
-  line-height: 36px;
   font-weight: 700;
   margin: 0;
   align-content: center;
@@ -246,7 +260,6 @@
 
 .feature-card h2 {
   font-size: 60px;
-  line-height: 60px;
   margin: 0;
 }
 
@@ -353,12 +366,10 @@
 
   .md-typeset h2 {
     font-size: 60px;
-    line-height: 60px;
   }
 
   .md-typeset .product-card h3 {
     font-size: 28px;
-    line-height: 28px;
   }
 
   .product-card a {
@@ -381,7 +392,6 @@
   .feature-card h2,
   .start-building-footer h3 {
     font-size: 48px;
-    line-height: 48px;
   }
 }
 
@@ -418,7 +428,6 @@
 
   .hero h1 {
     font-size: 60px;
-    line-height: 60px;
   }
 
   .hero p {
@@ -455,13 +464,11 @@
 
   .md-typeset h2 {
     font-size: 48px;
-    line-height: 48px;
   }
 
   .feature-card h2,
   .start-building-footer h3 {
     font-size: 36px;
-    line-height: 36px;
   }
 
   .start-building-footer {
