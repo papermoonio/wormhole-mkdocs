@@ -1843,7 +1843,7 @@ details.child {
 }
 
 .use-case-card h2 {
-  font-size: var(--h4-size);
+  font-size: 24px;
   margin: 0;
 }
 
