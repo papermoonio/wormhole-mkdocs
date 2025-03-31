@@ -157,16 +157,29 @@ plugins:
         learn/messaging/wormhole-settlement/architecture.md: learn/transfers/settlement/architecture.md
         learn/messaging/wormhole-settlement/index.md: learn/transfers/settlement/index.md
         learn/messaging/wormhole-settlement/overview.md: learn/transfers/settlement/overview.md
-        tutorials/by-product/native-token-transfers/index.md: tutorials/by-product/index.md
-        tutorials/by-product/native-token-transfers/multichain-token.md: tutorials/by-product/multichain-assets/multichain-token.md
-        tutorials/messaging/cctp.md: tutorials/by-product/wormhole-sdk/usdc-via-cctp.md
-        tutorials/messaging/cross-chain-contracts.md: tutorials/by-product/contract-integrations/cross-chain-contracts.md
-        tutorials/messaging/cross-chain-token-contracts.md: tutorials/by-product/contract-integrations/cross-chain-token-contracts.md
-        tutorials/messaging/index.md: tutorials/by-product/index.md
-        tutorials/messaging/sui-connect.md: tutorials/by-product/connect/react-dapp.md
-        tutorials/messaging/token-bridge.md: tutorials/by-product/wormhole-sdk/tokens-via-token-bridge.md
-        tutorials/multigov/index.md: tutorials/by-product/multigov/index.md
-        tutorials/multigov/treasury-proposal.md: tutorials/by-product/multigov/treasury-proposal.md
+        tutorials/by-product/connect/index.md: tutorials/by-product/index.md
+        tutorials/by-product/connect/react-dapp.md: tutorials/connect/react-dapp.md
+        tutorials/by-product/contract-integrations/cross-chain-contracts.md: tutorials/solidity-sdk/cross-chain-contracts.md
+        tutorials/by-product/contract-integrations/cross-chain-token-contracts.md: tutorials/solidity-sdk/cross-chain-token-contracts.md
+        tutorials/by-product/contract-integrations/index.md: tutorials/solidity-sdk/index.md
+        tutorials/by-product/index.md: tutorials/index.md
+        tutorials/by-product/multichain-assets/index.md: tutorials/multichain-assets/index.md
+        tutorials/by-product/multichain-assets/multichain-token.md: tutorials/multichain-assets/multichain-token.md
+        tutorials/by-product/multigov/index.md: tutorials/multigov/index.md
+        tutorials/by-product/multigov/treasury-proposal.md: tutorials/multigov/treasury-proposal.md
+        tutorials/by-product/native-token-transfers/index.md: tutorials/index.md
+        tutorials/by-product/native-token-transfers/multichain-token.md: tutorials/multichain-assets/multichain-token.md
+        tutorials/by-product/wormhole-sdk/index.md: tutorials/typescript-sdk/index.md
+        tutorials/by-product/wormhole-sdk/tokens-via-token-bridge.md: tutorials/typescript-sdk/tokens-via-token-bridge.md
+        tutorials/by-product/wormhole-sdk/usdc-via-cctp.md: tutorials/typescript-sdk/usdc-via-cctp.md
+        tutorials/by-product/wormholescan/index.md: tutorials/wormholescan/index.md
+        tutorials/by-product/wormholescan/replace-signatures.md: tutorials/wormholescan/replace-signatures.md
+        tutorials/messaging/cctp.md: tutorials/typescript-sdk/usdc-via-cctp.md
+        tutorials/messaging/cross-chain-contracts.md: tutorials/solidity-sdk/cross-chain-contracts.md
+        tutorials/messaging/cross-chain-token-contracts.md: tutorials/solidity-sdk/cross-chain-token-contracts.md
+        tutorials/messaging/index.md: tutorials/index.md
+        tutorials/messaging/sui-connect.md: tutorials/connect/react-dapp.md
+        tutorials/messaging/token-bridge.md: tutorials/typescript-sdk/tokens-via-token-bridge.md
   - macros:
       include_yaml:
         - wormhole-docs/variables.yml
