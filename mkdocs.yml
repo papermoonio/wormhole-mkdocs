@@ -101,14 +101,14 @@ plugins:
         build/contract-integrations/faqs.md: build/transfers/index.md
         build/contract-integrations/gateway.md: build/start-building/supported-networks.md
         build/contract-integrations/index.md: build/transfers/index.md
-        build/contract-integrations/multigov/deployment.md: build/multigov/deploy-to-evm.md
         build/contract-integrations/multigov/deploy-to-evm.md: build/multigov/deploy-to-evm.md
         build/contract-integrations/multigov/deploy-to-solana.md: build/multigov/deploy-to-solana.md
+        build/contract-integrations/multigov/deployment.md: build/multigov/deploy-to-evm.md
         build/contract-integrations/multigov/faq.md: build/multigov/faq.md
         build/contract-integrations/multigov/index.md: build/multigov/index.md
-        build/contract-integrations/multigov/upgrade.md: build/multigov/upgrade-evm.md
         build/contract-integrations/multigov/upgrade-evm.md: build/multigov/upgrade-evm.md
         build/contract-integrations/multigov/upgrade-solana.md: build/multigov/upgrade-solana.md
+        build/contract-integrations/multigov/upgrade.md: build/multigov/upgrade-evm.md
         build/contract-integrations/native-token-transfers/cli-commands.md: build/transfers/native-token-transfers/cli-commands.md
         build/contract-integrations/native-token-transfers/configuration/access-control.md: build/transfers/native-token-transfers/configuration/access-control.md
         build/contract-integrations/native-token-transfers/configuration/index.md: build/transfers/native-token-transfers/configuration/index.md
@@ -123,11 +123,11 @@ plugins:
         build/contract-integrations/native-token-transfers/faqs.md: build/transfers/native-token-transfers/faqs.md
         build/contract-integrations/native-token-transfers/index.md: build/transfers/native-token-transfers/index.md
         build/contract-integrations/native-token-transfers/managers-transceivers.md: build/transfers/native-token-transfers/managers-transceivers.md
-        build/contract-integrations/token-bridge.md: build/transfers/token-bridge.md
-        build/contract-integrations/wormhole-relayers.md: build/core-messaging/wormhole-relayers.md
         build/contract-integrations/settlement/index.md: build/transfers/settlement/index.md
         build/contract-integrations/settlement/liquidity-layer.md: build/transfers/settlement/liquidity-layer.md
         build/contract-integrations/settlement/solver.md: build/transfers/settlement/solver.md
+        build/contract-integrations/token-bridge.md: build/transfers/token-bridge.md
+        build/contract-integrations/wormhole-relayers.md: build/core-messaging/wormhole-relayers.md
         build/start-building/demos.md: build/start-building/index.md
         build/start-building/supported-networks/algorand.md: build/start-building/supported-networks.md
         build/start-building/supported-networks/aptos.md: build/start-building/supported-networks.md
@@ -157,7 +157,7 @@ plugins:
         learn/messaging/wormhole-settlement/architecture.md: learn/transfers/settlement/architecture.md
         learn/messaging/wormhole-settlement/index.md: learn/transfers/settlement/index.md
         learn/messaging/wormhole-settlement/overview.md: learn/transfers/settlement/overview.md
-        tutorials/by-product/connect/index.md: tutorials/by-product/index.md
+        tutorials/by-product/connect/index.md: tutorials/connect/index.md
         tutorials/by-product/connect/react-dapp.md: tutorials/connect/react-dapp.md
         tutorials/by-product/contract-integrations/cross-chain-contracts.md: tutorials/solidity-sdk/cross-chain-contracts.md
         tutorials/by-product/contract-integrations/cross-chain-token-contracts.md: tutorials/solidity-sdk/cross-chain-token-contracts.md
