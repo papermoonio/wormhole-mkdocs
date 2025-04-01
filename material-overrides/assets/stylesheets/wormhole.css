@@ -1661,6 +1661,10 @@ label[for='__search']:hover {
   font-size: var(--body-s-text-size);
 }
 
+.md-search-result__item {
+  font-family: var(--md-text-font-family);
+}
+
 .md-search-result__icon {
   color: var(--plum);
 }
@@ -1677,7 +1681,6 @@ label[for='__search']:hover {
 
 .md-search-result .md-typeset h1 {
   font-size: 24px;
-  letter-spacing: 0.04em;
 }
 
 .md-search-result__link:focus,
