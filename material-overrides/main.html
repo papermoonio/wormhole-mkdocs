@@ -137,22 +137,59 @@
       });
     });
   </script>
+
   <script>
-    document.addEventListener("DOMContentLoaded", () => {
+    document.addEventListener('DOMContentLoaded', () => {
+      function setTableHeaderOffset(navbarSelector, tableSelector) {
+        const navbar = document.querySelector(navbarSelector);
+        const navbarHeight = navbar ? navbar.offsetHeight : 0;
+
+        // Loop through each table
+        document.querySelectorAll(tableSelector).forEach((tableWrapper) => {
+          const thead = tableWrapper.querySelector('thead');
+          const tbody = tableWrapper.querySelector('tbody');
+          const table = tableWrapper.querySelector('table');
+
+          // This blocking div is used to prevent the left and right borders from
+          // sticking out of the top of the table
+          const blockingDiv = tableWrapper.querySelector('.header-blocker');
+          thead.style.top = `${navbarHeight}px`;
+          if (blockingDiv) {
+            // If the blocker div already exists, modify the styles          
+            blockingDiv.style.top = `${navbarHeight}px`;
+            return;
+          } else {
+            // Create the blocker div and append it below the header and modify styles           
+            const blockingDiv = document.createElement('div');
+            blockingDiv.classList.add('header-blocker');
+            tableWrapper.appendChild(blockingDiv);
+            blockingDiv.style.top = `${navbarHeight}px`;
+          }
+        });
+      }
+
+      // Call it on load and on resize:
+      window.addEventListener('load', () => setTableHeaderOffset('.md-header', '.md-typeset__table'));
+      window.addEventListener('resize', () => setTableHeaderOffset('.md-header', '.md-typeset__table'));
+    });
+  </script>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
       document
-        .querySelector(".full-llms")
-        .addEventListener("click", async (event) => {
+        .querySelector('.full-llms')
+        .addEventListener('click', async (event) => {
           try {
-            const response = await fetch("https://wormhole.com/docs/llms-full.txt");
+            const response = await fetch('https://wormhole.com/docs/llms-full.txt');
             const text = await response.text();
             await navigator.clipboard.writeText(text);
 
-            const copiedToClipboard = document.querySelector(".md-dialog");
+            const copiedToClipboard = document.querySelector('.md-dialog');
             if (copiedToClipboard) {
-              copiedToClipboard.classList.add("md-dialog--active");
+              copiedToClipboard.classList.add('md-dialog--active');
 
               const copiedToClipboardMessage =
-                copiedToClipboard.querySelector(".md-dialog__inner");
+                copiedToClipboard.querySelector('.md-dialog__inner');
               if (
                 copiedToClipboardMessage &&
                 copiedToClipboardMessage.textContent !==
@@ -163,12 +200,12 @@
               }
               // Set a timer to remove the after 3 seconds (3000ms)
               setTimeout(() => {
-                copiedToClipboard.classList.remove("md-dialog--active");
+                copiedToClipboard.classList.remove('md-dialog--active');
               }, 2000);
             }
           } catch (err) {
-            console.error("Failed to copy:", err);
-            copiedToClipboard.classList.remove("md-dialog--active");
+            console.error('Failed to copy:', err);
+            copiedToClipboard.classList.remove('md-dialog--active');
           }
         });
     });

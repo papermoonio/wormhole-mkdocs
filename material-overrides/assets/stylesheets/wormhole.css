@@ -782,6 +782,54 @@ pre .md-clipboard {
   width: 100%;
 }
 
+/* Fixed table headers */
+@media screen and (min-width: 45em) {
+  .md-typeset table:not([class]) {
+    overflow: unset;
+  }
+
+  .md-typeset__scrollwrap {
+    overflow-x: unset;
+  }
+
+  thead {
+    position: sticky;
+    top: 104.39px;
+    z-index: 3;
+  }
+
+  .md-typeset table:not([class])+* {
+    margin-top: 0;
+  }
+
+  /* Blocker div that sits just below the header to remove the left and right border
+  so they don't stick out over the table header */
+  .header-blocker {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: var(--md-default-bg-color);
+    z-index: 2;
+    height: .5em;
+    max-width: 61rem;
+    margin: auto;
+  }
+}
+
+@media screen and (max-width: 45em) {
+  .md-typeset__scrollwrap .md-typeset__table {
+    max-height: 82vh;
+    overflow: auto;
+  }
+  
+  thead {
+    position: sticky;
+    top: -1px !important;
+    z-index: 1;
+  }
+}
+
 /* Tables in tabs */
 .tabbed-content .md-typeset__scrollwrap {
   margin: 0;
