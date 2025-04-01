@@ -14,6 +14,7 @@
   --light-transparent-90: rgba(255, 255, 255, 0.9);
   --light-transparent-60: rgba(255, 255, 255, 0.6);
   --light-transparent-40: rgba(255, 255, 255, 0.4);
+  --light-transparent-26: rgba(255, 255, 255, 0.26);
   --light-transparent-20: rgba(255, 255, 255, 0.2);
   --light-transparent-12: rgba(255, 255, 255, 0.12);
   --light-transparent-10: rgba(255, 255, 255, 0.1);
@@ -28,10 +29,10 @@
   --coral-transparent-12: rgba(253, 128, 88, 0.12);
 
   /* Fonts*/
-  --h1-size: 76px;
-  --h2-size: 56px;
-  --h3-size: 48px;
-  --h4-size: 38px;
+  --h1-size: 56px;
+  --h2-size: 48px;
+  --h3-size: 40px;
+  --h4-size: 32px;
 
   --body-l-text-size: 18px;
   --body-text-size: 16px;
@@ -46,11 +47,9 @@
   --caption-size: 11px;
   --label-size: 12px;
 
-  --md-header-font: 'Druk', sans-serif;
-  --h1-h2-line-height: 90%;
-  --h3-h4-line-height: 100%;
-  --header-font-weight: 800;
-  --header-text-style: uppercase;
+  --md-header-font: 'Inter', sans-serif;
+  --header-line-height: 115%;
+  --header-font-weight: 600;
 
   --md-cta-font: 'Druk Wide', sans-serif;
   --md-cta-text-style: uppercase;
@@ -122,18 +121,8 @@
 .md-typeset h3,
 .md-typeset h4 {
   font-family: var(--md-header-font);
-  text-transform: var(--header-text-style);
   font-weight: var(--header-font-weight);
-}
-
-.md-typeset h1,
-.md-typeset h2 {
-  line-height: var(--h1-h2-line-height);
-}
-
-.md-typeset h3,
-.md-typeset h4 {
-  line-height: var(--h3-h4-line-height);
+  line-height: var(--header-line-height);
 }
 
 .md-typeset h1 {
@@ -298,11 +287,9 @@ li.md-nav__item,
 @media screen and (min-width: 76.25em) {
   /* Make the primary section font larger on left nav (i.e., Build, Learn, etc.) */
   .md-nav--lifted > .md-nav__list > .md-nav__item--active > .md-nav__link {
-    font-family: var(--md-header-font);
-    font-size: 26px;
-    font-weight: 700;
-    text-transform: var(--label-text-style);
-    line-height: 33.8px;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 130%;
     padding: 0 0 0.5em 0.9em;
     margin-left: -0.9em;
     background-color: var(--dark);
@@ -526,7 +513,6 @@ li.md-nav__item,
   box-shadow: none;
   padding: 0.5em 0;
   color: var(--light);
-  text-transform: var(--header-text-style);
   background-color: transparent;
   position: unset;
 }
@@ -622,6 +608,16 @@ li.md-nav__item,
     border-radius: var(--md-border-radius);
     color: #9a9a9a;
     padding: 1em 0.6rem;
+    gap: 8px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .md-nav--secondary .md-nav__title {
+    font-size: 24px;
+    line-height: 130%;
+    font-weight: 600;
+    border-bottom: var(--md-border-width) solid var(--md-border-color);
   }
 
   [dir='ltr'] .md-nav--secondary .md-nav__list[data-md-component='toc'] {
@@ -1334,6 +1330,17 @@ html .md-footer-meta.md-typeset .md-footer-copyright a {
   }
 }
 
+@media screen and (max-width: 30em) {
+  .hs-form {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .md-social {
+    gap: .5em;
+  }
+}
+
 /* 404 page */
 .not-found {
   display: flex;
@@ -1390,10 +1397,9 @@ html .md-footer-meta.md-typeset .md-footer-copyright a {
 .md-typeset .grid.cards > ol > li > p:first-child,
 .md-typeset .grid.cards > ul > li > p:first-child {
   font-family: var(--md-header-font);
-  line-height: var(--h3-h4-line-height);
+  line-height: var(--header-line-height);
   font-weight: var(--header-font-weight);
-  text-transform: var(--header-text-style);
-  font-size: 28px;
+  font-size: 24px;
   display: flex;
   margin-bottom: 0;
 }
@@ -1655,6 +1661,10 @@ label[for='__search']:hover {
   font-size: var(--body-s-text-size);
 }
 
+.md-search-result__item {
+  font-family: var(--md-text-font-family);
+}
+
 .md-search-result__icon {
   color: var(--plum);
 }
@@ -1671,7 +1681,6 @@ label[for='__search']:hover {
 
 .md-search-result .md-typeset h1 {
   font-size: 24px;
-  letter-spacing: 0.04em;
 }
 
 .md-search-result__link:focus,
@@ -1837,7 +1846,7 @@ details.child {
 }
 
 .use-case-card h2 {
-  font-size: var(--h4-size);
+  font-size: 24px;
   margin: 0;
 }
 
