@@ -39,23 +39,30 @@
     {% endif %}
     <div class="md-footer-meta md-typeset">
       <div class="md-footer-meta__inner md-grid">
-        <div class="column newsletter">
-          {#- These script tags are for the newsletter signup and must be here -#}
-          <script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/embed/v2.js"></script>
-          <script>hbspt.forms.create({portalId: "46857712", formId: "24dad166-ab48-4a89-84b4-8ae30aa59ada", region: "na1", css: "color: white;", cssClass: "hello", locale: "en", "translations": {
-            en: {
-              fieldLabels: {
-                email: "Subscribe for updates",
+        <div class="column">
+          <div class="llms">
+            <button class="md-clipboard--inline md-icon full-llms md-button" title="{{ lang.t('clipboard.copy') }}">
+              {% include ".icons/material/content-copy.svg" %} llms-full.txt
+            </button>
+          </div>
+          <div class="newsletter">
+            {#- These script tags are for the newsletter signup and must be here -#}
+            <script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/embed/v2.js"></script>
+            <script>hbspt.forms.create({portalId: "46857712", formId: "24dad166-ab48-4a89-84b4-8ae30aa59ada", region: "na1", css: "color: white;", cssClass: "newsletter-form", locale: "en", "translations": {
+              en: {
+                fieldLabels: {
+                  email: "Subscribe for updates",
+                }
+              }
+            },
+            onFormReady: function(form) {
+              const emailInput = form.querySelector('input[name="email"]');
+              if (emailInput) {
+                emailInput.setAttribute("placeholder", "Enter your email");
               }
             }
-          },
-          onFormReady: function(form) {
-            const emailInput = form.querySelector('input[name="email"]');
-            if (emailInput) {
-              emailInput.setAttribute("placeholder", "Enter your email");
-            }
-          }
-          });</script>
+            });</script>
+          </div>
         </div>
         {% include "partials/social.html" %}
       </div>
