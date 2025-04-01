@@ -15,10 +15,6 @@
   flex-direction: column;
 }
 
-.md-nav--secondary {
-  display: none;
-}
-
 .md-nav__list .md-nav__item {
   display: block;
 }
