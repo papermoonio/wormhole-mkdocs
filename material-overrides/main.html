@@ -176,11 +176,9 @@
   
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      document
-        .querySelector('.full-llms')
-        .addEventListener('click', async (event) => {
-          try {
-            const response = await fetch('https://wormhole.com/docs/llms-full.txt');
+      const copyTxtFile = async (url) => {
+        try {
+            const response = await fetch(url);
             const text = await response.text();
             await navigator.clipboard.writeText(text);
 
@@ -207,7 +205,28 @@
             console.error('Failed to copy:', err);
             copiedToClipboard.classList.remove('md-dialog--active');
           }
-        });
+      }
+
+      document.querySelectorAll('.llms').forEach(button => {
+        button.addEventListener('click', (event) => {
+          event.preventDefault(); // Prevent default link behavior
+
+          const action = button.getAttribute('action');
+          const fileName = button.getAttribute('data-value');
+          if (!fileName) return; // Exit if no file name is found
+
+          // Add 'llms-files/' prefix except for root-level llms.txt and llms-full.txt
+          const filePath = (fileName === "llms.txt" || fileName === "llms-full.txt") 
+            ? fileName 
+            : `llms-files/${fileName}`;
+
+          const url = `https://wormhole.com/docs/${filePath}`;
+
+          if (action === 'copy') {
+            copyTxtFile(url, fileName);
+          }
+        })
+      })
     });
   </script>
 {% endblock %}
