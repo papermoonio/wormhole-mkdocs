@@ -13,6 +13,8 @@ docs_dir = os.path.join(base_dir, docs_repo)
 yaml_dir = os.path.join(base_dir, docs_repo, 'variables.yml')
 output_file = os.path.join(docs_dir, 'llms-full.txt')
 snippet_dir = os.path.join(docs_dir, '.snippets')
+# GitHub raw URL base (instead of website)
+raw_base_url = "https://raw.githubusercontent.com/wormhole-foundation/wormhole-docs/refs/heads/main"
 
 # Regex to find lines like: --8<-- 'code/build/applications/...' and --8<-- 'http....'
 SNIPPET_REGEX = r"--8<--\s*['\"](https?://[^'\"]+|[^'\"]+)['\"]"
@@ -48,7 +50,7 @@ def get_all_markdown_files(directory):
             if file.endswith(('.md', '.mdx')):
                 results.append(os.path.join(root, file))
 
-     # Sort the files to ensure consistent order
+    # Sort the files to ensure consistent order
     results.sort()  # Sorting alphabetically
     return results
 
@@ -63,21 +65,16 @@ def build_index_section(files):
         if '.snippets' in relative_path.split(os.sep):
             continue
 
-        doc_url_path = re.sub(r'\.(md|mdx)$', '', relative_path)
-        doc_url = f"{docs_url}{doc_url_path}"
+        # Use the raw GitHub URL directly with the .md/.mdx file intact
+        rel_path = os.path.relpath(file, docs_dir)
+        raw_url = f"{raw_base_url}/{rel_path.replace(os.sep, '/')}"
+        section += f"Doc-Page: {raw_url}\n"
 
-        # Remove trailing /index from doc_url
-        if doc_url.endswith('/index'):
-            doc_url = doc_url[:-6]
-
-        section += f"Doc-Page: {doc_url}/\n"
     return section
 
-
+# Parse snippet paths to extract file and line ranges if available.
 def parse_line_range(snippet_path):
-    """
-    Parse snippet paths to extract file and line ranges if available.
-    """
+
     parts = snippet_path.split(':')
     file_only = parts[0]
     line_start = int(parts[1]) if len(parts) > 1 and parts[1].isdigit() else None
@@ -116,6 +113,7 @@ def fetch_local_snippet(snippet_ref, snippet_directory):
     return snippet_content.strip()
 
 def fetch_remote_snippet(snippet_ref, yaml_data):
+    
     # Match URL with optional line range (start:end)
     match = re.match(r'^(https?://[^:]+)(?::(\d+))?(?::(\d+))?$', snippet_ref)
 
@@ -127,12 +125,7 @@ def fetch_remote_snippet(snippet_ref, yaml_data):
     line_start = int(match.group(2)) if match.group(2) else None
     line_end = int(match.group(3)) if match.group(3) else None
 
-    # Resolve any template placeholders using the yaml_data
-    url = resolve_placeholders(url, yaml_data)
-    #print(f"{url}")
-    #print(f"{line_start}")
-    #print(f"{line_end}")
-
+    url = resolve_placeholders(url, yaml_data) # resolve any template placeholders using the yaml_data
 
     # Skip URLs containing unresolved template placeholders
     if "{{" in url:
@@ -167,7 +160,6 @@ def resolve_placeholders(text, data):
             break
         text = text.replace(match.group(0), str(value))
     return text
-
 
 def get_value_from_path(data, path):
     keys = path.split('.')
@@ -212,12 +204,62 @@ def load_yaml(yaml_file):
     with open(yaml_file, "r", encoding="utf-8") as file:
         return yaml.safe_load(file)
 
+# generate lms.txt – a streamlined view of the documentation structure
+# Format: [Page Title](URL): description
+def generate_llms_structure_txt(files):
+
+    structure_output = os.path.join(docs_dir, 'llms.txt')
+    
+    structure_lines = [
+        "# Wormhole",
+        "", # spacer line
+        "> A cross-chain messaging protocol used to move data and assets between blockchains.",
+        "",  
+        "## Docs",
+        ""
+    ]
+
+    for file in files:
+        if not os.path.exists(file) or '.snippets' in file:
+            continue
+
+        with open(file, 'r', encoding='utf-8') as f:
+            content = f.read()
+
+        # Extract metadata frontmatter
+        metadata_match = re.search(r"---\n(.*?)\n---", content, re.DOTALL)
+        if metadata_match:
+            try:
+                metadata_yaml = yaml.safe_load(metadata_match.group(1))
+                title = metadata_yaml.get('title', 'Untitled')
+                description = metadata_yaml.get('description', 'No description available.')
+            except yaml.YAMLError:
+                title = 'Untitled'
+                description = 'No description available.'
+        else:
+            title = 'Untitled'
+            description = 'No description available.'
+
+        # Use the raw GitHub URL directly with the .md/.mdx file intact
+        rel_path = os.path.relpath(file, docs_dir)
+        doc_url = f"{raw_base_url}/{rel_path.replace(os.sep, '/')}"
+
+        structure_lines.append(f"- [{title}]({doc_url}): {description}")
+
+    # Write output file
+    with open(structure_output, 'w', encoding='utf-8') as f:
+        f.write('\n'.join(structure_lines))
+
+    print(f"[✓] Generated llms.txt at: {structure_output}")
+
+
 def main():
     files = get_all_markdown_files(docs_dir)
     yaml_file = load_yaml(yaml_dir)
 
     # Header
-    llms_content = "# llms-full.txt\n"
+    llms_content = "# Wormhole llms-full.txt\n"
+    llms_content += "# Wormhole is a cross-chain messaging protocol used to move data and assets between blockchains.\n\n"
     llms_content += "# Generated automatically. Do not edit directly.\n\n"
     llms_content += f"Documentation: {docs_url}\n\n"
 
@@ -233,6 +275,20 @@ def main():
 
     print(f"llms-full.txt created or updated at: {output_file}")
 
+    generate_llms_structure_txt(files)
 
 if __name__ == "__main__":
     main()
+
+from generate_llms_by_category import generate_all_categories
+generate_all_categories()
+
+# Copy full-llms.txt into llms-files
+llms_source = os.path.join(docs_dir, 'llms-full.txt')
+llms_target = os.path.join(docs_dir, 'llms-files', 'llms-full.txt')
+
+with open(llms_source, 'r', encoding='utf-8') as src:
+    with open(llms_target, 'w', encoding='utf-8') as dst:
+        dst.write(src.read())
+
+print(f"[✓] Copied llms-full.txt to llms-files/")
