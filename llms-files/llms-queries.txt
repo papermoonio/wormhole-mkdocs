@@ -1,9 +1,9 @@
 # Wormhole Developer Documentation (LLMS Format)
 
-This file contains documentation for Wormhole (https://wormhole.com) is a cross-chain messaging protocol used to move data and assets between blockchains.
+This file contains documentation for Wormhole (https://wormhole.com). A cross-chain messaging protocol used to move data and assets between blockchains.
 It is intended for use with large language models (LLMs) to support developers working with Wormhole. The content includes selected pages from the official docs, organized by product category and section.
 
-This file includes documentation related to the product: Basics
+This file includes documentation related to the product: Queries
 
 # AI Prompt Template
 
@@ -11,9 +11,648 @@ You are an AI developer assistant for Wormhole (https://wormhole.com). Your task
 - Provide accurate answers based on the included documentation.
 - Do not assume undocumented features, behaviors, or APIs.
 - If unsure, respond with “Not specified in the documentation.”
-- Prefer concise explanations and code snippets where appropriate.
+.
 
 # List of doc pages:
+Doc-Page: https://raw.githubusercontent.com/wormhole-foundation/wormhole-docs/refs/heads/main/build/queries.md [type: build]
+Doc-Page: https://raw.githubusercontent.com/wormhole-foundation/wormhole-docs/refs/heads/main/build/queries/faqs.md [type: build]
+Doc-Page: https://raw.githubusercontent.com/wormhole-foundation/wormhole-docs/refs/heads/main/build/queries/overview.md [type: build]
+Doc-Page: https://raw.githubusercontent.com/wormhole-foundation/wormhole-docs/refs/heads/main/build/queries/use-queries.md [type: build]
+
+# Full content for each doc page
+
+Doc-Content: https://wormhole.com/docs/build/queries/
+--- BEGIN CONTENT ---
+---
+title: Wormhole Queries
+description: Wormhole Queries offers on-demand access to Guardian-attested on-chain data via a simple REST endpoint to initiate an off-chain request via a proxy.
+categories: Queries
+---
+
+# Queries
+
+## Get Started
+
+Wormhole Queries offers on-demand access to Guardian-attested on-chain data via a simple REST endpoint to initiate an off-chain request via a proxy.
+
+<div class="grid cards" markdown>
+
+-   :octicons-book-16:{ .lg .middle } **Overview**
+
+    ---
+
+    Explore Wormhole Queries, offering real-time access to verified blockchain data via a REST API endpoint, enabling secure cross-chain interactions and verifications.
+
+    [:custom-arrow: Learn about Queries](/docs/build/queries/overview/)
+
+-   :octicons-code-16:{ .lg .middle } **Use Queries**
+
+    ---
+
+    Explore a simple demo of interacting with Wormhole Queries using an `eth_call` request to query the supply of wETH on Ethereum using a Wormhole query.
+
+    [:custom-arrow: Get hands-on](/docs/build/queries/use-queries/)
+
+-   :octicons-book-16:{ .lg .middle } **Query FAQs**
+
+    ---
+
+    Explore frequently asked questions about Wormhole Queries.
+
+    [:custom-arrow: Check out the FAQs](/docs/build/queries/faqs/)
+
+</div>
+--- END CONTENT ---
+
+Doc-Content: https://wormhole.com/docs/build/queries/faqs/
+--- BEGIN CONTENT ---
+---
+title: Queries FAQs
+description: Wormhole Queries FAQ covering available libraries, query examples, response formats, and details about running query proxy servers.
+categories: Queries
+---
+
+# Wormhole Queries FAQs
+
+## What libraries are available to handle queries?
+
+ - The [Query TypeScript SDK](https://npmjs.com/package/@wormhole-foundation/wormhole-query-sdk){target=\_blank} can be used to create query requests, mock query responses for testing, and parse query responses. The SDK also includes utilities for posting query responses
+
+- The [Solidity `QueryResponseLib` library](https://github.com/wormhole-foundation/wormhole-solidity-sdk/blob/main/src/libraries/QueryResponse.sol){target=\_blank} can be used to parse and verify query responses on EVM chains. See the [Solana Stake Pool](https://github.com/wormholelabs-xyz/example-queries-solana-stake-pool){target=\_blank} repository as an example use case
+
+- [`QueryRequestBuilder.sol`](https://github.com/wormhole-foundation/wormhole-solidity-sdk/blob/main/src/testing/QueryRequestBuilder.sol){target=\_blank} can be used for mocking query requests and responses in Forge tests
+
+- The [Go query package](https://github.com/wormhole-foundation/wormhole/tree/main/node/pkg/query){target=\_blank} can also be used to create query requests and parse query responses
+
+!!! note
+    A Rust SDK for Solana is being actively investigated by the Wormhole contributors. See the [Solana Queries Verification](https://github.com/wormholelabs-xyz/example-queries-solana-verify){target=\_blank} repository as a proof of concept.
+
+## Are there any query examples?
+
+Certainly. You can find a complete guide on the [Use Queries page](/docs/build/queries/use-queries/){target=\_blank}. Additionally, you can find full code examples in the following repositories:
+
+- [Basic Example Query Demo](https://github.com/wormholelabs-xyz/example-queries-demo/){target=\_blank}
+- [Solana Stake Pool Example Query](https://github.com/wormholelabs-xyz/example-queries-solana-stake-pool){target=\_blank}
+- [Solana Program Derived Address (PDA) / Token Account Balance Example Query](https://github.com/wormholelabs-xyz/example-queries-solana-pda){target=\_blank}
+- [Solana Queries Verification Example](https://github.com/wormholelabs-xyz/example-queries-solana-verify){target=\_blank}
+
+## What is the format of the response signature?
+
+The Guardian node calculates an ECDSA signature using [`Sign` function of the crypto package](https://pkg.go.dev/github.com/ethereum/go-ethereum@v1.10.21/crypto#Sign){target=\_blank} where the digest hash is:
+
+```keccak256("query_response_0000000000000000000|"+keccak256(responseBytes))``` 
+
+See the [Guardian Key Usage](https://github.com/wormhole-foundation/wormhole/blob/main/whitepapers/0009_guardian_key.md){target=\_blank} white paper for more background. Once this signature is created, the Guardian's index in the Guardian set is appended to the end.
+
+!!! note
+    If you are used to `ecrecover` you will notice that the `v` byte is `0` or `1` as opposed to `27` or `28`. The `signaturesToEvmStruct` method in the [Query TypeScript SDK](https://npmjs.com/package/@wormhole-foundation/wormhole-query-sdk){target=\_blank} accounts for this as well as structuring the signatures into an `IWormhole.SignatureStruct[]`.
+
+## Can anyone run a query proxy server?
+
+Permissions for Query Proxy are managed by the Guardians. The Guardian nodes are configured to only listen to a set of allow-listed proxies. However, it is possible that this restriction may be lifted in the future and/or more proxies could be added.
+
+It is also important to note that the proxies don't impact the verifiability of the request or result, i.e., their role in the process is trustless.
+
+## What Does Queries Offer over an RPC Service
+
+Wormhole Queries provides on-demand, attested, on-chain, verifiable RPC results. Each Guardian independently executes the specified query and returns the result and their signature. The proxy handles aggregating the results and signatures, giving you a single result (all within one REST call) with a quorum of signatures suitable for on-chain submission, parsing, and verification using one of our examples or SDKs.
+--- END CONTENT ---
+
+Doc-Content: https://wormhole.com/docs/build/queries/overview/
+--- BEGIN CONTENT ---
+---
+title: Queries Overview
+description: Explore Wormhole Queries, offering real-time access to verified blockchain data via a REST endpoint, enabling secure cross-chain interactions and verifications.
+categories: Queries
+---
+
+# Queries Overview {: #queries-overview }
+
+Wormhole Guardians, who run full nodes for various connected chains, facilitate a new cross-chain query service that allows for on-demand attested responses to queries, bypassing the inefficiencies of traditional transaction-based data retrieval. This method is faster and cost-effective, eliminating the need for gas payments and transaction finality wait times.
+
+!!! note
+	Queries are currently in closed beta, though you can start developing today. Check out [Use Queries](/docs/build/queries/use-queries/){target=\_blank} and reach out to [Join the beta](https://forms.clickup.com/45049775/f/1aytxf-10244/JKYWRUQ70AUI99F32Q){target=\_blank}.
+
+Wormhole Queries offers on-demand access to Guardian-attested on-chain data. The current implementation provides integrators with a simple REST endpoint to initiate an off-chain request via a proxy. The proxy then forwards the request to the Guardians and gathers a quorum of responses. The result returns the encoded response, including the request details and the Guardian signatures. The request validation performed by the query module includes a three step process that involves verifying the signature to ensure it has the correct prefix, confirming that the signer is authorized to execute query requests, and validating the legitimacy of all per-chain requests contained in the query. You can read more about Queries in the [white paper](https://github.com/wormhole-foundation/wormhole/blob/main/whitepapers/0013_ccq.md){target=\_blank}.
+
+## The Flow of a Query {: #the-flow-of-a-query}
+
+The general overview of a query's flow is as follows: an off-chain process sends HTTPS query requests to a Query Proxy, which validates and forwards them to the Guardians; these Guardians independently validate, sign, and return the response, with the entire process typically taking less than a second.
+
+![The architecture flow of a query](/docs/images/build/queries/overview/overview-1.webp)
+
+The step-by-step flow of a query is as follows:
+
+1. An off-chain process initiates a query request via HTTPS to the query proxy (or Query Server) 
+2. The query proxy validates the request and forwards it to the Guardians via a gossip network
+3. The Guardians independently validate the request, make the requisite RPC calls, verify the results, sign, and gossip a response back to the Query Proxy
+4. The Query Proxy aggregates the results and returns a response when it reaches a quorum of two-thirds or more of the current Guardian set - the exact quorum requirements as the core bridge
+5. The off-chain process can then submit these requests to an on-chain contract which should verify the signatures and validate the request before processing the result
+
+In this flow, the Query Proxy is a permissioned but trustless part of the protocol. In most cases, this entire process takes less than one second. If a request is invalid or cannot be processed by the Guardians, they will retry for up to one minute before timing out. Requests can be batched to have the Guardians make multiple calls to multiple networks. This can further reduce overhead for processing query responses on-chain. Up to 255 queries can be batched together, with certain types allowing for batching themselves.
+
+## Supported Query Types {: #supported-query-types}
+
+There are currently five supported types of queries. See [the white paper](https://github.com/wormhole-foundation/wormhole/blob/main/whitepapers/0013_ccq.md){target=\_blank} for more details on each.
+
+### eth_call {: #eth-call}
+
+This query type is effectively an equivalent of [eth_call](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_call){target=\_blank} against a block specified by number or hash.
+
+Calls are batched to allow specifying multiple calls (even to multiple contracts) against the same block. These calls are included in a single batch RPC call, simplifying on-chain verification. Up to 255 calls may be batched in an single `eth_call` query.
+
+The result contains the specified block number, hash, timestamp, and the call result.
+
+### eth_call By Timestamp {: #eth-call-by-timestamp}
+
+This query type is similar to `eth_call` but targets a timestamp instead of a specific `block_id`. This can be useful when forming requests based on uncorrelated data, such as requiring data from another chain based on the block timestamp of a given chain.
+
+The result also contains the target and block details with the following enforced conditions: `target_block.timestamp <= target_time < following_block.timestamp` and `following_block_num - 1 == target_block_num`.
+
+### eth_call With Finality {: #eth-call-with-finality}
+
+This query type is similar to `eth_call` but ensures that the specified block has reached the specified finality before returning the query results. The finality may be `finalized` or `safe.` Note that if a chain doesn't natively support the `safe` tag, this will be equivalent to `finalized.`
+
+### sol_account {: #sol_account}
+
+This query is used to read data for one or more accounts on Solana, akin to [`getMultipleAccounts`](https://solana.com/docs/rpc/http/getmultipleaccounts){target=\_blank}.
+
+### sol_pda {: #sol_pda}
+
+This query is used to read data for one or more [Program Derived Addresses(PDA)](https://www.anchor-lang.com/docs/pdas){target=\_blank} on Solana, akin to calling [`getMultipleAccounts`](https://solana.com/docs/rpc/http/getmultipleaccounts){target=\_blank} on the result of `PublicKey.findProgramAddressSync(seeds, programId).` This query is helpful for times when you want to more generally read accounts owned by a program and verify the derivation on another chain, like how associated token accounts are all derived from the [Associated Token Account Program](https://spl.solana.com/associated-token-account){target=\_blank}.
+
+## Supported Chains {: #supported-chains}
+
+The following table provides expected support based on testing. However, the success of any given query is based on the success of the underlying call on each Guardian’s RPC node.
+
+For example, many chains have implementations forked from [Geth](https://github.com/ethereum/go-ethereum){target=\_blank}, which keeps 128 blocks of state in memory by default (without running in archive mode). While this is good for about 25 minutes of history on Ethereum Mainnet, it is only about three minutes on Optimism. While Guardian nodes can be expected to have access to recent state, there are currently no guarantees of how far back in history they have access to.
+
+### Mainnet {: #mainnet}
+
+|     Chain     | Wormhole Chain ID | eth_call |    By Timestamp    | With Finality | Expected History |
+|:-------------:|:-----------------:|:--------:|:------------------:|:-------------:|:----------------:|
+|   Ethereum    |         2         |    ✅     |         ✅          |       ✅       |    128 blocks    |
+|      BSC      |         4         |    ✅     |         ✅          |       ✅       |    128 blocks    |
+|    Polygon    |         5         |    ✅     |         ✅          |       ✅       |    128 blocks    |
+|   Avalanche   |         6         |    ✅     |         ✅          |       ✅       |    32 blocks     |
+| Oasis Emerald |         7         |    ✅     |         ✅          |       ✅       |     archive      |
+|    Fantom     |        10         |    ✅     |         ✅          |       ✅       |    16 blocks     |
+|    Karura     |        11         |    ✅     |         ✅          |       ✅       |     archive      |
+|     Acala     |        12         |    ✅     |         ✅          |       ✅       |     archive      |
+|     Kaia      |        13         |    ✅     |         ✅          |       ✅       |    128 blocks    |
+|     Celo      |        14         |    ✅     | ℹ️ hints required\* |       ✅       |    128 blocks    |
+|   Moonbeam    |        16         |    ✅     | ℹ️ hints required\* |       ✅       |    256 blocks    |
+| Arbitrum One  |        23         |    ✅     |         ✅          |       ✅       |   ~6742 blocks   |
+|   Optimism    |        24         |    ✅     |         ✅          |       ❌       |    128 blocks    |
+|     Base      |        30         |    ✅     |         ✅          |       ✅       |     archive      |
+
+\*`EthCallByTimestamp` arguments for `targetBlock` and `followingBlock` are currently required for requests to be successful on these chains.
+
+## Next Steps {: #next-steps}
+
+Remember that Wormhole Queries are currently in beta. You can [register to join the beta](https://forms.clickup.com/45049775/f/1aytxf-10244/JKYWRUQ70AUI99F32Q){target=\_blank} to fully experiment with Wormhole Queries. 
+
+Be sure to check out the [FAQs](/docs/build/queries/faqs/){target=\_blank} and the [Use Queries guide](/docs/build/queries/use-queries/){target=\_blank}.
+
+You can also check out the following examples of applications that make use of Wormhole Queries: 
+
+- [Basic demo](https://github.com/wormholelabs-xyz/example-queries-demo/){target=\_blank}
+- [Solana Stake Pool](https://github.com/wormholelabs-xyz/example-queries-solana-stake-pool){target=\_blank}
+- [Solana Program Derived Address (PDA) / Token Account Balance](https://github.com/wormholelabs-xyz/example-queries-solana-pda){target=\_blank}
+- [Solana Queries Verification](https://github.com/wormholelabs-xyz/example-queries-solana-verify){target=\_blank}
+--- END CONTENT ---
+
+Doc-Content: https://wormhole.com/docs/build/queries/use-queries/
+--- BEGIN CONTENT ---
+---
+title: Use Queries
+description: Explore a simple demo of interacting with Wormhole Queries using an eth_call request to query the supply of wETH on Ethereum using a Wormhole query.
+categories: Queries
+---
+
+# Use Queries
+
+You can visit the [Example Queries Demo](https://wormholelabs-xyz.github.io/example-queries-demo/){target=\_blank} to view an interactive example of an application interacting with the [Query Demo](https://github.com/wormholelabs-xyz/example-queries-demo/blob/main/src/QueryDemo.sol){target=\_blank} contract.
+
+This guide covers using a simple `eth_call` request to get the total supply of WETH on Ethereum.
+
+## RPC Basics
+
+Before digging into anything Queries-specific, this page will look at how to make an [`eth_call`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_call){target=\_blank} against a public Ethereum RPC. Suppose you'd like to query the WETH contract for its total supply; before making a request, you need some information about the contract you want to call, including:
+
+- **To** - the contract to call. WETH is [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2](https://etherscan.io/token/0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2){target=\_blank}
+- **Data** - the method identifier and ABI-encoded parameters, which can be obtained as follows: `web3.eth.abi.encodeFunctionSignature("totalSupply()")` which yields `0x18160ddd`
+- **Block ID** - the block number, hash, or tag. Tag options include `latest,` `safe,` or `finalized`
+
+The prepared curl request is as follows:
+
+```bash title="eth_call JSON-RPC request"
+curl https://ethereum.publicnode.com -X POST --data '{"jsonrpc":"2.0","method":"eth_call","params":[{"to":"0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2","data":"0x18160ddd"},"latest"],"id":1}'
+```
+
+And the corresponding response is:
+
+```bash title="eth_call JSON-RPC reponse"
+{
+  "jsonrpc":"2.0",
+  "id":1,
+  "result":"0x000000000000000000000000000000000000000000029fd3d129b582d7949e71"
+}
+```
+
+Converting the returned value of the executed call from hexidecimal results in the value `3172615244782286193073777`. You can compare your result to the [**Read Contract**](https://etherscan.io/token/0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2#readContract){target=\_blank} tab in Etherscan. Your result will be different as WETH is minted/burned over time.
+
+## Construct a Query {: #construct-a-query}
+
+You can use the [Wormhole Query SDK](https://www.npmjs.com/package/@wormhole-foundation/wormhole-query-sdk){target=\_blank} to construct a query. You will also need an RPC endpoint from the provider of your choice. This example uses [Axios](https://www.npmjs.com/package/axios){target=\_blank} for RPC requests. Ensure that you also have [TypeScript](https://www.typescriptlang.org/download/){target=\_blank} installed. 
+
+```jsx
+npm i @wormhole-foundation/wormhole-query-sdk axios
+```
+
+In order to make an `EthCallQueryRequest`, you need a specific block number or hash as well as the call data to request.
+
+You can request the latest block from a public node using `eth_getBlockByNumber`.
+
+```jsx
+
+await axios.post(rpc, {
+      method: 'eth_getBlockByNumber',
+      params: ['latest', false],
+      id: 1,
+      jsonrpc: '2.0',
+    })
+  ).data?.result?.number;
+```
+
+Then construct the call data.
+
+```jsx
+to: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2', // WETH
+  data: '0x18160ddd', // web3.eth.abi.encodeFunctionSignature("totalSupply()")
+};
+```
+
+Finally, put it all together in a `QueryRequest`.
+
+```jsx
+const request = new QueryRequest(
+    0, // Nonce
+    [
+      new PerChainQueryRequest(
+        2, // Ethereum Wormhole Chain ID
+        new EthCallQueryRequest(latestBlock, [callData])
+      ),
+    ]
+  );
+```
+
+This request consists of one `PerChainQueryRequest`, which is an `EthCallQueryRequest` to Ethereum. You can use `console.log` to print the JSON object and review the structure.
+
+```jsx
+
+// {
+//   "nonce": 0,
+//   "requests": [
+//     {
+//       "chainId": 2,
+//       "query": {
+//         "callData": [
+//           {
+//             "to": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
+//             "data": "0x18160ddd"
+//           }
+//         ],
+//         "blockTag": "0x11e9068"
+//       }
+//     }
+//   ],
+//   "version": 1
+// }
+```
+
+## Mock a Query
+
+For easier testing, the Query SDK provides a `QueryProxyMock` method. This method will perform the request and sign the result with the [Devnet](https://github.com/wormhole-foundation/wormhole/blob/main/DEVELOP.md){target=\_blank} Guardian key. The `mock` call returns the same format as the Query Proxy.
+
+```jsx
+const mockData = await mock.mock(request);
+  console.log(mockData);
+// {
+//   signatures: ['...'],
+//   bytes: '...'
+// }
+```
+
+This response is suited for on-chain use, but the SDK also includes a parser to make the results readable via the client.
+
+```jsx
+const mockQueryResult = (
+    mockQueryResponse.responses[0].response as EthCallQueryResponse
+  ).results[0];
+  console.log(
+    `Mock Query Result: ${mockQueryResult} (${BigInt(mockQueryResult)})`
+  );
+// Mock Query Result: 0x000000000000000000000000000000000000000000029fd09d4d81addb3ccfee (3172556167631284394053614)
+```
+
+Testing this all together might look like the following:
+
+```jsx
+import {
+  EthCallData,
+  EthCallQueryRequest,
+  EthCallQueryResponse,
+  PerChainQueryRequest,
+  QueryProxyMock,
+  QueryRequest,
+  QueryResponse,
+} from '@wormhole-foundation/wormhole-query-sdk';
+import axios from 'axios';
+
+const rpc = 'https://ethereum.publicnode.com';
+const callData: EthCallData = {
+  to: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2', // WETH
+  data: '0x18160ddd', // web3.eth.abi.encodeFunctionSignature("totalSupply()")
+};
+
+(async () =&gt; {
+  const latestBlock: string = (
+    await axios.post(rpc, {
+      method: 'eth_getBlockByNumber',
+      params: ['latest', false],
+      id: 1,
+      jsonrpc: '2.0',
+    })
+  ).data?.result?.number;
+  if (!latestBlock) {
+    console.error(`❌ Invalid block returned`);
+    return;
+  }
+  console.log('Latest Block:     ', latestBlock, `(${BigInt(latestBlock)})`);
+  const targetResponse = await axios.post(rpc, {
+    method: 'eth_call',
+    params: [callData, latestBlock],
+    id: 1,
+    jsonrpc: '2.0',
+  });
+  // console.log(finalizedResponse.data);
+  if (targetResponse.data.error) {
+    console.error(`❌ ${targetResponse.data.error.message}`);
+  }
+  const targetResult = targetResponse.data?.result;
+  console.log('Target Result:    ', targetResult, `(${BigInt(targetResult)})`);
+  // Form the query request
+  const request = new QueryRequest(
+    0, // Nonce
+    [
+      new PerChainQueryRequest(
+        2, // Ethereum Wormhole Chain ID
+        new EthCallQueryRequest(latestBlock, [callData])
+      ),
+    ]
+  );
+  console.log(JSON.stringify(request, undefined, 2));
+  const mock = new QueryProxyMock({ 2: rpc });
+  const mockData = await mock.mock(request);
+  console.log(mockData);
+  const mockQueryResponse = QueryResponse.from(mockData.bytes);
+  const mockQueryResult = (
+    mockQueryResponse.responses[0].response as EthCallQueryResponse
+  ).results[0];
+  console.log(
+    `Mock Query Result: ${mockQueryResult} (${BigInt(mockQueryResult)})`
+  );
+})();
+```
+
+### Fork Testing
+
+It is common to test against a local fork of Mainnet with something like
+
+```jsx
+anvil --fork-url https://ethereum.publicnode.com
+```
+
+In order for mock requests to verify against the Mainnet Core Contract, you need to replace the current Guardian set with the single Devnet key used by the mock.
+
+Here's an example for Ethereum Mainnet, where the `-a` parameter is the [Core Contract address](/docs/build/reference/contract-addresses/#core-contracts){target=\_blank} on that chain.
+
+```jsx
+npx @wormhole-foundation/wormhole-cli evm hijack -a 0x98f3c9e6E3fAce36bAAd05FE09d375Ef1464288B -g 0xbeFA429d57cD18b7F8A4d91A2da9AB4AF05d0FBe
+```
+
+If you are using `EthCallWithFinality`, you will need to mine additional blocks (32 if using [Anvil](https://book.getfoundry.sh/anvil/){target=\_blank}) after the latest transaction for it to become finalized. Anvil supports [auto-mining](https://book.getfoundry.sh/reference/anvil/#mining-modes){target=\_blank} with the `-b` flag if you want to test code that waits naturally for the chain to advance. For integration tests, you may want to simply `anvil_mine` with `0x20`.
+
+## Make a Query Request
+
+The standardized means of making a `QueryRequest` with an API key is as follows:
+
+```jsx
+const serialized = request.serialize();
+const proxyResponse = (await axios.post)<queryproxyqueryresponse>(
+  QUERY_URL,
+  {
+    bytes: Buffer.from(serialized).toString('hex'),
+  },
+  { headers: { 'X-API-Key': YOUR_API_KEY } }
+);
+</queryproxyqueryresponse>
+```
+
+Remember to always take steps to protect your sensitive API keys, such as defining them in `.env` files and including such files in your `.gitignore`.
+
+A Testnet Query Proxy is available at `https://testnet.query.wormhole.com/v1/query`
+
+A Mainnet Query Proxy is available at `https://query.wormhole.com/v1/query`
+
+## Verify a Query Response On-Chain
+
+A [`QueryResponseLib` library](https://github.com/wormhole-foundation/wormhole-solidity-sdk/blob/main/src/libraries/QueryResponse.sol){target=\_blank} is provided to assist with verifying query responses. You can begin by installing the [Wormhole Solidity SDK](https://github.com/wormhole-foundation/wormhole-solidity-sdk){target=\_blank} with the following command:
+
+```bash
+forge install wormhole-foundation/wormhole-solidity-sdk
+```
+
+Broadly, using a query response on-chain comes down to three main steps:
+
+   1. Parse and verify the query response
+   2. The `parseAndVerifyQueryResponse` handles verifying the Guardian signatures against the current Guardian set stored in the Core bridge contract
+   3. Validate the request details. This may be different for every integrator depending on their use case, but generally checks the following:
+    - Is the request against the expected chain?
+    - Is the request of the expected type? The `parseEthCall` helpers perform this check when parsing
+    - Is the resulting block number and time expected? Some consumers might require that a block number be higher than the last, or the block time be within the last 5 minutes. `validateBlockNum` and `validateBlockTime` can help with the checks
+    - Is the request for the expected contract and function signature? The `validateMultipleEthCallData` can help with non-parameter-dependent cases
+    - Is the result of the expected length for the expected result type?
+   4. Run `abi.decode` on the result 
+
+See the [QueryDemo](https://github.com/wormholelabs-xyz/example-queries-demo/blob/main/src/QueryDemo.sol){target=\_blank} contract for an example and read the docstrings of the preceding methods for detailed usage instructions.
+
+??? code "View the complete `QueryDemo`"
+    ```solidity
+    // contracts/query/QueryDemo.sol
+// SPDX-License-Identifier: Apache 2
+
+pragma solidity ^0.8.0;
+
+import "wormhole-solidity-sdk/libraries/BytesParsing.sol";
+import "wormhole-solidity-sdk/interfaces/IWormhole.sol";
+import "wormhole-solidity-sdk/QueryResponse.sol";
+
+error InvalidOwner();
+// @dev for the onlyOwner modifier
+error InvalidCaller();
+error InvalidCalldata();
+error InvalidForeignChainID();
+error ObsoleteUpdate();
+error StaleUpdate();
+error UnexpectedResultLength();
+error UnexpectedResultMismatch();
+
+/// @dev QueryDemo is an example of using the QueryResponse library to parse and verify Cross Chain Query (CCQ) responses.
+contract QueryDemo is QueryResponse {
+    using BytesParsing for bytes;
+
+    struct ChainEntry {
+        uint16 chainID;
+        address contractAddress;
+        uint256 counter;
+        uint256 blockNum;
+        uint256 blockTime;
+    }
+
+    address private immutable owner;
+    uint16 private immutable myChainID;
+    mapping(uint16 =&gt; ChainEntry) private counters;
+    uint16[] private foreignChainIDs;
+
+    bytes4 public GetMyCounter = bytes4(hex"916d5743");
+
+    constructor(address _owner, address _wormhole, uint16 _myChainID) QueryResponse(_wormhole) {
+        if (_owner == address(0)) {
+            revert InvalidOwner();
+        }
+        owner = _owner;
+
+        myChainID = _myChainID;
+        counters[_myChainID] = ChainEntry(_myChainID, address(this), 0, 0, 0);
+    }
+
+    // updateRegistration should be used to add the other chains and to set / update contract addresses.
+    function updateRegistration(uint16 _chainID, address _contractAddress) public onlyOwner {
+        if (counters[_chainID].chainID == 0) {
+            foreignChainIDs.push(_chainID);
+            counters[_chainID].chainID = _chainID;
+        }
+
+        counters[_chainID].contractAddress = _contractAddress;
+    }
+
+    // getMyCounter (call signature 916d5743) returns the counter value for this chain. It is meant to be used in a cross chain query.
+    function getMyCounter() public view returns (uint256) {
+        return counters[myChainID].counter;
+    }
+
+    // getState() returns this chain's view of all the counters. It is meant to be used in the front end.
+    function getState() public view returns (ChainEntry[] memory) {
+        ChainEntry[] memory ret = new ChainEntry[](foreignChainIDs.length + 1);
+        ret[0] = counters[myChainID];
+        uint256 length = foreignChainIDs.length;
+
+        for (uint256 i = 0; i &lt; length;) {
+            ret[i + 1] = counters[foreignChainIDs[i]];
+            unchecked {
+                ++i;
+            }
+        }
+
+        return ret;
+    }
+
+    // @notice Takes the cross chain query response for the other counters, stores the results for the other chains, and updates the counter for this chain.
+    function updateCounters(bytes memory response, IWormhole.Signature[] memory signatures) public {
+        ParsedQueryResponse memory r = parseAndVerifyQueryResponse(response, signatures);
+        uint256 numResponses = r.responses.length;
+        if (numResponses != foreignChainIDs.length) {
+            revert UnexpectedResultLength();
+        }
+
+        for (uint256 i = 0; i &lt; numResponses;) {
+            // Create a storage pointer for frequently read and updated data stored on the blockchain
+            ChainEntry storage chainEntry = counters[r.responses[i].chainId];
+            if (chainEntry.chainID != foreignChainIDs[i]) {
+                revert InvalidForeignChainID();
+            }
+
+            EthCallQueryResponse memory eqr = parseEthCallQueryResponse(r.responses[i]);
+
+            // Validate that update is not obsolete
+            validateBlockNum(eqr.blockNum, chainEntry.blockNum);
+
+            // Validate that update is not stale
+            validateBlockTime(eqr.blockTime, block.timestamp - 300);
+
+            if (eqr.result.length != 1) {
+                revert UnexpectedResultMismatch();
+            }
+
+            // Validate addresses and function signatures
+            address[] memory validAddresses = new address[](1);
+            bytes4[] memory validFunctionSignatures = new bytes4[](1);
+            validAddresses[0] = chainEntry.contractAddress;
+            validFunctionSignatures[0] = GetMyCounter;
+
+            validateMultipleEthCallData(eqr.result, validAddresses, validFunctionSignatures);
+
+            require(eqr.result[0].result.length == 32, "result is not a uint256");
+
+            chainEntry.blockNum = eqr.blockNum;
+            chainEntry.blockTime = eqr.blockTime / 1_000_000;
+            chainEntry.counter = abi.decode(eqr.result[0].result, (uint256));
+
+            unchecked {
+                ++i;
+            }
+        }
+
+        counters[myChainID].blockNum = block.number;
+        counters[myChainID].blockTime = block.timestamp;
+        counters[myChainID].counter += 1;
+    }
+
+    modifier onlyOwner() {
+        if (owner != msg.sender) {
+            revert InvalidOwner();
+        }
+        _;
+    }
+}
+    ```
+
+## Submit a Query Response On-Chain
+
+The `QueryProxyQueryResponse` result requires a slight tweak when submitting to the contract to match the format of `function parseAndVerifyQueryResponse(bytes memory response, IWormhole.Signature[] memory signatures)`. A helper function, `signaturesToEvmStruct`, is provided in the SDK for this.
+
+This example submits the transaction to the demo contract:
+
+```jsx
+const tx = await contract.updateCounters(
+  `0x${response.data.bytes}`,
+  signaturesToEvmStruct(response.data.signatures)
+);
+```
+--- END CONTENT ---
+
+# Basics Concepts [shared: true]
+
+The following section contains foundational documentation shared across all Wormhole products.
+It describes the architecture and messaging infrastructure that serve as the backbone for all integrations built with Wormhole.
+This includes the core contracts, VAA (Verifiable Action Approval) structure, guardian set functionality, and message flow mechanisms.
+This context is provided to help understand how the system works under the hood, but responses should stay focused on the specific product unless the user explicitly asks about the general architecture.
+
+---
+
+# List of shared concept pages:
 Doc-Page: https://raw.githubusercontent.com/wormhole-foundation/wormhole-docs/refs/heads/main/learn/glossary.md [type: learn]
 Doc-Page: https://raw.githubusercontent.com/wormhole-foundation/wormhole-docs/refs/heads/main/learn/infrastructure.md [type: learn]
 Doc-Page: https://raw.githubusercontent.com/wormhole-foundation/wormhole-docs/refs/heads/main/learn/infrastructure/architecture.md [type: learn]
@@ -29,7 +668,7 @@ Doc-Page: https://raw.githubusercontent.com/wormhole-foundation/wormhole-docs/re
 Doc-Page: https://raw.githubusercontent.com/wormhole-foundation/wormhole-docs/refs/heads/main/build/start-building/products.md [type: build]
 Doc-Page: https://raw.githubusercontent.com/wormhole-foundation/wormhole-docs/refs/heads/main/build/start-building/use-cases.md [type: build]
 
-# Full content for each doc page
+# Full content for shared concepts:
 
 Doc-Content: https://wormhole.com/docs/learn/glossary/
 --- BEGIN CONTENT ---
@@ -939,160 +1578,71 @@ Wormhole supports a growing number of blockchains.
 
 <!-- The content in this file is auto-generated. Do not modify this file directly. Please see the README.md in the wormhole-mkdocs/scripts directory to learn how to update this page. -->
 <!--SUPPORTED_BLOCKCHAIN_CARDS-->
-<div class="full-width" markdown>
+<div class="full-width" markdown="">
 
 ### EVM
 
-<table data-full-width="true" markdown><thead><th>Blockchain</th><th>Environment</th><th>Mainnet</th><th>Testnet</th><th>Quick Links</th></thead><tbody><tr><td>Ethereum</td><td>EVM</td><td>:white_check_mark:</td><td>:white_check_mark:</td><td>
-  :material-web: <a href="https://ethereum.org/" target="_blank">Website</a><br>
-  :material-file-document: <a href="https://ethereum.org/en/developers/docs/" target="_blank">Developer Docs</a><br>
-  :octicons-package-16: <a href="https://etherscan.io/" target="_blank">Block Explorer</a></td></tr><tr><td>Acala</td><td>EVM</td><td>:white_check_mark:</td><td>:white_check_mark:</td><td>
-  :material-web: <a href="https://acala.network/" target="_blank">Website</a><br>
-  :material-file-document: <a href="https://evmdocs.acala.network/" target="_blank">Developer Docs</a><br>
-  :octicons-package-16: <a href="https://acala.subscan.io/" target="_blank">Block Explorer</a></td></tr><tr><td>Arbitrum</td><td>EVM</td><td>:white_check_mark:</td><td>:white_check_mark:</td><td>
-  :material-web: <a href="https://arbitrum.io/" target="_blank">Website</a><br>
-  :material-file-document: <a href="https://docs.arbitrum.io/" target="_blank">Developer Docs</a><br>
-  :octicons-package-16: <a href="https://arbiscan.io/" target="_blank">Block Explorer</a></td></tr><tr><td>Avalanche</td><td>EVM</td><td>:white_check_mark:</td><td>:white_check_mark:</td><td>
-  :material-web: <a href="https://www.avax.network/" target="_blank">Website</a><br>
-  :material-file-document: <a href="https://docs.avax.network/" target="_blank">Developer Docs</a><br>
-  :octicons-package-16: <a href="https://snowtrace.io/" target="_blank">Block Explorer</a></td></tr><tr><td>Base</td><td>EVM</td><td>:white_check_mark:</td><td>:white_check_mark:</td><td>
-  :material-web: <a href="https://base.org/" target="_blank">Website</a><br>
-  :material-file-document: <a href="https://docs.base.org/" target="_blank">Developer Docs</a><br>
-  :octicons-package-16: <a href="https://goerli.basescan.org/" target="_blank">Block Explorer</a></td></tr><tr><td>Berachain</td><td>EVM</td><td>:white_check_mark:</td><td>:white_check_mark:</td><td>
-  :material-web: <a href="https://www.berachain.com/" target="_blank">Website</a><br>
-  :material-file-document: <a href="https://docs.berachain.com/" target="_blank">Developer Docs</a><br>
-  :octicons-package-16: <a href="https://bartio.beratrail.io/" target="_blank">Block Explorer</a></td></tr><tr><td>Blast</td><td>EVM</td><td>:white_check_mark:</td><td>:white_check_mark:</td><td>
-  :material-web: <a href="https://blast.io/" target="_blank">Website</a><br>
-  :material-file-document: <a href="https://docs.blast.io/about-blast" target="_blank">Developer Docs</a><br>
-  :octicons-package-16: <a href="https://docs.blast.io/tools/block-explorers#block-explorers" target="_blank">Block Explorer</a></td></tr><tr><td>BNB Smart Chain</td><td>EVM</td><td>:white_check_mark:</td><td>:white_check_mark:</td><td>
-  :material-web: <a href="https://www.bnbchain.org/en/smartChain" target="_blank">Website</a><br>
-  :material-file-document: <a href="https://docs.bnbchain.org/" target="_blank">Developer Docs</a><br>
-  :octicons-package-16: <a href="https://bscscan.com/" target="_blank">Block Explorer</a></td></tr><tr><td>Celo</td><td>EVM</td><td>:white_check_mark:</td><td>:white_check_mark:</td><td>
-  :material-web: <a href="https://celo.org/" target="_blank">Website</a><br>
-  :material-file-document: <a href="https://docs.celo.org/" target="_blank">Developer Docs</a><br>
-  :octicons-package-16: <a href="https://explorer.celo.org/mainnet/" target="_blank">Block Explorer</a></td></tr><tr><td>Fantom</td><td>EVM</td><td>:white_check_mark:</td><td>:white_check_mark:</td><td>
-  :material-web: <a href="https://fantom.foundation/" target="_blank">Website</a><br>
-  :material-file-document: <a href="https://docs.fantom.foundation/" target="_blank">Developer Docs</a><br>
-  :octicons-package-16: <a href="https://ftmscan.com/" target="_blank">Block Explorer</a></td></tr><tr><td>Gnosis</td><td>EVM</td><td>:white_check_mark:</td><td>:white_check_mark:</td><td>
-  :material-web: <a href="https://www.gnosis.io/" target="_blank">Website</a><br>
-  :material-file-document: <a href="https://docs.gnosischain.com/" target="_blank">Developer Docs</a><br>
-  :octicons-package-16: <a href="https://gnosisscan.io/" target="_blank">Block Explorer</a></td></tr><tr><td>HyperEVM</td><td>EVM</td><td>:x:</td><td>:white_check_mark:</td><td>
-  :material-web: <a href="https://hyperfoundation.org/" target="_blank">Website</a><br>
-  :material-file-document: <a href="https://hyperliquid.gitbook.io/hyperliquid-docs" target="_blank">Developer Docs</a><br></td></tr><tr><td>Ink</td><td>EVM</td><td>:white_check_mark:</td><td>:white_check_mark:</td><td>
-  :material-web: <a href="https://inkonchain.com/" target="_blank">Website</a><br>
-  :material-file-document: <a href="https://docs.inkonchain.com/" target="_blank">Developer Docs</a><br>
-  :octicons-package-16: <a href="https://explorer-sepolia.inkonchain.com/" target="_blank">Block Explorer</a></td></tr><tr><td>Kaia</td><td>EVM</td><td>:white_check_mark:</td><td>:white_check_mark:</td><td>
-  :material-web: <a href="https://kaia.io/" target="_blank">Website</a><br>
-  :material-file-document: <a href="https://docs.kaia.io/" target="_blank">Developer Docs</a><br>
-  :octicons-package-16: <a href="https://kaiascan.io/" target="_blank">Block Explorer</a></td></tr><tr><td>Karura</td><td>EVM</td><td>:white_check_mark:</td><td>:white_check_mark:</td><td>
-  :material-web: <a href="https://acala.network/karura" target="_blank">Website</a><br>
-  :material-file-document: <a href="https://evmdocs.acala.network/" target="_blank">Developer Docs</a><br></td></tr><tr><td>Linea</td><td>EVM</td><td>:x:</td><td>:white_check_mark:</td><td>
-  :material-web: <a href="https://linea.build/" target="_blank">Website</a><br>
-  :material-file-document: <a href="https://docs.linea.build/" target="_blank">Developer Docs</a><br>
-  :octicons-package-16: <a href="https://docs.linea.build/get-started/build/block-explorers" target="_blank">Block Explorer</a></td></tr><tr><td>Mantle</td><td>EVM</td><td>:white_check_mark:</td><td>:white_check_mark:</td><td>
-  :material-web: <a href="https://www.mantle.xyz/" target="_blank">Website</a><br>
-  :material-file-document: <a href="https://docs.mantle.xyz/network/introduction/overview" target="_blank">Developer Docs</a><br>
-  :octicons-package-16: <a href="https://mantlescan.xyz/" target="_blank">Block Explorer</a></td></tr><tr><td>Mezo</td><td>EVM</td><td>:x:</td><td>:white_check_mark:</td><td>
-  :material-web: <a href="https://mezo.org/" target="_blank">Website</a><br>
-  :material-file-document: <a href="https://mezo.org/docs/developers/" target="_blank">Developer Docs</a><br>
-  :octicons-package-16: <a href="https://explorer.test.mezo.org/" target="_blank">Block Explorer</a></td></tr><tr><td>Monad</td><td>EVM</td><td>:x:</td><td>:white_check_mark:</td><td>
-  :material-web: <a href="https://www.monad.xyz/" target="_blank">Website</a><br>
-  :material-file-document: <a href="https://docs.monad.xyz/" target="_blank">Developer Docs</a><br>
-  :octicons-package-16: <a href="https://testnet.monadexplorer.com/" target="_blank">Block Explorer</a></td></tr><tr><td>Moonbeam</td><td>EVM</td><td>:white_check_mark:</td><td>:white_check_mark:</td><td>
-  :material-web: <a href="https://moonbeam.network/" target="_blank">Website</a><br>
-  :material-file-document: <a href="https://docs.moonbeam.network/" target="_blank">Developer Docs</a><br>
-  :octicons-package-16: <a href="https://moonscan.io/" target="_blank">Block Explorer</a></td></tr><tr><td>Neon</td><td>EVM</td><td>:x:</td><td>:white_check_mark:</td><td>
-  :material-web: <a href="https://neonevm.org/" target="_blank">Website</a><br>
-  :material-file-document: <a href="https://neonevm.org/docs/" target="_blank">Developer Docs</a><br>
-  :octicons-package-16: <a href="https://neonscan.org/" target="_blank">Block Explorer</a></td></tr><tr><td>Oasis</td><td>EVM</td><td>:white_check_mark:</td><td>:white_check_mark:</td><td>
-  :material-web: <a href="https://oasisprotocol.org/" target="_blank">Website</a><br>
-  :material-file-document: <a href="https://docs.oasis.io/" target="_blank">Developer Docs</a><br>
-  :octicons-package-16: <a href="https://docs.oasis.io/dapp/cipher/#block-explorers" target="_blank">Block Explorer</a></td></tr><tr><td>Optimism</td><td>EVM</td><td>:white_check_mark:</td><td>:white_check_mark:</td><td>
-  :material-web: <a href="https://www.optimism.io/" target="_blank">Website</a><br>
-  :material-file-document: <a href="https://docs.optimism.io/" target="_blank">Developer Docs</a><br>
-  :octicons-package-16: <a href="https://optimistic.etherscan.io/" target="_blank">Block Explorer</a></td></tr><tr><td>Polygon</td><td>EVM</td><td>:white_check_mark:</td><td>:white_check_mark:</td><td>
-  :material-web: <a href="https://polygon.technology/" target="_blank">Website</a><br>
-  :material-file-document: <a href="https://docs.polygon.technology/" target="_blank">Developer Docs</a><br>
-  :octicons-package-16: <a href="https://polygonscan.com/" target="_blank">Block Explorer</a></td></tr><tr><td>Scroll</td><td>EVM</td><td>:white_check_mark:</td><td>:white_check_mark:</td><td>
-  :material-web: <a href="https://scroll.io/" target="_blank">Website</a><br>
-  :material-file-document: <a href="https://docs.scroll.io/en/home/" target="_blank">Developer Docs</a><br>
-  :octicons-package-16: <a href="https://scrollscan.com/" target="_blank">Block Explorer</a></td></tr><tr><td>Seievm</td><td>EVM</td><td>:x:</td><td>:white_check_mark:</td><td></td></tr><tr><td>SNAXchain</td><td>EVM</td><td>:white_check_mark:</td><td>:white_check_mark:</td><td>
-  :material-web: <a href="https://synthetix.io/" target="_blank">Website</a><br>
-  :material-file-document: <a href="https://docs.synthetix.io/v3/" target="_blank">Developer Docs</a><br>
-  :octicons-package-16: <a href="https://explorer.snaxchain.io/" target="_blank">Block Explorer</a></td></tr><tr><td>Unichain</td><td>EVM</td><td>:white_check_mark:</td><td>:white_check_mark:</td><td>
-  :material-web: <a href="https://www.unichain.org/" target="_blank">Website</a><br>
-  :material-file-document: <a href="https://docs.unichain.org/docs" target="_blank">Developer Docs</a><br>
-  :octicons-package-16: <a href="https://sepolia.uniscan.xyz/" target="_blank">Block Explorer</a></td></tr><tr><td>World Chain</td><td>EVM</td><td>:white_check_mark:</td><td>:white_check_mark:</td><td>
-  :material-web: <a href="https://world.org/world-chain" target="_blank">Website</a><br>
-  :material-file-document: <a href="https://docs.world.org/" target="_blank">Developer Docs</a><br>
-  :octicons-package-16: <a href="https://docs.world.org/world-chain/providers/explorers" target="_blank">Block Explorer</a></td></tr><tr><td>X Layer</td><td>EVM</td><td>:white_check_mark:</td><td>:white_check_mark:</td><td>
-  :material-web: <a href="https://www.okx.com/xlayer" target="_blank">Website</a><br>
-  :material-file-document: <a href="https://www.okx.com/xlayer/docs/developer/build-on-xlayer/about-xlayer" target="_blank">Developer Docs</a><br>
-  :octicons-package-16: <a href="https://zksync.l2scan.co/" target="_blank">Block Explorer</a></td></tr></tbody></table>
+| Ethereum | EVM | :white_check_mark: | :white_check_mark: | :material-web:Website:material-file-document:Developer Docs:octicons-package-16:Block Explorer |
+| Acala | EVM | :white_check_mark: | :white_check_mark: | :material-web:Website:material-file-document:Developer Docs:octicons-package-16:Block Explorer |
+| Arbitrum | EVM | :white_check_mark: | :white_check_mark: | :material-web:Website:material-file-document:Developer Docs:octicons-package-16:Block Explorer |
+| Avalanche | EVM | :white_check_mark: | :white_check_mark: | :material-web:Website:material-file-document:Developer Docs:octicons-package-16:Block Explorer |
+| Base | EVM | :white_check_mark: | :white_check_mark: | :material-web:Website:material-file-document:Developer Docs:octicons-package-16:Block Explorer |
+| Berachain | EVM | :white_check_mark: | :white_check_mark: | :material-web:Website:material-file-document:Developer Docs:octicons-package-16:Block Explorer |
+| Blast | EVM | :white_check_mark: | :white_check_mark: | :material-web:Website:material-file-document:Developer Docs:octicons-package-16:Block Explorer |
+| BNB Smart Chain | EVM | :white_check_mark: | :white_check_mark: | :material-web:Website:material-file-document:Developer Docs:octicons-package-16:Block Explorer |
+| Celo | EVM | :white_check_mark: | :white_check_mark: | :material-web:Website:material-file-document:Developer Docs:octicons-package-16:Block Explorer |
+| Fantom | EVM | :white_check_mark: | :white_check_mark: | :material-web:Website:material-file-document:Developer Docs:octicons-package-16:Block Explorer |
+| Gnosis | EVM | :white_check_mark: | :white_check_mark: | :material-web:Website:material-file-document:Developer Docs:octicons-package-16:Block Explorer |
+| HyperEVM | EVM | :x: | :white_check_mark: | :material-web:Website:material-file-document:Developer Docs |
+| Ink | EVM | :white_check_mark: | :white_check_mark: | :material-web:Website:material-file-document:Developer Docs:octicons-package-16:Block Explorer |
+| Kaia | EVM | :white_check_mark: | :white_check_mark: | :material-web:Website:material-file-document:Developer Docs:octicons-package-16:Block Explorer |
+| Karura | EVM | :white_check_mark: | :white_check_mark: | :material-web:Website:material-file-document:Developer Docs |
+| Linea | EVM | :x: | :white_check_mark: | :material-web:Website:material-file-document:Developer Docs:octicons-package-16:Block Explorer |
+| Mantle | EVM | :white_check_mark: | :white_check_mark: | :material-web:Website:material-file-document:Developer Docs:octicons-package-16:Block Explorer |
+| Mezo | EVM | :x: | :white_check_mark: | :material-web:Website:material-file-document:Developer Docs:octicons-package-16:Block Explorer |
+| Monad | EVM | :x: | :white_check_mark: | :material-web:Website:material-file-document:Developer Docs:octicons-package-16:Block Explorer |
+| Moonbeam | EVM | :white_check_mark: | :white_check_mark: | :material-web:Website:material-file-document:Developer Docs:octicons-package-16:Block Explorer |
+| Neon | EVM | :x: | :white_check_mark: | :material-web:Website:material-file-document:Developer Docs:octicons-package-16:Block Explorer |
+| Oasis | EVM | :white_check_mark: | :white_check_mark: | :material-web:Website:material-file-document:Developer Docs:octicons-package-16:Block Explorer |
+| Optimism | EVM | :white_check_mark: | :white_check_mark: | :material-web:Website:material-file-document:Developer Docs:octicons-package-16:Block Explorer |
+| Polygon | EVM | :white_check_mark: | :white_check_mark: | :material-web:Website:material-file-document:Developer Docs:octicons-package-16:Block Explorer |
+| Scroll | EVM | :white_check_mark: | :white_check_mark: | :material-web:Website:material-file-document:Developer Docs:octicons-package-16:Block Explorer |
+| Seievm | EVM | :x: | :white_check_mark: |  |
+| SNAXchain | EVM | :white_check_mark: | :white_check_mark: | :material-web:Website:material-file-document:Developer Docs:octicons-package-16:Block Explorer |
+| Unichain | EVM | :white_check_mark: | :white_check_mark: | :material-web:Website:material-file-document:Developer Docs:octicons-package-16:Block Explorer |
+| World Chain | EVM | :white_check_mark: | :white_check_mark: | :material-web:Website:material-file-document:Developer Docs:octicons-package-16:Block Explorer |
+| X Layer | EVM | :white_check_mark: | :white_check_mark: | :material-web:Website:material-file-document:Developer Docs:octicons-package-16:Block Explorer |
 
 ### SVM
 
-<table data-full-width="true" markdown><thead><th>Blockchain</th><th>Environment</th><th>Mainnet</th><th>Testnet</th><th>Quick Links</th></thead><tbody><tr><td>Solana</td><td>SVM</td><td>:white_check_mark:</td><td>:white_check_mark:</td><td>
-  :material-web: <a href="https://solana.com/" target="_blank">Website</a><br>
-  :material-file-document: <a href="https://solana.com/docs" target="_blank">Developer Docs</a><br>
-  :octicons-package-16: <a href="https://explorer.solana.com/" target="_blank">Block Explorer</a></td></tr><tr><td>Pythnet</td><td>SVM</td><td>:white_check_mark:</td><td>:white_check_mark:</td><td>
-  :material-web: <a href="https://www.pyth.network/" target="_blank">Website</a><br>
-  :material-file-document: <a href="https://docs.pyth.network/home" target="_blank">Developer Docs</a><br>
-  :octicons-package-16: <a href="https://sepolia-optimism.etherscan.io/" target="_blank">Block Explorer</a></td></tr></tbody></table>
+| Solana | SVM | :white_check_mark: | :white_check_mark: | :material-web:Website:material-file-document:Developer Docs:octicons-package-16:Block Explorer |
+| Pythnet | SVM | :white_check_mark: | :white_check_mark: | :material-web:Website:material-file-document:Developer Docs:octicons-package-16:Block Explorer |
 
 ### AVM
 
-<table data-full-width="true" markdown><thead><th>Blockchain</th><th>Environment</th><th>Mainnet</th><th>Testnet</th><th>Quick Links</th></thead><tbody><tr><td>Algorand</td><td>AVM</td><td>:white_check_mark:</td><td>:white_check_mark:</td><td>
-  :material-web: <a href="https://algorand.com" target="_blank">Website</a><br>
-  :material-file-document: <a href="https://developer.algorand.org" target="_blank">Developer Docs</a><br>
-  :octicons-package-16: <a href="https://allo.info/" target="_blank">Block Explorer</a></td></tr></tbody></table>
+| Algorand | AVM | :white_check_mark: | :white_check_mark: | :material-web:Website:material-file-document:Developer Docs:octicons-package-16:Block Explorer |
 
 ### CosmWasm
 
-<table data-full-width="true" markdown><thead><th>Blockchain</th><th>Environment</th><th>Mainnet</th><th>Testnet</th><th>Quick Links</th></thead><tbody><tr><td>Injective</td><td>CosmWasm</td><td>:white_check_mark:</td><td>:white_check_mark:</td><td>
-  :material-web: <a href="https://injective.com/" target="_blank">Website</a><br>
-  :material-file-document: <a href="https://docs.injective.network/" target="_blank">Developer Docs</a><br>
-  :octicons-package-16: <a href="https://explorer.injective.network/" target="_blank">Block Explorer</a></td></tr><tr><td>Neutron</td><td>CosmWasm</td><td>:white_check_mark:</td><td>:white_check_mark:</td><td>
-  :material-web: <a href="https://www.neutron.org/" target="_blank">Website</a><br>
-  :material-file-document: <a href="https://docs.neutron.org/" target="_blank">Developer Docs</a><br>
-  :octicons-package-16: <a href="https://docs.neutron.org/neutron/faq#where-is-the-block-explorer" target="_blank">Block Explorer</a></td></tr><tr><td>Osmosis</td><td>CosmWasm</td><td>:x:</td><td>:white_check_mark:</td><td>
-  :material-web: <a href="https://osmosis.zone/" target="_blank">Website</a><br>
-  :material-file-document: <a href="https://docs.osmosis.zone/" target="_blank">Developer Docs</a><br>
-  :octicons-package-16: <a href="https://docs.osmosis.zone/overview/endpoints#explorers" target="_blank">Block Explorer</a></td></tr><tr><td>Sei</td><td>CosmWasm</td><td>:white_check_mark:</td><td>:white_check_mark:</td><td>
-  :material-web: <a href="https://www.sei.io/" target="_blank">Website</a><br>
-  :material-file-document: <a href="https://www.docs.sei.io/" target="_blank">Developer Docs</a><br>
-  :octicons-package-16: <a href="https://www.docs.sei.io/dev-ecosystem-providers/explorers#sei-explorers" target="_blank">Block Explorer</a></td></tr><tr><td>Terra</td><td>CosmWasm</td><td>:white_check_mark:</td><td>:white_check_mark:</td><td>
-  :material-web: <a href="https://www.terra.money/" target="_blank">Website</a><br>
-  :material-file-document: <a href="https://classic-docs.terra.money/docs/full-node/run-a-full-terra-node/join-a-network.html" target="_blank">Developer Docs</a><br>
-  :octicons-package-16: <a href="https://classic-docs.terra.money/docs/ecosystem/explore.html?highlight=explorer#block-explorers" target="_blank">Block Explorer</a></td></tr><tr><td>Terra 2.0</td><td>CosmWasm</td><td>:white_check_mark:</td><td>:white_check_mark:</td><td>
-  :material-web: <a href="https://www.terra.money/" target="_blank">Website</a><br>
-  :material-file-document: <a href="https://docs.terra.money/" target="_blank">Developer Docs</a><br>
-  :octicons-package-16: <a href="https://finder.terra.money/" target="_blank">Block Explorer</a></td></tr><tr><td>XPLA</td><td>CosmWasm</td><td>:white_check_mark:</td><td>:white_check_mark:</td><td>
-  :material-web: <a href="https://www.xpla.io/en" target="_blank">Website</a><br>
-  :material-file-document: <a href="https://docs.xpla.io/develop/develop/get-started/" target="_blank">Developer Docs</a><br>
-  :octicons-package-16: <a href="https://explorer.xpla.io/" target="_blank">Block Explorer</a></td></tr></tbody></table>
+| Injective | CosmWasm | :white_check_mark: | :white_check_mark: | :material-web:Website:material-file-document:Developer Docs:octicons-package-16:Block Explorer |
+| Neutron | CosmWasm | :white_check_mark: | :white_check_mark: | :material-web:Website:material-file-document:Developer Docs:octicons-package-16:Block Explorer |
+| Osmosis | CosmWasm | :x: | :white_check_mark: | :material-web:Website:material-file-document:Developer Docs:octicons-package-16:Block Explorer |
+| Sei | CosmWasm | :white_check_mark: | :white_check_mark: | :material-web:Website:material-file-document:Developer Docs:octicons-package-16:Block Explorer |
+| Terra | CosmWasm | :white_check_mark: | :white_check_mark: | :material-web:Website:material-file-document:Developer Docs:octicons-package-16:Block Explorer |
+| Terra 2.0 | CosmWasm | :white_check_mark: | :white_check_mark: | :material-web:Website:material-file-document:Developer Docs:octicons-package-16:Block Explorer |
+| XPLA | CosmWasm | :white_check_mark: | :white_check_mark: | :material-web:Website:material-file-document:Developer Docs:octicons-package-16:Block Explorer |
 
 ### Move VM
 
-<table data-full-width="true" markdown><thead><th>Blockchain</th><th>Environment</th><th>Mainnet</th><th>Testnet</th><th>Quick Links</th></thead><tbody><tr><td>Aptos</td><td>Move VM</td><td>:white_check_mark:</td><td>:white_check_mark:</td><td>
-  :material-web: <a href="https://aptosfoundation.org/" target="_blank">Website</a><br>
-  :material-file-document: <a href="https://aptos.dev/" target="_blank">Developer Docs</a><br>
-  :octicons-package-16: <a href="https://explorer.aptoslabs.com/" target="_blank">Block Explorer</a></td></tr></tbody></table>
+| Aptos | Move VM | :white_check_mark: | :white_check_mark: | :material-web:Website:material-file-document:Developer Docs:octicons-package-16:Block Explorer |
 
 ### NEAR VM
 
-<table data-full-width="true" markdown><thead><th>Blockchain</th><th>Environment</th><th>Mainnet</th><th>Testnet</th><th>Quick Links</th></thead><tbody><tr><td>NEAR</td><td>NEAR VM</td><td>:white_check_mark:</td><td>:white_check_mark:</td><td>
-  :material-web: <a href="https://near.org/" target="_blank">Website</a><br>
-  :material-file-document: <a href="https://docs.near.org/" target="_blank">Developer Docs</a><br>
-  :octicons-package-16: <a href="https://nearblocks.io/" target="_blank">Block Explorer</a></td></tr></tbody></table>
+| NEAR | NEAR VM | :white_check_mark: | :white_check_mark: | :material-web:Website:material-file-document:Developer Docs:octicons-package-16:Block Explorer |
 
 ### Sui Move VM
 
-<table data-full-width="true" markdown><thead><th>Blockchain</th><th>Environment</th><th>Mainnet</th><th>Testnet</th><th>Quick Links</th></thead><tbody><tr><td>Sui</td><td>Sui Move VM</td><td>:white_check_mark:</td><td>:white_check_mark:</td><td>
-  :material-web: <a href="https://sui.io/" target="_blank">Website</a><br>
-  :material-file-document: <a href="https://docs.sui.io/" target="_blank">Developer Docs</a><br>
-  :octicons-package-16: <a href="https://suiscan.xyz/" target="_blank">Block Explorer</a></td></tr></tbody></table>
-
+| Sui | Sui Move VM | :white_check_mark: | :white_check_mark: | :material-web:Website:material-file-document:Developer Docs:octicons-package-16:Block Explorer |
 </div>
 <!--SUPPORTED_BLOCKCHAIN_CARDS-->
 --- END CONTENT ---
@@ -1405,7 +1955,7 @@ messageSequence = wormhole.publishMessage{value: wormholeFee}(
         let fee = ctx.accounts.wormhole_bridge.fee();
 // ... Check fee and send parameters
 
-let config = &ctx.accounts.config;
+let config = &amp;ctx.accounts.config
 let payload: Vec<u8> = HelloWorldMessage::Hello { message }.try_to_vec()?;
 
 // Invoke `wormhole::post_message`.
@@ -1415,14 +1965,14 @@ wormhole::post_message(
         wormhole::PostMessage {
             // ... Set fields
         },
-        &[
+        &amp;[
             // ... Set seeds
         ],
     ),
     config.batch_id,
     payload,
     config.finality.into(),
-)?;
+)?;</u8>
         ```
 
         View the complete Hello World example in the [Wormhole Scaffolding](https://github.com/wormhole-foundation/wormhole-scaffolding/tree/main/solana/programs/01_hello_world){target=\_blank} repository on GitHub.
@@ -1527,8 +2077,8 @@ The way a message is received and handled depends on the environment.
     ??? interface "Example"
 
         ```rust
-        pub fn receive_message(ctx: Context<ReceiveMessage>, vaa_hash: [u8; 32]) -> Result<()> {
-    let posted_message = &ctx.accounts.posted;
+        pub fn receive_message(ctx: Context<receivemessage>, vaa_hash: [u8; 32]) -&gt; Result&lt;()&gt; {
+    let posted_message = &amp;ctx.accounts.posted
 
     if let HelloWorldMessage::Hello { message } = posted_message.data() {
         // Check message
@@ -1538,6 +2088,7 @@ The way a message is received and handled depends on the environment.
         Err(HelloWorldError::InvalidMessage.into())
     }
 }
+</receivemessage>
         ```
 
         View the complete Hello World example in the [Wormhole Scaffolding](https://github.com/wormhole-foundation/wormhole-scaffolding/tree/main/solana/programs/01_hello_world){target=\_blank} repository on GitHub.
@@ -2131,4 +2682,917 @@ Enable users to stake assets on one chain while earning rewards or securing netw
 
 </div>
 </div>
+--- END CONTENT ---
+
+# Reference Concepts [shared: true]
+
+The following section contains reference material for Wormhole.
+It includes Wormhole chain IDs, canonical contract addresses, and finality levels for Guardians for each of the supported blockchains in the Wormhole ecosystem.
+While it may not be required for all use cases, it offers a deeper technical layer for advanced development work.
+
+---
+
+# List of shared concept pages:
+Doc-Page: https://raw.githubusercontent.com/wormhole-foundation/wormhole-docs/refs/heads/main/build/reference.md [type: build]
+Doc-Page: https://raw.githubusercontent.com/wormhole-foundation/wormhole-docs/refs/heads/main/build/reference/chain-ids.md [type: build]
+Doc-Page: https://raw.githubusercontent.com/wormhole-foundation/wormhole-docs/refs/heads/main/build/reference/consistency-levels.md [type: build]
+Doc-Page: https://raw.githubusercontent.com/wormhole-foundation/wormhole-docs/refs/heads/main/build/reference/contract-addresses.md [type: build]
+Doc-Page: https://raw.githubusercontent.com/wormhole-foundation/wormhole-docs/refs/heads/main/build/reference/wormhole-formatted-addresses.md [type: build]
+Doc-Page: https://raw.githubusercontent.com/wormhole-foundation/wormhole-docs/refs/heads/main/build/start-building/supported-networks.md [type: build]
+Doc-Page: https://raw.githubusercontent.com/wormhole-foundation/wormhole-docs/refs/heads/main/build/start-building/testnet-faucets.md [type: build]
+
+# Full content for shared concepts:
+
+Doc-Content: https://wormhole.com/docs/build/reference/
+--- BEGIN CONTENT ---
+---
+title: Reference
+description: Find essential reference information for development, including canonical contract addresses, Wormhole chain IDs, and Wormhole finality levels for Guardians.
+categories: Reference
+---
+
+# Reference
+
+## Get Started
+
+In this section, you'll find reference information that is essential for development. This includes Wormhole chain IDs, canonical contract addresses, and finality levels for Guardians for each of the supported blockchains in the Wormhole ecosystem.
+
+<div class="grid cards" markdown>
+
+-   :octicons-list-ordered-16:{ .lg .middle } **Chain IDs**
+
+    ---
+
+    Find a mapping of Wormhole chain IDs to the names and network IDs of the supported blockchains.
+
+    [:custom-arrow: View list of chain IDs](/docs/build/reference/chain-ids/)
+
+-   :material-timer-sand:{ .lg .middle } **Wormhole Finality**
+
+    ---
+
+    See the levels of finality (consistency) a transaction should meet before being signed by a Guardian for each network.
+
+    [:custom-arrow: View list of finality levels](/docs/build/reference/consistency-levels/)
+
+-   :octicons-file-code-16:{ .lg .middle } **Contract Addresses**
+
+    ---
+
+    Discover the contract addresses for Wormhole-deployed contracts on each of the supported blockchains.
+
+    This includes the following protocol contracts:
+
+    - Core Contract
+    - Token Bridge
+    - NFT Bridge
+    - Wormhole relayer
+    - CCTP
+
+    [:custom-arrow: View list of contract addresses](/docs/build/reference/contract-addresses/)
+
+-   :octicons-checkbox-16:{ .lg .middle } **Wormhole Formatted Addresses**
+
+    ---
+
+    Learn how Wormhole formats addresses into a 32-byte hex format for cross-chain compatibility.
+    
+    This includes converting addresses between their native formats and the Wormhole format across multiple blockchains.
+
+    [:custom-arrow: View details on Wormhole formatted addresses](/docs/build/reference/wormhole-formatted-addresses/)
+
+</div>
+--- END CONTENT ---
+
+Doc-Content: https://wormhole.com/docs/build/reference/chain-ids/
+--- BEGIN CONTENT ---
+---
+title: Chain IDs
+description: This page documents the Wormhole-specific chain IDs for each chain and contrasts them to the more commonly referenced EVM chain IDs originating in EIP-155.
+categories: Reference
+---
+
+# Chain IDs
+
+The following table documents the chain IDs used by Wormhole and places them alongside the more commonly referenced [EVM Chain IDs](https://chainlist.org/){target=\_blank}.
+
+!!! note
+    Please note, Wormhole chain IDs are different than the more commonly referenced EVM [chain IDs](https://eips.ethereum.org/EIPS/eip-155){target=\_blank}, specified in the Mainnet and Testnet ID columns.
+
+<!-- The content in this file is auto-generated. Do not modify this file directly. Please see the README.md in the wormhole-mkdocs/scripts directory to learn how to update this page. -->
+<!--CHAIN_IDS-->
+
+=== "Mainnet"
+
+    | Ethereum | 2 | 1 |
+| Solana | 1 | Mainnet Beta-5eykt4UsFv8P8NJdTREpY1vzqKqZKvdpKuc147dw2N9d |
+| Acala | 12 | 787 |
+| Algorand | 8 | mainnet-v1.0 |
+| Aptos | 22 | 1 |
+| Arbitrum | 23 | Arbitrum One-42161 |
+| Avalanche | 6 | C-Chain-43114 |
+| Base | 30 | Base-8453 |
+| Berachain | 39 |  |
+| Blast | 36 | 81457 |
+| BNB Smart Chain | 4 | 56 |
+| Celestia | 4004 | celestia |
+| Celo | 14 | 42220 |
+| Cosmos Hub | 4000 | cosmoshub-4 |
+| Dymension | 4007 | dymension_1100-1 |
+| Evmos | 4001 | evmos_9001-2 |
+| Fantom | 10 | 250 |
+| Gnosis | 25 | 100 |
+| HyperEVM | 47 |  |
+| Injective | 19 | injective-1 |
+| Ink | 46 |  |
+| Kaia | 13 | 8217 |
+| Karura | 11 | 686 |
+| Kujira | 4002 | kaiyo-1 |
+| Linea | 38 | 59144 |
+| Mantle | 35 | 5000 |
+| Mezo | 50 |  |
+| Monad | 48 |  |
+| Moonbeam | 16 | 1284 |
+| NEAR | 15 | mainnet |
+| Neon | 17 | 245022934 |
+| Neutron | 4003 | neutron-1 |
+| Noble | 4009 | noble-1 |
+| Oasis | 7 | 42262 |
+| Optimism | 24 | 10 |
+| Osmosis | 20 | osmosis-1 |
+| Polygon | 5 | 137 |
+| Provenance | 4008 | pio-mainnet-1 |
+| Pythnet | 26 |  |
+| Scroll | 34 | 534352 |
+| SEDA | 4006 |  |
+| Sei | 32 | pacific-1 |
+| Seievm | 40 |  |
+| SNAXchain | 43 | 2192 |
+| Stargaze | 4005 | stargaze-1 |
+| Sui | 21 | 35834a8a |
+| Terra | 3 | columbus-5 |
+| Terra 2.0 | 18 | phoenix-1 |
+| Unichain | 44 |  |
+| World Chain | 45 | 480 |
+| X Layer | 37 | 196 |
+| XPLA | 28 | dimension_37-1 |
+
+=== "Testnet"
+
+    | Ethereum Holesky | 10006 | Holesky-17000 |
+| Ethereum Sepolia | 10002 | Sepolia-11155111 |
+| Solana | 1 | Devnet-EtWTRABZaYq6iMfeYKouRu166VU2xqa1wcaWoxPkrZBG |
+| Acala | 12 | 597 |
+| Algorand | 8 | testnet-v1.0 |
+| Aptos | 22 | 2 |
+| Arbitrum Sepolia | 10003 | Sepolia-421614 |
+| Avalanche | 6 | Fuji-43113 |
+| Base Sepolia | 10004 | Base Sepolia-84532 |
+| Berachain | 39 | 80084 |
+| Blast | 36 | 168587773 |
+| BNB Smart Chain | 4 | 97 |
+| Celestia | 4004 | mocha-4 |
+| Celo | 14 | Alfajores-44787 |
+| Cosmos Hub | 4000 | theta-testnet-001 |
+| Dymension | 4007 |  |
+| Evmos | 4001 | evmos_9000-4 |
+| Fantom | 10 | 4002 |
+| Gnosis | 25 | Chiado-10200 |
+| HyperEVM | 47 | 998 |
+| Injective | 19 | injective-888 |
+| Ink | 46 | 763373 |
+| Kaia | 13 | Kairos-1001 |
+| Karura | 11 | 596 |
+| Kujira | 4002 | harpoon-4 |
+| Linea | 38 | 59141 |
+| Mantle | 35 | Sepolia-5003 |
+| Mezo | 50 | 31611 |
+| Monad | 48 | 10143 |
+| Moonbeam | 16 | Moonbase-Alphanet-1287 |
+| NEAR | 15 | testnet |
+| Neon | 17 | 245022940 |
+| Neutron | 4003 | pion-1 |
+| Noble | 4009 | grand-1 |
+| Oasis | 7 | 42261 |
+| Optimism Sepolia | 10005 | Optimism Sepolia-11155420 |
+| Osmosis | 20 | osmo-test-5 |
+| Polygon Amoy | 10007 | Amoy-80002 |
+| Provenance | 4008 |  |
+| Pythnet | 26 |  |
+| Scroll | 34 | Sepolia-534351 |
+| SEDA | 4006 | seda-1-testnet |
+| Sei | 32 | atlantic-2 |
+| Seievm | 40 |  |
+| SNAXchain | 43 | 13001 |
+| Stargaze | 4005 |  |
+| Sui | 21 | 4c78adac |
+| Terra | 3 | bombay-12 |
+| Terra 2.0 | 18 | pisco-1 |
+| Unichain | 44 | Unichain Sepolia-1301 |
+| World Chain | 45 | 4801 |
+| X Layer | 37 | 195 |
+| XPLA | 28 | cube_47-5 |
+<!--CHAIN_IDS-->
+--- END CONTENT ---
+
+Doc-Content: https://wormhole.com/docs/build/reference/consistency-levels/
+--- BEGIN CONTENT ---
+---
+title: Wormhole Finality | Consistency Levels
+description: This page documents how long to wait for finality before signing, based on each chain’s consistency (finality) level and consensus mechanism.
+categories: Reference
+---
+
+# Wormhole Finality
+
+The following table documents each chain's `consistencyLevel` values (i.e., finality reached before signing). The consistency level defines how long the Guardians should wait before signing a VAA. The finalization time depends on the specific chain's consensus mechanism. The consistency level is a `u8`, so any single byte may be used. However, a small subset has particular meanings. If the `consistencyLevel` isn't one of those specific values, the `Otherwise` column describes how it's interpreted.
+
+<!-- The content in this file is auto-generated. Do not modify this file directly. Please see the README.md in the wormhole-mkdocs/scripts directory to learn how to update this page. -->
+<!--CONSISTENCY_LEVELS-->
+| Ethereum | 200 | 201 |  | finalized | ~ 19min | Details |
+| Solana |  | 0 | 1 |  | ~ 14s | Details |
+| Acala | 200 | 201 |  | finalized | ~ 24s |  |
+| Algorand |  |  | 0 |  | ~ 4s | Details |
+| Aptos |  |  | 0 |  | ~ 4s | Details |
+| Arbitrum | 200 | 201 |  | finalized | ~ 18min | Details |
+| Avalanche | 200 |  |  | finalized | ~ 2s | Details |
+| Base | 200 | 201 |  | finalized | ~ 18min |  |
+| Berachain | 200 |  |  | finalized | ~ 4s |  |
+| Blast | 200 | 201 |  | finalized | ~ 18min |  |
+| BNB Smart Chain | 200 | 201 |  | finalized | ~ 48s | Details |
+| Celestia |  |  | 0 |  | ~ 5s |  |
+| Celo | 200 |  |  | finalized | ~ 10s |  |
+| Cosmos Hub |  |  | 0 |  | ~ 5s |  |
+| Dymension |  |  | 0 |  | ~ 5s |  |
+| Evmos |  |  | 0 |  | ~ 2s |  |
+| Fantom | 200 |  |  | finalized | ~ 5s |  |
+| Injective |  |  | 0 |  | ~ 3s |  |
+| Ink |  |  | 0 |  | ~ 9min |  |
+| Kaia | 200 |  |  | finalized | ~ 1s |  |
+| Karura | 200 | 201 |  | finalized | ~ 24s | Details |
+| Kujira |  |  | 0 |  | ~ 3s |  |
+| Mantle | 200 | 201 |  | finalized | ~ 18min |  |
+| Mezo |  |  | 0 |  | ~ 8s |  |
+| Monad |  |  | 0 |  | ~ 2s |  |
+| Moonbeam | 200 | 201 |  | finalized | ~ 24s | Details |
+| NEAR |  |  | 0 |  | ~ 2s | Details |
+| Neutron |  |  | 0 |  | ~ 5s |  |
+| Oasis | 200 |  |  | finalized | ~ 12s |  |
+| Optimism | 200 | 201 |  | finalized | ~ 18min |  |
+| Osmosis |  |  | 0 |  | ~ 6s |  |
+| Polygon | 200 |  |  | finalized | ~ 66s | Details |
+| Scroll | 200 |  |  | finalized | ~ 16min |  |
+| Sei |  |  | 0 |  | ~ 1s |  |
+| Stargaze |  |  | 0 |  | ~ 5s |  |
+| Sui |  |  | 0 |  | ~ 3s | Details |
+| Terra |  |  | 0 |  | ~ 6s |  |
+| Terra 2.0 |  |  | 0 |  | ~ 6s |  |
+| Unichain | 200 | 201 |  | finalized | ~ 18min |  |
+| World Chain |  |  | 0 |  | ~ 18min |  |
+| X Layer | 200 | 201 |  | finalized | ~ 16min |  |
+| XPLA |  |  | 0 |  | ~ 5s |  |
+<!--CONSISTENCY_LEVELS-->
+--- END CONTENT ---
+
+Doc-Content: https://wormhole.com/docs/build/reference/contract-addresses/
+--- BEGIN CONTENT ---
+---
+title: Contract Addresses
+description: This page documents the deployed contract addresses of the Wormhole contracts on each chain, including Core Contracts, TokenBridge, and more.
+categories: Reference
+---
+
+# Contract Addresses
+
+## Core Contracts
+
+<!-- The content in this file is auto-generated. Do not modify this file directly. Please see the README.md in the wormhole-mkdocs/scripts directory to learn how to update this page. -->
+<!--CORE_ADDRESS-->
+
+=== "Mainnet"
+
+    | Ethereum | 0x98f3c9e6E3fAce36bAAd05FE09d375Ef1464288B |
+| Solana | worm2ZoG2kUd4vFXhvjh93UUH596ayRfgQ2MgjNMTth |
+| Acala | 0xa321448d90d4e5b0A732867c18eA198e75CAC48E |
+| Algorand | 842125965 |
+| Aptos | 0x5bc11445584a763c1fa7ed39081f1b920954da14e04b32440cba863d03e19625 |
+| Arbitrum | 0xa5f208e072434bC67592E4C49C1B991BA79BCA46 |
+| Avalanche | 0x54a8e5f9c4CbA08F9943965859F6c34eAF03E26c |
+| Base | 0xbebdb6C8ddC678FfA9f8748f85C815C556Dd8ac6 |
+| Berachain | 0xCa1D5a146B03f6303baF59e5AD5615ae0b9d146D |
+| Blast | 0xbebdb6C8ddC678FfA9f8748f85C815C556Dd8ac6 |
+| BNB Smart Chain | 0x98f3c9e6E3fAce36bAAd05FE09d375Ef1464288B |
+| Celo | 0xa321448d90d4e5b0A732867c18eA198e75CAC48E |
+| Fantom | 0x126783A6Cb203a3E35344528B26ca3a0489a1485 |
+| Gnosis | 0xa321448d90d4e5b0A732867c18eA198e75CAC48E |
+| Injective | inj17p9rzwnnfxcjp32un9ug7yhhzgtkhvl9l2q74d |
+| Ink | 0xCa1D5a146B03f6303baF59e5AD5615ae0b9d146D |
+| Kaia | 0x0C21603c4f3a6387e241c0091A7EA39E43E90bb7 |
+| Karura | 0xa321448d90d4e5b0A732867c18eA198e75CAC48E |
+| Mantle | 0xbebdb6C8ddC678FfA9f8748f85C815C556Dd8ac6 |
+| Moonbeam | 0xC8e2b0cD52Cf01b0Ce87d389Daa3d414d4cE29f3 |
+| NEAR | contract.wormhole_crypto.near |
+| Neutron | neutron16rerygcpahqcxx5t8vjla46ym8ccn7xz7rtc6ju5ujcd36cmc7zs9zrunh |
+| Oasis | 0xfE8cD454b4A1CA468B57D79c0cc77Ef5B6f64585 |
+| Optimism | 0xEe91C335eab126dF5fDB3797EA9d6aD93aeC9722 |
+| Polygon | 0x7A4B5a56256163F07b2C80A7cA55aBE66c4ec4d7 |
+| Pythnet | H3fxXJ86ADW2PNuDDmZJg6mzTtPxkYCpNuQUTgmJ7AjU |
+| Scroll | 0xbebdb6C8ddC678FfA9f8748f85C815C556Dd8ac6 |
+| Sei | sei1gjrrme22cyha4ht2xapn3f08zzw6z3d4uxx6fyy9zd5dyr3yxgzqqncdqn |
+| SNAXchain | 0xc1BA3CC4bFE724A08FbbFbF64F8db196738665f4 |
+| Sui | 0xaeab97f96cf9877fee2883315d459552b2b921edc16d7ceac6eab944dd88919c |
+| Terra | terra1dq03ugtd40zu9hcgdzrsq6z2z4hwhc9tqk2uy5 |
+| Terra 2.0 | terra12mrnzvhx3rpej6843uge2yyfppfyd3u9c3uq223q8sl48huz9juqffcnhp |
+| Unichain | 0xCa1D5a146B03f6303baF59e5AD5615ae0b9d146D |
+| World Chain | 0xcbcEe4e081464A15d8Ad5f58BB493954421eB506 |
+| X Layer | 0x194B123c5E96B9b2E49763619985790Dc241CAC0 |
+| XPLA | xpla1jn8qmdda5m6f6fqu9qv46rt7ajhklg40ukpqchkejcvy8x7w26cqxamv3w |
+
+=== "Testnet"
+
+    | Ethereum Holesky | 0xa10f2eF61dE1f19f586ab8B6F2EbA89bACE63F7a |
+| Ethereum Sepolia | 0x4a8bc80Ed5a4067f1CCf107057b8270E0cC11A78 |
+| Solana | 3u8hJUVTA4jH1wYAyUur7FFZVQ8H635K3tSHHF4ssjQ5 |
+| Acala | 0x64fb09E405D2043ed7785a29E296C766D56F2056 |
+| Algorand | 86525623 |
+| Aptos | 0x5bc11445584a763c1fa7ed39081f1b920954da14e04b32440cba863d03e19625 |
+| Arbitrum Sepolia | 0x6b9C8671cdDC8dEab9c719bB87cBd3e782bA6a35 |
+| Avalanche | 0x7bbcE28e64B3F8b84d876Ab298393c38ad7aac4C |
+| Base Sepolia | 0x79A1027a6A159502049F10906D333EC57E95F083 |
+| Berachain | 0xBB73cB66C26740F31d1FabDC6b7A46a038A300dd |
+| Blast | 0x473e002D7add6fB67a4964F13bFd61280Ca46886 |
+| BNB Smart Chain | 0x68605AD7b15c732a30b1BbC62BE8F2A509D74b4D |
+| Celo | 0x88505117CA88e7dd2eC6EA1E13f0948db2D50D56 |
+| Fantom | 0x1BB3B4119b7BA9dfad76B0545fb3F531383c3bB7 |
+| Gnosis | 0xBB73cB66C26740F31d1FabDC6b7A46a038A300dd |
+| HyperEVM | 0xBB73cB66C26740F31d1FabDC6b7A46a038A300dd |
+| Injective | inj1xx3aupmgv3ce537c0yce8zzd3sz567syuyedpg |
+| Ink | 0xBB73cB66C26740F31d1FabDC6b7A46a038A300dd |
+| Kaia | 0x1830CC6eE66c84D2F177B94D544967c774E624cA |
+| Karura | 0x64fb09E405D2043ed7785a29E296C766D56F2056 |
+| Linea | 0x79A1027a6A159502049F10906D333EC57E95F083 |
+| Mantle | 0x376428e7f26D5867e69201b275553C45B09EE090 |
+| Mezo | 0x268557122Ffd64c85750d630b716471118F323c8 |
+| Monad | 0xBB73cB66C26740F31d1FabDC6b7A46a038A300dd |
+| Moonbeam | 0xa5B7D85a8f27dd7907dc8FdC21FA5657D5E2F901 |
+| NEAR | wormhole.wormhole.testnet |
+| Neon | 0x268557122Ffd64c85750d630b716471118F323c8 |
+| Neutron | neutron1enf63k37nnv9cugggpm06mg70emcnxgj9p64v2s8yx7a2yhhzk2q6xesk4 |
+| Oasis | 0xc1C338397ffA53a2Eb12A7038b4eeb34791F8aCb |
+| Optimism Sepolia | 0x31377888146f3253211EFEf5c676D41ECe7D58Fe |
+| Osmosis | osmo1hggkxr0hpw83f8vuft7ruvmmamsxmwk2hzz6nytdkzyup9krt0dq27sgyx |
+| Polygon Amoy | 0x6b9C8671cdDC8dEab9c719bB87cBd3e782bA6a35 |
+| Pythnet | EUrRARh92Cdc54xrDn6qzaqjA77NRrCcfbr8kPwoTL4z |
+| Scroll | 0x055F47F1250012C6B20c436570a76e52c17Af2D5 |
+| Sei | sei1nna9mzp274djrgzhzkac2gvm3j27l402s4xzr08chq57pjsupqnqaj0d5s |
+| Seievm | 0xBB73cB66C26740F31d1FabDC6b7A46a038A300dd |
+| SNAXchain | 0xBB73cB66C26740F31d1FabDC6b7A46a038A300dd |
+| Sui | 0x31358d198147da50db32eda2562951d53973a0c0ad5ed738e9b17d88b213d790 |
+| Terra | terra1pd65m0q9tl3v8znnz5f5ltsfegyzah7g42cx5v |
+| Terra 2.0 | terra19nv3xr5lrmmr7egvrk2kqgw4kcn43xrtd5g0mpgwwvhetusk4k7s66jyv0 |
+| Unichain | 0xBB73cB66C26740F31d1FabDC6b7A46a038A300dd |
+| World Chain | 0xe5E02cD12B6FcA153b0d7fF4bF55730AE7B3C93A |
+| X Layer | 0xA31aa3FDb7aF7Db93d18DDA4e19F811342EDF780 |
+| XPLA | xpla1upkjn4mthr0047kahvn0llqx4qpqfn75lnph4jpxfn8walmm8mqsanyy35 |
+
+=== "Devnet"
+
+    | Ethereum | 0xC89Ce4735882C9F0f0FE26686c53074E09B0D550 |
+| Solana | Bridge1p5gheXUvJ6jGWGeCsgPKgnE3YgdGKRVCMY9o |
+| Algorand | 1004 |
+| Aptos | 0xde0036a9600559e295d5f6802ef6f3f802f510366e0c23912b0655d972166017 |
+| BNB Smart Chain | 0xC89Ce4735882C9F0f0FE26686c53074E09B0D550 |
+| NEAR | wormhole.test.near |
+| Sui | 0x5a5160ca3c2037f4b4051344096ef7a48ebf4400b3f385e57ea90e1628a8bde0 |
+| Terra | terra14hj2tavq8fpesdwxxcu44rty3hh90vhujrvcmstl4zr3txmfvw9ssrc8au |
+| Terra 2.0 | terra14hj2tavq8fpesdwxxcu44rty3hh90vhujrvcmstl4zr3txmfvw9ssrc8au |
+<!--CORE_ADDRESS-->
+
+## Token Bridge
+
+<!-- The content in this file is auto-generated. Do not modify this file directly. Please see the README.md in the wormhole-mkdocs/scripts directory to learn how to update this page. -->
+<!--TOKEN_BRIDGE_ADDRESS-->
+
+=== "Mainnet"
+
+    | Ethereum | 0x3ee18B2214AFF97000D974cf647E7C347E8fa585 |
+| Solana | wormDTUJ6AWPNvk59vGQbDvGJmqbDTdgWgAqcLBCgUb |
+| Acala | 0xae9d7fe007b3327AA64A32824Aaac52C42a6E624 |
+| Algorand | 842126029 |
+| Aptos | 0x576410486a2da45eee6c949c995670112ddf2fbeedab20350d506328eefc9d4f |
+| Arbitrum | 0x0b2402144Bb366A632D14B83F244D2e0e21bD39c |
+| Avalanche | 0x0e082F06FF657D94310cB8cE8B0D9a04541d8052 |
+| Base | 0x8d2de8d2f73F1F4cAB472AC9A881C9b123C79627 |
+| Berachain | 0x3Ff72741fd67D6AD0668d93B41a09248F4700560 |
+| Blast | 0x24850c6f61C438823F01B7A3BF2B89B72174Fa9d |
+| BNB Smart Chain | 0xB6F6D86a8f9879A9c87f643768d9efc38c1Da6E7 |
+| Celo | 0x796Dff6D74F3E27060B71255Fe517BFb23C93eed |
+| Fantom | 0x7C9Fc5741288cDFdD83CeB07f3ea7e22618D79D2 |
+| Injective | inj1ghd753shjuwexxywmgs4xz7x2q732vcnxxynfn |
+| Ink | 0x3Ff72741fd67D6AD0668d93B41a09248F4700560 |
+| Kaia | 0x5b08ac39EAED75c0439FC750d9FE7E1F9dD0193F |
+| Karura | 0xae9d7fe007b3327AA64A32824Aaac52C42a6E624 |
+| Mantle | 0x24850c6f61C438823F01B7A3BF2B89B72174Fa9d |
+| Moonbeam | 0xb1731c586ca89a23809861c6103f0b96b3f57d92 |
+| NEAR | contract.portalbridge.near |
+| Oasis | 0x5848C791e09901b40A9Ef749f2a6735b418d7564 |
+| Optimism | 0x1D68124e65faFC907325e3EDbF8c4d84499DAa8b |
+| Polygon | 0x5a58505a96D1dbf8dF91cB21B54419FC36e93fdE |
+| Scroll | 0x24850c6f61C438823F01B7A3BF2B89B72174Fa9d |
+| Sei | sei1smzlm9t79kur392nu9egl8p8je9j92q4gzguewj56a05kyxxra0qy0nuf3 |
+| SNAXchain | 0x8B94bfE456B48a6025b92E11Be393BAa86e68410 |
+| Sui | 0xc57508ee0d4595e5a8728974a4a93a787d38f339757230d441e895422c07aba9 |
+| Terra | terra10nmmwe8r3g99a9newtqa7a75xfgs2e8z87r2sf |
+| Terra 2.0 | terra153366q50k7t8nn7gec00hg66crnhkdggpgdtaxltaq6xrutkkz3s992fw9 |
+| Unichain | 0x3Ff72741fd67D6AD0668d93B41a09248F4700560 |
+| World Chain | 0xc309275443519adca74c9136b02A38eF96E3a1f6 |
+| X Layer | 0x5537857664B0f9eFe38C9f320F75fEf23234D904 |
+| XPLA | xpla137w0wfch2dfmz7jl2ap8pcmswasj8kg06ay4dtjzw7tzkn77ufxqfw7acv |
+
+=== "Testnet"
+
+    | Ethereum Holesky | 0x76d093BbaE4529a342080546cAFEec4AcbA59EC6 |
+| Ethereum Sepolia | 0xDB5492265f6038831E89f495670FF909aDe94bd9 |
+| Solana | DZnkkTmCiFWfYTfT41X3Rd1kDgozqzxWaHqsw6W4x2oe |
+| Acala | 0xe157115ef34c93145Fec2FE53706846853B07F42 |
+| Algorand | 86525641 |
+| Aptos | 0x576410486a2da45eee6c949c995670112ddf2fbeedab20350d506328eefc9d4f |
+| Arbitrum Sepolia | 0xC7A204bDBFe983FCD8d8E61D02b475D4073fF97e |
+| Avalanche | 0x61E44E506Ca5659E6c0bba9b678586fA2d729756 |
+| Base Sepolia | 0x86F55A04690fd7815A3D802bD587e83eA888B239 |
+| Berachain | 0xa10f2eF61dE1f19f586ab8B6F2EbA89bACE63F7a |
+| Blast | 0x430855B4D43b8AEB9D2B9869B74d58dda79C0dB2 |
+| BNB Smart Chain | 0x9dcF9D205C9De35334D646BeE44b2D2859712A09 |
+| Celo | 0x05ca6037eC51F8b712eD2E6Fa72219FEaE74E153 |
+| Fantom | 0x599CEa2204B4FaECd584Ab1F2b6aCA137a0afbE8 |
+| HyperEVM | 0x4a8bc80Ed5a4067f1CCf107057b8270E0cC11A78 |
+| Injective | inj1q0e70vhrv063eah90mu97sazhywmeegp7myvnh |
+| Ink | 0x376428e7f26D5867e69201b275553C45B09EE090 |
+| Kaia | 0xC7A13BE098720840dEa132D860fDfa030884b09A |
+| Karura | 0xe157115ef34c93145Fec2FE53706846853B07F42 |
+| Linea | 0xC7A204bDBFe983FCD8d8E61D02b475D4073fF97e |
+| Mantle | 0x75Bfa155a9D7A3714b0861c8a8aF0C4633c45b5D |
+| Mezo | 0xA31aa3FDb7aF7Db93d18DDA4e19F811342EDF780 |
+| Monad | 0xF323dcDe4d33efe83cf455F78F9F6cc656e6B659 |
+| Moonbeam | 0xbc976D4b9D57E57c3cA52e1Fd136C45FF7955A96 |
+| NEAR | token.wormhole.testnet |
+| Neon | 0xEe3dB83916Ccdc3593b734F7F2d16D630F39F1D0 |
+| Oasis | 0x88d8004A9BdbfD9D28090A02010C19897a29605c |
+| Optimism Sepolia | 0x99737Ec4B815d816c49A385943baf0380e75c0Ac |
+| Polygon Amoy | 0xC7A204bDBFe983FCD8d8E61D02b475D4073fF97e |
+| Scroll | 0x22427d90B7dA3fA4642F7025A854c7254E4e45BF |
+| Sei | sei1jv5xw094mclanxt5emammy875qelf3v62u4tl4lp5nhte3w3s9ts9w9az2 |
+| Seievm | 0x23908A62110e21C04F3A4e011d24F901F911744A |
+| SNAXchain | 0xa10f2eF61dE1f19f586ab8B6F2EbA89bACE63F7a |
+| Sui | 0x6fb10cdb7aa299e9a4308752dadecb049ff55a892de92992a1edbd7912b3d6da |
+| Terra | terra1pseddrv0yfsn76u4zxrjmtf45kdlmalswdv39a |
+| Terra 2.0 | terra1c02vds4uhgtrmcw7ldlg75zumdqxr8hwf7npseuf2h58jzhpgjxsgmwkvk |
+| Unichain | 0xa10f2eF61dE1f19f586ab8B6F2EbA89bACE63F7a |
+| World Chain | 0x430855B4D43b8AEB9D2B9869B74d58dda79C0dB2 |
+| X Layer | 0xdA91a06299BBF302091B053c6B9EF86Eff0f930D |
+| XPLA | xpla1kek6zgdaxcsu35nqfsyvs2t9vs87dqkkq6hjdgczacysjn67vt8sern93x |
+
+=== "Devnet"
+
+    | Ethereum | 0x0290FB167208Af455bB137780163b7B7a9a10C16 |
+| Solana | B6RHG3mfcckmrYN1UhmJzyS1XX3fZKbkeUcpJe9Sy3FE |
+| Algorand | 1006 |
+| Aptos | 0x84a5f374d29fc77e370014dce4fd6a55b58ad608de8074b0be5571701724da31 |
+| BNB Smart Chain | 0x0290FB167208Af455bB137780163b7B7a9a10C16 |
+| NEAR | token.test.near |
+| Sui | 0xa6a3da85bbe05da5bfd953708d56f1a3a023e7fb58e5a824a3d4de3791e8f690 |
+| Terra | terra1nc5tatafv6eyq7llkr2gv50ff9e22mnf70qgjlv737ktmt4eswrquka9l6 |
+| Terra 2.0 | terra1nc5tatafv6eyq7llkr2gv50ff9e22mnf70qgjlv737ktmt4eswrquka9l6 |
+<!--TOKEN_BRIDGE_ADDRESS-->
+
+## Wormhole Relayer
+
+<!-- The content in this file is auto-generated. Do not modify this file directly. Please see the README.md in the wormhole-mkdocs/scripts directory to learn how to update this page. -->
+<!--RELAYER_BRIDGE_ADDRESS-->
+
+=== "Mainnet"
+
+    | Ethereum | 0x27428DD2d3DD32A4D7f7C497eAaa23130d894911 |
+| Arbitrum | 0x27428DD2d3DD32A4D7f7C497eAaa23130d894911 |
+| Avalanche | 0x27428DD2d3DD32A4D7f7C497eAaa23130d894911 |
+| Base | 0x706f82e9bb5b0813501714ab5974216704980e31 |
+| Berachain | 0x27428DD2d3DD32A4D7f7C497eAaa23130d894911 |
+| Blast | 0x27428DD2d3DD32A4D7f7C497eAaa23130d894911 |
+| BNB Smart Chain | 0x27428DD2d3DD32A4D7f7C497eAaa23130d894911 |
+| Celo | 0x27428DD2d3DD32A4D7f7C497eAaa23130d894911 |
+| Fantom | 0x27428DD2d3DD32A4D7f7C497eAaa23130d894911 |
+| Ink | 0x27428DD2d3DD32A4D7f7C497eAaa23130d894911 |
+| Kaia | 0x27428DD2d3DD32A4D7f7C497eAaa23130d894911 |
+| Mantle | 0x27428DD2d3DD32A4D7f7C497eAaa23130d894911 |
+| Moonbeam | 0x27428DD2d3DD32A4D7f7C497eAaa23130d894911 |
+| Optimism | 0x27428DD2d3DD32A4D7f7C497eAaa23130d894911 |
+| Polygon | 0x27428DD2d3DD32A4D7f7C497eAaa23130d894911 |
+| Scroll | 0x27428DD2d3DD32A4D7f7C497eAaa23130d894911 |
+| SNAXchain | 0x27428DD2d3DD32A4D7f7C497eAaa23130d894911 |
+| Unichain | 0x27428DD2d3DD32A4D7f7C497eAaa23130d894911 |
+| World Chain | 0x1520cc9e779c56dab5866bebfb885c86840c33d3 |
+| X Layer | 0x27428DD2d3DD32A4D7f7C497eAaa23130d894911 |
+
+=== "Testnet"
+
+    | Ethereum Sepolia | 0x7B1bD7a6b4E61c2a123AC6BC2cbfC614437D0470 |
+| Arbitrum Sepolia | 0x7B1bD7a6b4E61c2a123AC6BC2cbfC614437D0470 |
+| Avalanche | 0xA3cF45939bD6260bcFe3D66bc73d60f19e49a8BB |
+| Base Sepolia | 0x93BAD53DDfB6132b0aC8E37f6029163E63372cEE |
+| Berachain | 0x362fca37E45fe1096b42021b543f462D49a5C8df |
+| BNB Smart Chain | 0x80aC94316391752A193C1c47E27D382b507c93F3 |
+| Celo | 0x306B68267Deb7c5DfCDa3619E22E9Ca39C374f84 |
+| Fantom | 0x7B1bD7a6b4E61c2a123AC6BC2cbfC614437D0470 |
+| Ink | 0x362fca37E45fe1096b42021b543f462D49a5C8df |
+| Monad | 0x362fca37E45fe1096b42021b543f462D49a5C8df |
+| Moonbeam | 0x0591C25ebd0580E0d4F27A82Fc2e24E7489CB5e0 |
+| Optimism Sepolia | 0x93BAD53DDfB6132b0aC8E37f6029163E63372cEE |
+| Seievm | 0x362fca37E45fe1096b42021b543f462D49a5C8df |
+| Unichain | 0x362fca37E45fe1096b42021b543f462D49a5C8df |
+
+=== "Devnet"
+
+    | Ethereum | 0xcC680D088586c09c3E0E099a676FA4b6e42467b4 |
+| BNB Smart Chain | 0xcC680D088586c09c3E0E099a676FA4b6e42467b4 |
+<!--RELAYER_BRIDGE_ADDRESS-->
+
+## CCTP
+
+<!-- The content in this file is auto-generated. Do not modify this file directly. Please see the README.md in the wormhole-mkdocs/scripts directory to learn how to update this page. -->
+<!--CCTP_ADDRESS-->
+
+=== "Mainnet"
+
+    | Ethereum | 0xAaDA05BD399372f0b0463744C09113c137636f6a |
+| Arbitrum | 0x2703483B1a5a7c577e8680de9Df8Be03c6f30e3c |
+| Avalanche | 0x09Fb06A271faFf70A651047395AaEb6265265F13 |
+| Base | 0x03faBB06Fa052557143dC28eFCFc63FC12843f1D |
+| Optimism | 0x2703483B1a5a7c577e8680de9Df8Be03c6f30e3c |
+| Polygon | 0x0FF28217dCc90372345954563486528aa865cDd6 |
+
+=== "Testnet"
+
+    | Ethereum Sepolia | 0x2703483B1a5a7c577e8680de9Df8Be03c6f30e3c |
+| Arbitrum Sepolia | 0x2703483B1a5a7c577e8680de9Df8Be03c6f30e3c |
+| Avalanche | 0x58f4c17449c90665891c42e14d34aae7a26a472e |
+| Base Sepolia | 0x2703483B1a5a7c577e8680de9Df8Be03c6f30e3c |
+| Optimism Sepolia | 0x2703483B1a5a7c577e8680de9Df8Be03c6f30e3c |
+
+=== "Devnet"
+
+    N/A
+  
+<!--CCTP_ADDRESS-->
+
+## Read-Only Deployments
+
+=== "Mainnet"
+
+    | Corn | 0xa683c66045ad16abb1bCE5ad46A64d95f9A25785 |
+| Gnosis | 0xa321448d90d4e5b0A732867c18eA198e75CAC48E |
+| Goat | 0x352A86168e6988A1aDF9A15Cb00017AAd3B67155 |
+| LightLink | 0x352A86168e6988A1aDF9A15Cb00017AAd3B67155 |
+| Rootstock | 0xbebdb6C8ddC678FfA9f8748f85C815C556Dd8ac6 |
+| Sonic | 0x352A86168e6988A1aDF9A15Cb00017AAd3B67155 |
+| Telos | 0x352A86168e6988A1aDF9A15Cb00017AAd3B67155 |
+
+!!!note  
+    Read-only deployments allow Wormhole messages to be received on chains not fully integrated with Wormhole Guardians. These deployments support cross-chain data verification but cannot originate messages. For example, a governance message can be sent from a fully integrated chain and processed on a read-only chain, but the read-only chain cannot send messages back.
+--- END CONTENT ---
+
+Doc-Content: https://wormhole.com/docs/build/reference/wormhole-formatted-addresses/
+--- BEGIN CONTENT ---
+---
+title: Wormhole Formatted Addresses
+description: Explanation of Wormhole formatted 32-byte hex addresses, their conversion, and usage across different blockchain platforms.
+categories: Reference
+---
+
+# Wormhole Formatted Addresses
+
+## Introduction
+
+Wormhole formatted addresses are 32-byte hex representations of addresses from any supported blockchain. Whether an address originates from EVM, Solana, Cosmos, or another ecosystem, Wormhole standardizes all addresses into this format to ensure cross-chain compatibility.
+
+This uniform format is essential for smooth interoperability in token transfers and messaging across chains. Wormhole uses formatted addresses throughout the [Wormhole SDK](https://github.com/wormhole-foundation/wormhole-sdk-ts){target=\_blank}, especially in cross-chain transactions, such as transfer functions that utilize the `bytes32` representation for recipient addresses.
+
+## Platform-Specific Address Formats
+
+Each blockchain ecosystem Wormhole supports has its method for formatting native addresses. To enable cross-chain compatibility, Wormhole converts these native addresses into the standardized 32-byte hex format.
+
+Here’s an overview of the native address formats and how they are normalized to the Wormhole format:
+
+| Platform        | Native Address Format            | Wormhole Formatted Address |
+|-----------------|----------------------------------|----------------------------|
+| EVM             |  Hex (e.g., 0x...)               |  32-byte Hex               |
+| Solana          |  Base58                          |  32-byte Hex               |
+| CosmWasm        |  Bech32                          |  32-byte Hex               |
+| Algorand        |  Algorand App ID                 |  32-byte Hex               |
+| Sui             |  Hex                             |  32-byte Hex               |
+| Aptos           |  Hex                             |  32-byte Hex               |
+| Near            |  SHA-256                         |  32-byte Hex               |
+
+These conversions allow Wormhole to interact seamlessly with various chains using a uniform format for all addresses.
+
+### Address Format Handling
+
+The Wormhole SDK provides mappings that associate each platform with its native address format. You can find this mapping in the Wormhole SDK file [`platforms.ts`](https://github.com/wormhole-foundation/wormhole-sdk-ts/blob/007f61b27c650c1cf0fada2436f79940dfa4f211/core/base/src/constants/platforms.ts#L93-L102){target=\_blank}:
+
+```typescript
+const platformAddressFormatEntries = [
+  ['Evm', 'hex'],
+  ['Solana', 'base58'],
+  ['Cosmwasm', 'bech32'],
+  ['Algorand', 'algorandAppId'],
+  ['Sui', 'hex'],
+  ['Aptos', 'hex'],
+  ['Near', 'sha256'],
+];
+```
+
+These entries define how the [`UniversalAddress`](https://github.com/wormhole-foundation/wormhole-sdk-ts/blob/007f61b27c650c1cf0fada2436f79940dfa4f211/core/definitions/src/universalAddress.ts#L23){target=\_blank} class handles different address formats based on the platform.
+
+## Universal Address Methods
+
+The `UniversalAddress` class is essential for working with Wormhole formatted addresses. It converts native blockchain addresses into the standardized 32-byte hex format used across Wormhole operations.
+
+Key functions:
+
+ - **`new UniversalAddress()`** - use the `UniversalAddress` constructor to convert native addresses into the Wormhole format
+
+    ```typescript
+    const universalAddress = new UniversalAddress('0x123...', 'hex');
+    ```
+
+ - **`toUniversalAddress()`** - converts a platform-specific address into the Wormhole formatted 32-byte hex address
+
+    ```typescript
+    const ethAddress: NativeAddress<'Evm'> = toNative('Ethereum', '0x0C9...');
+    const universalAddress = ethAddress.toUniversalAddress().toString();
+    ```
+
+ - **`toNative()`** - converts the Wormhole formatted address back to a native address for a specific blockchain platform
+
+    ```typescript
+    const nativeAddress = universalAddress.toNative('Evm');
+    ```
+
+ - **`toString()`** - returns the Wormhole formatted address as a hex string, which can be used in various SDK operations
+
+    ```typescript
+    console.log(universalAddress.toString());
+    ```
+
+These methods allow developers to convert between native addresses and the Wormhole format, ensuring cross-chain compatibility.
+
+## Convert Between Native and Wormhole Formatted Addresses
+
+The Wormhole SDK allows developers to easily convert between native addresses and Wormhole formatted addresses when building cross-chain applications.
+
+### Convert a Native Address to a Wormhole Formatted Address
+
+Example conversions for EVM and Solana:
+
+=== "EVM"
+
+    ```typescript
+    import { toNative } from '@wormhole-foundation/sdk-core';
+
+const ethAddress: NativeAddress&lt;'Evm'&gt; = toNative(
+  'Ethereum',
+  '0x0C99567DC6f8f1864cafb580797b4B56944EEd28'
+);
+const universalAddress = ethAddress.toUniversalAddress().toString();
+console.log('Universal Address (EVM):', universalAddress);
+    ```
+
+=== "Solana"
+
+    ```typescript
+    import { toNative } from '@wormhole-foundation/sdk-core';
+
+const solAddress: NativeAddress&lt;'Solana'&gt; = toNative(
+  'Solana',
+  '6zZHv9EiqQYcdg52ueADRY6NbCXa37VKPngEHaokZq5J'
+);
+const universalAddressSol = solAddress.toUniversalAddress().toString();
+console.log('Universal Address (Solana):', universalAddressSol);
+    ```
+
+The result is a standardized address format that is ready for cross-chain operations.
+
+### Convert Back to Native Addresses
+
+Below is how you can convert a Wormhole formatted address back to an EVM or Solana native address:
+
+```typescript
+const nativeAddressEvm = universalAddress.toNative('Evm');
+console.log('EVM Native Address:', nativeAddressEvm);
+
+const nativeAddressSolana = universalAddress.toNative('Solana');
+console.log('Solana Native Address:', nativeAddressSolana);
+```
+
+These conversions ensure that your cross-chain applications can seamlessly handle addresses across different ecosystems.
+
+## Use Cases for Wormhole Formatted Addresses
+
+### Cross-chain Token Transfers
+
+Cross-chain token transfers require addresses to be converted into a standard format. For example, when transferring tokens from Ethereum to Solana, the Ethereum address is converted into a Wormhole formatted address to ensure compatibility. After the transfer, the Wormhole formatted address is converted back into the Solana native format.
+
+### Smart Contract Interactions
+
+In smart contract interactions, especially when building dApps that communicate across multiple chains, Wormhole formatted addresses provide a uniform way to reference addresses. This ensures that addresses from different blockchains can interact seamlessly, whether you're sending messages or making cross-chain contract calls.
+
+### DApp Development
+
+For cross-chain dApp development, Wormhole formatted addresses simplify handling user wallet addresses across various blockchains. This allows developers to manage addresses consistently, regardless of whether they work with EVM, Solana, or another supported platform.
+
+### Relayers and Infrastructure
+
+Finally, relayers and infrastructure components, such as Wormhole Guardians, rely on the standardized format to efficiently process and relay cross-chain messages. A uniform address format simplifies operations, ensuring smooth interoperability across multiple blockchains.
+--- END CONTENT ---
+
+Doc-Content: https://wormhole.com/docs/build/start-building/supported-networks/
+--- BEGIN CONTENT ---
+---
+title: Supported Networks
+description: Learn about the compatible environments and individual networks that Wormhole supports. Readers can click on each of the blockchain logos for more information.
+categories: Reference
+---
+
+# Supported Networks
+
+Wormhole supports several different blockchains and environments. Since many of the concepts for using Wormhole within a given blockchain environment are the same, this section is organized by environment, and individual chains are detailed within the environment page.
+
+## Supported Environments
+
+- [EVM (Ethereum and compatible chains)](#evm)
+- [SVM (Solana and compatible chains)](#svm)
+- [CosmWasm (Cosmos ecosystem chains)](#cosmwasm)
+- [AVM (Algorand)](#avm)
+- [NEAR VM (NEAR)](#near-vm)
+- [Move VM (Aptos)](#move-vm)
+- [Sui Move VM (Sui)](#sui-move-vm)
+
+## Supported Blockchains by Environment
+
+<!-- The content in this file is auto-generated. Do not modify this file directly. Please see the README.md in the wormhole-mkdocs/scripts directory to learn how to update this page. -->
+<!--SUPPORTED_BLOCKCHAIN_CARDS-->
+<div class="full-width" markdown="">
+
+### EVM
+
+| Ethereum | EVM | :white_check_mark: | :white_check_mark: | :material-web:Website:material-file-document:Developer Docs:octicons-package-16:Block Explorer |
+| Acala | EVM | :white_check_mark: | :white_check_mark: | :material-web:Website:material-file-document:Developer Docs:octicons-package-16:Block Explorer |
+| Arbitrum | EVM | :white_check_mark: | :white_check_mark: | :material-web:Website:material-file-document:Developer Docs:octicons-package-16:Block Explorer |
+| Avalanche | EVM | :white_check_mark: | :white_check_mark: | :material-web:Website:material-file-document:Developer Docs:octicons-package-16:Block Explorer |
+| Base | EVM | :white_check_mark: | :white_check_mark: | :material-web:Website:material-file-document:Developer Docs:octicons-package-16:Block Explorer |
+| Berachain | EVM | :white_check_mark: | :white_check_mark: | :material-web:Website:material-file-document:Developer Docs:octicons-package-16:Block Explorer |
+| Blast | EVM | :white_check_mark: | :white_check_mark: | :material-web:Website:material-file-document:Developer Docs:octicons-package-16:Block Explorer |
+| BNB Smart Chain | EVM | :white_check_mark: | :white_check_mark: | :material-web:Website:material-file-document:Developer Docs:octicons-package-16:Block Explorer |
+| Celo | EVM | :white_check_mark: | :white_check_mark: | :material-web:Website:material-file-document:Developer Docs:octicons-package-16:Block Explorer |
+| Fantom | EVM | :white_check_mark: | :white_check_mark: | :material-web:Website:material-file-document:Developer Docs:octicons-package-16:Block Explorer |
+| Gnosis | EVM | :white_check_mark: | :white_check_mark: | :material-web:Website:material-file-document:Developer Docs:octicons-package-16:Block Explorer |
+| HyperEVM | EVM | :x: | :white_check_mark: | :material-web:Website:material-file-document:Developer Docs |
+| Ink | EVM | :white_check_mark: | :white_check_mark: | :material-web:Website:material-file-document:Developer Docs:octicons-package-16:Block Explorer |
+| Kaia | EVM | :white_check_mark: | :white_check_mark: | :material-web:Website:material-file-document:Developer Docs:octicons-package-16:Block Explorer |
+| Karura | EVM | :white_check_mark: | :white_check_mark: | :material-web:Website:material-file-document:Developer Docs |
+| Linea | EVM | :x: | :white_check_mark: | :material-web:Website:material-file-document:Developer Docs:octicons-package-16:Block Explorer |
+| Mantle | EVM | :white_check_mark: | :white_check_mark: | :material-web:Website:material-file-document:Developer Docs:octicons-package-16:Block Explorer |
+| Mezo | EVM | :x: | :white_check_mark: | :material-web:Website:material-file-document:Developer Docs:octicons-package-16:Block Explorer |
+| Monad | EVM | :x: | :white_check_mark: | :material-web:Website:material-file-document:Developer Docs:octicons-package-16:Block Explorer |
+| Moonbeam | EVM | :white_check_mark: | :white_check_mark: | :material-web:Website:material-file-document:Developer Docs:octicons-package-16:Block Explorer |
+| Neon | EVM | :x: | :white_check_mark: | :material-web:Website:material-file-document:Developer Docs:octicons-package-16:Block Explorer |
+| Oasis | EVM | :white_check_mark: | :white_check_mark: | :material-web:Website:material-file-document:Developer Docs:octicons-package-16:Block Explorer |
+| Optimism | EVM | :white_check_mark: | :white_check_mark: | :material-web:Website:material-file-document:Developer Docs:octicons-package-16:Block Explorer |
+| Polygon | EVM | :white_check_mark: | :white_check_mark: | :material-web:Website:material-file-document:Developer Docs:octicons-package-16:Block Explorer |
+| Scroll | EVM | :white_check_mark: | :white_check_mark: | :material-web:Website:material-file-document:Developer Docs:octicons-package-16:Block Explorer |
+| Seievm | EVM | :x: | :white_check_mark: |  |
+| SNAXchain | EVM | :white_check_mark: | :white_check_mark: | :material-web:Website:material-file-document:Developer Docs:octicons-package-16:Block Explorer |
+| Unichain | EVM | :white_check_mark: | :white_check_mark: | :material-web:Website:material-file-document:Developer Docs:octicons-package-16:Block Explorer |
+| World Chain | EVM | :white_check_mark: | :white_check_mark: | :material-web:Website:material-file-document:Developer Docs:octicons-package-16:Block Explorer |
+| X Layer | EVM | :white_check_mark: | :white_check_mark: | :material-web:Website:material-file-document:Developer Docs:octicons-package-16:Block Explorer |
+
+### SVM
+
+| Solana | SVM | :white_check_mark: | :white_check_mark: | :material-web:Website:material-file-document:Developer Docs:octicons-package-16:Block Explorer |
+| Pythnet | SVM | :white_check_mark: | :white_check_mark: | :material-web:Website:material-file-document:Developer Docs:octicons-package-16:Block Explorer |
+
+### AVM
+
+| Algorand | AVM | :white_check_mark: | :white_check_mark: | :material-web:Website:material-file-document:Developer Docs:octicons-package-16:Block Explorer |
+
+### CosmWasm
+
+| Injective | CosmWasm | :white_check_mark: | :white_check_mark: | :material-web:Website:material-file-document:Developer Docs:octicons-package-16:Block Explorer |
+| Neutron | CosmWasm | :white_check_mark: | :white_check_mark: | :material-web:Website:material-file-document:Developer Docs:octicons-package-16:Block Explorer |
+| Osmosis | CosmWasm | :x: | :white_check_mark: | :material-web:Website:material-file-document:Developer Docs:octicons-package-16:Block Explorer |
+| Sei | CosmWasm | :white_check_mark: | :white_check_mark: | :material-web:Website:material-file-document:Developer Docs:octicons-package-16:Block Explorer |
+| Terra | CosmWasm | :white_check_mark: | :white_check_mark: | :material-web:Website:material-file-document:Developer Docs:octicons-package-16:Block Explorer |
+| Terra 2.0 | CosmWasm | :white_check_mark: | :white_check_mark: | :material-web:Website:material-file-document:Developer Docs:octicons-package-16:Block Explorer |
+| XPLA | CosmWasm | :white_check_mark: | :white_check_mark: | :material-web:Website:material-file-document:Developer Docs:octicons-package-16:Block Explorer |
+
+### Move VM
+
+| Aptos | Move VM | :white_check_mark: | :white_check_mark: | :material-web:Website:material-file-document:Developer Docs:octicons-package-16:Block Explorer |
+
+### NEAR VM
+
+| NEAR | NEAR VM | :white_check_mark: | :white_check_mark: | :material-web:Website:material-file-document:Developer Docs:octicons-package-16:Block Explorer |
+
+### Sui Move VM
+
+| Sui | Sui Move VM | :white_check_mark: | :white_check_mark: | :material-web:Website:material-file-document:Developer Docs:octicons-package-16:Block Explorer |
+</div>
+<!--SUPPORTED_BLOCKCHAIN_CARDS-->
+--- END CONTENT ---
+
+Doc-Content: https://wormhole.com/docs/build/start-building/testnet-faucets/
+--- BEGIN CONTENT ---
+---
+title: Testnet Faucets
+description: This page includes resources to quickly find the Testnet tokens you need to deploy and test applications and contracts on Wormhole's supported networks.
+categories: Reference
+---
+
+# Testnet Faucets
+
+## Get Started
+
+Don't let the need for testnet tokens get in the way of buildling your next great idea with Wormhole. Use this guide to quickly locate the testnet token faucets you need to deploy and test applications and contracts on Wormhole's supported networks.
+
+<!-- The content in this file is auto-generated. Do not modify this file directly. Please see the README.md in the wormhole-mkdocs/scripts directory to learn how to update this page. -->
+<!--TESTNET_FAUCETS-->
+<div class="full-width" markdown="">
+
+### EVM
+
+| Ethereum Holesky | EVM | ETH | Alchemy Faucet |
+| Ethereum Sepolia | EVM | ETH | Alchemy Faucet |
+| Acala | EVM | ACA | Discord Faucet |
+| Arbitrum Sepolia | EVM | ETH | List of Faucets |
+| Avalanche | EVM | AVAX | Official Avalanche Faucet |
+| Base Sepolia | EVM | ETH | List of Faucets |
+| Berachain | EVM | BERA | Official Berachain Faucet |
+| Blast | EVM | ETH | List of Faucets |
+| BNB Smart Chain | EVM | BNB | Official BNB Faucet |
+| Celo | EVM | CELO | Official Celo Faucet |
+| Fantom | EVM | FTM | Official Fantom Faucet |
+| Gnosis | EVM | xDAI | Official Gnosis Faucet |
+| HyperEVM | EVM | mock USDC | Official Hyperliquid Faucet |
+| Ink | EVM | ETH | Official Ink Faucet |
+| Kaia | EVM | KAIA | Official Kaia Faucet |
+| Karura | EVM | ACA | Discord Faucet |
+| Linea | EVM | ETH | List of Faucets |
+| Mantle | EVM | MNT | Official Mantle Faucet |
+| Monad | EVM | MON | Official Monad Faucet |
+| Moonbeam | EVM | DEV | Official Moonbeam Faucet |
+| Neon | EVM | NEON | Official Neon Faucet |
+| Oasis | EVM | TEST | Official Oasis Faucet |
+| Optimism Sepolia | EVM | ETH | Superchain Faucet |
+| Polygon Amoy | EVM | POL | Official Polygon Faucet |
+| Scroll | EVM | ETH | List of Faucets |
+| Unichain | EVM | ETH | QuickNode Faucet |
+| World Chain | EVM | ETH | Alchemy Faucet |
+| X Layer | EVM | OKB | X Layer Official Faucet |
+
+### SVM
+
+| Pythnet | SVM | ETH | Superchain Faucet |
+
+### AVM
+
+| Algorand | AVM | ALGO | Official Algorand Faucet |
+
+### CosmWasm
+
+| Celestia | CosmWasm | TIA | Discord Faucet |
+| Cosmos Hub | CosmWasm | ATOM | Discord Faucet |
+| Evmos | CosmWasm | TEVMOS | Official Evmos Faucet |
+| Injective | CosmWasm | INJ | Official Injective Faucet |
+| Kujira | CosmWasm | KUJI | Discord Faucet |
+| Neutron | CosmWasm | NTRN | List of Faucets |
+| Noble | CosmWasm | USDC | Circle Faucet |
+| Osmosis | CosmWasm | OSMO | Official Osmosis Faucet |
+| SEDA | CosmWasm | SEDA | Official SEDA Faucet |
+| Sei | CosmWasm | SEI | Sei Atlantic-2 Faucet |
+| Terra | CosmWasm | LUNA | Terra Official Faucet |
+| Terra 2.0 | CosmWasm | LUNA | Terra Official Faucet |
+| XPLA | CosmWasm | XPLA | XPLA Official Faucet |
+
+### Move VM
+
+| Aptos | Move VM | APT | Official Aptos Faucet |
+
+### NEAR VM
+
+| NEAR | NEAR VM | NEAR | Official NEAR Faucet |
+
+### Sui Move VM
+
+| Sui | Sui Move VM | SUI | List of Faucets |
+</div>
+<!--TESTNET_FAUCETS-->
 --- END CONTENT ---
