@@ -210,6 +210,9 @@
 
 .md-tabs {
   z-index: unset;
+  /* TODO // To remove and actually center the top nav. Temp styling! */
+  display: flex;
+  margin-left: 3em;
 }
 
 /* To align with Wormhole website */
