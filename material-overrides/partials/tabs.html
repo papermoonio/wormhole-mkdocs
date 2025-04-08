@@ -44,6 +44,15 @@
               </ul>
             </li>
           {% endif %}
+          {% if nav_item.is_page and nav_item.title != "Home" %}
+          <li class="md-tabs__item--custom" tabindex="0">    
+            <span class="md-tabs__link">
+              <a href="{{ nav_item.url | url }}">
+                  {{ nav_item.title }}
+              </a>
+            </span>
+          </li>
+          {% endif %}
         {% endfor %}
       </ul>
     </div>
