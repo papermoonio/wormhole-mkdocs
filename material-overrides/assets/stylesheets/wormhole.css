@@ -335,6 +335,10 @@ li.md-nav__item,
   [dir='ltr'] .md-nav--primary .md-nav__item > .md-nav__link:hover {
     margin-right: 0;
   }
+
+  .md-nav__icon {
+    height: unset;
+  }
 }
 
 /** Styling for nav items that are active or hovered over on smaller screens **/
