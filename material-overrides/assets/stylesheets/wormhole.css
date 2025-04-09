@@ -208,8 +208,14 @@
   font-size: var(--label-size);
 }
 
+.md-header__inner {
+  grid-template-columns: 1fr auto 1fr;
+  display: grid;
+}
+
 .md-tabs {
   z-index: unset;
+  display: flex;
 }
 
 /* To align with Wormhole website */
@@ -221,6 +227,7 @@
 [dir='ltr'] .md-header__title {
   margin-left: 0;
   height: unset;
+  padding-bottom: .15em;
 }
 
 .md-header__title > .md-header__ellipsis {
@@ -256,6 +263,10 @@
 @media screen and (max-width: 60em) {
   [dir='ltr'] .md-header__title {
     display: none;
+  }
+
+  .md-header__inner {
+    display: flex;
   }
 }
 
@@ -334,6 +345,10 @@ li.md-nav__item,
   [dir='ltr'] .md-nav--primary .md-nav__item > .md-nav__link,
   [dir='ltr'] .md-nav--primary .md-nav__item > .md-nav__link:hover {
     margin-right: 0;
+  }
+
+  .md-nav__icon {
+    height: unset;
   }
 }
 
@@ -1076,8 +1091,7 @@ pre .md-clipboard {
   border-radius: var(--md-border-radius);
   background-color: var(--grey);
   padding: 1.5em;
-  margin-top: 3em;
-  margin-left: auto;
+  margin: 3em calc(100% - 11.5rem) 0 auto;
   color: #9a9a9a;
   font-size: var(--body-xs-text-size);
 }
@@ -1627,6 +1641,11 @@ label[for='__drawer'] svg {
   border-bottom-right-radius: 0.2em;
 }
 
+
+.md-tabs__link a {
+  display: flex;
+}
+
 .md-tabs__link svg {
   margin-left: 0.5rem;
 }
@@ -1926,4 +1945,10 @@ details.child {
 
 .md-nav__list .md-nav__link {
   gap: .5em;
+}
+
+/** LLMs table styling **/
+.md-typeset table:not([class]) td:has(a.llms) {
+  display: flex;
+  gap: 1em;
 }
