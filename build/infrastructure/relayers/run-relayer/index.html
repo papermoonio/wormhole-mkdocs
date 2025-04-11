@@ -1,0 +1,4935 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+  
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Learn how to build and configure your own off-chain custom relaying solution to relay Wormhole messages for your applications using the Relayer Engine.">
+      
+      
+      
+        <link rel="canonical" href="https://wormhole.com/docs/build/infrastructure/relayers/run-relayer/">
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../../spy/">
+      
+      
+      <link rel="icon" href="../../../../assets/images/favicon.webp">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.24">
+    
+  
+
+    <title>Run a Relayer | Wormhole Docs</title>
+    
+	
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.6543a935.min.css">
+      
+      
+  
+  
+    
+    
+  
+    
+    
+  
+  
+  <style>:root{--md-admonition-icon--note:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M11.013 1.427a1.75 1.75 0 0 1 2.474 0l1.086 1.086a1.75 1.75 0 0 1 0 2.474l-8.61 8.61c-.21.21-.47.364-.756.445l-3.251.93a.75.75 0 0 1-.927-.928l.929-3.25c.081-.286.235-.547.445-.758l8.61-8.61Zm.176 4.823L9.75 4.81l-6.286 6.287a.253.253 0 0 0-.064.108l-.558 1.953 1.953-.558a.253.253 0 0 0 .108-.064Zm1.238-3.763a.25.25 0 0 0-.354 0L10.811 3.75l1.439 1.44 1.263-1.263a.25.25 0 0 0 0-.354Z"/></svg>');--md-admonition-icon--warning:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"/></svg>');}</style>
+
+
+
+    
+  <link rel="stylesheet" href="../../../../assets/stylesheets/wormhole.css">
+
+    
+  
+      
+    
+
+  <link rel="preload" href="https://cdn.jsdelivr.net/npm/@cookbookdev/docsbot/dist/standalone/index.cjs.js" as="script">
+  <script>
+    function initAskCookbook() {
+      // It's a public API key, so it's safe to expose it here
+      const PUBLIC_API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NmQ3MzdmOTE4MjcyOTljZGJlNTQ5ZDEiLCJpYXQiOjE3MjUzODA2MDEsImV4cCI6MjA0MDk1NjYwMX0.Qp6dEbLWFzju37NsD3VD3kNFGsHo8qJohXUSl5-lSiQ";
+
+      let cookbookContainer = document.getElementById("__cookbook");
+      if (!cookbookContainer) {
+        cookbookContainer = document.createElement("div");
+        cookbookContainer.id = "__cookbook";
+        cookbookContainer.dataset.apiKey = PUBLIC_API_KEY;
+        document.body.appendChild(cookbookContainer);
+      }
+
+      let cookbookScript = document.getElementById("__cookbook-script");
+      if (!cookbookScript) {
+        cookbookScript = document.createElement("script");
+        cookbookScript.id = "__cookbook-script";
+        cookbookScript.src = "https://cdn.jsdelivr.net/npm/@cookbookdev/docsbot/dist/standalone/index.cjs.js";
+        cookbookScript.async = true;
+        document.head.appendChild(cookbookScript);
+      }
+    }
+
+    // Check if the document is already loaded and if so, initialize the script, otherwise wait for the load event
+    if (document.readyState === "complete") {
+      initAskCookbook();
+    } else {
+      window.addEventListener("load", initAskCookbook);
+    }
+  </script>
+
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"Roboto Mono"}</style>
+      
+    
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/terminal.css">
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/spantable-neoteroi.css">
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/timeline-neoteroi.css">
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function n(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],n("js",new Date),n("config","G-SGJJFZS9BB"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){this.value&&n("event","search",{search_term:this.value})}),document$.subscribe(function(){var a=document.forms.feedback;if(void 0!==a)for(var e of a.querySelectorAll("[type=submit]"))e.addEventListener("click",function(e){e.preventDefault();var t=document.location.pathname,e=this.getAttribute("data-md-value");n("event","feedback",{page:t,data:e}),a.firstElementChild.disabled=!0;e=a.querySelector(".md-feedback__note [data-md-value='"+e+"']");e&&(e.hidden=!1)}),a.hidden=!1}),location$.subscribe(function(e){n("config","G-SGJJFZS9BB",{page_path:e.pathname})})});var e=document.createElement("script");e.async=!0,e.src="https://www.googletagmanager.com/gtag/js?id=G-SGJJFZS9BB",document.getElementById("__analytics").insertAdjacentElement("afterEnd",e)}</script>
+  
+    <script>var consent;"undefined"==typeof __md_analytics||(consent=__md_get("__consent"))&&consent.analytics&&__md_analytics()</script>
+  
+
+    
+    
+    
+   <link href="../../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../../../assets/javascripts/glightbox.min.js"></script></head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#run-a-custom-relayer" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+  
+    
+  
+  <header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+    <nav class="md-header__inner md-grid" aria-label="Header">
+      <label class="md-header__button md-icon" for="__drawer">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+      </label>
+      <div class="md-header__title" data-md-component="header-title">
+        <div class="md-header__ellipsis">
+          <a href="../../../.." title="Wormhole Docs" class="md-header__button md-logo" aria-label="Wormhole Docs" data-md-component="logo">
+            
+  <img src="../../../../assets/images/wormhole.webp" alt="logo">
+
+          </a>
+        </div>
+      </div>
+      
+        
+          <nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+    <div class="md-grid">
+      <ul class="md-tabs__list">
+        
+          
+          
+        
+          
+            <li class="md-tabs__item--custom" tabindex="0">    
+              <span class="md-tabs__link">
+                <a href="../../../">
+                    Build <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7.41 8.58 12 13.17l4.59-4.59L18 10l-6 6-6-6 1.41-1.42Z"/></svg>
+                </a>
+              </span>
+              <ul class="md-tab__list">
+                
+                  
+                
+                  
+                    <li class="md-tab__item">
+                      <a href="../../../start-building/">
+                        <div class="icon-col">
+                          
+                          <img class="dropdown-icon" src="/docs/assets/images/dropdown-icons/start-building.svg" alt="Start Building" loading="lazy">
+                        </div>
+                        <div class="text-col">
+                          <span class="dropdown-title">Start Building</span>
+                        </div>
+                      </a>
+                    </li>
+                  
+                
+                  
+                    <li class="md-tab__item">
+                      <a href="../../../transfers/">
+                        <div class="icon-col">
+                          
+                          <img class="dropdown-icon" src="/docs/assets/images/dropdown-icons/transfers.svg" alt="Multichain Transfers" loading="lazy">
+                        </div>
+                        <div class="text-col">
+                          <span class="dropdown-title">Multichain Transfers</span>
+                        </div>
+                      </a>
+                    </li>
+                  
+                
+                  
+                    <li class="md-tab__item">
+                      <a href="../../../core-messaging/">
+                        <div class="icon-col">
+                          
+                          <img class="dropdown-icon" src="/docs/assets/images/dropdown-icons/core-messaging.svg" alt="Core Messaging" loading="lazy">
+                        </div>
+                        <div class="text-col">
+                          <span class="dropdown-title">Core Messaging</span>
+                        </div>
+                      </a>
+                    </li>
+                  
+                
+                  
+                    <li class="md-tab__item">
+                      <a href="../../../multigov/">
+                        <div class="icon-col">
+                          
+                          <img class="dropdown-icon" src="/docs/assets/images/dropdown-icons/multigov.svg" alt="Multichain Governance (MultiGov)" loading="lazy">
+                        </div>
+                        <div class="text-col">
+                          <span class="dropdown-title">Multichain Governance (MultiGov)</span>
+                        </div>
+                      </a>
+                    </li>
+                  
+                
+                  
+                    <li class="md-tab__item">
+                      <a href="../../../queries/">
+                        <div class="icon-col">
+                          
+                          <img class="dropdown-icon" src="/docs/assets/images/dropdown-icons/queries.svg" alt="Real-time Data (Queries)" loading="lazy">
+                        </div>
+                        <div class="text-col">
+                          <span class="dropdown-title">Real-time Data (Queries)</span>
+                        </div>
+                      </a>
+                    </li>
+                  
+                
+                  
+                    <li class="md-tab__item">
+                      <a href="../../">
+                        <div class="icon-col">
+                          
+                          <img class="dropdown-icon" src="/docs/assets/images/dropdown-icons/infrastructure.svg" alt="Infrastructure" loading="lazy">
+                        </div>
+                        <div class="text-col">
+                          <span class="dropdown-title">Infrastructure</span>
+                        </div>
+                      </a>
+                    </li>
+                  
+                
+                  
+                    <li class="md-tab__item">
+                      <a href="../../../toolkit/">
+                        <div class="icon-col">
+                          
+                          <img class="dropdown-icon" src="/docs/assets/images/dropdown-icons/toolkit.svg" alt="Toolkit" loading="lazy">
+                        </div>
+                        <div class="text-col">
+                          <span class="dropdown-title">Toolkit</span>
+                        </div>
+                      </a>
+                    </li>
+                  
+                
+                  
+                    <li class="md-tab__item">
+                      <a href="../../../reference/">
+                        <div class="icon-col">
+                          
+                          <img class="dropdown-icon" src="/docs/assets/images/dropdown-icons/reference.svg" alt="Reference" loading="lazy">
+                        </div>
+                        <div class="text-col">
+                          <span class="dropdown-title">Reference</span>
+                        </div>
+                      </a>
+                    </li>
+                  
+                
+              </ul>
+            </li>
+          
+          
+        
+          
+            <li class="md-tabs__item--custom" tabindex="0">    
+              <span class="md-tabs__link">
+                <a href="../../../../tutorials/">
+                    Tutorials <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7.41 8.58 12 13.17l4.59-4.59L18 10l-6 6-6-6 1.41-1.42Z"/></svg>
+                </a>
+              </span>
+              <ul class="md-tab__list">
+                
+                  
+                
+                  
+                    <li class="md-tab__item">
+                      <a href="../../../../tutorials/connect/">
+                        <div class="icon-col">
+                          
+                          <img class="dropdown-icon" src="/docs/assets/images/dropdown-icons/connect.svg" alt="Connect" loading="lazy">
+                        </div>
+                        <div class="text-col">
+                          <span class="dropdown-title">Connect</span>
+                        </div>
+                      </a>
+                    </li>
+                  
+                
+                  
+                    <li class="md-tab__item">
+                      <a href="../../../../tutorials/multichain-assets/">
+                        <div class="icon-col">
+                          
+                          <img class="dropdown-icon" src="/docs/assets/images/dropdown-icons/multichain-assets.svg" alt="Multichain Assets" loading="lazy">
+                        </div>
+                        <div class="text-col">
+                          <span class="dropdown-title">Multichain Assets</span>
+                        </div>
+                      </a>
+                    </li>
+                  
+                
+                  
+                    <li class="md-tab__item">
+                      <a href="../../../../tutorials/multigov/">
+                        <div class="icon-col">
+                          
+                          <img class="dropdown-icon" src="/docs/assets/images/dropdown-icons/multigov.svg" alt="MultiGov" loading="lazy">
+                        </div>
+                        <div class="text-col">
+                          <span class="dropdown-title">MultiGov</span>
+                        </div>
+                      </a>
+                    </li>
+                  
+                
+                  
+                    <li class="md-tab__item">
+                      <a href="../../../../tutorials/solidity-sdk/">
+                        <div class="icon-col">
+                          
+                          <img class="dropdown-icon" src="/docs/assets/images/dropdown-icons/solidity-sdk.svg" alt="Solidity SDK" loading="lazy">
+                        </div>
+                        <div class="text-col">
+                          <span class="dropdown-title">Solidity SDK</span>
+                        </div>
+                      </a>
+                    </li>
+                  
+                
+                  
+                    <li class="md-tab__item">
+                      <a href="../../../../tutorials/typescript-sdk/">
+                        <div class="icon-col">
+                          
+                          <img class="dropdown-icon" src="/docs/assets/images/dropdown-icons/typescript-sdk.svg" alt="TypeScript SDK" loading="lazy">
+                        </div>
+                        <div class="text-col">
+                          <span class="dropdown-title">TypeScript SDK</span>
+                        </div>
+                      </a>
+                    </li>
+                  
+                
+                  
+                    <li class="md-tab__item">
+                      <a href="../../../../tutorials/wormholescan/">
+                        <div class="icon-col">
+                          
+                          <img class="dropdown-icon" src="/docs/assets/images/dropdown-icons/wormholescan.svg" alt="Wormholescan API" loading="lazy">
+                        </div>
+                        <div class="text-col">
+                          <span class="dropdown-title">Wormholescan API</span>
+                        </div>
+                      </a>
+                    </li>
+                  
+                
+              </ul>
+            </li>
+          
+          
+        
+          
+            <li class="md-tabs__item--custom" tabindex="0">    
+              <span class="md-tabs__link">
+                <a href="../../../../learn/">
+                    Learn <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7.41 8.58 12 13.17l4.59-4.59L18 10l-6 6-6-6 1.41-1.42Z"/></svg>
+                </a>
+              </span>
+              <ul class="md-tab__list">
+                
+                  
+                
+                  
+                    <li class="md-tab__item">
+                      <a href="../../../../learn/introduction/">
+                        <div class="icon-col">
+                          
+                          <img class="dropdown-icon" src="/docs/assets/images/dropdown-icons/introduction.svg" alt="Introduction to Wormhole" loading="lazy">
+                        </div>
+                        <div class="text-col">
+                          <span class="dropdown-title">Introduction to Wormhole</span>
+                        </div>
+                      </a>
+                    </li>
+                  
+                
+                  
+                    <li class="md-tab__item">
+                      <a href="../../../../learn/infrastructure/">
+                        <div class="icon-col">
+                          
+                          <img class="dropdown-icon" src="/docs/assets/images/dropdown-icons/infrastructure.svg" alt="Messaging Infrastructure" loading="lazy">
+                        </div>
+                        <div class="text-col">
+                          <span class="dropdown-title">Messaging Infrastructure</span>
+                        </div>
+                      </a>
+                    </li>
+                  
+                
+                  
+                    <li class="md-tab__item">
+                      <a href="../../../../learn/transfers/">
+                        <div class="icon-col">
+                          
+                          <img class="dropdown-icon" src="/docs/assets/images/dropdown-icons/transfers.svg" alt="Multichain Transfers" loading="lazy">
+                        </div>
+                        <div class="text-col">
+                          <span class="dropdown-title">Multichain Transfers</span>
+                        </div>
+                      </a>
+                    </li>
+                  
+                
+                  
+                    <li class="md-tab__item">
+                      <a href="../../../../learn/governance/">
+                        <div class="icon-col">
+                          
+                          <img class="dropdown-icon" src="/docs/assets/images/dropdown-icons/governance.svg" alt="Multichain Governance (MultiGov)" loading="lazy">
+                        </div>
+                        <div class="text-col">
+                          <span class="dropdown-title">Multichain Governance (MultiGov)</span>
+                        </div>
+                      </a>
+                    </li>
+                  
+                
+                  
+                    <li class="md-tab__item">
+                      <a href="../../../../learn/security/">
+                        <div class="icon-col">
+                          
+                          <img class="dropdown-icon" src="/docs/assets/images/dropdown-icons/security.svg" alt="Security" loading="lazy">
+                        </div>
+                        <div class="text-col">
+                          <span class="dropdown-title">Security</span>
+                        </div>
+                      </a>
+                    </li>
+                  
+                
+                  
+                    <li class="md-tab__item">
+                      <a href="../../../../learn/glossary/">
+                        <div class="icon-col">
+                          
+                          <img class="dropdown-icon" src="/docs/assets/images/dropdown-icons/glossary.svg" alt="Glossary" loading="lazy">
+                        </div>
+                        <div class="text-col">
+                          <span class="dropdown-title">Glossary</span>
+                        </div>
+                      </a>
+                    </li>
+                  
+                
+                  
+                    <li class="md-tab__item">
+                      <a href="../../../../learn/ai-resources/">
+                        <div class="icon-col">
+                          
+                          <img class="dropdown-icon" src="/docs/assets/images/dropdown-icons/ai-resources.svg" alt="AI Resources" loading="lazy">
+                        </div>
+                        <div class="text-col">
+                          <span class="dropdown-title">AI Resources</span>
+                        </div>
+                      </a>
+                    </li>
+                  
+                
+              </ul>
+            </li>
+          
+          
+        
+          
+          
+          <li class="md-tabs__item--custom" tabindex="0">    
+            <span class="md-tabs__link">
+              <a href="../../../../ai-resources/">
+                  AI Resources
+              </a>
+            </span>
+          </li>
+          
+        
+      </ul>
+    </div>
+  </nav>
+      
+      <div class="md-header__buttons">
+        <div class="for-cookbook"></div>
+        
+          <label class="search" for="__search">
+            <span>
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+              <span class="search-text">Search</span>
+            </span>
+          </label>
+          <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input
+        type="text"
+        class="md-search__input"
+        name="query"
+        aria-label="Search"
+        autocapitalize="off"
+        autocorrect="off"
+        autocomplete="off"
+        spellcheck="false"
+        data-md-component="search-query"
+        required
+      />
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button
+          type="reset"
+          class="md-search__icon md-icon"
+          title="Clear"
+          aria-label="Clear"
+          tabindex="-1"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+        
+        
+        
+      </div>
+    </nav>
+  </header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+    
+    <div
+      class="md-sidebar md-sidebar--primary"
+      data-md-component="sidebar"
+      data-md-type="navigation"
+      
+    >
+      <div class="md-sidebar__scrollwrap">
+        <div class="md-sidebar__inner">
+          
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="Wormhole Docs" class="md-nav__button md-logo" aria-label="Wormhole Docs" data-md-component="logo">
+      
+  <img src="../../../../assets/images/wormhole.webp" alt="logo">
+
+    </a>
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+    
+      
+        
+        
+        
+  
+    
+    
+      
+    
+    
+      
+      <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+        
+          
+            
+            
+              
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+        
+        
+          
+          
+          <div class="md-nav__link md-nav__link--index ">
+            <a href="../../../">Build</a>
+            
+              <label for="__nav_2">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Build
+          </label>
+          <div class="nav-wrapper">
+            
+              
+                <ul class="md-nav__list build-" data-md-scrollfix>
+              
+            
+            
+              
+            
+              
+                
+    
+    
+    
+      
+        
+      
+      <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+        
+          
+            
+            
+              
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+        
+        
+          
+          
+          <div class="md-nav__link md-nav__link--index ">
+            <a href="../../../start-building/">Start Building</a>
+            
+              <label for="__nav_2_2">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Start Building
+          </label>
+          <div class="nav-wrapper">
+            
+              
+                <ul class="md-nav__list build-start-building-" data-md-scrollfix>
+              
+            
+            
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../start-building/products/" class="md-nav__link">
+          Product Comparison
+          
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../start-building/use-cases/" class="md-nav__link">
+          Use Cases
+          
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../start-building/supported-networks/" class="md-nav__link">
+          Supported Networks
+          
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../start-building/testnet-faucets/" class="md-nav__link">
+          Testnet Faucets
+          
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="https://wormholescan.io/" class="md-nav__link">
+          Explorer
+          
+            <span class="external-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2Zm6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1Z"/></svg></span>
+          
+        </a>
+      </li>
+    
+  
+              
+            
+            </ul>
+          </div>
+        </nav>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      
+        
+      
+      <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        
+        
+          
+            
+            
+              
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+        
+        
+          
+          
+          <div class="md-nav__link md-nav__link--index ">
+            <a href="../../../transfers/">Multichain Transfers</a>
+            
+              <label for="__nav_2_3">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Multichain Transfers
+          </label>
+          <div class="nav-wrapper">
+            
+              
+                <ul class="md-nav__list build-transfers-" data-md-scrollfix>
+              
+            
+            
+              
+            
+              
+                
+    
+    
+    
+      
+      <li class="md-nav__item md-nav__item--nested">
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_2" >
+        
+        
+          
+            
+            
+              
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+        
+        
+          
+          
+          <div class="md-nav__link md-nav__link--index ">
+            <a href="../../../transfers/connect/">Connect UI Widget</a>
+            
+              <label for="__nav_2_3_2">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            Connect UI Widget
+          </label>
+          <div class="nav-wrapper">
+            
+              
+                <ul class="md-nav__list build-transfers-connect-" data-md-scrollfix>
+              
+            
+            
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../transfers/connect/overview/" class="md-nav__link">
+          Overview
+          
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../transfers/connect/routes/" class="md-nav__link">
+          Routes
+          
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../transfers/connect/features/" class="md-nav__link">
+          Features
+          
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      
+      <li class="md-nav__item md-nav__item--nested">
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_2_5" >
+        
+        
+          
+            
+            
+              
+            
+          
+            
+            
+          
+            
+            
+          
+        
+        
+          
+          
+          <div class="md-nav__link md-nav__link--index ">
+            <a href="../../../transfers/connect/configuration/">Connect Configuration</a>
+            
+              <label for="__nav_2_3_2_5">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_2_3_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            Connect Configuration
+          </label>
+          <div class="nav-wrapper">
+            
+              
+                <ul class="md-nav__list build-transfers-connect-configuration-" data-md-scrollfix>
+              
+            
+            
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../transfers/connect/configuration/configure-data/" class="md-nav__link">
+          Data
+          
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../transfers/connect/configuration/configure-theme/" class="md-nav__link">
+          Theme
+          
+        </a>
+      </li>
+    
+  
+              
+            
+            </ul>
+          </div>
+        </nav>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../transfers/connect/upgrade/" class="md-nav__link">
+          v1 Migration
+          
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../transfers/connect/faqs/" class="md-nav__link">
+          FAQS
+          
+        </a>
+      </li>
+    
+  
+              
+            
+            </ul>
+          </div>
+        </nav>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      
+      <li class="md-nav__item md-nav__item--nested">
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_3" >
+        
+        
+          
+            
+            
+              
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+        
+        
+          
+          
+          <div class="md-nav__link md-nav__link--index ">
+            <a href="../../../transfers/native-token-transfers/">Native Token Transfers</a>
+            
+              <label for="__nav_2_3_3">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            Native Token Transfers
+          </label>
+          <div class="nav-wrapper">
+            
+              
+                <ul class="md-nav__list build-transfers-native-token-transfers-" data-md-scrollfix>
+              
+            
+            
+              
+            
+              
+                
+    
+    
+    
+      
+      <li class="md-nav__item md-nav__item--nested">
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_3_2" >
+        
+        
+          
+            
+            
+              
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+        
+        
+          
+          
+          <div class="md-nav__link md-nav__link--index ">
+            <a href="../../../transfers/native-token-transfers/deployment-process/">Deployment Process</a>
+            
+              <label for="__nav_2_3_3_2">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_2_3_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            Deployment Process
+          </label>
+          <div class="nav-wrapper">
+            
+              
+                <ul class="md-nav__list build-transfers-native-token-transfers-deployment-process-" data-md-scrollfix>
+              
+            
+            
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../transfers/native-token-transfers/deployment-process/installation/" class="md-nav__link">
+          Installation
+          
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../transfers/native-token-transfers/deployment-process/deploy-to-evm/" class="md-nav__link">
+          Deploy to EVM
+          
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../transfers/native-token-transfers/deployment-process/evm-launchpad/" class="md-nav__link">
+          Deploy to EVM via Launchpad
+          
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../transfers/native-token-transfers/deployment-process/deploy-to-solana/" class="md-nav__link">
+          Deploy to Solana
+          
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../transfers/native-token-transfers/deployment-process/post-deployment/" class="md-nav__link">
+          Post Deployment
+          
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../transfers/native-token-transfers/deployment-process/troubleshooting/" class="md-nav__link">
+          Troubleshooting
+          
+        </a>
+      </li>
+    
+  
+              
+            
+            </ul>
+          </div>
+        </nav>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../transfers/native-token-transfers/cli-commands/" class="md-nav__link">
+          NTT CLI Commands
+          
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      
+      <li class="md-nav__item md-nav__item--nested">
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_3_4" >
+        
+        
+          
+            
+            
+              
+            
+          
+            
+            
+          
+            
+            
+          
+        
+        
+          
+          
+          <div class="md-nav__link md-nav__link--index ">
+            <a href="../../../transfers/native-token-transfers/configuration/">NTT Configuration</a>
+            
+              <label for="__nav_2_3_3_4">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_2_3_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            NTT Configuration
+          </label>
+          <div class="nav-wrapper">
+            
+              
+                <ul class="md-nav__list build-transfers-native-token-transfers-configuration-" data-md-scrollfix>
+              
+            
+            
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../transfers/native-token-transfers/configuration/rate-limiting/" class="md-nav__link">
+          Rate Limiting
+          
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../transfers/native-token-transfers/configuration/access-control/" class="md-nav__link">
+          Access Control
+          
+        </a>
+      </li>
+    
+  
+              
+            
+            </ul>
+          </div>
+        </nav>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../transfers/native-token-transfers/managers-transceivers/" class="md-nav__link">
+          Managers and Transceivers
+          
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../transfers/native-token-transfers/faqs/" class="md-nav__link">
+          FAQS
+          
+        </a>
+      </li>
+    
+  
+              
+            
+            </ul>
+          </div>
+        </nav>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      
+      <li class="md-nav__item md-nav__item--nested">
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_4" >
+        
+        
+          
+            
+            
+              
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+        
+        
+          
+          
+          <div class="md-nav__link md-nav__link--index ">
+            <a href="../../../transfers/settlement/">Wormhole Settlement</a>
+            
+              <label for="__nav_2_3_4">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            Wormhole Settlement
+          </label>
+          <div class="nav-wrapper">
+            
+              
+                <ul class="md-nav__list build-transfers-settlement-" data-md-scrollfix>
+              
+            
+            
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../transfers/settlement/liquidity-layer/" class="md-nav__link">
+          Build on the Wormhole Liquidity Layer
+          
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../transfers/settlement/solver/" class="md-nav__link">
+          Run a Wormhole Settlement Solver
+          
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../transfers/settlement/faqs/" class="md-nav__link">
+          FAQs
+          
+        </a>
+      </li>
+    
+  
+              
+            
+            </ul>
+          </div>
+        </nav>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../transfers/token-bridge/" class="md-nav__link">
+          Token Bridge
+          
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../transfers/cctp/" class="md-nav__link">
+          CCTP Bridge
+          
+        </a>
+      </li>
+    
+  
+              
+            
+            </ul>
+          </div>
+        </nav>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      
+        
+      
+      <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
+        
+        
+          
+            
+            
+              
+            
+          
+            
+            
+          
+            
+            
+          
+        
+        
+          
+          
+          <div class="md-nav__link md-nav__link--index ">
+            <a href="../../../core-messaging/">Core Messaging</a>
+            
+              <label for="__nav_2_4">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            Core Messaging
+          </label>
+          <div class="nav-wrapper">
+            
+              
+                <ul class="md-nav__list build-core-messaging-" data-md-scrollfix>
+              
+            
+            
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../core-messaging/wormhole-relayers/" class="md-nav__link">
+          Wormhole Relayer
+          
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../core-messaging/core-contracts/" class="md-nav__link">
+          Core Contracts
+          
+        </a>
+      </li>
+    
+  
+              
+            
+            </ul>
+          </div>
+        </nav>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      
+        
+      
+      <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" >
+        
+        
+          
+            
+            
+              
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+        
+        
+          
+          
+          <div class="md-nav__link md-nav__link--index ">
+            <a href="../../../multigov/">Multichain Governance (MultiGov)</a>
+            
+              <label for="__nav_2_5">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            Multichain Governance (MultiGov)
+          </label>
+          <div class="nav-wrapper">
+            
+              
+                <ul class="md-nav__list build-multigov-" data-md-scrollfix>
+              
+            
+            
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../multigov/deploy-to-evm/" class="md-nav__link">
+          Deploy to EVM
+          
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../multigov/deploy-to-solana/" class="md-nav__link">
+          Deploy to Solana
+          
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../multigov/upgrade-evm/" class="md-nav__link">
+          Upgrade Contracts on EVM Chains
+          
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../multigov/upgrade-solana/" class="md-nav__link">
+          Upgrade Contracts on Solana
+          
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../multigov/faq/" class="md-nav__link">
+          Technical FAQs
+          
+        </a>
+      </li>
+    
+  
+              
+            
+            </ul>
+          </div>
+        </nav>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      
+        
+      
+      <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6" >
+        
+        
+          
+            
+            
+              
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+        
+        
+          
+          
+          <div class="md-nav__link md-nav__link--index ">
+            <a href="../../../queries/">Real-time Data (Queries)</a>
+            
+              <label for="__nav_2_6">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_6">
+            <span class="md-nav__icon md-icon"></span>
+            Real-time Data (Queries)
+          </label>
+          <div class="nav-wrapper">
+            
+              
+                <ul class="md-nav__list build-queries-" data-md-scrollfix>
+              
+            
+            
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../queries/overview/" class="md-nav__link">
+          Overview
+          
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../queries/use-queries/" class="md-nav__link">
+          Use Queries
+          
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../queries/faqs/" class="md-nav__link">
+          FAQs
+          
+        </a>
+      </li>
+    
+  
+              
+            
+            </ul>
+          </div>
+        </nav>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+      
+    
+    
+      
+        
+      
+      <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_7" checked>
+        
+        
+          
+            
+            
+              
+            
+          
+            
+            
+          
+            
+            
+          
+        
+        
+          
+          
+          <div class="md-nav__link md-nav__link--index ">
+            <a href="../../">Infrastructure</a>
+            
+              <label for="__nav_2_7">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_7_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_7">
+            <span class="md-nav__icon md-icon"></span>
+            Infrastructure
+          </label>
+          <div class="nav-wrapper">
+            
+              
+                <ul class="md-nav__list build-infrastructure-" data-md-scrollfix>
+              
+            
+            
+              
+            
+              
+                
+    
+    
+      
+    
+    
+      
+      <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_7_2" checked>
+        
+        
+          
+            
+            
+              
+            
+          
+            
+            
+          
+        
+        
+          
+          
+          <div class="md-nav__link md-nav__link--index ">
+            <a href="../">Relayers</a>
+            
+              <label for="__nav_2_7_2">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_7_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_7_2">
+            <span class="md-nav__icon md-icon"></span>
+            Relayers
+          </label>
+          <div class="nav-wrapper">
+            
+              
+                <ul class="md-nav__list build-infrastructure-relayers-" data-md-scrollfix>
+              
+            
+            
+              
+            
+              
+                
+    
+    
+      
+    
+    
+      <li class="md-nav__item md-nav__item--active">
+        
+        <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+        
+        
+          
+        
+        
+          <label class="md-nav__link md-nav__link--active" for="__toc">
+            Run a Custom Relayer
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <div class="md-nav__link-wrapper md-nav__item md-nav__item--active">
+          <a href="./" class="md-nav__link md-nav__link--active">
+            Run a Custom Relayer
+          </a>
+        </div>
+        
+          
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="Sections">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Sections
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introduction
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#get-started-with-a-custom-relayer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get Started with a Custom Relayer
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Get Started with a Custom Relayer">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#how-to-uniquely-identify-a-vaa" class="md-nav__link">
+    <span class="md-ellipsis">
+      How to Uniquely Identify a VAA
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#use-the-relayer-engine" class="md-nav__link">
+    <span class="md-ellipsis">
+      Use the Relayer Engine
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Use the Relayer Engine">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#install-the-relayer-engine" class="md-nav__link">
+    <span class="md-ellipsis">
+      Install the Relayer Engine
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-started-with-the-relayer-engine" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get Started with the Relayer Engine
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#start-background-processes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Start Background Processes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Start Background Processes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#wormhole-network-spy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Wormhole Network Spy
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#redis-persistence" class="md-nav__link">
+    <span class="md-ellipsis">
+      Redis Persistence
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#use-the-wormhole-sdk" class="md-nav__link">
+    <span class="md-ellipsis">
+      Use the Wormhole SDK
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+        
+      </li>
+    
+  
+              
+            
+            </ul>
+          </div>
+        </nav>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      
+      <li class="md-nav__item md-nav__item--nested">
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_7_3" >
+        
+        
+          
+            
+            
+              
+            
+          
+            
+            
+          
+        
+        
+          
+          
+          <div class="md-nav__link md-nav__link--index ">
+            <a href="../../spy/">Spy</a>
+            
+              <label for="__nav_2_7_3">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_7_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_7_3">
+            <span class="md-nav__icon md-icon"></span>
+            Spy
+          </label>
+          <div class="nav-wrapper">
+            
+              
+                <ul class="md-nav__list build-infrastructure-spy-" data-md-scrollfix>
+              
+            
+            
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../spy/run-spy/" class="md-nav__link">
+          Run a Spy
+          
+        </a>
+      </li>
+    
+  
+              
+            
+            </ul>
+          </div>
+        </nav>
+      </li>
+    
+  
+              
+            
+            </ul>
+          </div>
+        </nav>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      
+        
+      
+      <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_8" >
+        
+        
+          
+            
+            
+              
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+        
+        
+          
+          
+          <div class="md-nav__link md-nav__link--index ">
+            <a href="../../../toolkit/">Toolkit</a>
+            
+              <label for="__nav_2_8">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_8">
+            <span class="md-nav__icon md-icon"></span>
+            Toolkit
+          </label>
+          <div class="nav-wrapper">
+            
+              
+                <ul class="md-nav__list build-toolkit-" data-md-scrollfix>
+              
+            
+            
+              
+            
+              
+                
+    
+    
+    
+      
+      <li class="md-nav__item md-nav__item--nested">
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_8_2" >
+        
+        
+          
+            
+            
+              
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+        
+        
+          
+          
+          <div class="md-nav__link md-nav__link--index ">
+            <a href="../../../toolkit/typescript-sdk/">TypeScript SDK</a>
+            
+              <label for="__nav_2_8_2">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_8_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_8_2">
+            <span class="md-nav__icon md-icon"></span>
+            TypeScript SDK
+          </label>
+          <div class="nav-wrapper">
+            
+              
+                <ul class="md-nav__list build-toolkit-typescript-sdk-" data-md-scrollfix>
+              
+            
+            
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../toolkit/typescript-sdk/wormhole-sdk/" class="md-nav__link">
+          TypeScript SDK
+          
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../toolkit/typescript-sdk/sdk-layout/" class="md-nav__link">
+          Data Layouts
+          
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../toolkit/typescript-sdk/protocols-payloads/" class="md-nav__link">
+          Building Protocols and Payloads
+          
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../toolkit/typescript-sdk/vaas-protocols/" class="md-nav__link">
+          VAAs and Protocol Messages
+          
+        </a>
+      </li>
+    
+  
+              
+            
+            </ul>
+          </div>
+        </nav>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../toolkit/solidity-sdk/" class="md-nav__link">
+          Solidity SDK
+          
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="https://wormholescan.io/#/developers/api-doc" class="md-nav__link">
+          Wormholescan API
+          
+            <span class="external-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2Zm6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1Z"/></svg></span>
+          
+        </a>
+      </li>
+    
+  
+              
+            
+            </ul>
+          </div>
+        </nav>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      
+        
+      
+      <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_9" >
+        
+        
+          
+            
+            
+              
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+        
+        
+          
+          
+          <div class="md-nav__link md-nav__link--index ">
+            <a href="../../../reference/">Reference</a>
+            
+              <label for="__nav_2_9">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_9">
+            <span class="md-nav__icon md-icon"></span>
+            Reference
+          </label>
+          <div class="nav-wrapper">
+            
+              
+                <ul class="md-nav__list build-reference-" data-md-scrollfix>
+              
+            
+            
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../reference/chain-ids/" class="md-nav__link">
+          Chain IDs
+          
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../reference/contract-addresses/" class="md-nav__link">
+          Contract Addresses
+          
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../reference/consistency-levels/" class="md-nav__link">
+          Wormhole Finality
+          
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../reference/wormhole-formatted-addresses/" class="md-nav__link">
+          Wormhole Formatted Addresses
+          
+        </a>
+      </li>
+    
+  
+              
+            
+            </ul>
+          </div>
+        </nav>
+      </li>
+    
+  
+              
+            
+            </ul>
+          </div>
+        </nav>
+      </li>
+    
+  
+      
+    
+      
+        
+        
+        
+  
+    
+    
+    
+      
+      <li class="md-nav__item md-nav__item--nested">
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+        
+          
+            
+            
+              
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+        
+        
+          
+          
+          <div class="md-nav__link md-nav__link--index ">
+            <a href="../../../../tutorials/">Tutorials</a>
+            
+              <label for="__nav_3">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Tutorials
+          </label>
+          <div class="nav-wrapper">
+            
+              
+                <ul class="md-nav__list tutorials-" data-md-scrollfix>
+              
+            
+            
+              
+            
+              
+                
+    
+    
+    
+      
+        
+      
+      <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+        
+          
+            
+            
+              
+            
+          
+            
+            
+          
+        
+        
+          
+          
+          <div class="md-nav__link md-nav__link--index ">
+            <a href="../../../../tutorials/connect/">Connect</a>
+            
+              <label for="__nav_3_2">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            Connect
+          </label>
+          <div class="nav-wrapper">
+            
+              
+                <ul class="md-nav__list tutorials-connect-" data-md-scrollfix>
+              
+            
+            
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../../tutorials/connect/react-dapp/" class="md-nav__link">
+          Integrate Connect into a React DApp
+          
+        </a>
+      </li>
+    
+  
+              
+            
+            </ul>
+          </div>
+        </nav>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      
+        
+      
+      <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+        
+          
+            
+            
+              
+            
+          
+            
+            
+          
+        
+        
+          
+          
+          <div class="md-nav__link md-nav__link--index ">
+            <a href="../../../../tutorials/multichain-assets/">Multichain Assets</a>
+            
+              <label for="__nav_3_3">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            Multichain Assets
+          </label>
+          <div class="nav-wrapper">
+            
+              
+                <ul class="md-nav__list tutorials-multichain-assets-" data-md-scrollfix>
+              
+            
+            
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../../tutorials/multichain-assets/multichain-token/" class="md-nav__link">
+          Create Multichain Tokens
+          
+        </a>
+      </li>
+    
+  
+              
+            
+            </ul>
+          </div>
+        </nav>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      
+        
+      
+      <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
+        
+        
+          
+            
+            
+              
+            
+          
+            
+            
+          
+        
+        
+          
+          
+          <div class="md-nav__link md-nav__link--index ">
+            <a href="../../../../tutorials/multigov/">MultiGov</a>
+            
+              <label for="__nav_3_4">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            MultiGov
+          </label>
+          <div class="nav-wrapper">
+            
+              
+                <ul class="md-nav__list tutorials-multigov-" data-md-scrollfix>
+              
+            
+            
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../../tutorials/multigov/treasury-proposal/" class="md-nav__link">
+          Cross-Chain Treasury Management Proposal
+          
+        </a>
+      </li>
+    
+  
+              
+            
+            </ul>
+          </div>
+        </nav>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      
+        
+      
+      <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" >
+        
+        
+          
+            
+            
+              
+            
+          
+            
+            
+          
+            
+            
+          
+        
+        
+          
+          
+          <div class="md-nav__link md-nav__link--index ">
+            <a href="../../../../tutorials/solidity-sdk/">Solidity SDK</a>
+            
+              <label for="__nav_3_5">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            Solidity SDK
+          </label>
+          <div class="nav-wrapper">
+            
+              
+                <ul class="md-nav__list tutorials-solidity-sdk-" data-md-scrollfix>
+              
+            
+            
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../../tutorials/solidity-sdk/cross-chain-contracts/" class="md-nav__link">
+          Create Messaging Contracts
+          
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../../tutorials/solidity-sdk/cross-chain-token-contracts/" class="md-nav__link">
+          Create Token Transfer Contracts
+          
+        </a>
+      </li>
+    
+  
+              
+            
+            </ul>
+          </div>
+        </nav>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      
+        
+      
+      <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6" >
+        
+        
+          
+            
+            
+              
+            
+          
+            
+            
+          
+            
+            
+          
+        
+        
+          
+          
+          <div class="md-nav__link md-nav__link--index ">
+            <a href="../../../../tutorials/typescript-sdk/">TypeScript SDK</a>
+            
+              <label for="__nav_3_6">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_6">
+            <span class="md-nav__icon md-icon"></span>
+            TypeScript SDK
+          </label>
+          <div class="nav-wrapper">
+            
+              
+                <ul class="md-nav__list tutorials-typescript-sdk-" data-md-scrollfix>
+              
+            
+            
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../../tutorials/typescript-sdk/usdc-via-cctp/" class="md-nav__link">
+          Transfer USDC via the CCTP Bridge
+          
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../../tutorials/typescript-sdk/tokens-via-token-bridge/" class="md-nav__link">
+          Transfer Tokens via the Token Bridge
+          
+        </a>
+      </li>
+    
+  
+              
+            
+            </ul>
+          </div>
+        </nav>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      
+        
+      
+      <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_7" >
+        
+        
+          
+            
+            
+              
+            
+          
+            
+            
+          
+        
+        
+          
+          
+          <div class="md-nav__link md-nav__link--index ">
+            <a href="../../../../tutorials/wormholescan/">Wormholescan API</a>
+            
+              <label for="__nav_3_7">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_7">
+            <span class="md-nav__icon md-icon"></span>
+            Wormholescan API
+          </label>
+          <div class="nav-wrapper">
+            
+              
+                <ul class="md-nav__list tutorials-wormholescan-" data-md-scrollfix>
+              
+            
+            
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../../tutorials/wormholescan/replace-signatures/" class="md-nav__link">
+          Replace VAA Signatures
+          
+        </a>
+      </li>
+    
+  
+              
+            
+            </ul>
+          </div>
+        </nav>
+      </li>
+    
+  
+              
+            
+            </ul>
+          </div>
+        </nav>
+      </li>
+    
+  
+      
+    
+      
+        
+        
+        
+  
+    
+    
+    
+      
+      <li class="md-nav__item md-nav__item--nested">
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+        
+          
+            
+            
+              
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+        
+        
+          
+          
+          <div class="md-nav__link md-nav__link--index ">
+            <a href="../../../../learn/">Learn</a>
+            
+              <label for="__nav_4">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Learn
+          </label>
+          <div class="nav-wrapper">
+            
+              
+                <ul class="md-nav__list learn-" data-md-scrollfix>
+              
+            
+            
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../../learn/introduction/" class="md-nav__link">
+          Introduction to Wormhole
+          
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      
+        
+      
+      <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
+        
+        
+          
+            
+            
+              
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+        
+        
+          
+          
+          <div class="md-nav__link md-nav__link--index ">
+            <a href="../../../../learn/infrastructure/">Messaging Infrastructure</a>
+            
+              <label for="__nav_4_3">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            Messaging Infrastructure
+          </label>
+          <div class="nav-wrapper">
+            
+              
+                <ul class="md-nav__list learn-infrastructure-" data-md-scrollfix>
+              
+            
+            
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../../learn/infrastructure/architecture/" class="md-nav__link">
+          Architecture Overview
+          
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../../learn/infrastructure/core-contracts/" class="md-nav__link">
+          Core Contracts
+          
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../../learn/infrastructure/vaas/" class="md-nav__link">
+          VAAs
+          
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../../learn/infrastructure/guardians/" class="md-nav__link">
+          Guardians
+          
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../../learn/infrastructure/spy/" class="md-nav__link">
+          Spy
+          
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../../learn/infrastructure/relayer/" class="md-nav__link">
+          Relayers
+          
+        </a>
+      </li>
+    
+  
+              
+            
+            </ul>
+          </div>
+        </nav>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      
+        
+      
+      <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" >
+        
+        
+          
+            
+            
+              
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+        
+        
+          
+          
+          <div class="md-nav__link md-nav__link--index ">
+            <a href="../../../../learn/transfers/">Multichain Transfers</a>
+            
+              <label for="__nav_4_4">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            Multichain Transfers
+          </label>
+          <div class="nav-wrapper">
+            
+              
+                <ul class="md-nav__list learn-transfers-" data-md-scrollfix>
+              
+            
+            
+              
+            
+              
+                
+    
+    
+    
+      
+      <li class="md-nav__item md-nav__item--nested">
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4_2" >
+        
+        
+          
+            
+            
+              
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+        
+        
+          
+          
+          <div class="md-nav__link md-nav__link--index ">
+            <a href="../../../../learn/transfers/native-token-transfers/">Native Token Transfers</a>
+            
+              <label for="__nav_4_4_2">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            Native Token Transfers
+          </label>
+          <div class="nav-wrapper">
+            
+              
+                <ul class="md-nav__list learn-transfers-native-token-transfers-" data-md-scrollfix>
+              
+            
+            
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../../learn/transfers/native-token-transfers/overview/" class="md-nav__link">
+          Overview
+          
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../../learn/transfers/native-token-transfers/architecture/" class="md-nav__link">
+          Architecture
+          
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../../learn/transfers/native-token-transfers/deployment/" class="md-nav__link">
+          Deployment Models
+          
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../../learn/transfers/native-token-transfers/security/" class="md-nav__link">
+          Security
+          
+        </a>
+      </li>
+    
+  
+              
+            
+            </ul>
+          </div>
+        </nav>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      
+      <li class="md-nav__item md-nav__item--nested">
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4_3" >
+        
+        
+          
+            
+            
+              
+            
+          
+            
+            
+          
+            
+            
+          
+        
+        
+          
+          
+          <div class="md-nav__link md-nav__link--index ">
+            <a href="../../../../learn/transfers/settlement/">Settlement</a>
+            
+              <label for="__nav_4_4_3">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            Settlement
+          </label>
+          <div class="nav-wrapper">
+            
+              
+                <ul class="md-nav__list learn-transfers-settlement-" data-md-scrollfix>
+              
+            
+            
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../../learn/transfers/settlement/overview/" class="md-nav__link">
+          Overview
+          
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../../learn/transfers/settlement/architecture/" class="md-nav__link">
+          Protocol Architectures
+          
+        </a>
+      </li>
+    
+  
+              
+            
+            </ul>
+          </div>
+        </nav>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../../learn/transfers/token-bridge/" class="md-nav__link">
+          Token Bridge
+          
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../../learn/transfers/cctp/" class="md-nav__link">
+          CCTP Bridge
+          
+        </a>
+      </li>
+    
+  
+              
+            
+            </ul>
+          </div>
+        </nav>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      
+        
+      
+      <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5" >
+        
+        
+          
+            
+            
+              
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+        
+        
+          
+          
+          <div class="md-nav__link md-nav__link--index ">
+            <a href="../../../../learn/governance/">Multichain Governance (MultiGov)</a>
+            
+              <label for="__nav_4_5">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_5">
+            <span class="md-nav__icon md-icon"></span>
+            Multichain Governance (MultiGov)
+          </label>
+          <div class="nav-wrapper">
+            
+              
+                <ul class="md-nav__list learn-governance-" data-md-scrollfix>
+              
+            
+            
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../../learn/governance/overview/" class="md-nav__link">
+          Overview
+          
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../../learn/governance/architecture/" class="md-nav__link">
+          Architecture
+          
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../../learn/governance/faq/" class="md-nav__link">
+          Theoretical FAQs
+          
+        </a>
+      </li>
+    
+  
+              
+            
+            </ul>
+          </div>
+        </nav>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../../learn/security/" class="md-nav__link">
+          Security
+          
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../../learn/glossary/" class="md-nav__link">
+          Glossary
+          
+        </a>
+      </li>
+    
+  
+              
+            
+              
+                
+    
+    
+    
+      <li class="md-nav__item">
+        <a href="../../../../learn/ai-resources/" class="md-nav__link">
+          AI Resources
+          
+        </a>
+      </li>
+    
+  
+              
+            
+            </ul>
+          </div>
+        </nav>
+      </li>
+    
+  
+      
+    
+      
+    
+  </ul>
+</nav>
+        </div>
+      </div>
+    </div>
+  
+    
+    <div
+      class="md-sidebar md-sidebar--secondary"
+      data-md-component="sidebar"
+      data-md-type="toc"
+      
+    >
+      <div class="md-sidebar__scrollwrap">
+        <div class="md-sidebar__inner">
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="Sections">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Sections
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introduction
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#get-started-with-a-custom-relayer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get Started with a Custom Relayer
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Get Started with a Custom Relayer">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#how-to-uniquely-identify-a-vaa" class="md-nav__link">
+    <span class="md-ellipsis">
+      How to Uniquely Identify a VAA
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#use-the-relayer-engine" class="md-nav__link">
+    <span class="md-ellipsis">
+      Use the Relayer Engine
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Use the Relayer Engine">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#install-the-relayer-engine" class="md-nav__link">
+    <span class="md-ellipsis">
+      Install the Relayer Engine
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-started-with-the-relayer-engine" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get Started with the Relayer Engine
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#start-background-processes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Start Background Processes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Start Background Processes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#wormhole-network-spy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Wormhole Network Spy
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#redis-persistence" class="md-nav__link">
+    <span class="md-ellipsis">
+      Redis Persistence
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#use-the-wormhole-sdk" class="md-nav__link">
+    <span class="md-ellipsis">
+      Use the Wormhole SDK
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+        </div><div class="feedback-actions-container"><div class="feedback-section">
+            
+    
+  
+  
+  
+    <form class="md-feedback" name="feedback" hidden>
+      <fieldset>
+        <legend class="md-feedback__title">
+          Was this page helpful?
+        </legend>
+        <div class="md-feedback__inner">
+          <div class="md-feedback__list">
+            
+              <button class="md-feedback__icon md-icon" type="submit" title="This page was helpful" data-md-value="1">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 12a8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8 8 8 0 0 0 8-8m2 0a10 10 0 0 1-10 10A10 10 0 0 1 2 12 10 10 0 0 1 12 2a10 10 0 0 1 10 10M10 9.5c0 .8-.7 1.5-1.5 1.5S7 10.3 7 9.5 7.7 8 8.5 8s1.5.7 1.5 1.5m7 0c0 .8-.7 1.5-1.5 1.5S14 10.3 14 9.5 14.7 8 15.5 8s1.5.7 1.5 1.5m-5 7.73c-1.75 0-3.29-.73-4.19-1.81L9.23 14c.45.72 1.52 1.23 2.77 1.23s2.32-.51 2.77-1.23l1.42 1.42c-.9 1.08-2.44 1.81-4.19 1.81Z"/></svg>
+              </button>
+            
+              <button class="md-feedback__icon md-icon" type="submit" title="This page could be improved" data-md-value="0">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 12a8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8 8 8 0 0 0 8-8m2 0a10 10 0 0 1-10 10A10 10 0 0 1 2 12 10 10 0 0 1 12 2a10 10 0 0 1 10 10m-6.5-4c.8 0 1.5.7 1.5 1.5s-.7 1.5-1.5 1.5-1.5-.7-1.5-1.5.7-1.5 1.5-1.5M10 9.5c0 .8-.7 1.5-1.5 1.5S7 10.3 7 9.5 7.7 8 8.5 8s1.5.7 1.5 1.5m2 4.5c1.75 0 3.29.72 4.19 1.81l-1.42 1.42C14.32 16.5 13.25 16 12 16s-2.32.5-2.77 1.23l-1.42-1.42C8.71 14.72 10.25 14 12 14Z"/></svg>
+              </button>
+            
+          </div>
+          <div class="md-feedback__note">
+            
+              <div data-md-value="1" hidden>
+                
+                
+                  
+                
+                Thanks for your feedback!
+              </div>
+            
+              <div data-md-value="0" hidden>
+                
+                
+                  
+                
+                Thanks for your feedback! Help us improve this page by submitting <a href="https://docs.google.com/forms/d/e/1FAIpQLSdRjp_CJ2jEC0gPvK242zRzJoN_x9-Nlt_KXkCy7QPYiD4OlA/viewform?usp=pp_url&entry.2090824420=[Feedback]+Run%20a%20Relayer+-+/build/infrastructure/relayers/run-relayer/" target="_blank" rel="noopener">additional feedback</a>.
+              </div>
+            
+          </div>
+        </div>
+      </fieldset>
+      <div class="divider"></div></form>
+  
+          </div><div class="edit-section">
+            
+    
+      <a href="https://github.com/wormhole-foundation/wormhole-docs/edit/main/build/infrastructure/relayers/run-relayer.md" title="Edit this page" class="md-content__button md-icon">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2Z"/></svg> Edit this page
+      </a>
+    
+    
+  
+          </div>
+        </div>
+      </div>
+    </div>
+  
+
+          <div class="md-content" data-md-component="content">
+    
+    <article class="md-content__inner md-typeset ">
+      
+        
+
+<h1 id="run-a-custom-relayer">Run a Custom Relayer<a class="headerlink" href="#run-a-custom-relayer" title="Permanent link">＃</a></h1>
+<h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">＃</a></h2>
+<p>Relayers play a crucial role in cross-chain communication, ensuring that messages are transferred seamlessly between different blockchains. While Wormhole relayers provide a reliable way to handle these transfers, they might not always meet every application's unique requirements.</p>
+<p>Custom relayers address these limitations by offering tailored solutions that cater to the distinct needs of your application. Developing a custom relayer gives you complete control over message processing, delivery mechanisms, and integration with existing systems. This customization allows for optimized performance and the ability to implement specific features that Wormhole-deployed relayers might not support.</p>
+<p>A custom relayer might be as simple as an in-browser process that polls the API for the availability of a VAA after submitting a transaction and delivers it to the target chain. It might also be implemented with a Spy coupled with some daemon listening for VAAs from a relevant chain ID and emitter, then taking action when one is observed.</p>
+<p>This guide teaches you how to set up and configure a custom relayer for efficient message handling. You'll start by understanding how to uniquely identify a VAA using its emitter address, sequence ID, and chain ID. Then, you'll explore the Relayer Engine, a package that provides a framework for building custom relayers, and learn how to fetch and handle VAAs using the Wormhole SDK.</p>
+<h2 id="get-started-with-a-custom-relayer">Get Started with a Custom Relayer<a class="headerlink" href="#get-started-with-a-custom-relayer" title="Permanent link">＃</a></h2>
+<p>To start building a custom relayer, it's essential to grasp the components you'll be managing as part of your relaying service. Your relayer must be capable of retrieving and delivering VAAs.</p>
+<figure>
+  <a class="glightbox" href="/docs/images/build/infrastructure/relayers/run-relayer/relayer-1.webp" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Custom relayer" src="/docs/images/build/infrastructure/relayers/run-relayer/relayer-1.webp" /></a>
+  <figcaption>The off-chain components outlined in blue must be implemented.</figcaption>
+</figure>
+<h3 id="how-to-uniquely-identify-a-vaa">How to Uniquely Identify a VAA<a class="headerlink" href="#how-to-uniquely-identify-a-vaa" title="Permanent link">＃</a></h3>
+<p>Regardless of the environment, to get the VAA you intend to relay, you need:</p>
+<ul>
+<li>The <code>emitter</code> address</li>
+<li>The <code>sequence</code> ID of the message you're interested in</li>
+<li>The <code>chainId</code> for the chain that emitted the message</li>
+</ul>
+<p>With these three components, you're able to uniquely identify a VAA and process it.</p>
+<h2 id="use-the-relayer-engine">Use the Relayer Engine<a class="headerlink" href="#use-the-relayer-engine" title="Permanent link">＃</a></h2>
+<p>The <a href="https://github.com/wormhole-foundation/relayer-engine" target="_blank"><code>relayer-engine</code></a> is a package that provides the structure and a starting point for a custom relayer.</p>
+<p>With the Relayer Engine, a developer can write specific logic for filtering to receive only the messages they care about.</p>
+<p>Once a Wormhole message is received, the developer may apply additional logic to parse custom payloads or submit the Verifiable Action Approvals (VAA) to one or many destination chains.</p>
+<p>To use the Relayer Engine, a developer may specify how to relay Wormhole messages for their app using an idiomatic Express/Koa middleware-inspired API, then let the library handle all the details.</p>
+<h3 id="install-the-relayer-engine">Install the Relayer Engine<a class="headerlink" href="#install-the-relayer-engine" title="Permanent link">＃</a></h3>
+<p>First, install the <code>relayer-engine</code> package with your favorite package manager:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>npm<span class="w"> </span>i<span class="w"> </span>@wormhole-foundation/relayer-engine
+</span></code></pre></div>
+<h3 id="get-started-with-the-relayer-engine">Get Started with the Relayer Engine<a class="headerlink" href="#get-started-with-the-relayer-engine" title="Permanent link">＃</a></h3>
+<p>In the following example, you'll:</p>
+<ol>
+<li>Set up a <code>StandardRelayerApp</code>, passing configuration options for our relayer</li>
+<li>Add a filter to capture only those messages our app cares about, with a callback to do <em>something</em> with the VAA once received</li>
+<li>Start the relayer app</li>
+</ol>
+<div class="language-typescript highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="nx">Environment</span><span class="p">,</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">  </span><span class="nx">StandardRelayerApp</span><span class="p">,</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">  </span><span class="nx">StandardRelayerContext</span><span class="p">,</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@wormhole-foundation/relayer-engine&#39;</span><span class="p">;</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">CHAIN_ID_SOLANA</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@certusone/wormhole-sdk&#39;</span><span class="p">;</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="p">(</span><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">  </span><span class="c1">// Initialize relayer engine app and pass relevant config options</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">app</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">StandardRelayerApp</span><span class="o">&lt;</span><span class="nx">StandardRelayerContext</span><span class="o">&gt;</span><span class="p">(</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">    </span><span class="nx">Environment</span><span class="p">.</span><span class="nx">TESTNET</span><span class="p">,</span>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">    </span><span class="c1">// Other app specific config options can be set here for things</span>
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="w">    </span><span class="c1">// like retries, logger, or redis connection settings</span>
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="w">    </span><span class="p">{</span>
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="w">      </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;ExampleRelayer&#39;</span><span class="p">,</span>
+</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="w">  </span><span class="p">);</span>
+</span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>
+</span><span id="__span-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a><span class="w">  </span><span class="c1">// Add a filter with a callback that will be invoked</span>
+</span><span id="__span-1-20"><a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a><span class="w">  </span><span class="c1">// on finding a VAA that matches the filter</span>
+</span><span id="__span-1-21"><a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a><span class="w">  </span><span class="nx">app</span><span class="p">.</span><span class="nx">chain</span><span class="p">(</span><span class="nx">CHAIN_ID_SOLANA</span><span class="p">).</span><span class="nx">address</span><span class="p">(</span>
+</span><span id="__span-1-22"><a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a><span class="w">    </span><span class="c1">// Emitter address on Solana</span>
+</span><span id="__span-1-23"><a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a><span class="w">    </span><span class="s1">&#39;DZnkkTmCiFWfYTfT41X3Rd1kDgozqzxWaHqsw6W4x2oe&#39;</span><span class="p">,</span>
+</span><span id="__span-1-24"><a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a><span class="w">    </span><span class="c1">// Callback function to invoke on new message</span>
+</span><span id="__span-1-25"><a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a><span class="w">    </span><span class="k">async</span><span class="w"> </span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="nx">next</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-1-26"><a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a><span class="w">      </span><span class="kd">const</span><span class="w"> </span><span class="nx">vaa</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ctx</span><span class="p">.</span><span class="nx">vaa</span><span class="p">;</span>
+</span><span id="__span-1-27"><a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a><span class="w">      </span><span class="kd">const</span><span class="w"> </span><span class="nx">hash</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ctx</span><span class="p">.</span><span class="nx">sourceTxHash</span><span class="p">;</span>
+</span><span id="__span-1-28"><a id="__codelineno-1-28" name="__codelineno-1-28" href="#__codelineno-1-28"></a><span class="w">      </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span>
+</span><span id="__span-1-29"><a id="__codelineno-1-29" name="__codelineno-1-29" href="#__codelineno-1-29"></a><span class="w">        </span><span class="sb">`Got a VAA with sequence: </span><span class="si">${</span><span class="nx">vaa</span><span class="p">.</span><span class="nx">sequence</span><span class="si">}</span><span class="sb"> from with txhash: </span><span class="si">${</span><span class="nx">hash</span><span class="si">}</span><span class="sb">`</span>
+</span><span id="__span-1-30"><a id="__codelineno-1-30" name="__codelineno-1-30" href="#__codelineno-1-30"></a><span class="w">      </span><span class="p">);</span>
+</span><span id="__span-1-31"><a id="__codelineno-1-31" name="__codelineno-1-31" href="#__codelineno-1-31"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-1-32"><a id="__codelineno-1-32" name="__codelineno-1-32" href="#__codelineno-1-32"></a><span class="w">  </span><span class="p">);</span>
+</span><span id="__span-1-33"><a id="__codelineno-1-33" name="__codelineno-1-33" href="#__codelineno-1-33"></a>
+</span><span id="__span-1-34"><a id="__codelineno-1-34" name="__codelineno-1-34" href="#__codelineno-1-34"></a><span class="w">  </span><span class="c1">// Add and configure any other middleware here</span>
+</span><span id="__span-1-35"><a id="__codelineno-1-35" name="__codelineno-1-35" href="#__codelineno-1-35"></a>
+</span><span id="__span-1-36"><a id="__codelineno-1-36" name="__codelineno-1-36" href="#__codelineno-1-36"></a><span class="w">  </span><span class="c1">// Start app. Blocks until unrecoverable error or process is stopped</span>
+</span><span id="__span-1-37"><a id="__codelineno-1-37" name="__codelineno-1-37" href="#__codelineno-1-37"></a><span class="w">  </span><span class="k">await</span><span class="w"> </span><span class="nx">app</span><span class="p">.</span><span class="nx">listen</span><span class="p">();</span>
+</span><span id="__span-1-38"><a id="__codelineno-1-38" name="__codelineno-1-38" href="#__codelineno-1-38"></a><span class="p">})();</span>
+</span></code></pre></div>
+<p>The first meaningful line instantiates the <code>StandardRelayerApp</code>, a subclass of the <code>RelayerApp</code> with standard defaults.</p>
+<div class="language-typescript highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">StandardRelayerApp</span><span class="o">&lt;</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="nx">ContextT</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">StandardRelayerContext</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">StandardRelayerContext</span><span class="p">,</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="o">&gt;</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">RelayerApp</span><span class="o">&lt;</span><span class="nx">ContextT</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">  </span><span class="c1">// ...</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">  </span><span class="kr">constructor</span><span class="p">(</span><span class="nx">env</span><span class="o">:</span><span class="w"> </span><span class="kt">Environment</span><span class="p">,</span><span class="w"> </span><span class="nx">opts</span><span class="o">:</span><span class="w"> </span><span class="kt">StandardRelayerAppOpts</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span></code></pre></div>
+<p>The only field you pass in the <code>StandardRelayerAppOpts</code> is the name to help identify log messages and reserve a namespace in Redis.</p>
+<details class="code">
+<summary><code>StandardRelayerAppOpts</code></summary>
+<p>Other options can be passed to the <code>StandardRelayerApp</code> constructor to configure the app further.</p>
+<div class="language-typescript highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nx">wormholeRpcs?</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">[];</span><span class="w">  </span><span class="c1">// List of URLs from which to query missed VAAs</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="nx">concurrency?</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span><span class="w">     </span><span class="c1">// How many concurrent requests to make for workflows</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="nx">spyEndpoint?</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span><span class="w">     </span><span class="c1">// The hostname and port of our Spy</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="nx">logger?</span><span class="o">:</span><span class="w"> </span><span class="kt">Logger</span><span class="p">;</span><span class="w">          </span><span class="c1">// A custom Logger</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="nx">privateKeys?</span><span class="o">:</span><span class="w"> </span><span class="kt">Partial</span><span class="o">&lt;</span><span class="p">{</span><span class="w"> </span><span class="p">[</span><span class="nx">k</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nx">ChainId</span><span class="p">]</span><span class="o">:</span><span class="w"> </span><span class="nx">any</span><span class="p">[];</span><span class="w"> </span><span class="p">}</span><span class="o">&gt;</span><span class="p">;</span><span class="w"> </span><span class="c1">// A set of keys that can be used to sign and send transactions</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="nx">tokensByChain?</span><span class="o">:</span><span class="w"> </span><span class="kt">TokensByChain</span><span class="p">;</span><span class="w">    </span><span class="c1">// The token list we care about</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="nx">workflows</span><span class="o">?:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">retries</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span><span class="w"> </span><span class="p">};</span><span class="w"> </span><span class="c1">// How many times to retry a given workflow</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="nx">providers?</span><span class="o">:</span><span class="w"> </span><span class="kt">ProvidersOpts</span><span class="p">;</span><span class="w">        </span><span class="c1">// Configuration for the default providers</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="nx">fetchSourceTxhash?</span><span class="o">:</span><span class="w"> </span><span class="kt">boolean</span><span class="p">;</span><span class="w">      </span><span class="c1">// whether or not to get the original transaction ID/hash</span>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="c1">// Redis config</span>
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="nx">redisClusterEndpoints?</span><span class="o">:</span><span class="w"> </span><span class="kt">ClusterNode</span><span class="p">[];</span>
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="nx">redisCluster?</span><span class="o">:</span><span class="w"> </span><span class="kt">ClusterOptions</span><span class="p">;</span>
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="nx">redis?</span><span class="o">:</span><span class="w"> </span><span class="kt">RedisOptions</span><span class="p">;</span>
+</span></code></pre></div>
+</details>
+<p>The next meaningful line in the example adds a filter middleware component. This middleware will cause the relayer app to request a subscription from the Spy for any VAAs that match the criteria and invoke the callback with the VAA.</p>
+<p>If you'd like your program to subscribe to <code>multiple</code> chains and addresses, you can call the same method several times or use the <code>multiple</code> helper.</p>
+<div class="language-typescript highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nx">app</span><span class="p">.</span><span class="nx">multiple</span><span class="p">(</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span><span class="p">{</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="p">[</span><span class="nx">CHAIN_ID_SOLANA</span><span class="p">]</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;DZnkkTmCiFWfYTfT41X3Rd1kDgozqzxWaHqsw6W4x2oe&#39;</span><span class="p">,</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">    </span><span class="p">[</span><span class="nx">CHAIN_ID_ETH</span><span class="p">]</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;0xabc1230000000...&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;0xdef456000...&#39;</span><span class="p">],</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">  </span><span class="p">},</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">  </span><span class="nx">myCallback</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="p">);</span>
+</span></code></pre></div>
+<p>The last line in the simple example runs <code>await app.listen()</code>, which starts the relayer engine. Once started, the Relayer Engine issues subscription requests to the Spy and begins any other workflows (e.g., tracking missed VAAs).</p>
+<p>This will run until the process is killed or encounters an unrecoverable error. To gracefully shut down the relayer, call <code>app.stop()</code>.</p>
+<p>The source code for this example is available in the <a href="https://github.com/wormhole-foundation/relayer-engine/blob/main/examples/simple/src/app.ts" target="_blank"><code>relayer-engine</code> repository</a>.</p>
+<h2 id="start-background-processes">Start Background Processes<a class="headerlink" href="#start-background-processes" title="Permanent link">＃</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>These processes <em>must</em> be running for the relayer app below to work.</p>
+</div>
+<p>Next, you must start a Spy to listen for available VAAs published on the Guardian network. You also need a persistence layer. This example uses Redis.</p>
+<p>More details about the Spy are available in the <a href="/docs/learn/infrastructure/spy" target="_blank">Spy Documentation</a>.</p>
+<h3 id="wormhole-network-spy">Wormhole Network Spy<a class="headerlink" href="#wormhole-network-spy" title="Permanent link">＃</a></h3>
+<p>For our relayer app to receive messages, a local Spy must be running that watches the Guardian network. Our relayer app will receive updates from this Spy.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Mainnet Spy</label><label for="__tabbed_1_2">Testnet Spy</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>docker<span class="w"> </span>run<span class="w"> </span>--pull<span class="o">=</span>always<span class="w"> </span>--platform<span class="o">=</span>linux/amd64<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>-p<span class="w"> </span><span class="m">7073</span>:7073<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>--entrypoint<span class="w"> </span>/guardiand<span class="w"> </span>ghcr.io/wormhole-foundation/guardiand:latest<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>spy<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>--nodeKey<span class="w"> </span>/node.key<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>--spyRPC<span class="w"> </span><span class="s2">&quot;[::]:7073&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>--env<span class="w"> </span>mainnet
+</span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>docker<span class="w"> </span>run<span class="w"> </span>--pull<span class="o">=</span>always<span class="w"> </span>--platform<span class="o">=</span>linux/amd64<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>-p<span class="w"> </span><span class="m">7073</span>:7073<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>--entrypoint<span class="w"> </span>/guardiand<span class="w"> </span>ghcr.io/wormhole-foundation/guardiand:latest<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>spy<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>--nodeKey<span class="w"> </span>/node.key<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>--spyRPC<span class="w"> </span><span class="s2">&quot;[::]:7073&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>--env<span class="w"> </span>testnet<span class="w">   </span>
+</span></code></pre></div>
+</div>
+</div>
+</div>
+<h3 id="redis-persistence">Redis Persistence<a class="headerlink" href="#redis-persistence" title="Permanent link">＃</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>While you're using <a href="https://redis.io/docs/latest/develop/get-started/" target="_blank">Redis</a> here, the persistence layer can be swapped out for some other database by implementing the appropriate <a href="https://github.com/wormhole-foundation/relayer-engine/blob/main/relayer/storage/redis-storage.ts" target="_blank">interface</a>.</p>
+</div>
+<p>A Redis instance must also be available to persist job data for fetching VAAs from the Spy.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>-p<span class="w"> </span><span class="m">6379</span>:6379<span class="w"> </span>--name<span class="w"> </span>redis-docker<span class="w"> </span>-d<span class="w"> </span>redis
+</span></code></pre></div>
+<h2 id="use-the-wormhole-sdk">Use the Wormhole SDK<a class="headerlink" href="#use-the-wormhole-sdk" title="Permanent link">＃</a></h2>
+<p>You can also use the Wormhole SDK to poll the Guardian RPC until a signed VAA is ready using the SDK's <code>getSignedVAAWithRetry</code> function.</p>
+<div class="language-ts highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">  </span><span class="nx">getSignedVAAWithRetry</span><span class="p">,</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">  </span><span class="nx">parseVAA</span><span class="p">,</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">  </span><span class="nx">CHAIN_ID_SOLANA</span><span class="p">,</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="w">  </span><span class="nx">CHAIN_ID_ETH</span><span class="p">,</span>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@certusone/wormhole-sdk&#39;</span><span class="p">;</span>
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="kd">const</span><span class="w"> </span><span class="nx">RPC_HOSTS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
+</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a><span class="w">  </span><span class="cm">/* ...*/</span>
+</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="p">];</span>
+</span><span id="__span-8-11"><a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>
+</span><span id="__span-8-12"><a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">getVAA</span><span class="p">(</span>
+</span><span id="__span-8-13"><a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a><span class="w">  </span><span class="nx">emitter</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span>
+</span><span id="__span-8-14"><a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a><span class="w">  </span><span class="nx">sequence</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span>
+</span><span id="__span-8-15"><a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a><span class="w">  </span><span class="nx">chainId</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span>
+</span><span id="__span-8-16"><a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="nb">Uint8Array</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-8-17"><a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a><span class="w">  </span><span class="c1">// Wait for the VAA to be ready and fetch it from the guardian network</span>
+</span><span id="__span-8-18"><a id="__codelineno-8-18" name="__codelineno-8-18" href="#__codelineno-8-18"></a><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">vaaBytes</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">getSignedVAAWithRetry</span><span class="p">(</span>
+</span><span id="__span-8-19"><a id="__codelineno-8-19" name="__codelineno-8-19" href="#__codelineno-8-19"></a><span class="w">    </span><span class="nx">RPC_HOSTS</span><span class="p">,</span>
+</span><span id="__span-8-20"><a id="__codelineno-8-20" name="__codelineno-8-20" href="#__codelineno-8-20"></a><span class="w">    </span><span class="nx">chainId</span><span class="p">,</span>
+</span><span id="__span-8-21"><a id="__codelineno-8-21" name="__codelineno-8-21" href="#__codelineno-8-21"></a><span class="w">    </span><span class="nx">emitter</span><span class="p">,</span>
+</span><span id="__span-8-22"><a id="__codelineno-8-22" name="__codelineno-8-22" href="#__codelineno-8-22"></a><span class="w">    </span><span class="nx">sequence</span>
+</span><span id="__span-8-23"><a id="__codelineno-8-23" name="__codelineno-8-23" href="#__codelineno-8-23"></a><span class="w">  </span><span class="p">);</span>
+</span><span id="__span-8-24"><a id="__codelineno-8-24" name="__codelineno-8-24" href="#__codelineno-8-24"></a><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nx">vaaBytes</span><span class="p">;</span>
+</span><span id="__span-8-25"><a id="__codelineno-8-25" name="__codelineno-8-25" href="#__codelineno-8-25"></a><span class="p">}</span>
+</span><span id="__span-8-26"><a id="__codelineno-8-26" name="__codelineno-8-26" href="#__codelineno-8-26"></a>
+</span><span id="__span-8-27"><a id="__codelineno-8-27" name="__codelineno-8-27" href="#__codelineno-8-27"></a><span class="kd">const</span><span class="w"> </span><span class="nx">vaaBytes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">getVAA</span><span class="p">(</span><span class="s1">&#39;INSERT_EMITTER_ADDRESS&#39;</span><span class="p">,</span><span class="w"> </span><span class="mf">1</span><span class="p">,</span><span class="w"> </span><span class="nx">CHAIN_ID_ETH</span><span class="p">);</span>
+</span></code></pre></div>
+<p>Once you have the VAA, the delivery method is chain-dependent.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">EVM</label><label for="__tabbed_2_2">Solana</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>On EVM chains, the bytes for the VAA can be passed directly as an argument to an ABI method.</p>
+<div class="language-ts highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1">// Set up eth wallet</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="kd">const</span><span class="w"> </span><span class="nx">ethProvider</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">ethers</span><span class="p">.</span><span class="nx">providers</span><span class="p">.</span><span class="nx">StaticJsonRpcProvider</span><span class="p">(</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">  </span><span class="s1">&#39;INSERT_RPC_URL&#39;</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="p">);</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="kd">const</span><span class="w"> </span><span class="nx">ethWallet</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">ethers</span><span class="p">.</span><span class="nx">Wallet</span><span class="p">(</span><span class="s1">&#39;INSERT_PRIVATE_KEY&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">ethProvider</span><span class="p">);</span>
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="c1">// Create client to interact with our target app</span>
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="kd">const</span><span class="w"> </span><span class="nx">ethHelloWorld</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">HelloWorld__factory</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span>
+</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="w">  </span><span class="s1">&#39;INSERT_CONTRACT_ADDRESS&#39;</span><span class="p">,</span>
+</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a><span class="w">  </span><span class="nx">ethWallet</span>
+</span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a><span class="p">);</span>
+</span><span id="__span-9-12"><a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a>
+</span><span id="__span-9-13"><a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a><span class="c1">// Invoke the receiveMessage on the ETH contract and wait for confirmation</span>
+</span><span id="__span-9-14"><a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a><span class="kd">const</span><span class="w"> </span><span class="nx">receipt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">ethHelloWorld</span>
+</span><span id="__span-9-15"><a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a><span class="w">  </span><span class="p">.</span><span class="nx">receiveMessage</span><span class="p">(</span><span class="nx">vaaBytes</span><span class="p">)</span>
+</span><span id="__span-9-16"><a id="__codelineno-9-16" name="__codelineno-9-16" href="#__codelineno-9-16"></a><span class="w">  </span><span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">tx</span><span class="o">:</span><span class="w"> </span><span class="kt">ethers.ContractTransaction</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">tx</span><span class="p">.</span><span class="nx">wait</span><span class="p">())</span>
+</span><span id="__span-9-17"><a id="__codelineno-9-17" name="__codelineno-9-17" href="#__codelineno-9-17"></a><span class="w">  </span><span class="p">.</span><span class="k">catch</span><span class="p">((</span><span class="nx">msg</span><span class="o">:</span><span class="w"> </span><span class="kt">any</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-9-18"><a id="__codelineno-9-18" name="__codelineno-9-18" href="#__codelineno-9-18"></a><span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">msg</span><span class="p">);</span>
+</span><span id="__span-9-19"><a id="__codelineno-9-19" name="__codelineno-9-19" href="#__codelineno-9-19"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span>
+</span><span id="__span-9-20"><a id="__codelineno-9-20" name="__codelineno-9-20" href="#__codelineno-9-20"></a><span class="w">  </span><span class="p">});</span>
+</span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<p>On Solana, the VAA is first posted to the core bridge, and then a custom transaction is prepared to process and validate the VAA. </p>
+<div class="language-ts highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">CONTRACTS</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@certusone/wormhole-sdk&#39;</span><span class="p">;</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">WORMHOLE_CONTRACTS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">CONTRACTS</span><span class="p">[</span><span class="nx">NETWORK</span><span class="p">];</span>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">CORE_BRIDGE_PID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">PublicKey</span><span class="p">(</span><span class="nx">WORMHOLE_CONTRACTS</span><span class="p">.</span><span class="nx">solana</span><span class="p">.</span><span class="nx">core</span><span class="p">);</span>
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="c1">// First, post the VAA to the core bridge</span>
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="k">await</span><span class="w"> </span><span class="nx">postVaaSolana</span><span class="p">(</span>
+</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="w">  </span><span class="nx">connection</span><span class="p">,</span>
+</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="w">  </span><span class="nx">wallet</span><span class="p">.</span><span class="nx">signTransaction</span><span class="p">,</span>
+</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="w">  </span><span class="nx">CORE_BRIDGE_PID</span><span class="p">,</span>
+</span><span id="__span-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a><span class="w">  </span><span class="nx">wallet</span><span class="p">.</span><span class="nx">key</span><span class="p">(),</span>
+</span><span id="__span-10-12"><a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a><span class="w">  </span><span class="nx">vaaBytes</span>
+</span><span id="__span-10-13"><a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a><span class="p">);</span>
+</span><span id="__span-10-14"><a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a>
+</span><span id="__span-10-15"><a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a><span class="kd">const</span><span class="w"> </span><span class="nx">program</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">createHelloWorldProgramInterface</span><span class="p">(</span><span class="nx">connection</span><span class="p">,</span><span class="w"> </span><span class="nx">programId</span><span class="p">);</span>
+</span><span id="__span-10-16"><a id="__codelineno-10-16" name="__codelineno-10-16" href="#__codelineno-10-16"></a><span class="kd">const</span><span class="w"> </span><span class="nx">parsed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">isBytes</span><span class="p">(</span><span class="nx">wormholeMessage</span><span class="p">)</span>
+</span><span id="__span-10-17"><a id="__codelineno-10-17" name="__codelineno-10-17" href="#__codelineno-10-17"></a><span class="w">  </span><span class="o">?</span><span class="w"> </span><span class="nx">parseVaa</span><span class="p">(</span><span class="nx">wormholeMessage</span><span class="p">)</span>
+</span><span id="__span-10-18"><a id="__codelineno-10-18" name="__codelineno-10-18" href="#__codelineno-10-18"></a><span class="w">  </span><span class="o">:</span><span class="w"> </span><span class="nx">wormholeMessage</span><span class="p">;</span>
+</span><span id="__span-10-19"><a id="__codelineno-10-19" name="__codelineno-10-19" href="#__codelineno-10-19"></a>
+</span><span id="__span-10-20"><a id="__codelineno-10-20" name="__codelineno-10-20" href="#__codelineno-10-20"></a><span class="kd">const</span><span class="w"> </span><span class="nx">ix</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">program</span><span class="p">.</span><span class="nx">methods</span>
+</span><span id="__span-10-21"><a id="__codelineno-10-21" name="__codelineno-10-21" href="#__codelineno-10-21"></a><span class="w">  </span><span class="p">.</span><span class="nx">receiveMessage</span><span class="p">([...</span><span class="nx">parsed</span><span class="p">.</span><span class="nx">hash</span><span class="p">])</span>
+</span><span id="__span-10-22"><a id="__codelineno-10-22" name="__codelineno-10-22" href="#__codelineno-10-22"></a><span class="w">  </span><span class="p">.</span><span class="nx">accounts</span><span class="p">({</span>
+</span><span id="__span-10-23"><a id="__codelineno-10-23" name="__codelineno-10-23" href="#__codelineno-10-23"></a><span class="w">    </span><span class="nx">payer</span><span class="o">:</span><span class="w"> </span><span class="kt">new</span><span class="w"> </span><span class="nx">PublicKey</span><span class="p">(</span><span class="nx">payer</span><span class="p">),</span>
+</span><span id="__span-10-24"><a id="__codelineno-10-24" name="__codelineno-10-24" href="#__codelineno-10-24"></a><span class="w">    </span><span class="nx">config</span><span class="o">:</span><span class="w"> </span><span class="kt">deriveConfigKey</span><span class="p">(</span><span class="nx">programId</span><span class="p">),</span>
+</span><span id="__span-10-25"><a id="__codelineno-10-25" name="__codelineno-10-25" href="#__codelineno-10-25"></a><span class="w">    </span><span class="nx">wormholeProgram</span><span class="o">:</span><span class="w"> </span><span class="kt">new</span><span class="w"> </span><span class="nx">PublicKey</span><span class="p">(</span><span class="nx">wormholeProgramId</span><span class="p">),</span>
+</span><span id="__span-10-26"><a id="__codelineno-10-26" name="__codelineno-10-26" href="#__codelineno-10-26"></a><span class="w">    </span><span class="nx">posted</span><span class="o">:</span><span class="w"> </span><span class="kt">derivePostedVaaKey</span><span class="p">(</span><span class="nx">wormholeProgramId</span><span class="p">,</span><span class="w"> </span><span class="nx">parsed</span><span class="p">.</span><span class="nx">hash</span><span class="p">),</span>
+</span><span id="__span-10-27"><a id="__codelineno-10-27" name="__codelineno-10-27" href="#__codelineno-10-27"></a><span class="w">    </span><span class="nx">foreignEmitter</span><span class="o">:</span><span class="w"> </span><span class="kt">deriveForeignEmitterKey</span><span class="p">(</span><span class="nx">programId</span><span class="p">,</span><span class="w"> </span><span class="nx">parsed</span><span class="p">.</span><span class="nx">emitterChain</span><span class="p">),</span>
+</span><span id="__span-10-28"><a id="__codelineno-10-28" name="__codelineno-10-28" href="#__codelineno-10-28"></a><span class="w">    </span><span class="nx">received</span><span class="o">:</span><span class="w"> </span><span class="kt">deriveReceivedKey</span><span class="p">(</span>
+</span><span id="__span-10-29"><a id="__codelineno-10-29" name="__codelineno-10-29" href="#__codelineno-10-29"></a><span class="w">      </span><span class="nx">programId</span><span class="p">,</span>
+</span><span id="__span-10-30"><a id="__codelineno-10-30" name="__codelineno-10-30" href="#__codelineno-10-30"></a><span class="w">      </span><span class="nx">parsed</span><span class="p">.</span><span class="nx">emitterChain</span><span class="p">,</span>
+</span><span id="__span-10-31"><a id="__codelineno-10-31" name="__codelineno-10-31" href="#__codelineno-10-31"></a><span class="w">      </span><span class="nx">parsed</span><span class="p">.</span><span class="nx">sequence</span>
+</span><span id="__span-10-32"><a id="__codelineno-10-32" name="__codelineno-10-32" href="#__codelineno-10-32"></a><span class="w">    </span><span class="p">),</span>
+</span><span id="__span-10-33"><a id="__codelineno-10-33" name="__codelineno-10-33" href="#__codelineno-10-33"></a><span class="w">  </span><span class="p">})</span>
+</span><span id="__span-10-34"><a id="__codelineno-10-34" name="__codelineno-10-34" href="#__codelineno-10-34"></a><span class="w">  </span><span class="p">.</span><span class="nx">instruction</span><span class="p">();</span>
+</span><span id="__span-10-35"><a id="__codelineno-10-35" name="__codelineno-10-35" href="#__codelineno-10-35"></a>
+</span><span id="__span-10-36"><a id="__codelineno-10-36" name="__codelineno-10-36" href="#__codelineno-10-36"></a><span class="kd">const</span><span class="w"> </span><span class="nx">transaction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Transaction</span><span class="p">().</span><span class="nx">add</span><span class="p">(</span><span class="nx">ix</span><span class="p">);</span>
+</span><span id="__span-10-37"><a id="__codelineno-10-37" name="__codelineno-10-37" href="#__codelineno-10-37"></a><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">blockhash</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">connection</span><span class="p">.</span><span class="nx">getLatestBlockhash</span><span class="p">(</span><span class="nx">commitment</span><span class="p">);</span>
+</span><span id="__span-10-38"><a id="__codelineno-10-38" name="__codelineno-10-38" href="#__codelineno-10-38"></a><span class="nx">transaction</span><span class="p">.</span><span class="nx">recentBlockhash</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">blockhash</span><span class="p">;</span>
+</span><span id="__span-10-39"><a id="__codelineno-10-39" name="__codelineno-10-39" href="#__codelineno-10-39"></a><span class="nx">transaction</span><span class="p">.</span><span class="nx">feePayer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">PublicKey</span><span class="p">(</span><span class="nx">payerAddress</span><span class="p">);</span>
+</span><span id="__span-10-40"><a id="__codelineno-10-40" name="__codelineno-10-40" href="#__codelineno-10-40"></a>
+</span><span id="__span-10-41"><a id="__codelineno-10-41" name="__codelineno-10-41" href="#__codelineno-10-41"></a><span class="kd">const</span><span class="w"> </span><span class="nx">signed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">wallet</span><span class="p">.</span><span class="nx">signTxn</span><span class="p">(</span><span class="nx">transaction</span><span class="p">);</span>
+</span><span id="__span-10-42"><a id="__codelineno-10-42" name="__codelineno-10-42" href="#__codelineno-10-42"></a><span class="kd">const</span><span class="w"> </span><span class="nx">txid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">connection</span><span class="p">.</span><span class="nx">sendRawTransaction</span><span class="p">(</span><span class="nx">signed</span><span class="p">);</span>
+</span><span id="__span-10-43"><a id="__codelineno-10-43" name="__codelineno-10-43" href="#__codelineno-10-43"></a>
+</span><span id="__span-10-44"><a id="__codelineno-10-44" name="__codelineno-10-44" href="#__codelineno-10-44"></a><span class="k">await</span><span class="w"> </span><span class="nx">connection</span><span class="p">.</span><span class="nx">confirmTransaction</span><span class="p">(</span><span class="nx">txid</span><span class="p">);</span>
+</span></code></pre></div>
+</div>
+</div>
+</div>
+<div class="md-source-file">
+  <small>
+    
+  </small>
+</div>
+
+      
+    </article>
+  </div>
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        
+  <footer class="md-footer">
+    
+    <nav class="md-footer__inner md-grid" aria-label="footer.title">
+      
+      <a href="../" class="md-footer__link md-footer__link--prev" rel="prev">
+        <div class="md-footer__button md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22 12a10 10 0 0 1-10 10A10 10 0 0 1 2 12 10 10 0 0 1 12 2a10 10 0 0 1 10 10m-6.6 4.6L10.8 12l4.6-4.6L14 6l-6 6 6 6 1.4-1.4Z"/></svg>
+        </div>
+        <div class="md-footer__title">
+          <span class="md-footer__direction">
+            Previous
+          </span>
+          <span class="md-footer__page-name">
+          Relayers
+          </span>
+        </div>
+      </a>
+      
+      
+      <a href="../../spy/" class="md-footer__link md-footer__link--next" rel="next">
+        <div class="md-footer__title">
+          <span class="md-footer__direction">
+            Next
+          </span>
+          <span class="md-footer__page-name">
+          Spy
+          </span>
+        </div>
+        <div class="md-footer__button md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22 12a10 10 0 0 1-10 10A10 10 0 0 1 2 12 10 10 0 0 1 12 2a10 10 0 0 1 10 10m-12 6 6-6-6-6-1.4 1.4 4.6 4.6-4.6 4.6L10 18Z"/></svg>
+        </div>
+      </a>
+      
+    </nav>
+    
+    <div class="md-footer-meta md-typeset">
+      <div class="md-footer-meta__inner md-grid">
+        <div class="column">
+          <div class="llms">
+            <button class="md-clipboard--inline md-icon llms copy md-button" title="Copy to clipboard" value="llms-full.txt" action="copy">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 21H8V7h11m0-2H8a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2m-3-4H4a2 2 0 0 0-2 2v14h2V3h12V1Z"/></svg> llms-full.txt
+            </button>
+          </div>
+          <div class="newsletter"><script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/embed/v2.js"></script>
+            <script>hbspt.forms.create({portalId: "46857712", formId: "24dad166-ab48-4a89-84b4-8ae30aa59ada", region: "na1", css: "color: white;", cssClass: "newsletter-form", locale: "en", "translations": {
+              en: {
+                fieldLabels: {
+                  email: "Subscribe for updates",
+                }
+              }
+            },
+            onFormReady: function(form) {
+              const emailInput = form.querySelector('input[name="email"]');
+              if (emailInput) {
+                emailInput.setAttribute("placeholder", "Enter your email");
+              }
+            }
+            });</script>
+          </div>
+        </div>
+        <div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://twitter.com/wormhole" target="_blank" rel="noopener" title="Twitter" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8l164.9-188.5L26.8 48h145.6l100.5 132.9L389.2 48zm-24.8 373.8h39.1L151.1 88h-42l255.3 333.8z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://discord.gg/wormholecrypto" target="_blank" rel="noopener" title="Discord" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M524.531 69.836a1.5 1.5 0 0 0-.764-.7A485.065 485.065 0 0 0 404.081 32.03a1.816 1.816 0 0 0-1.923.91 337.461 337.461 0 0 0-14.9 30.6 447.848 447.848 0 0 0-134.426 0 309.541 309.541 0 0 0-15.135-30.6 1.89 1.89 0 0 0-1.924-.91 483.689 483.689 0 0 0-119.688 37.107 1.712 1.712 0 0 0-.788.676C39.068 183.651 18.186 294.69 28.43 404.354a2.016 2.016 0 0 0 .765 1.375 487.666 487.666 0 0 0 146.825 74.189 1.9 1.9 0 0 0 2.063-.676A348.2 348.2 0 0 0 208.12 430.4a1.86 1.86 0 0 0-1.019-2.588 321.173 321.173 0 0 1-45.868-21.853 1.885 1.885 0 0 1-.185-3.126 251.047 251.047 0 0 0 9.109-7.137 1.819 1.819 0 0 1 1.9-.256c96.229 43.917 200.41 43.917 295.5 0a1.812 1.812 0 0 1 1.924.233 234.533 234.533 0 0 0 9.132 7.16 1.884 1.884 0 0 1-.162 3.126 301.407 301.407 0 0 1-45.89 21.83 1.875 1.875 0 0 0-1 2.611 391.055 391.055 0 0 0 30.014 48.815 1.864 1.864 0 0 0 2.063.7A486.048 486.048 0 0 0 610.7 405.729a1.882 1.882 0 0 0 .765-1.352c12.264-126.783-20.532-236.912-86.934-334.541ZM222.491 337.58c-28.972 0-52.844-26.587-52.844-59.239s23.409-59.241 52.844-59.241c29.665 0 53.306 26.82 52.843 59.239 0 32.654-23.41 59.241-52.843 59.241Zm195.38 0c-28.971 0-52.843-26.587-52.843-59.239s23.409-59.241 52.843-59.241c29.667 0 53.307 26.82 52.844 59.239 0 32.654-23.177 59.241-52.844 59.241Z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://t.me/wormholecrypto" target="_blank" rel="noopener" title="Telegram" class="md-social__link">
+      <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="22"
+   height="22"
+   fill="none"
+   version="1.1"
+   id="svg499"
+   sodipodi:docname="telegram.svg"
+   inkscape:version="1.2.1 (9c6d41e4, 2022-07-14)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs503" />
+  <sodipodi:namedview
+     id="namedview501"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="10.727273"
+     inkscape:cx="0.13983051"
+     inkscape:cy="11"
+     inkscape:window-width="1309"
+     inkscape:window-height="430"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg499" />
+  <path
+     fill="#fff"
+     d="M18.984 3.35s1.78-.694 1.632.993c-.05.694-.494 3.124-.84 5.753l-1.188 7.787s-.099 1.14-.99 1.34c-.89.198-2.225-.695-2.472-.894-.198-.149-3.71-2.38-4.947-3.472-.346-.297-.742-.892.05-1.587l5.193-4.96c.594-.595 1.188-1.983-1.286-.297l-6.925 4.712s-.791.496-2.275.05l-3.216-.993s-1.187-.744.841-1.488c4.947-2.33 11.031-4.711 16.423-6.943Z"
+     id="path497" />
+</svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://github.com/wormhole-foundation/wormhole" target="_blank" rel="noopener" title="GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://wormhole.com/docs/" target="_blank" rel="noopener" title="Docs" class="md-social__link">
+      <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="22"
+   height="22"
+   fill="none"
+   version="1.1"
+   id="svg191"
+   sodipodi:docname="docs.svg"
+   inkscape:version="1.2.1 (9c6d41e4, 2022-07-14)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview193"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="6.8787622"
+     inkscape:cx="-11.848062"
+     inkscape:cy="9.4493745"
+     inkscape:window-width="1309"
+     inkscape:window-height="430"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg191" />
+  <g
+     clipPath="url(#a)"
+     id="g184">
+    <path
+       fill="#fff"
+       d="M9.901 16.289a.644.644 0 1 1-.001 1.287.644.644 0 0 1 .001-1.287Zm10.106-3.985a.644.644 0 1 1 .001-1.289.644.644 0 0 1-.001 1.289Zm0-2.636a1.994 1.994 0 0 0-1.888 2.626l-6.582 3.504A1.984 1.984 0 0 0 9.9 14.94c-.76 0-1.452.436-1.787 1.115l-5.913-3.118c-.626-.329-1.093-1.357-1.044-2.294.026-.489.195-.868.452-1.015.163-.091.36-.084.569.025l.038.021c1.568.825 6.695 3.527 6.912 3.627.333.154.518.217 1.086-.053l10.6-5.513c.156-.058.338-.208.338-.434 0-.314-.325-.437-.326-.437-.603-.29-1.53-.723-2.433-1.146-1.933-.905-4.123-1.93-5.084-2.434-.83-.434-1.499-.068-1.618.006l-.231.114C7.13 5.543 1.338 8.413 1.008 8.613c-.59.36-.955 1.076-1.003 1.964-.073 1.409.645 2.878 1.672 3.416l6.254 3.225a1.994 1.994 0 0 0 1.97 1.707 1.996 1.996 0 0 0 1.992-1.962l6.888-3.733A1.99 1.99 0 0 0 22 11.66a1.995 1.995 0 0 0-1.993-1.993"
+       id="path182" />
+  </g>
+  <defs
+     id="defs189">
+    <clipPath
+       id="a">
+      <path
+         fill="#fff"
+         d="M0 0h22v22H0z"
+         id="path186" />
+    </clipPath>
+  </defs>
+</svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://www.youtube.com/@wormholecrypto" target="_blank" rel="noopener" title="YouTube" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M549.655 124.083c-6.281-23.65-24.787-42.276-48.284-48.597C458.781 64 288 64 288 64S117.22 64 74.629 75.486c-23.497 6.322-42.003 24.947-48.284 48.597-11.412 42.867-11.412 132.305-11.412 132.305s0 89.438 11.412 132.305c6.281 23.65 24.787 41.5 48.284 47.821C117.22 448 288 448 288 448s170.78 0 213.371-11.486c23.497-6.321 42.003-24.171 48.284-47.821 11.412-42.867 11.412-132.305 11.412-132.305s0-89.438-11.412-132.305zm-317.51 213.508V175.185l142.739 81.205-142.739 81.201z"/></svg>
+    </a>
+  
+</div>
+      </div>
+      <div class="md-footer-copyright md-grid">
+        
+        <div class="md-footer-copyright__highlight">
+          2025 © Wormhole Foundation. All Rights Reserved.
+        </div>
+        
+        <div class="papermoon">
+          <span>Made with 🩵 by <a href="https://papermoon.io/" target="_blank">PaperMoon</a></span>
+        </div>
+        <div class="policy-links">
+          <a href="https://wormhole.com/pages/terms-of-use" target="_blank">Terms of use</a>
+          <a href="https://wormhole.com/pages/data-protection-and-privacy-policy" target="_blank">Privacy policy</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+  
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+      <div class="md-consent" data-md-component="consent" id="__consent" hidden>
+        <div class="md-consent__overlay"></div>
+        <aside class="md-consent__inner">
+          <form class="md-consent__form md-grid md-typeset" name="consent">
+            
+
+  
+    
+  
+
+
+
+
+
+  
+
+<h4>Cookie consent</h4>
+<p>This site uses cookies to deliver its service and to analyze traffic. By browsing this site, you accept the <a href="https://wormhole.com/pages/data-protection-and-privacy-policy" target="_blank" rel="noopener">privacy policy</a>.</p>
+<input class="md-toggle" type="checkbox" id="__settings" checked>
+<div class="md-consent__settings">
+  <ul class="task-list">
+    
+      
+      
+        
+        
+      
+      <li class="task-list-item">
+        <label class="task-list-control">
+          <input type="checkbox" name="analytics" checked>
+          <span class="task-list-indicator"></span>
+          Google Analytics
+        </label>
+      </li>
+    
+  </ul>
+</div>
+<div class="md-consent__controls">
+  
+    
+      <button class="md-button md-button--primary">Accept</button>
+    
+    
+    
+  
+    
+    
+      <button type="reset" class="md-button md-button--primary">Reject</button>
+    
+    
+  
+</div>
+          </form>
+        </aside>
+      </div>
+      <script>var consent=__md_get("__consent");if(consent)for(var input of document.forms.consent.elements)input.name&&(input.checked=consent[input.name]||!1);else"file:"!==location.protocol&&setTimeout(function(){document.querySelector("[data-md-component=consent]").hidden=!1},250);var action,form=document.forms.consent;for(action of["submit","reset"])form.addEventListener(action,function(e){if(e.preventDefault(),"reset"===e.type)for(var n of document.forms.consent.elements)n.name&&(n.checked=!1);__md_set("__consent",Object.fromEntries(Array.from(new FormData(form).keys()).map(function(e){return[e,!0]}))),location.hash="",location.reload()})</script>
+    
+    <script id="__config" type="application/json">{"base": "../../../..", "features": ["content.code.annotate", "content.code.copy", "content.tooltips", "content.action.edit", "navigation.footer", "navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.indexes"], "search": "../../../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+  
+      <script src="../../../../assets/javascripts/bundle.081f42fc.min.js"></script>
+      
+    
+  <script defer>
+    document.addEventListener('DOMContentLoaded', () => {
+      document.body.addEventListener('click', (event) => {
+        if (event.target.tagName === 'ASK-COOKBOOK') {
+          event.target.addEventListener('keydown', (event) => {
+            event.stopPropagation();
+          });
+        }
+      });
+    });
+  </script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      function setTableHeaderOffset(navbarSelector, tableSelector) {
+        const navbar = document.querySelector(navbarSelector);
+        const navbarHeight = navbar ? navbar.offsetHeight : 0;
+
+        // Loop through each table
+        document.querySelectorAll(tableSelector).forEach((tableWrapper) => {
+          const thead = tableWrapper.querySelector('thead');
+          const tbody = tableWrapper.querySelector('tbody');
+          const table = tableWrapper.querySelector('table');
+
+          // This blocking div is used to prevent the left and right borders from
+          // sticking out of the top of the table
+          const blockingDiv = tableWrapper.querySelector('.header-blocker');
+          thead.style.top = `${navbarHeight}px`;
+          if (blockingDiv) {
+            // If the blocker div already exists, modify the styles          
+            blockingDiv.style.top = `${navbarHeight}px`;
+            return;
+          } else {
+            // Create the blocker div and append it below the header and modify styles           
+            const blockingDiv = document.createElement('div');
+            blockingDiv.classList.add('header-blocker');
+            tableWrapper.appendChild(blockingDiv);
+            blockingDiv.style.top = `${navbarHeight}px`;
+          }
+        });
+      }
+
+      // Call it on load and on resize:
+      window.addEventListener('load', () => setTableHeaderOffset('.md-header', '.md-typeset__table'));
+      window.addEventListener('resize', () => setTableHeaderOffset('.md-header', '.md-typeset__table'));
+    });
+  </script>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const copyTxtFile = async (url) => {
+        try {
+            const response = await fetch(url);
+            const text = await response.text();
+            await navigator.clipboard.writeText(text);
+
+            const copiedToClipboard = document.querySelector('.md-dialog');
+            if (copiedToClipboard) {
+              copiedToClipboard.classList.add('md-dialog--active');
+
+              const copiedToClipboardMessage =
+                copiedToClipboard.querySelector('.md-dialog__inner');
+              if (
+                copiedToClipboardMessage &&
+                copiedToClipboardMessage.textContent !==
+                  "Copied to clipboard"
+              ) {
+                copiedToClipboardMessage.textContent =
+                  "Copied to clipboard";
+              }
+              // Set a timer to remove the after 3 seconds (3000ms)
+              setTimeout(() => {
+                copiedToClipboard.classList.remove('md-dialog--active');
+              }, 2000);
+            }
+          } catch (err) {
+            console.error('Failed to copy:', err);
+            copiedToClipboard.classList.remove('md-dialog--active');
+          }
+      }
+
+      document.querySelectorAll('.llms').forEach(button => {
+        button.addEventListener('click', (event) => {
+          event.preventDefault(); // Prevent default link behavior
+
+          const action = button.getAttribute('action');
+          const fileName = button.getAttribute('data-value');
+          if (!fileName) return; // Exit if no file name is found
+
+          // Add 'llms-files/' prefix except for root-level llms.txt and llms-full.txt
+          const filePath = (fileName === "llms.txt" || fileName === "llms-full.txt") 
+            ? fileName 
+            : `llms-files/${fileName}`;
+
+          // const url = `https://wormhole.com/docs/${filePath}`;
+          const url = `https://papermoonio.github.io/wormhole-mkdocs/${filePath}`;
+
+          if (action === 'copy') {
+            copyTxtFile(url, fileName);
+          }
+        })
+      })
+    });
+  </script>
+
+  <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>
