@@ -13,6 +13,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 {% endblock%}
 
 {% block site_meta %}
@@ -33,6 +34,17 @@
     <title>{{ config.site_name }}</title> 
   {%- endif -%} 
 {%- endblock -%} 
+
+{% block announce %}
+  <div class="row">
+    <div class="message row">
+      <img src="/docs/assets/images/dev-arena-logo.svg">
+      <div class="divider"></div>
+      <p>Enter the Wormhole Dev Arena and build multichain.</p>
+    </div>
+    <a href="https://arena.wormhole.com" target="_blank"><button class="md-button primary">Start Building<i class="arrow">></i></button></a>
+  </div>
+{% endblock %}
 
 {% block libs %}
   {{ super() }}

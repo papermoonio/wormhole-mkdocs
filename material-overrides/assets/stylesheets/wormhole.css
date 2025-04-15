@@ -1952,3 +1952,74 @@ details.child {
   display: flex;
   gap: 1em;
 }
+
+/** Announcement / Banner */
+.md-banner {
+  background-color: #C0BAF5;
+  color: var(--dark);
+  height: 96px;
+  align-content: center;
+}
+
+.md-banner__inner.md-grid {
+  max-width: 1440px;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+}
+
+.md-typeset .md-banner img {
+  width: 168.47px;
+  height: 27.83px;
+}
+
+.md-banner .message {
+  font-family: "Space Mono", monospace;
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: -0.336px;
+  line-height: 100%;
+  gap: 39.235px;
+}
+
+.message .divider {
+  height: 32.8px;
+  background-color: rgba(0, 0, 0, .3);
+  margin: 0;
+  width: 1px;
+}
+
+.md-banner .md-button {
+  background-color: var(--dark);
+  color: #C0BAF5;
+  font-family: "Space Mono", monospace;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 16px;
+  padding: 16px 31px;
+  width: 210px;
+  height: 48px;
+  letter-spacing: 0;
+  border: 1px solid #C0BAF5;
+  border-radius: unset;
+}
+
+.md-banner .md-button:focus,
+.md-banner .md-button:hover {
+  background-color: rgba(0,0,0,.8);
+  color: #C0BAF5;
+}
+
+.md-banner .md-button .arrow {
+  width: 9px;
+  height: 16px;
+  font-style: normal;
+  font-weight: 700;
+  margin-left: 16px;
+}
+
+.md-banner__inner > .row {
+  justify-content: space-between;
+}
