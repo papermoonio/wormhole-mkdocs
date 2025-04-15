@@ -1982,6 +1982,7 @@ details.child {
   letter-spacing: -0.336px;
   line-height: 100%;
   gap: 39.235px;
+  padding-right: 40px;
 }
 
 .message .divider {
@@ -2022,4 +2023,33 @@ details.child {
 
 .md-banner__inner > .row {
   justify-content: space-between;
+}
+
+@media screen and (max-width: 52em) {
+  .md-banner img,
+  .md-banner .divider {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 38em) {
+  .md-banner {
+    height: unset;
+  }
+}
+
+@media screen and (max-width: 30em) {
+  .md-banner__inner > .row {
+    flex-direction: column;
+    gap: .5em;
+  }
+
+  .md-banner .message {
+    padding: 0;
+    text-align: center;
+  }
+
+  .md-banner .message p {
+    margin: 0;
+  }
 }
