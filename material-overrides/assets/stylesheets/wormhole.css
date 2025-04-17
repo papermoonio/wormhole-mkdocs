@@ -1048,11 +1048,32 @@ pre .md-clipboard {
   font-size: 0.8em;
   padding: 0.4em 0.8em;
   margin-right: 0.5em;
+/** taest maybe add to the content page badges no the base style **/
+  display: inline-block;
+  font-weight: 600;
+  text-transform: uppercase;
 }
 
 .md-typeset span.badge.product {
   background-color: var(--plum);
   color: var(--dark);
+}
+
+span.badge.beginner,
+span.badge.intermediate,
+span.badge.advanced {
+  background-color: var(--plum);
+  color: var(--dark);
+}
+
+/** In grid cards */
+.grid.cards span.badge {
+  margin-right: 0.5em;
+}
+
+/** In content pages */
+.md-typeset > span.badge {
+  margin-top: 1.3em;
 }
 
 @media screen and (max-width: 30em) {
@@ -2052,4 +2073,3 @@ details.child {
   .md-banner .message p {
     margin: 0;
   }
-}
