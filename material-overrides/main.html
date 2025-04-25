@@ -243,15 +243,3 @@
     });
   </script>
 {% endblock %}
-
-{%- block container -%} 
-  <div class="md-content" data-md-component="content">
-    {% set class = "index-page" if not page.content and not page.is_homepage %}
-    <article class="md-content__inner md-typeset {{ class }}">
-      {% block content %}
-        {% include "partials/content.html" %}
-      {% endblock %}
-    </article>
-  </div>
-{%- endblock -%} 
-

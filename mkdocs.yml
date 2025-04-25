@@ -21,7 +21,7 @@ theme:
     - navigation.footer # Shows previous and next on the footer
     - navigation.tabs # Top-level sections are rendered below the header (can be modified to in-line with CSS)
     - navigation.tabs.sticky # When scrolling, the tabs remain at the top of the page
-    - navigation.sections # Render top-level sections as groups in the sidebar
+    - navigation.sections
   font:
     text: Inter
     code: Roboto Mono
@@ -61,6 +61,8 @@ markdown_extensions:
   - pymdownx.superfences
   - pymdownx.tabbed:
       alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
   - toc:
       title: Sections
       permalink: ＃
