@@ -8,20 +8,23 @@ extra_css:
   - assets/stylesheets/terminal.css
   - assets/stylesheets/spantable-neoteroi.css
   - assets/stylesheets/timeline-neoteroi.css
+extra_javascript:
+  - js/tool-selector.js
 theme:
   name: material
   custom_dir: material-overrides
   favicon: assets/images/favicon.webp
-  logo: assets/images/wormhole.webp
+  logo_light: assets/images/wormhole-light.webp
+  logo_dark: assets/images/wormhole-dark.webp
   features:
     - content.code.annotate # Adds annotations to code blocks
     - content.code.copy # Adds copy to clipboard button to code snippets
     - content.tooltips # Adds tooltips
     - content.action.edit # Adds "Edit this page" button
-    - navigation.footer # Shows previous and next on the footer
     - navigation.tabs # Top-level sections are rendered below the header (can be modified to in-line with CSS)
     - navigation.tabs.sticky # When scrolling, the tabs remain at the top of the page
     - navigation.sections
+    # - navigation.instant
   font:
     text: Inter
     code: Roboto Mono
@@ -30,6 +33,17 @@ theme:
     admonition:
       note: octicons/pencil-16
       warning: octicons/alert-16
+  palette:
+    - media: "(prefers-color-scheme: dark)"
+      scheme: custom-dark
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: custom-light 
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
 validation:
   absolute_links: ignore
   unrecognized_links: ignore

@@ -35,17 +35,6 @@
   {%- endif -%} 
 {%- endblock -%} 
 
-{% block announce %}
-  <div class="row">
-    <div class="message row">
-      <img src="/docs/assets/images/dev-arena-logo.svg">
-      <div class="divider"></div>
-      <p>Enter the Wormhole Dev Arena and build multichain.</p>
-    </div>
-    <a href="https://arena.wormhole.com" target="_blank"><button class="md-button primary">Start Building<i class="arrow">></i></button></a>
-  </div>
-{% endblock %}
-
 {% block libs %}
   {{ super() }}
 
@@ -114,22 +103,26 @@
       {{ hidden }}
     >
       <div class="md-sidebar__scrollwrap">
+        {#- Feedback and Edit this page container -#}
+        <div class="page-actions">
+          <label class="md-nav__title" for="__page_actions">
+            Page Actions
+          </label>
+          <div class="feedback-actions-container">
+            {#- Edit this Page Section -#}
+            <div class="edit-section">
+              {% include "partials/actions.html" %}
+            </div>
+            {#- Feedback Section -#}
+            <!-- <div class="feedback-section">
+              {% include "partials/feedback.html" %}
+            </div> -->
+          </div>
+        </div>
+        
         <div class="md-sidebar__inner">
           {#- TOC -#}
           {% include "partials/toc.html" %}
-        </div>
-
-        {#- Feedback and Edit this page container -#}
-        <div class="feedback-actions-container">
-          {#- Feedback Section -#}
-          <div class="feedback-section">
-            {% include "partials/feedback.html" %}
-          </div>
-
-          {#- Edit this Page Section -#}
-          <div class="edit-section">
-            {% include "partials/actions.html" %}
-          </div>
         </div>
       </div>
     </div>
