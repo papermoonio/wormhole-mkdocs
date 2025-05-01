@@ -234,7 +234,7 @@ extra:
     provider: google
     property: G-SGJJFZS9BB
     feedback:
-      title: Was this page helpful?
+      title: Was this helpful?
       ratings:
         - icon: material/emoticon-happy-outline
           name: This page was helpful

@@ -103,20 +103,19 @@
       {{ hidden }}
     >
       <div class="md-sidebar__scrollwrap">
-        {#- Feedback and Edit this page container -#}
         <div class="page-actions">
           <label class="md-nav__title" for="__page_actions">
             Page Actions
           </label>
-          <div class="feedback-actions-container">
+          <div class="actions-container">
             {#- Edit this Page Section -#}
             <div class="edit-section">
               {% include "partials/actions.html" %}
             </div>
             {#- Feedback Section -#}
-            <!-- <div class="feedback-section">
+            <div class="feedback-section">
               {% include "partials/feedback.html" %}
-            </div> -->
+            </div>
           </div>
         </div>
         
@@ -147,18 +146,17 @@
     document.addEventListener('DOMContentLoaded', () => {
       function setTableHeaderOffset(navbarSelector, tableSelector) {
         const navbar = document.querySelector(navbarSelector);
-        const navbarHeight = navbar ? navbar.offsetHeight : 0;
+        const navbarHeight = navbar ? navbar.offsetHeight - 1 : 0;
 
         // Loop through each table
         document.querySelectorAll(tableSelector).forEach((tableWrapper) => {
           const thead = tableWrapper.querySelector('thead');
-          const tbody = tableWrapper.querySelector('tbody');
           const table = tableWrapper.querySelector('table');
 
           // This blocking div is used to prevent the left and right borders from
           // sticking out of the top of the table
           const blockingDiv = tableWrapper.querySelector('.header-blocker');
-          thead.style.top = `${navbarHeight}px`;
+          thead.style.top = `${navbarHeight + 20}px`;
           if (blockingDiv) {
             // If the blocker div already exists, modify the styles          
             blockingDiv.style.top = `${navbarHeight}px`;

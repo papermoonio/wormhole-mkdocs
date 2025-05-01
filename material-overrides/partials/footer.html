@@ -60,12 +60,15 @@
           });</script>
         </div>
         <div class="llms">
+          <span class="footer-title">AI Resources</span>
           <button class="md-clipboard--inline md-icon llms copy md-button" title="{{ lang.t('clipboard.copy') }}" value="llms-full.txt" action="copy">
             {% include ".icons/material/content-copy.svg" %} llms-full.txt
           </button>
         </div>
         {% include "partials/social.html" %}
       </div>
+    </div>
+    <div class="copyright-wrapper">
       <div class="md-footer-copyright md-grid">
         {% if config.copyright %}
         <div class="md-footer-copyright__highlight">
