@@ -1,522 +1,67 @@
-:root .md-content__inner {
-  --md-header-font: 'Druk', sans-serif;
-  --line-height-90: 90%;
-  --line-height-100: 100%;
-  --header-font-weight: 800;
-  --header-text-style: uppercase;
-}
-
-.md-content__inner .md-typeset h1 {
-  font-size: 120px;
-  font-family: var(--md-header-font);
-  line-height: var(--line-height-90);
-  text-transform: var(--header-text-style);
-  font-weight: var(--header-font-weight);
-}
-
-.md-content__inner .md-typeset h2 {
-  font-size: 72px;
-  font-family: var(--md-header-font);
-  line-height: var(--line-height-100);
-  text-transform: var(--header-text-style);
-  font-weight: var(--header-font-weight);
-}
-
-.md-content__inner .md-typeset h3 {
-  font-family: var(--md-header-font);
-  line-height: var(--line-height-100);
-  text-transform: var(--header-text-style);
-  font-weight: var(--header-font-weight);
-}
-
-.md-typeset.md-content__inner a {
-  text-decoration: none;
-}
-
-.md-main__inner {
-  max-width: unset;
-}
-
-.md-content__inner {
-  padding: 1em;
-}
-
-/** ------------------------
- Styles for the hero section
------------------------- **/
 .hero {
   display: flex;
-  text-align: left;
-  padding: 0;
-  align-items: center;
-  min-height: 50em;
-  max-width: 61rem;
-  margin: auto;
-  margin-top: -8em;
-}
-
-.hero-content {
-  position: relative;
-  width: 40%;
-  z-index: 1;
-  padding: 2em 0;
-}
-
-.md-typeset .hero video {
-  position: absolute;
-  z-index: -1;
-  max-width: 61rem;
-  margin-right: auto;
-  object-fit: fill;
-  object-position: center;
-}
-
-.hero p {
-  margin: 1em 0 3em;
-}
-
-.button-wrapper {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1em;
-}
-
-/** ---------------------------
- Styles for the product section
---------------------------- **/
-.integrate-products {
-  display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2em;
-  max-width: 61rem;
-  margin: auto;
-}
-
-.integrate-products h2 {
-  max-width: 72%;
-  margin: 0;
+  margin: 0 auto;
   text-align: center;
+  border: 1px solid var(--md-accent-fg-color--active);
+  border-radius: .5em;
+  padding: 1em;
+  background-image: 
+  linear-gradient(to right, var(--md-accent-fg-color--active) 1px, transparent 1px),
+  linear-gradient(to bottom, var(--md-accent-fg-color--active) 1px, transparent 1px);
+  background-size: 40px 40px;
 }
 
-.product-cards {
-  display: flex;
-  flex-direction: column;
-  justify-self: center;
-  max-width: 90%;
-  gap: .75em;
-}
-
-.product-card {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: url(../images/card-bg.svg), var(--grey);
-  background-size: cover;
-  border-radius: 16px;
-  padding: 32px 0;
-  border: 1px solid hsl(270 1.1% 62.7%/.15);
-}
-
-.product-card:hover {
-  background-color: rgb(55 55 55/1);
-}
-
-.md-typeset a.product-card:focus,
-.md-typeset a.product-card:hover {
-  opacity: 1;
-}
-
-.product-card > * {
-  padding: 0 32px;
-  min-height: 44px;
-  height: 100%;
-}
-
-.product-card > *:nth-child(2) {
-  border-left: 1px solid var(--light-transparent-26);
-}
-
-.product-card h3 {
-  font-size: 36px;
-  font-weight: 700;
-  margin: 0;
-  align-content: center;
-  flex: 18%;
-  color: var(--md-default-fg-color);
-}
-
-.product-card p {
-  color: #A09FA1;
-  font-size: 14px;
-  line-height: 22.4px;
-  margin: 0;
-  flex: 25%;
-  display: flex;
-  align-items: center;
-}
-
-.product-card a {
-  font-family: var(--md-cta-font);
-  text-transform: var(--md-cta-text-style);
-  font-weight: 500;
-  font-size: 11px;
-  line-height: 13.2px;
-  display: flex;
-  justify-content: end;
-  align-items: center;
-  gap: 8px;
-  flex: 10%;
-}
-
-.md-typeset .twemoji svg {
-  width: 20px;
-  height: 20px;
-}
-
-/** --------------------------------
- Styles for explore products section
--------------------------------- **/
-.explore-products {
-  max-width: 61rem;
-  margin: auto;
-  position: relative;
-}
-
-.explore-products img {
-  position: absolute;
-  z-index: -1;
-}
-
-.explore-products-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: 8em;
-  padding-bottom: 8em;
-}
-
-.explore-products h2 {
-  margin-top: .5em;
-  text-align: center;
-}
-
-.explore-products-content .button-wrapper {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1em;
-}
-
-.explore-products-content button.md-button {
-  width: 100%;
-  padding: 1.6em 2.35em;
-}
-
-/** -----------------------
- Styles for feature section
------------------------ **/
-.feature {
-  max-width: 61rem;
-  margin: auto;
-  display: flex;
-  justify-content: space-between;
-  gap: 2em;
-}
-
-.feature-card {
-  display: flex;
-  flex-direction: column;
-  flex: 1 1 0%;
-  border-radius: 16px;
-  min-width: 0;
-  padding: 4em;
-  position: relative;
-  border: 1px solid hsl(270 1.1% 62.7%/.15);
-}
-
-.feature-card p {
-  width: 75%;
-}
-
-.feature-card:nth-child(1){
-  background: url(../images/card-bg-1.svg);
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: top;
-  border: 1px solid hsl(270 1.1% 62.7%/.15);
-}
-
-.feature-card:nth-child(2){
-  background: url(../images/card-bg-2.svg);
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: top;
-  border: 1px solid hsl(270 1.1% 62.7%/.15);
-}
-
-.feature-card .start-building.md-button {
-  padding: 1.6em 2.35em;
-  margin-top: 5em;
-}
-
-.md-content__inner .md-typeset .feature-card h2 {
-  font-size: 60px;
-  margin: 0;
-  overflow-wrap: break-word;
-}
-
-.feature-card a {
-  margin-top: auto;
-}
-
-/** -----------------------------
- Styles for start building footer
------------------------------ **/
-.start-building-footer {
-  padding: 5em 0 3em;
-  max-width: 61rem;
-  margin: auto;
-  margin-top: 1em;
-  display: flex;
-  justify-content: space-between;
-  gap: 2em;
-}
-
-.md-content__inner .md-typeset .start-building-footer h3 {
-  font-size: 60px;
-  margin-top: 0;
+.md-typeset .hero h1 {
   margin-bottom: 0;
-  width: 66%;
 }
 
-.start-building.md-button {
+.row {
   display: flex;
-  align-items: center;
-  height: fit-content;
+  flex-direction: row;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+}
+
+.features .row {
   gap: 1em;
-  padding: 0.9em 2.35em;
+  margin-bottom: 1em;
 }
 
-.start-building img {
-  height: 30px;
-  width: 30px;
+.md-typeset .hero p {
+  margin-bottom: 0;
+  max-width: 60%;
 }
 
-/** -----------
- Mobile styling
------------ **/
-@media screen and (max-width: 80em) {
-  .md-typeset .hero video {
-    object-fit: cover;
-    /* These width values come from .md-content__inner padding (1em) and margin (.8rem) */
-    max-width: calc(100vw - 1em - .8rem);
-  }
-
-  .product-card a {
-    flex: 15%;
-  }
-
-  .explore-products {
-    width: 100vw;
-    margin-left: -2em;
-  }
-
-  .md-content__inner .md-typeset .integrate-products h2 {
-    max-width: 80%;
-  }
+.md-typeset a.card {
+  color: var(--md-default-fg-color);
+  border: 1px solid var(--md-border-color);
+  border-radius: .5em;
+  padding: 1em;
+  flex: 1 1 0;
+  display: flex;
+  align-items: normal;
+  gap: 2em;
 }
 
-@media screen and (max-width: 76.234375em) {
-  .hero {
-    margin-top: -10em;
-  }
-
-  .md-content__inner .md-typeset .integrate-products h2 {
-    max-width: 90%;
-  }
-
-  .feature-card {
-    padding: 3em;
-  }
-
-  .md-content__inner .md-typeset .feature-card h2 {
-    font-size: 64px;
-  }
+.md-typeset a.card:hover {
+  cursor: pointer;
 }
 
-@media screen and (max-width: 70em) {
-  .product-cards {
-    max-width: unset;
-  }
+.md-typeset .card h3 {
+  margin: 0 0 .5em;
 }
 
-@media screen and (max-width: 66em) {
-  .hero {
-    min-height: unset;
-    padding-bottom: 3em;
-    margin-top: 0;
-  }
-
-  .md-content__inner .md-typeset h1 {
-    font-size: 90px;
-  }
-
-  .hero-content {
-    width: 100%;
-    padding-top: 0;
-  }
-
-  .hero p {
-    margin: 0 0 3em;
-  }
-
-  .md-typeset .hero video {
-    display: none;
-  }
-
-  .md-content__inner .md-typeset h2 {
-    font-size: 60px;
-  }
-
-  .md-content__inner .md-typeset .product-card h3 {
-    font-size: 28px;
-  }
-
-  .product-card a {
-    justify-content: left;
-  }
-
-  .explore-products-content {
-    padding: 0 1.2rem;
-  }
-
-  .md-content__inner .md-typeset .explore-products h2 {
-    max-width: unset;
-  }
-
-  .explore-products-content {
-    padding-top: 6em;
-    padding-bottom: 6em;
-  }
-
-  .md-content__inner .md-typeset .feature-card h2,
-  .md-content__inner .md-typeset .start-building-footer h3 {
-    font-size: 48px;
-    overflow-wrap: break-word;
-    word-break: break-word;
-  }
+.card img {
+  width: 2rem;
+  height: 2rem;
 }
 
-@media screen and (max-width: 60em) {
-  .feature-card {
-    padding: 2em;
-  }
+.card p {
+  margin-top: 0;
 }
 
-@media screen and (max-width: 52em) {
-  .feature {
-    flex-direction: column;
-  }
-
-  .feature-card {
-    padding: 4em;
-  }
-}
-
-@media screen and (max-width: 47.5em) {
-  .md-main__inner {
-    margin-top: 0;
-  }
-
-  .hero {
-    padding-bottom: 5em;
-  }
-
-  .hero-content {
-    padding: unset;
-  }
-
-  .md-content__inner .md-typeset h1 {
-    font-size: 60px;
-  }
-
-  .hero p {
-    margin: 0 0 2em;
-  }
-
-  .button-wrapper .md-button {
-    font-size: var(--caption-size);
-  }
-
-  .product-card {
-    flex-direction: column;
-  }
-
-  .product-card > *:nth-child(2) {
-    border: none;
-  }
-
-  .md-content__inner .md-typeset .product-card h3 {
-    text-align: center;
-  }
-
-  .explore-products-content {
-    padding-top: 2em;
-    padding-bottom: 3em;
-  }
-
-  .explore-products .button-wrapper {
-    justify-content: left;
-    flex-direction: column;
-    max-width: 90%;
-    display: flex;
-  }
-
-  .md-content__inner .md-typeset h2 {
-    font-size: 48px;
-  }
-
-  .md-content__inner .md-typeset .feature-card h2,
-  .md-content__inner .md-typeset .start-building-footer h3 {
-    font-size: 36px;
-  }
-
-  .start-building-footer {
-    flex-direction: column;
-    padding: 3em 0 1em;
-  }
-
-  .md-content__inner .md-typeset .start-building-footer h3 {
-    width: 100%;
-  }
-
-  .start-building.md-button {
-    width: fit-content;
-  }
-}
-
-@media screen and (max-width: 35.125em) {
-  .md-main {
-    padding: 0;
-  }
-
-  .md-content__inner {
-    margin: 0 1.2rem;
-    padding: 0;
-  }
-
-  .hero .button-wrapper {
-    justify-content: left;
-    flex-direction: column;
-    max-width: 90%;
-  }
-
-  .md-typeset .explore-products img {
-    display: none;
-  }
-
-  .feature-card {
-    max-width: unset;
-    padding: 2em;
-  }
-}
