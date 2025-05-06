@@ -156,12 +156,15 @@
     {% endif %}
 
     <!-- Nested navigation item -->
+    {% if level == 2 %}
+      {% set class = class ~ " nav__item--section" %}
+    {% endif %}
     <li class="{{ class }} md-nav__item--nested">
       {% if not is_pruned %}
         {% set checked = "checked" if nav_item.active %}
 
         <!-- Determine checked and indeterminate state -->
-        {% if "navigation.expand" in features and not checked %}
+        {% if "navigation.expand" in features and not checked and not level == 2%}
           {% set indeterminate = "md-toggle--indeterminate" %}
         {% endif %}
 
@@ -182,8 +185,14 @@
             id="{{ path }}_label"
             tabindex="{{ tabindex }}"
           >
-            {{ render_content(nav_item) }}
-            <span class="md-nav__icon md-icon"></span>
+            {% if level == 2 %}
+              <span class="nav__icon md-icon plus">{% include ".icons/material/plus-box-outline.svg" %}</span>
+              <span class="nav__icon md-icon minus">{% include ".icons/material/minus-box.svg" %}</span>
+              {{ render_content(nav_item) }}
+            {% else %}
+              {{ render_content(nav_item) }}
+              <span class="md-nav__icon md-icon"></span>
+            {% endif %}
           </label>
 
         <!-- Toggle to expand nested items with link to index page -->
