@@ -246,6 +246,10 @@
   background-color: var(--md-accent-fg-color--active);
 }
 
+.md-typeset h1 {
+  margin-bottom: 0.5em
+}
+
 /* General styling: pages */
 .md-grid {
   max-width: 1536px;
@@ -256,9 +260,18 @@
   margin-top: 0.75rem;
 }
 
+.md-content__inner {
+  padding-top: 0;
+}
+
+.md-content__inner:before {
+  height: 0;
+}
+
+.md-typeset pre > code,
 .md-sidebar__scrollwrap:focus-within,
 .md-sidebar__scrollwrap:hover {
-  scrollbar-color: var(--md-primary-bg-color--light) #0000;
+  scrollbar-color: var(--md-primary-bg-color--light) #0000 !important;
 }
 
 @media screen and (min-width: 125em) {
@@ -537,7 +550,10 @@
     padding-left: 1.1rem;
   }
 
-  .md-nav__item.md-nav__item--nested > .md-nav[data-md-level="3"] > .md-nav__list > * {
+  .md-nav__item.md-nav__item--nested
+    > .md-nav[data-md-level="3"]
+    > .md-nav__list
+    > * {
     border-left: 1px solid var(--md-border-color);
   }
 }
@@ -591,6 +607,10 @@ code.md-code__content {
 .md-typeset a:focus code,
 .md-typeset a:hover code {
   background-color: var(--md-accent-fg-color--active);
+}
+
+.md-typeset code:not(.focus-visible) {
+  white-space: break-spaces;
 }
 
 /* Tabbed element styling */
@@ -686,7 +706,7 @@ code.md-code__content {
     background-color: var(--md-default-bg-color);
     z-index: 2;
     height: 1.5em;
-    max-width: 61rem;
+    max-width: 1536px;
     margin: auto;
   }
 }
@@ -779,11 +799,11 @@ a.md-content__button.md-icon {
   border: 1px solid var(--md-border-color);
   border-radius: 2em;
   width: fit-content;
-  padding: .2em .6em;
+  padding: 0.2em 0.6em;
 }
 
 .md-feedback__note {
-  margin-top: .2em;
+  margin-top: 0.2em;
 }
 
 :disabled .md-feedback__list {
@@ -840,11 +860,6 @@ a.md-content__button.md-icon {
   border-bottom: var(--md-border-width) solid var(--md-border-color);
 }
 
-.md-footer-meta,
-.md-footer-copyright {
-  padding: 0 5.75em;
-}
-
 .md-footer-meta__inner,
 .md-footer-meta__inner.md-grid {
   display: flex;
@@ -855,6 +870,18 @@ a.md-content__button.md-icon {
   text-transform: var(--label-text-style);
   gap: 3em;
   font-size: 0.7em;
+}
+
+.md-footer-meta__inner.md-grid > * {
+  min-width: calc(33% - 3em);
+}
+
+.md-footer-meta__inner.md-grid > *:nth-child(2) {
+  justify-items: center;
+}
+
+.md-footer-meta__inner.md-grid > *:last-child {
+  justify-content: end;
 }
 
 .md-footer__button svg {
@@ -874,6 +901,7 @@ a.md-content__button.md-icon {
   flex-wrap: wrap;
   padding: 0.5em 0 0;
   font-size: var(--body-text-size);
+  margin: 0;
 }
 
 .md-social a {
@@ -1046,7 +1074,26 @@ html .md-footer-meta.md-typeset .md-footer-copyright a {
 }
 
 /* Footer styling on small screens */
+@media screen and (max-width: 76.2344em) {
+  .md-footer-meta__inner,
+  .md-footer-meta__inner.md-grid {
+    padding: 1.5rem 2em;
+    margin-left: 0.8rem;
+    margin-right: 0.8rem;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .md-footer-meta__inner.md-grid > *:nth-child(2) {
+    justify-items: end;
+  }
+}
+
 @media screen and (max-width: 1060px) {
+  .md-footer-copyright {
+    margin: 1em auto;
+  }
+
   .md-footer-copyright > * {
     flex: 1 1 100%;
     margin: auto;
@@ -1058,24 +1105,48 @@ html .md-footer-meta.md-typeset .md-footer-copyright a {
   }
 }
 
-@media screen and (max-width: 51.5em) {
-  .md-footer-meta__inner,
-  .md-footer-meta__inner.md-grid {
-    justify-content: center;
-  }
-
+@media screen and (max-width: 642px) {
   .md-footer .column {
     align-items: center;
+  }
+
+  .md-footer-meta__inner.md-grid > * {
+    width: 100%;
+  }
+
+  .md-footer-meta__inner,
+  .md-footer-meta__inner.md-grid {
+    gap: 1.5em;
+    margin: 0;
+  }
+
+  .md-footer-meta__inner.md-grid > *:nth-child(2) {
+    justify-items: start;
+  }
+
+  .md-footer-meta__inner.md-grid > *:last-child {
+    justify-content: start;
   }
 }
 
 @media screen and (max-width: 30em) {
   .hs-form {
     flex-direction: column;
-    align-items: center;
+    align-items: start;
   }
 
-  .md-social {
+  .hs-submit .actions .hs-button {
+    margin-top: 0;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .md-social a {
+    width: 2.3em;
+    height: 2.3em;
+  }
+
+  .md-socal {
     gap: 0.5em;
   }
 }
