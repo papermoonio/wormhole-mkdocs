@@ -7,6 +7,8 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
+        <meta name="description" content="NTT enables cross-chain token movement without wrapping. Install the CLI, deploy test tokens, and scaffold a project to integrate NTT into your app.">
+      
       
       
         <link rel="canonical" href="https://wormhole.com/docs/products/native-token-transfers/get-started/">
@@ -15,7 +17,7 @@
         <link rel="prev" href="../overview/">
       
       
-        <link rel="next" href="../configuration/access-control/">
+        <link rel="next" href="../guides/deploy-to-evm/">
       
       
       <link rel="icon" href="../../../assets/images/favicon.webp">
@@ -23,7 +25,7 @@
     
   
 
-    <title>Get Started | Wormhole Docs</title>
+    <title>Get Started with NTT | Wormhole Docs</title>
     
 	
       <link rel="stylesheet" href="../../../assets/stylesheets/main.6543a935.min.css">
@@ -152,6 +154,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#get-started-with-ntt" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -207,7 +214,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Get Started
+              Get Started with NTT
             
           </span>
         </div>
@@ -1851,8 +1858,31 @@
       <!-- Hack: see partials/toc.html for more information -->
       
       
+        
+      
 
       <!-- Navigation link to table of contents -->
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+
+  <!-- Navigation link icon -->
+  
+
+  <!-- Navigation link title -->
+  <span class="md-ellipsis">
+    Get Started
+
+    <!-- Navigation link subtitle -->
+    
+  </span>
+
+  <!-- Navigation link status -->
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
       
       <a
         href="./"
@@ -1878,6 +1908,81 @@
       </a>
 
       <!-- Table of contents -->
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="Sections">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Sections
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introduction
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dont-have-a-token-yet" class="md-nav__link">
+    <span class="md-ellipsis">
+      Don’t Have a Token Yet?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#install-ntt-cli" class="md-nav__link">
+    <span class="md-ellipsis">
+      Install NTT CLI
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initialize-a-new-ntt-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      Initialize a New NTT Project
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Next Steps
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
 
@@ -1956,7 +2061,7 @@
 
   <!-- Navigation link title -->
   <span class="md-ellipsis">
-    Configuration
+    Guides
 
     <!-- Navigation link subtitle -->
     
@@ -1980,195 +2085,6 @@
           aria-expanded="false"
         >
           <label class="md-nav__title" for="__nav_1_3_3">
-            <span class="md-nav__icon md-icon"></span>
-            Configuration
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-
-            <!-- Nested navigation item -->
-            
-              
-                
-
-  <!-- Determine classes -->
-  
-  
-
-  <!-- Determine active page for paginated views -->
-  
-
-  <!-- Navigation item with nested items -->
-  
-    <li class="md-nav__item">
-      <a href="../configuration/access-control/" class="md-nav__link">
-        
-  
-
-  <!-- Navigation link icon -->
-  
-
-  <!-- Navigation link title -->
-  <span class="md-ellipsis">
-    Access Control
-
-    <!-- Navigation link subtitle -->
-    
-  </span>
-
-  <!-- Navigation link status -->
-  
-
-        
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-
-  <!-- Determine classes -->
-  
-  
-
-  <!-- Determine active page for paginated views -->
-  
-
-  <!-- Navigation item with nested items -->
-  
-    <li class="md-nav__item">
-      <a href="../configuration/rate-limiting/" class="md-nav__link">
-        
-  
-
-  <!-- Navigation link icon -->
-  
-
-  <!-- Navigation link title -->
-  <span class="md-ellipsis">
-    Rate Limits
-
-    <!-- Navigation link subtitle -->
-    
-  </span>
-
-  <!-- Navigation link status -->
-  
-
-        
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-
-      <!-- Pruned navigation item -->
-      
-    </li>
-
-  <!-- Currently active page -->
-  
-
-              
-            
-              
-                
-
-  <!-- Determine classes -->
-  
-  
-
-  <!-- Determine active page for paginated views -->
-  
-
-  <!-- Navigation item with nested items -->
-  
-
-    <!-- Determine all nested items that are index pages -->
-    
-    
-    
-
-    <!-- Navigation tabs -->
-    
-
-      <!-- Render 1st level active item as section -->
-      
-
-      <!-- Navigation tabs + sections -->
-      
-
-    <!-- Navigation sections -->
-    
-
-    <!-- Navigation pruning -->
-    
-
-    <!-- Nested navigation item -->
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-
-        <!-- Determine checked and indeterminate state -->
-        
-          
-        
-
-        <!-- Active checkbox expands items contained within nested section -->
-        <input
-          class="md-nav__toggle md-toggle md-toggle--indeterminate"
-          type="checkbox"
-          id="__nav_1_3_4"
-          
-        />
-
-        <!-- Toggle to expand nested items -->
-        
-          
-          <label
-            class="md-nav__link"
-            for="__nav_1_3_4"
-            id="__nav_1_3_4_label"
-            tabindex="0"
-          >
-            
-              
-  
-
-  <!-- Navigation link icon -->
-  
-
-  <!-- Navigation link title -->
-  <span class="md-ellipsis">
-    Guides
-
-    <!-- Navigation link subtitle -->
-    
-  </span>
-
-  <!-- Navigation link status -->
-  
-
-              <span class="md-nav__icon md-icon"></span>
-            
-          </label>
-
-        <!-- Toggle to expand nested items with link to index page -->
-        
-
-        <!-- Nested navigation -->
-        <nav
-          class="md-nav"
-          data-md-level="3"
-          aria-labelledby="__nav_1_3_4_label"
-          aria-expanded="false"
-        >
-          <label class="md-nav__title" for="__nav_1_3_4">
             <span class="md-nav__icon md-icon"></span>
             Guides
           </label>
@@ -2275,6 +2191,195 @@
   <!-- Navigation link title -->
   <span class="md-ellipsis">
     Deploy to Solana
+
+    <!-- Navigation link subtitle -->
+    
+  </span>
+
+  <!-- Navigation link status -->
+  
+
+        
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+
+      <!-- Pruned navigation item -->
+      
+    </li>
+
+  <!-- Currently active page -->
+  
+
+              
+            
+              
+                
+
+  <!-- Determine classes -->
+  
+  
+
+  <!-- Determine active page for paginated views -->
+  
+
+  <!-- Navigation item with nested items -->
+  
+
+    <!-- Determine all nested items that are index pages -->
+    
+    
+    
+
+    <!-- Navigation tabs -->
+    
+
+      <!-- Render 1st level active item as section -->
+      
+
+      <!-- Navigation tabs + sections -->
+      
+
+    <!-- Navigation sections -->
+    
+
+    <!-- Navigation pruning -->
+    
+
+    <!-- Nested navigation item -->
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+
+        <!-- Determine checked and indeterminate state -->
+        
+          
+        
+
+        <!-- Active checkbox expands items contained within nested section -->
+        <input
+          class="md-nav__toggle md-toggle md-toggle--indeterminate"
+          type="checkbox"
+          id="__nav_1_3_4"
+          
+        />
+
+        <!-- Toggle to expand nested items -->
+        
+          
+          <label
+            class="md-nav__link"
+            for="__nav_1_3_4"
+            id="__nav_1_3_4_label"
+            tabindex="0"
+          >
+            
+              
+  
+
+  <!-- Navigation link icon -->
+  
+
+  <!-- Navigation link title -->
+  <span class="md-ellipsis">
+    Configuration
+
+    <!-- Navigation link subtitle -->
+    
+  </span>
+
+  <!-- Navigation link status -->
+  
+
+              <span class="md-nav__icon md-icon"></span>
+            
+          </label>
+
+        <!-- Toggle to expand nested items with link to index page -->
+        
+
+        <!-- Nested navigation -->
+        <nav
+          class="md-nav"
+          data-md-level="3"
+          aria-labelledby="__nav_1_3_4_label"
+          aria-expanded="false"
+        >
+          <label class="md-nav__title" for="__nav_1_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            Configuration
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+
+            <!-- Nested navigation item -->
+            
+              
+                
+
+  <!-- Determine classes -->
+  
+  
+
+  <!-- Determine active page for paginated views -->
+  
+
+  <!-- Navigation item with nested items -->
+  
+    <li class="md-nav__item">
+      <a href="../configuration/access-control/" class="md-nav__link">
+        
+  
+
+  <!-- Navigation link icon -->
+  
+
+  <!-- Navigation link title -->
+  <span class="md-ellipsis">
+    Access Control
+
+    <!-- Navigation link subtitle -->
+    
+  </span>
+
+  <!-- Navigation link status -->
+  
+
+        
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+
+  <!-- Determine classes -->
+  
+  
+
+  <!-- Determine active page for paginated views -->
+  
+
+  <!-- Navigation item with nested items -->
+  
+    <li class="md-nav__item">
+      <a href="../configuration/rate-limiting/" class="md-nav__link">
+        
+  
+
+  <!-- Navigation link icon -->
+  
+
+  <!-- Navigation link title -->
+  <span class="md-ellipsis">
+    Rate Limits
 
     <!-- Navigation link subtitle -->
     
@@ -9208,7 +9313,7 @@
                 
                 
               
-              Thanks for your feedback! Help us improve this page by submitting <a href="https://docs.google.com/forms/d/e/1FAIpQLSdRjp_CJ2jEC0gPvK242zRzJoN_x9-Nlt_KXkCy7QPYiD4OlA/viewform?usp=pp_url&entry.2090824420=[Feedback]+Get%20Started+-+/products/native-token-transfers/get-started/" target="_blank" rel="noopener">additional feedback</a>.
+              Thanks for your feedback! Help us improve this page by submitting <a href="https://docs.google.com/forms/d/e/1FAIpQLSdRjp_CJ2jEC0gPvK242zRzJoN_x9-Nlt_KXkCy7QPYiD4OlA/viewform?usp=pp_url&entry.2090824420=[Feedback]+Get%20Started%20with%20NTT+-+/products/native-token-transfers/get-started/" target="_blank" rel="noopener">additional feedback</a>.
             </div>
           
         </div>
@@ -9228,6 +9333,70 @@
   
   
   
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Sections
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introduction
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dont-have-a-token-yet" class="md-nav__link">
+    <span class="md-ellipsis">
+      Don’t Have a Token Yet?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#install-ntt-cli" class="md-nav__link">
+    <span class="md-ellipsis">
+      Install NTT CLI
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initialize-a-new-ntt-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      Initialize a New NTT Project
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Next Steps
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
   
 </nav>
         </div>
@@ -9272,11 +9441,189 @@
   page title (or respectively site name) is used as the main headline.
 -->
 
-  <h1>Get Started</h1>
-
 
 <!-- Page content -->
-<p>TODO</p>
+<h1 id="get-started-with-ntt">Get Started with NTT<a class="headerlink" href="#get-started-with-ntt" title="Permanent link">＃</a></h1>
+<h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">＃</a></h2>
+<p>The <a href="/wormhole-mkdocs/products/native-token-transfers/overview" target="_blank">Native Token Transfers (NTT)</a> framework enables seamless cross-chain token movement without wrapping or liquidity pools. This guide shows you how to install the NTT CLI, which is used to configure and deploy native token contracts, and scaffold your first project for deployment on testnet or mainnet.</p>
+<p>If you are looking for a no-code experience to deploy on mainnet, you can explore the <a href="https://ntt.wormhole.com" target="_blank">NTT Launchpad</a>.</p>
+<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">＃</a></h2>
+<p>Before you begin, make sure you have:</p>
+<ul>
+<li><a href="https://docs.npmjs.com/downloading-and-installing-node-js-and-npm" target="_blank">Node.js and npm installed</a></li>
+<li><a href="https://bun.sh/" target="_blank">Bun installed</a></li>
+<li>A wallet private key with tokens on supported chains</li>
+<li>ERC-20 or SPL tokens already deployed on the source and destination chains</li>
+</ul>
+<h2 id="dont-have-a-token-yet">Don’t Have a Token Yet?<a class="headerlink" href="#dont-have-a-token-yet" title="Permanent link">＃</a></h2>
+<p>To use NTT, you must have a token already deployed on the source and destination chains. If you don’t have one, follow the quick guides below to deploy a basic test token.</p>
+<details class="- interface">
+<summary>Deploy an ERC-20 Token on EVM</summary>
+<p>Use the <a href="https://github.com/wormhole-foundation/example-ntt-token" target="_blank">example NTT token repository</a> to deploy a basic ERC-20 token contract on testnet.</p>
+<ol>
+<li>
+<p><strong>Install Foundry</strong> - install the <a href="https://book.getfoundry.sh/getting-started/installation" target="_blank">Forge CLI</a></p>
+</li>
+<li>
+<p><strong>Clone the repository</strong> – fetch the example contract repository</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/wormhole-foundation/example-ntt-token.git
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">cd</span><span class="w"> </span>example-ntt-token
+</span></code></pre></div>
+</li>
+<li>
+<p><strong>Deploy the token contract</strong> – deploy to testnet with your preferred name, symbol, minter, and owner addresses</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>forge<span class="w"> </span>create<span class="w"> </span>--broadcast<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span>--rpc-url<span class="w"> </span>INSERT_RPC_URL<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span>--private-key<span class="w"> </span>INSERT_YOUR_PRIVATE_KEY<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span>src/PeerToken.sol:PeerToken<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span>--constructor-args<span class="w"> </span><span class="s2">&quot;INSERT_TOKEN_NAME&quot;</span><span class="w"> </span><span class="s2">&quot;INSERT_TOKEN_SYMBOL&quot;</span><span class="w"> </span>INSERT_MINTER_ADDRESS<span class="w"> </span>INSERT_OWNER_ADDRESS
+</span></code></pre></div>
+</li>
+<li>
+<p><strong>Mint tokens</strong> – send tokens to your address</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>cast<span class="w"> </span>send<span class="w"> </span>INSERT_TOKEN_ADDRESS<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="s2">&quot;mint(address,uint256)&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span>INSERT_RECIPIENT_ADDRESS<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span>INSERT_AMOUNT_IN_WEI<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">    </span>--private-key<span class="w"> </span>INSERT_YOUR_PRIVATE_KEY<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">    </span>--rpc-url<span class="w"> </span>INSERT_RPC_URL
+</span></code></pre></div>
+</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This token uses 18 decimals by default. All minting values must be specified in <code>wei</code> (1 token = 10^18).</p>
+</div>
+</details>
+<details class="- interface">
+<summary>Create and Mint SPL Tokens</summary>
+<p>This section walks you through generating a Solana wallet, deploying an SPL token, creating a token account, and minting tokens.</p>
+<ol>
+<li>
+<p><strong>Generate a Solana key pair</strong> - run the following command to create a new wallet:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>solana-keygen<span class="w"> </span>grind<span class="w"> </span>--starts-with<span class="w"> </span>w:1<span class="w"> </span>--ignore-case
+</span></code></pre></div>
+</li>
+<li>
+<p><strong>Set Solana configuration</strong> - configure the Solana CLI to use the generated key pair using the following command:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>solana<span class="w"> </span>config<span class="w"> </span><span class="nb">set</span><span class="w"> </span>--keypair<span class="w"> </span>INSERT_PATH_TO_KEYPAIR_JSON
+</span></code></pre></div>
+</li>
+<li>
+<p><strong>Select an RPC URL</strong> - configure Solana to use the appropriate network using one of the following commands:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Mainnet</label><label for="__tabbed_1_2">Testnet</label><label for="__tabbed_1_3">Devnet</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>solana<span class="w"> </span>config<span class="w"> </span><span class="nb">set</span><span class="w"> </span>-um
+</span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>solana<span class="w"> </span>config<span class="w"> </span><span class="nb">set</span><span class="w"> </span>-ut
+</span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>solana<span class="w"> </span>config<span class="w"> </span><span class="nb">set</span><span class="w"> </span>-ud
+</span></code></pre></div>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p><strong>Fund your wallet</strong> - ensure you have enough SOL to create a token. If deploying on devnet, request an airdrop with the following commands:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>solana<span class="w"> </span>airdrop<span class="w"> </span><span class="m">2</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>solana<span class="w"> </span>balance
+</span></code></pre></div>
+</li>
+<li>
+<p><strong>Install SPL Token CLI</strong> - install or update the required <a href="https://spl.solana.com/token" target="_blank">CLI tool</a></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>cargo<span class="w"> </span>install<span class="w"> </span>spl-token-cli
+</span></code></pre></div>
+</li>
+<li>
+<p><strong>Create a new SPL token</strong> - initialize the token on Solana</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>spl-token<span class="w"> </span>create-token
+</span></code></pre></div>
+</li>
+<li>
+<p><strong>Create a token account</strong> - generate an account to hold the token</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>spl-token<span class="w"> </span>create-account<span class="w"> </span>INSERT_TOKEN_ADDRESS
+</span></code></pre></div>
+</li>
+<li>
+<p><strong>Mint tokens</strong> - send 1000 tokens to the created account</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>spl-token<span class="w"> </span>mint<span class="w"> </span>INSERT_TOKEN_ADDRESS<span class="w"> </span><span class="m">1000</span>
+</span></code></pre></div>
+</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>NTT versions <code>&gt;=v2.0.0+solana</code> support SPL tokens with <a href="https://spl.solana.com/transfer-hook-interface" target="_blank">transfer hooks</a>.</p>
+</div>
+</details>
+<h2 id="install-ntt-cli">Install NTT CLI<a class="headerlink" href="#install-ntt-cli" title="Permanent link">＃</a></h2>
+<p>The NTT CLI is recommended to deploy and manage your cross-chain token configuration.</p>
+<ol>
+<li>
+<p>Run the installation command in your terminal:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>curl<span class="w"> </span>-fsSL<span class="w"> </span>https://raw.githubusercontent.com/wormhole-foundation/native-token-transfers/main/cli/install.sh<span class="w"> </span><span class="p">|</span><span class="w"> </span>bash
+</span></code></pre></div>
+</li>
+<li>
+<p>Verify the NTT CLI is installed:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>ntt<span class="w"> </span>--version
+</span></code></pre></div>
+</li>
+</ol>
+<h2 id="initialize-a-new-ntt-project">Initialize a New NTT Project<a class="headerlink" href="#initialize-a-new-ntt-project" title="Permanent link">＃</a></h2>
+<ol>
+<li>
+<p>Once the CLI is installed, scaffold a new project by running:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>ntt<span class="w"> </span>new<span class="w"> </span>my-ntt-project
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="nb">cd</span><span class="w"> </span>my-ntt-project
+</span></code></pre></div>
+</li>
+<li>
+<p>Initialize a new <code>deployment.json</code> file specifying the network:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Mainnet</label><label for="__tabbed_2_2">Testnet</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>ntt<span class="w"> </span>init<span class="w"> </span>Mainnet
+</span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>ntt<span class="w"> </span>init<span class="w"> </span>Testnet
+</span></code></pre></div>
+</div>
+</div>
+</div>
+<p>After initialization, the <code>deployment.json</code> file contains your NTT configuration and starts with the selected network.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">Mainnet</label><label for="__tabbed_3_2">Testnet</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="language-json highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="p">{</span>
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="w">    </span><span class="nt">&quot;network&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Mainnet&quot;</span><span class="p">,</span>
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="w">    </span><span class="nt">&quot;chains&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span>
+</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a><span class="p">}</span>
+</span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="language-json highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="p">{</span>
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="w">    </span><span class="nt">&quot;network&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Testnet&quot;</span><span class="p">,</span>
+</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="w">    </span><span class="nt">&quot;chains&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span>
+</span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a><span class="p">}</span>
+</span></code></pre></div>
+</div>
+</div>
+</div>
+</li>
+</ol>
+<p>In the deployment steps, you will add your supported chains, their token addresses, deployment modes, and any custom settings.</p>
+<h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">＃</a></h2>
+<p>You have scaffolded your NTT project and initialized the configuration file. Next, follow the appropriate guide below to configure your supported chains and deploy NTT contracts:</p>
+<ul>
+<li><a href="/wormhole-mkdocs/products/native-token-transfers/guides/deploy-to-evm/" target="_blank">Deploy to EVM</a></li>
+<li><a href="/wormhole-mkdocs/products/native-token-transfers/guides/deploy-to-solana/" target="_blank">Deploy to Solana</a></li>
+</ul>
 
 <!-- Source file information -->
 <div class="md-source-file">
