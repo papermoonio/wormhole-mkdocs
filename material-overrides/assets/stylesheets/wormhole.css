@@ -519,6 +519,10 @@
     margin-bottom: 0;
   }
 
+  .md-nav__icon.md-icon.mobile {
+    display: none;
+  }
+
   .nav__icon.plus,
   .nav__item--section > .md-nav__link[for]:has(+ .md-nav[data-md-level="2"][aria-expanded="true"]) .nav__icon.minus {
     display: block;
@@ -592,6 +596,17 @@
     > .md-nav__list
     > * {
     border-left: 1px solid var(--md-border-color);
+  }
+}
+
+@media screen and (max-width: 76.25em) {
+  .nav__icon.plus,
+  .nav__icon.minus {
+    display: none;
+  }
+
+  .md-nav__icon.md-icon.mobile {
+    display: block;
   }
 }
 
