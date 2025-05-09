@@ -1,28 +1,33 @@
 {
-  "title": "Blast",
-  "testnet": {
-    "name": "Testnet",
-    "id": "168587773"
-  },
-  "mainnet": {
-    "name": "Mainnet",
-    "id": "81457"
-  },
-  "finality": {
-    "instant": 200,
-    "safe": 201,
-    "otherwise": "finalized"
-  },
-  "devDocs": "https://docs.blast.io/about-blast",
-  "faucet": {
-    "url": "https://docs.blast.io/tools/faucets#faucets",
-    "token": "ETH",
-    "description": "List of Faucets"
-  },
-  "homepage": "https://blast.io/",
-  "explorer": [
-    {
-      "url": "https://docs.blast.io/tools/block-explorers#block-explorers"
-    }
-  ]
+	"title": "Blast",
+	"testnet": {
+		"name": "Testnet",
+		"id": "168587773"
+	},
+	"mainnet": {
+		"name": "Mainnet",
+		"id": "81457"
+	},
+	"finality": {
+		"instant": 200,
+		"safe": 201,
+		"otherwise": "finalized"
+	},
+	"devDocs": "https://docs.blast.io/about-blast",
+	"faucet": {
+		"url": "https://docs.blast.io/tools/faucets#faucets",
+		"token": "ETH",
+		"description": "List of Faucets"
+	},
+	"homepage": "https://blast.io/",
+	"explorer": [
+		{
+			"url": "https://docs.blast.io/tools/block-explorers#block-explorers"
+		}
+	],
+	"products": {
+		"connect": { "mainnet": true, "testnet": true, "devnet": false },
+		"ntt": { "mainnet": true, "testnet": true, "devnet": false },
+		"tokenBridge": { "mainnet": true, "testnet": true, "devnet": false }
+	}
 }

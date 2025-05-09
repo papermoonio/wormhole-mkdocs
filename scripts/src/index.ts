@@ -3,6 +3,7 @@ import {
   generateAllChainIdsTable,
   generateAllConsistencyLevelsTable,
   generateAllContractsTable,
+  generateProductSupportTables,
   generateSupportedNetworksTable,
   generateTestnetFaucetsTable,
 } from './details';
@@ -80,10 +81,6 @@ async function overwriteGenerated(tag: string, content: string) {
   // TODO: concurrent? will that wreck anything?
   // find tags _first_ in one pass and come back to fill them in?
   // currently this searches docs every time we call it
-  await overwriteGenerated(
-    'SUPPORTED_BLOCKCHAIN_CARDS',
-    generateSupportedNetworksTable(chains)
-  );
 
   // Contract addresses
   await overwriteGenerated(
@@ -116,4 +113,10 @@ async function overwriteGenerated(tag: string, content: string) {
   );
 
   await overwriteGenerated('CHAIN_IDS', generateAllChainIdsTable(chains));
+
+  // Supported blockchains by product
+  await overwriteGenerated(
+    'SUPPORTED_BLOCKCHAINS_BY_PRODUCT',
+    generateProductSupportTables(chains)
+  );
 })();

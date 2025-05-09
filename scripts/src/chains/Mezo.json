@@ -11,5 +11,9 @@
 			"url": "https://explorer.test.mezo.org/",
 			"description": "Mezo Testnet Explorer"
 		}
-	]
+	],
+	"products": {
+		"connect": { "mainnet": false, "testnet": true, "devnet": false },
+		"tokenBridge": { "mainnet": false, "testnet": true, "devnet": false }
+	}
 }

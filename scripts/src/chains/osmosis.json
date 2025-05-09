@@ -1,23 +1,26 @@
 {
-  "title": "Osmosis",
-  "homepage": "https://osmosis.zone/",
-  "devDocs": "https://docs.osmosis.zone/",
-  "faucet": {
-    "url": "https://faucet.testnet.osmosis.zone/",
-    "token": "OSMO",
-    "description": "Official Osmosis Faucet"
-  },
-  "explorer": [
-    {
-      "url": "https://docs.osmosis.zone/overview/endpoints#explorers"
-    }
-  ],
-  "mainnet": {
-    "name": "Mainnet",
-    "id": "osmosis-1"
-  },
-  "testnet": {
-    "name": "Testnet",
-    "id": "osmo-test-5"
-  }
+	"title": "Osmosis",
+	"homepage": "https://osmosis.zone/",
+	"devDocs": "https://docs.osmosis.zone/",
+	"faucet": {
+		"url": "https://faucet.testnet.osmosis.zone/",
+		"token": "OSMO",
+		"description": "Official Osmosis Faucet"
+	},
+	"explorer": [
+		{
+			"url": "https://docs.osmosis.zone/overview/endpoints#explorers"
+		}
+	],
+	"mainnet": {
+		"name": "Mainnet",
+		"id": "osmosis-1"
+	},
+	"testnet": {
+		"name": "Testnet",
+		"id": "osmo-test-5"
+	},
+	"products": {
+		"connect": { "mainnet": false, "testnet": false, "devnet": true }
+	}
 }

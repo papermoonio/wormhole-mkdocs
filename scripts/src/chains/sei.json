@@ -1,23 +1,27 @@
 {
-  "title": "Sei",
-  "homepage": "https://www.sei.io/",
-  "devDocs": "https://www.docs.sei.io/",
-  "mainnet": {
-    "name": "Mainnet",
-    "id": "pacific-1"
-  },
-  "testnet": {
-    "name": "Testnet",
-    "id": "atlantic-2"
-  },
-  "faucet": {
-    "url": "https://atlantic-2.app.sei.io/faucet",
-    "token": "SEI",
-    "description": "Sei Atlantic-2 Faucet"
-  },
-  "explorer": [
-    {
-      "url": "https://www.docs.sei.io/dev-ecosystem-providers/explorers#sei-explorers"
-    }
-  ]
+	"title": "Sei",
+	"homepage": "https://www.sei.io/",
+	"devDocs": "https://www.docs.sei.io/",
+	"mainnet": {
+		"name": "Mainnet",
+		"id": "pacific-1"
+	},
+	"testnet": {
+		"name": "Testnet",
+		"id": "atlantic-2"
+	},
+	"faucet": {
+		"url": "https://atlantic-2.app.sei.io/faucet",
+		"token": "SEI",
+		"description": "Sei Atlantic-2 Faucet"
+	},
+	"explorer": [
+		{
+			"url": "https://www.docs.sei.io/dev-ecosystem-providers/explorers#sei-explorers"
+		}
+	],
+	"products": {
+		"tokenBridge": { "mainnet": true, "testnet": true, "devnet": false },
+		"multigov": { "mainnet": true, "testnet": true, "devnet": true }
+	}
 }

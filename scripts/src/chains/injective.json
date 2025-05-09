@@ -1,38 +1,41 @@
 {
-  "title": "Injective",
-  "homepage": "https://injective.com/",
-  "mainnet": {
-    "name": "Mainnet",
-    "id": "injective-1"
-  },
-  "explorer": [
-    {
-      "url": "https://explorer.injective.network/",
-      "description": "Injective Explorer"
-    },
-    {
-      "url": "https://testnet.explorer.injective.network/",
-      "description": "Injective Testnet Explorer"
-    }
-  ],
-  "testnet": {
-    "name": "Testnet",
-    "id": "injective-888"
-  },
-  "devDocs": "https://docs.injective.network/",
-  "faucet": {
-    "url": "https://testnet.faucet.injective.network/",
-    "token": "INJ",
-    "description": "Official Injective Faucet"
-  },
-  "additionaLinks": [
-    {
-      "url": "https://docs.ts.injective.network/",
-      "description": "Injective Typescript SDK docs"
-    },
-    {
-      "url": "https://docs.trading.injective.network/",
-      "description": "Injective trading docs"
-    }
-  ]
+	"title": "Injective",
+	"homepage": "https://injective.com/",
+	"mainnet": {
+		"name": "Mainnet",
+		"id": "injective-1"
+	},
+	"explorer": [
+		{
+			"url": "https://explorer.injective.network/",
+			"description": "Injective Explorer"
+		},
+		{
+			"url": "https://testnet.explorer.injective.network/",
+			"description": "Injective Testnet Explorer"
+		}
+	],
+	"testnet": {
+		"name": "Testnet",
+		"id": "injective-888"
+	},
+	"devDocs": "https://docs.injective.network/",
+	"faucet": {
+		"url": "https://testnet.faucet.injective.network/",
+		"token": "INJ",
+		"description": "Official Injective Faucet"
+	},
+	"additionaLinks": [
+		{
+			"url": "https://docs.ts.injective.network/",
+			"description": "Injective Typescript SDK docs"
+		},
+		{
+			"url": "https://docs.trading.injective.network/",
+			"description": "Injective trading docs"
+		}
+	],
+	"products": {
+		"tokenBridge": { "mainnet": true, "testnet": true, "devnet": false }
+	}
 }
