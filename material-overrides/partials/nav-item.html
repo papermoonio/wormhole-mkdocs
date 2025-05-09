@@ -161,7 +161,7 @@
     {% endif %}
     <li class="{{ class }} md-nav__item--nested">
       {% if not is_pruned %}
-        {% set checked = "checked" if nav_item.active %}
+        {% set checked = "checked" if nav_item.active or level == 2 %}
 
         <!-- Determine checked and indeterminate state -->
         {% if "navigation.expand" in features and not checked and not level == 2%}
@@ -186,8 +186,8 @@
             tabindex="{{ tabindex }}"
           >
             {% if level == 2 %}
-              <span class="nav__icon md-icon plus">{% include ".icons/material/plus-box-outline.svg" %}</span>
-              <span class="nav__icon md-icon minus">{% include ".icons/material/minus-box.svg" %}</span>
+            <span class="nav__icon md-icon plus">{% include ".icons/material/plus-box-outline.svg" %}</span>
+            <span class="nav__icon md-icon minus">{% include ".icons/material/minus-box.svg" %}</span>
               {{ render_content(nav_item) }}
               <span class="md-nav__icon md-icon mobile"></span>
             {% else %}
@@ -227,7 +227,7 @@
           class="md-nav"
           data-md-level="{{ level }}"
           aria-labelledby="{{ path }}_label"
-          aria-expanded="{{ nav_item.active | tojson }}"
+          aria-expanded="{{ (nav_item.active or level == 2) | tojson }}"
         >
           <label class="md-nav__title" for="{{ path }}">
             <span class="md-nav__icon md-icon"></span>
