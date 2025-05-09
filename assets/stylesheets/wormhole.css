@@ -247,7 +247,7 @@
 }
 
 .md-typeset h1 {
-  margin-bottom: 0.5em
+  margin-bottom: 0.5em;
 }
 
 /* General styling: pages */
@@ -515,7 +515,9 @@
     font-size: 0.64rem;
   }
 
-  .nav__item--section > .md-nav__link[for] + .md-nav[data-md-level="2"][aria-expanded="true"] {
+  .nav__item--section
+    > .md-nav__link[for]
+    + .md-nav[data-md-level="2"][aria-expanded="true"] {
     margin-bottom: 0;
   }
 
@@ -524,27 +526,47 @@
   }
 
   .nav__icon.plus,
-  .nav__item--section > .md-nav__link[for]:has(+ .md-nav[data-md-level="2"][aria-expanded="true"]) .nav__icon.minus {
+  .nav__item--section
+    > .md-nav__link[for]:has(+ .md-nav[data-md-level="2"][aria-expanded="true"])
+    .nav__icon.minus {
     display: block;
   }
 
   .nav__icon.minus,
-  .nav__item--section > .md-nav__link[for]:has(+ .md-nav[data-md-level="2"][aria-expanded="true"]) .nav__icon.plus {
+  .nav__item--section
+    > .md-nav__link[for]:has(+ .md-nav[data-md-level="2"][aria-expanded="true"])
+    .nav__icon.plus {
     display: none;
+  }
+
+  .nav__icon.md-icon svg {
+    height: 0.8rem;
+  }
+
+  .md-nav__link {
+    gap: 0.2rem;
   }
 
   .md-nav--primary > .md-nav__list > .md-nav__item > .md-nav__link {
     text-transform: uppercase;
-    padding-left: .6rem;
-    margin-left: 1.3rem;
-    margin-bottom: .5em;
+    padding-left: 0.6rem;
+    margin-left: 1.1rem;
+    margin-bottom: 0.5em;
   }
 
-  [dir=ltr] .md-nav--primary .md-nav__item>.md-nav__link:has(+ .md-nav[data-md-level="2"]) {
+  [dir="ltr"]
+    .md-nav--primary
+    .md-nav__item
+    > .md-nav__link:has(+ .md-nav[data-md-level="2"]) {
     align-items: center;
+    padding-top: 1em;
+    font-weight: 700;
+    text-transform: uppercase;
   }
 
-  .md-nav--lifted>.md-nav__list>.md-nav__item--active.md-nav__item--section {
+  .md-nav--lifted
+    > .md-nav__list
+    > .md-nav__item--active.md-nav__item--section {
     margin-left: -0.5rem;
   }
 
@@ -552,16 +574,22 @@
     fill: var(--md-default-fg-color);
   }
 
-  .md-nav[data-md-level="1"] > .md-nav__list:first-of-type > .md-nav__item:not(.nav__item--section) {
-    margin-left: 1.4rem;
+  .md-nav[data-md-level="1"]
+    > .md-nav__list:first-of-type
+    > .md-nav__item:not(.nav__item--section) {
+    margin-left: 1.2rem;
   }
 
   .md-nav[data-md-level="2"] > .md-nav__list {
-    padding-left: 1.4rem
+    padding-left: 1.2rem;
   }
 
-  .md-nav[data-md-level="2"] >.md-nav__list .md-nav .md-nav__list,
-  .md-nav[data-md-level="2"] >.md-nav__list .md-nav .md-nav__list .md-nav__link {
+  .md-nav[data-md-level="2"] > .md-nav__list .md-nav .md-nav__list,
+  .md-nav[data-md-level="2"]
+    > .md-nav__list
+    .md-nav
+    .md-nav__list
+    .md-nav__link {
     padding-left: 0.5rem;
   }
 
