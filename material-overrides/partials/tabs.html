@@ -31,41 +31,8 @@
   <div class="md-grid">
     <ul class="md-tabs__list">
       {% for nav_item in nav %}
-        {% if nav_item.title != "Developer Tools" %}
-          {{ item.render(nav_item) }}
-        {% endif %}
+        {{ item.render(nav_item) }}
       {% endfor %}
     </ul>
-    <div class="tools select-wrapper">
-      <span class="language-select-label select-label">Developer Tools</span>
-      <ul class="select">
-        {% for nav_item in nav %}
-          {% if nav_item.title == "Developer Tools" %}
-            {% for nav_item in nav_item.children %}
-              <li>
-                {% if nav_item.children %}
-                  {% set nav_title = nav_item.title %}
-                  {% set nav_item = nav_item.children[0] %}
-                {% else %}
-                  {% set nav_title = nav_item.title %}
-                {% endif %}
-                <a href="{{ nav_item.url | url }}">
-                  {{ nav_title }}
-                  {% if nav_item.url and nav_item.url.startswith('https') %}
-                    <span class="external-link">{% include ".icons/octicons/link-external-16.svg" %}</span>
-                  {% endif %}
-                </a>
-              </li>
-            {% endfor %}
-          {% endif %}
-        {% endfor %}
-      </ul>
-      <span class="md-icon selector-closed active">
-        {% include ".icons/material/chevron-down.svg" %}
-      </span>
-      <span class="md-icon selector-open">
-        {% include ".icons/material/chevron-up.svg" %}
-      </span>
-    </div>
   </div>
 </nav>
