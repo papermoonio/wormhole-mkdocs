@@ -26,6 +26,7 @@ python-dateutil==2.8.2
 PyYAML!=6.0.0,!=5.4.0,!=5.4.1
 regex==2022.10.31
 requests==2.32.2
+setuptools==79.0.1
 six==1.16.0
 termcolor==2.2.0
 tinify==1.6.0
