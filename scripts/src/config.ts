@@ -28,7 +28,16 @@ export type DocChain = {
   mainnet: ChainDetails; // MainNet details
   testnets: ChainDetails[]; // TestNet details
   devnets: ChainDetails[]; // DevNet details
+  products?: Products; // Supported products
 };
+
+export type ProductSupport = {
+  mainnet: boolean;
+  testnet: boolean;
+  devnet: boolean;
+};
+
+export type Products = Record<string, ProductSupport>;
 
 export type ChainDetails = {
   name: string; // Chain name
@@ -166,6 +175,8 @@ export async function getDocChains(): Promise<DocChain[]> {
     const platform = chainToPlatform(c);
     const chainType = getChainType(platform);
 
+    const details = getChainDetails(c);
+
     // Get Contracts
     const mainnetContracts = getContracts('Mainnet', c);
     const testnetContracts = getContracts('Testnet', c);
@@ -178,7 +189,7 @@ export async function getDocChains(): Promise<DocChain[]> {
       contracts: {
         ...mainnetContracts,
       },
-      extraDetails: getChainDetails(c),
+      extraDetails: details,
     };
 
     // Get testnet configs
@@ -190,7 +201,7 @@ export async function getDocChains(): Promise<DocChain[]> {
         name: c,
         id: testnetConfigs.chainId,
         contracts: testnetContracts,
-        extraDetails: getChainDetails(c),
+        extraDetails: details,
       });
     }
 
@@ -203,7 +214,7 @@ export async function getDocChains(): Promise<DocChain[]> {
         name: c,
         id: devnetConfigs?.chainId,
         contracts: devnetContracts,
-        extraDetails: getChainDetails(c),
+        extraDetails: details,
       });
     }
 
@@ -212,6 +223,7 @@ export async function getDocChains(): Promise<DocChain[]> {
       mainnet,
       testnets,
       devnets,
+      products: details.products || {},
     });
   }
 

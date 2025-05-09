@@ -1,25 +1,33 @@
 {
-  "title": "Arbitrum",
-  "homepage": "https://arbitrum.io/",
-  "mainnet": {
-    "name": "Arbitrum One",
-    "id": "42161"
-  },
-  "testnet": {
-    "name": "Goerli",
-    "id": "421613"
-  },
-  "explorer": [
-    {
-      "url": "https://arbiscan.io/",
-      "description": "Arbitrum Explorer"
-    }
-  ],
-  "finality": {
-    "details": "https://docs.arbitrum.io/how-arbitrum-works/transaction-lifecycle",
-    "instant": 200,
-    "safe": 201,
-    "otherwise": "finalized"
-  },
-  "devDocs": "https://docs.arbitrum.io/"
+	"title": "Arbitrum",
+	"homepage": "https://arbitrum.io/",
+	"mainnet": {
+		"name": "Arbitrum One",
+		"id": "42161"
+	},
+	"testnet": {
+		"name": "Goerli",
+		"id": "421613"
+	},
+	"explorer": [
+		{
+			"url": "https://arbiscan.io/",
+			"description": "Arbitrum Explorer"
+		}
+	],
+	"finality": {
+		"details": "https://docs.arbitrum.io/how-arbitrum-works/transaction-lifecycle",
+		"instant": 200,
+		"safe": 201,
+		"otherwise": "finalized"
+	},
+	"devDocs": "https://docs.arbitrum.io/",
+	"products": {
+		"connect": { "mainnet": true, "testnet": true, "devnet": false },
+		"ntt": { "mainnet": true, "testnet": true, "devnet": false },
+		"tokenBridge": { "mainnet": true, "testnet": true, "devnet": false },
+		"cctp": { "mainnet": true, "testnet": true, "devnet": false },
+		"settlement": { "mainnet": true, "testnet": true, "devnet": false },
+		"multigov": { "mainnet": true, "testnet": true, "devnet": true }
+	}
 }

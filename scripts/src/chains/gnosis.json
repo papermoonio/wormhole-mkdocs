@@ -1,25 +1,28 @@
 {
-  "title": "Gnosis",
-  "homepage": "https://www.gnosis.io/",
-  "mainnet": {
-    "name": "Mainnet",
-    "id": "100"
-  },
-  "testnet": {
-    "name": "Chiado",
-    "id": "10200"
-  },
-  "contractSource": "ethereum/contracts/bridge/Bridge.sol",
-  "devDocs": "https://docs.gnosischain.com/",
-  "faucet": {
-    "url": "https://faucet.gnosischain.com/",
-    "token": "xDAI",
-    "description": "Official Gnosis Faucet"
-  },
-  "explorer": [
-    {
-      "url": "https://gnosisscan.io/",
-      "description": "GnosisScan"
-    }
-  ]
+	"title": "Gnosis",
+	"homepage": "https://www.gnosis.io/",
+	"mainnet": {
+		"name": "Mainnet",
+		"id": "100"
+	},
+	"testnet": {
+		"name": "Chiado",
+		"id": "10200"
+	},
+	"contractSource": "ethereum/contracts/bridge/Bridge.sol",
+	"devDocs": "https://docs.gnosischain.com/",
+	"faucet": {
+		"url": "https://faucet.gnosischain.com/",
+		"token": "xDAI",
+		"description": "Official Gnosis Faucet"
+	},
+	"explorer": [
+		{
+			"url": "https://gnosisscan.io/",
+			"description": "GnosisScan"
+		}
+	],
+	"products": {
+		"ntt": { "mainnet": true, "testnet": true, "devnet": false }
+	}
 }
