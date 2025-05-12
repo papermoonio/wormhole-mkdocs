@@ -395,11 +395,6 @@ export function generateTestnetFaucetsTable(dc: cfg.DocChain[]): string {
   )}\n\n</div>`;
 }
 
-function capitalize(s: string): string {
-  return s.charAt(0).toUpperCase() + s.slice(1);
-}
-
-
 export function generateProductSupportTables(chains: cfg.DocChain[]): string {
   const products = ['connect', 'ntt', 'tokenBridge', 'multigov', 'settlement', 'cctp'];
 
@@ -412,6 +407,15 @@ export function generateProductSupportTables(chains: cfg.DocChain[]): string {
     <th>Devnet</th>
     <th>Quick Links</th>
   </thead>`;
+
+  const productDisplayNames: Record<string, string> = {
+    connect: 'Connect',
+    ntt: 'NTT',
+    tokenBridge: 'Token Bridge',
+    multigov: 'MultiGov',
+    settlement: 'Settlement',
+    cctp: 'CCTP',
+  };
 
   const tables: string[] = [];
 
@@ -446,7 +450,7 @@ export function generateProductSupportTables(chains: cfg.DocChain[]): string {
       </tr>`);
     }
 
-    tables.push(`### ${capitalize(product)}\n\n${formatHTMLTable(buildHTMLTable(tableHeader, rows.join('\n')))}`);
+    tables.push(`### ${productDisplayNames[product]}\n\n${formatHTMLTable(buildHTMLTable(tableHeader, rows.join('\n')))}`);
   }
 
   return `<div class="full-width" markdown>\n\n${tables.join('\n\n')}\n\n</div>`;
