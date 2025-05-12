@@ -29,5 +29,12 @@
     "url": "https://faucet.kaia.io",
     "token": "KAIA",
     "description": "Official Kaia Faucet"
+  },
+  "products": {
+    "tokenBridge": {
+      "mainnet": true,
+      "testnet": true,
+      "devnet": false
+    }
   }
 }

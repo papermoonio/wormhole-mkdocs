@@ -1,41 +1,65 @@
 {
-	"homepage": "https://www.avax.network/",
-	"title": "Avalanche",
-	"mainnet": {
-		"name": "C-Chain",
-		"id": "43114"
-	},
-	"testnet": {
-		"name": "Fuji",
-		"id": "43113"
-	},
-	"explorer": [
-		{
-			"url": "https://snowtrace.io/",
-			"description": "C-Chain Block Explorer"
-		},
-		{
-			"url": "https://subnets.avax.network/"
-		}
-	],
-	"contractSource": "ethereum/contracts/bridge/Bridge.sol",
-	"finality": {
-		"instant": 200,
-		"otherwise": "finalized",
-		"details": "https://docs.avax.network/dapps/advanced-tutorials/exchange-integration#determining-finality"
-	},
-	"devDocs": "https://docs.avax.network/",
-	"faucet": {
-		"url": "https://core.app/tools/testnet-faucet/?subnet=c&token=c",
-		"token": "AVAX",
-		"description": "Official Avalanche Faucet"
-	},
-	"products": {
-		"connect": { "mainnet": true, "testnet": true, "devnet": false },
-		"ntt": { "mainnet": true, "testnet": true, "devnet": false },
-		"tokenBridge": { "mainnet": true, "testnet": true, "devnet": false },
-		"cctp": { "mainnet": true, "testnet": true, "devnet": false },
-		"settlement": { "mainnet": true, "testnet": false, "devnet": false },
-		"multigov": { "mainnet": true, "testnet": true, "devnet": true }
-	}
+  "homepage": "https://www.avax.network/",
+  "title": "Avalanche",
+  "mainnet": {
+    "name": "C-Chain",
+    "id": "43114"
+  },
+  "testnet": {
+    "name": "Fuji",
+    "id": "43113"
+  },
+  "explorer": [
+    {
+      "url": "https://snowtrace.io/",
+      "description": "C-Chain Block Explorer"
+    },
+    {
+      "url": "https://subnets.avax.network/"
+    }
+  ],
+  "contractSource": "ethereum/contracts/bridge/Bridge.sol",
+  "finality": {
+    "instant": 200,
+    "otherwise": "finalized",
+    "details": "https://docs.avax.network/dapps/advanced-tutorials/exchange-integration#determining-finality"
+  },
+  "devDocs": "https://docs.avax.network/",
+  "faucet": {
+    "url": "https://core.app/tools/testnet-faucet/?subnet=c&token=c",
+    "token": "AVAX",
+    "description": "Official Avalanche Faucet"
+  },
+  "products": {
+    "connect": {
+      "mainnet": true,
+      "testnet": true,
+      "devnet": false
+    },
+    "ntt": {
+      "mainnet": true,
+      "testnet": true,
+      "devnet": false
+    },
+    "cctp": {
+      "mainnet": true,
+      "testnet": true,
+      "devnet": false
+    },
+    "settlement": {
+      "mainnet": true,
+      "testnet": false,
+      "devnet": false
+    },
+    "multigov": {
+      "mainnet": true,
+      "testnet": true,
+      "devnet": true
+    },
+    "tokenBridge": {
+      "mainnet": true,
+      "testnet": true,
+      "devnet": false
+    }
+  }
 }

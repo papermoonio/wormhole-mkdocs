@@ -1,14 +1,21 @@
 {
-	"title": "HyperEVM",
-	"testnet": { "name": "Testnet", "id": "998" },
-	"homepage": "https://hyperfoundation.org/",
-	"devDocs": "https://hyperliquid.gitbook.io/hyperliquid-docs",
-	"faucet": {
-		"url": "https://app.hyperliquid-testnet.xyz/drip",
-		"token": "mock USDC",
-		"description": "Official Hyperliquid Faucet"
-	},
-	"products": {
-		"tokenBridge": { "mainnet": false, "testnet": true, "devnet": false }
-	}
+  "title": "HyperEVM",
+  "testnet": {
+    "name": "Testnet",
+    "id": "998"
+  },
+  "homepage": "https://hyperfoundation.org/",
+  "devDocs": "https://hyperliquid.gitbook.io/hyperliquid-docs",
+  "faucet": {
+    "url": "https://app.hyperliquid-testnet.xyz/drip",
+    "token": "mock USDC",
+    "description": "Official Hyperliquid Faucet"
+  },
+  "products": {
+    "tokenBridge": {
+      "mainnet": false,
+      "testnet": true,
+      "devnet": false
+    }
+  }
 }
