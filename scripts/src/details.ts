@@ -395,7 +395,7 @@ export function generateTestnetFaucetsTable(dc: cfg.DocChain[]): string {
   )}\n\n</div>`;
 }
 
-export function generateProductSupportTables(chains: cfg.DocChain[]): string {
+export function generateProductSupportTables(chains: cfg.DocChain[]): Record<string, string> {
   const products = ['connect', 'ntt', 'tokenBridge', 'multigov', 'settlement', 'cctp'];
 
   const tableHeader = `
@@ -417,7 +417,7 @@ export function generateProductSupportTables(chains: cfg.DocChain[]): string {
     cctp: 'CCTP',
   };
 
-  const tables: string[] = [];
+  const tables: Record<string, string> = {};
 
   for (const product of products) {
     const rows: string[] = [];
@@ -450,8 +450,12 @@ export function generateProductSupportTables(chains: cfg.DocChain[]): string {
       </tr>`);
     }
 
-    tables.push(`### ${productDisplayNames[product]}\n\n${formatHTMLTable(buildHTMLTable(tableHeader, rows.join('\n')))}`);
+    const content = `### ${productDisplayNames[product]}\n\n${formatHTMLTable(
+      buildHTMLTable(tableHeader, rows.join('\n'))
+    )}`;
+
+    tables[product] = `<div class="full-width" markdown>\n\n${content}\n\n</div>`;
   }
 
-  return `<div class="full-width" markdown>\n\n${tables.join('\n\n')}\n\n</div>`;
+  return tables;
 }
