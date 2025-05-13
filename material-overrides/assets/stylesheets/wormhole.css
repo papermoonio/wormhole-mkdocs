@@ -776,6 +776,7 @@ pre .md-clipboard {
 .md-typeset table:not([class]) td,
 .md-typeset table:not([class]) th {
   vertical-align: middle;
+  padding: .9375em;
 }
 
 /* Round table corners */
