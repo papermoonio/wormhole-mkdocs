@@ -115,8 +115,12 @@ async function overwriteGenerated(tag: string, content: string) {
   await overwriteGenerated('CHAIN_IDS', generateAllChainIdsTable(chains));
 
   // Supported blockchains by product
-  await overwriteGenerated(
-    'SUPPORTED_BLOCKCHAINS_BY_PRODUCT',
-    generateProductSupportTables(chains)
-  );
+  const productTables = generateProductSupportTables(chains);
+
+  for (const [product, table] of Object.entries(productTables)) {
+    await overwriteGenerated(
+      `SUPPORTED_BLOCKCHAIN_${product.toUpperCase()}`,
+      table
+    );
+  }
 })();
