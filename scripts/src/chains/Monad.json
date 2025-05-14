@@ -1,20 +1,27 @@
 {
-	"title": "Monad",
-	"homepage": "https://www.monad.xyz/",
-	"testnet": { "name": "Testnet", "id": "10143" },
-	"devDocs": "https://docs.monad.xyz/",
-	"faucet": {
-		"url": "https://testnet.monad.xyz/",
-		"token": "MON",
-		"description": "Official Monad Faucet"
-	},
-	"explorer": [
-		{
-			"url": "https://testnet.monadexplorer.com/",
-			"description": "Monad Testnet Explorer"
-		}
-	],
-	"products": {
-		"tokenBridge": { "mainnet": false, "testnet": true, "devnet": false }
-	}
+  "title": "Monad",
+  "homepage": "https://www.monad.xyz/",
+  "testnet": {
+    "name": "Testnet",
+    "id": "10143"
+  },
+  "devDocs": "https://docs.monad.xyz/",
+  "faucet": {
+    "url": "https://testnet.monad.xyz/",
+    "token": "MON",
+    "description": "Official Monad Faucet"
+  },
+  "explorer": [
+    {
+      "url": "https://testnet.monadexplorer.com/",
+      "description": "Monad Testnet Explorer"
+    }
+  ],
+  "products": {
+    "tokenBridge": {
+      "mainnet": false,
+      "testnet": true,
+      "devnet": false
+    }
+  }
 }

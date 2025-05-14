@@ -1,6 +1,10 @@
 {
-	"title": "Seievm",
-	"products": {
-		"tokenBridge": { "mainnet": false, "testnet": true, "devnet": false }
-	}
+  "title": "Seievm",
+  "products": {
+    "tokenBridge": {
+      "mainnet": false,
+      "testnet": true,
+      "devnet": false
+    }
+  }
 }
