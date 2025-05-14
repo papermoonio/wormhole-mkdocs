@@ -20,5 +20,6 @@
   "testnet": {
     "name": "Testnet",
     "id": "harpoon-4"
-  }
+  },
+  "products": {}
 }

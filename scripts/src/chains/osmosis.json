@@ -19,5 +19,12 @@
   "testnet": {
     "name": "Testnet",
     "id": "osmo-test-5"
+  },
+  "products": {
+    "connect": {
+      "mainnet": false,
+      "testnet": false,
+      "devnet": true
+    }
   }
 }

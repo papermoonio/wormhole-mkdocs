@@ -19,5 +19,6 @@
     "url": "https://faucet.evmos.dev/",
     "token": "TEVMOS",
     "description": "Official Evmos Faucet"
-  }
+  },
+  "products": {}
 }

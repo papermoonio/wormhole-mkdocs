@@ -15,5 +15,17 @@
     "url": "https://www.alchemy.com/faucets/ethereum-sepolia",
     "token": "ETH",
     "description": "Alchemy Faucet"
+  },
+  "products": {
+    "tokenBridge": {
+      "mainnet": false,
+      "testnet": true,
+      "devnet": false
+    },
+    "cctp": {
+      "mainnet": false,
+      "testnet": true,
+      "devnet": false
+    }
   }
 }

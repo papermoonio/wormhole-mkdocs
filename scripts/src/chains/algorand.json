@@ -29,5 +29,12 @@
     "url": "https://bank.testnet.algorand.network/",
     "token": "ALGO",
     "description": "Official Algorand Faucet"
+  },
+  "products": {
+    "tokenBridge": {
+      "mainnet": true,
+      "testnet": true,
+      "devnet": true
+    }
   }
 }

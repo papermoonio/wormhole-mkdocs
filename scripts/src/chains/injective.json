@@ -34,5 +34,12 @@
       "url": "https://docs.trading.injective.network/",
       "description": "Injective trading docs"
     }
-  ]
+  ],
+  "products": {
+    "tokenBridge": {
+      "mainnet": true,
+      "testnet": true,
+      "devnet": false
+    }
+  }
 }

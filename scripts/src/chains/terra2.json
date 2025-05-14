@@ -20,5 +20,12 @@
       "url": "https://finder.terra.money/",
       "description": "Terra Finder"
     }
-  ]
+  ],
+  "products": {
+    "tokenBridge": {
+      "mainnet": true,
+      "testnet": true,
+      "devnet": true
+    }
+  }
 }

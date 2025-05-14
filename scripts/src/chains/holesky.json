@@ -19,5 +19,12 @@
     "url": "https://www.alchemy.com/faucets/ethereum-holesky",
     "token": "ETH",
     "description": "Alchemy Faucet"
+  },
+  "products": {
+    "tokenBridge": {
+      "mainnet": false,
+      "testnet": true,
+      "devnet": false
+    }
   }
 }
