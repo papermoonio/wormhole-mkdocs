@@ -11,7 +11,7 @@
 .span-table-wrapper table {
   border-collapse: collapse;
   margin-bottom: 2rem;
-  border-radius: var(--md-border-radius);
+  border-radius: var(--border-radius);
 }
 
 .span-table td,
@@ -31,7 +31,7 @@
 }
 
 .span-table tr:first-child td:first-child {
-  border-top-left-radius: var(--md-border-radius);
+  border-top-left-radius: var(--border-radius);
 }
 
 .span-table tr:first-child td:last-child {

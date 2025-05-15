@@ -4,7 +4,6 @@ docs_dir: wormhole-docs
 copyright: 2025 © Wormhole Foundation. All Rights Reserved.
 edit_uri: https://github.com/wormhole-foundation/wormhole-docs/edit/main/
 extra_css:
-  - assets/stylesheets/extra.css
   - assets/stylesheets/terminal.css
   - assets/stylesheets/spantable-neoteroi.css
   - assets/stylesheets/timeline-neoteroi.css
