@@ -1,3 +1,12 @@
+.md-typeset h3,
+.md-typeset h4 {
+  font-weight: 400;
+}
+
+.md-typeset h3 {
+  font-size: 1.25em;
+}
+
 .md-content__inner {
   margin-top: 1.6em;
   margin-bottom: 1.6em;
