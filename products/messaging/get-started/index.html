@@ -7,6 +7,8 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
+        <meta name="description" content="Follow this guide to deploy Wormhole Solidity SDK-based message sender and receiver smart contracts and use them to send messages across chains.">
+      
       
       
         <link rel="canonical" href="https://wormhole.com/docs/products/messaging/get-started/">
@@ -23,7 +25,7 @@
     
   
 
-    <title>Get Started | Wormhole Docs</title>
+    <title>Get Started with Messaging | Wormhole Docs</title>
     
 	
       <link rel="stylesheet" href="../../../assets/stylesheets/main.6543a935.min.css">
@@ -100,8 +102,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/extra.css">
-    
       <link rel="stylesheet" href="../../../assets/stylesheets/terminal.css">
     
       <link rel="stylesheet" href="../../../assets/stylesheets/spantable-neoteroi.css">
@@ -151,6 +151,11 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
+      
+        
+        <a href="#get-started-with-messaging" class="md-skip">
+          Skip to content
+        </a>
       
     </div>
     <div data-md-component="announce">
@@ -207,7 +212,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Get Started
+              Get Started with Messaging
             
           </span>
         </div>
@@ -6498,8 +6503,31 @@
       <!-- Hack: see partials/toc.html for more information -->
       
       
+        
+      
 
       <!-- Navigation link to table of contents -->
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+
+  <!-- Navigation link icon -->
+  
+
+  <!-- Navigation link title -->
+  <span class="md-ellipsis">
+    Get Started
+
+    <!-- Navigation link subtitle -->
+    
+  </span>
+
+  <!-- Navigation link status -->
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
       
       <a
         href="./"
@@ -6525,6 +6553,114 @@
       </a>
 
       <!-- Table of contents -->
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="Sections">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Sections
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introduction
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#install-and-set-up-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      Install and Set Up Project
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prepare-for-contract-deployment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prepare for Contract Deployment
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Prepare for Contract Deployment">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#encrypt-private-key" class="md-nav__link">
+    <span class="md-ellipsis">
+      Encrypt Private Key
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deploy-sender-contract" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deploy Sender Contract
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deploy-receiver-contract" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deploy Receiver Contract
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#send-your-first-message" class="md-nav__link">
+    <span class="md-ellipsis">
+      Send Your First Message
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Next Steps
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
 
@@ -9101,7 +9237,7 @@
                 
                 
               
-              Thanks for your feedback! Help us improve this page by submitting <a href="https://docs.google.com/forms/d/e/1FAIpQLSdRjp_CJ2jEC0gPvK242zRzJoN_x9-Nlt_KXkCy7QPYiD4OlA/viewform?usp=pp_url&entry.2090824420=[Feedback]+Get%20Started+-+/products/messaging/get-started/" target="_blank" rel="noopener">additional feedback</a>.
+              Thanks for your feedback! Help us improve this page by submitting <a href="https://docs.google.com/forms/d/e/1FAIpQLSdRjp_CJ2jEC0gPvK242zRzJoN_x9-Nlt_KXkCy7QPYiD4OlA/viewform?usp=pp_url&entry.2090824420=[Feedback]+Get%20Started%20with%20Messaging+-+/products/messaging/get-started/" target="_blank" rel="noopener">additional feedback</a>.
             </div>
           
         </div>
@@ -9121,6 +9257,103 @@
   
   
   
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Sections
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introduction
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#install-and-set-up-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      Install and Set Up Project
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prepare-for-contract-deployment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prepare for Contract Deployment
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Prepare for Contract Deployment">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#encrypt-private-key" class="md-nav__link">
+    <span class="md-ellipsis">
+      Encrypt Private Key
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deploy-sender-contract" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deploy Sender Contract
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deploy-receiver-contract" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deploy Receiver Contract
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#send-your-first-message" class="md-nav__link">
+    <span class="md-ellipsis">
+      Send Your First Message
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Next Steps
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
   
 </nav>
         </div>
@@ -9165,11 +9398,170 @@
   page title (or respectively site name) is used as the main headline.
 -->
 
-  <h1>Get Started</h1>
-
 
 <!-- Page content -->
-<p>TODO</p>
+<h1 id="get-started-with-messaging">Get Started with Messaging<a class="headerlink" href="#get-started-with-messaging" title="Permanent link">＃</a></h1>
+<p><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></span> <a href="https://github.com/wormhole-foundation/demo-wormhole-messaging" target="_blank">Source code on GitHub</a></p>
+<h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">＃</a></h2>
+<p>Wormhole's messaging protocol simplifies sending data, triggering events, and initiating transactions across blockchain networks. This guide demonstrates how to configure and deploy contracts to send messages from Avalanche Fuji to Celo Alfajores.</p>
+<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">＃</a></h2>
+<p>Before you begin, make sure you have the following:</p>
+<ul>
+<li><a href="https://docs.npmjs.com/downloading-and-installing-node-js-and-npm" target="_blank">Node.js and npm</a></li>
+<li><a href="https://book.getfoundry.sh/getting-started/installation" target="_blank">Foundry</a> for deploying contracts and encrypting your private key</li>
+<li><a href="https://core.app/tools/testnet-faucet/?subnet=c&amp;token=c" target="_blank">Testnet AVAX for Avalanche Fuji</a></li>
+<li><a href="https://faucet.celo.org/alfajores" target="_blank">Testnet CELO for Celo Alfajores</a></li>
+<li>Wallet private key</li>
+</ul>
+<h2 id="install-and-set-up-project">Install and Set Up Project<a class="headerlink" href="#install-and-set-up-project" title="Permanent link">＃</a></h2>
+<ol>
+<li>
+<p>Clone the demo repository and navigate to the project directory:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/wormhole-foundation/demo-wormhole-messaging.git
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">cd</span><span class="w"> </span>demo-wormhole-messaging
+</span></code></pre></div>
+</li>
+<li>
+<p>Use the following commands to install Foundry and project dependencies:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>npm<span class="w"> </span>install
+</span></code></pre></div>
+</li>
+<li>
+<p>Use Foundry's Forge to compile the contracts in the repository:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>forge<span class="w"> </span>build
+</span></code></pre></div>
+<p>You will see terminal output similar to the following, confirming the contracts were compiled successfully:</p>
+<p><div id="termynal" data-termynal>
+    <span data-ty="input"><span class="file-path"></span>forge build</span>
+    <span data-ty> &gt; [⠒] Compiling...</span>
+    <span data-ty> &gt; [⠰] Compiling 30 files with 0.8.23</span>
+    <span data-ty> [⠔] Solc 0.8.23 finished in 2.29s</span>
+    <span data-ty>Compiler run successful!</span>
+    <span data-ty="input"><span class="file-path"></span></span>
+</div></p>
+</li>
+<li>
+<p>Run tests to ensure everything is functioning correctly before deployment:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>forge<span class="w"> </span><span class="nb">test</span>
+</span></code></pre></div>
+<p>You will see passing results for all test cases in the terminal output:</p>
+<p><div id="termynal" data-termynal>
+    <span data-ty="input"><span class="file-path"></span>forge test</span>
+    <span data-ty>[⠊] Compiling...</span>
+    <span data-ty>No files changed, compilation skipped</span>
+    <span data-ty>Ran 3 tests for test/CrossChainMessagingTest.sol:CrossChainMessagingTest</span>
+    <span data-ty>[PASS] testDeployment() (gas: 13544)</span>
+    <span data-ty>[PASS] testReceiveMessage() (gas: 22579)</span>
+    <span data-ty>[PASS] testSendMessage() (gas: 22719)</span>
+    <span data-ty>Suite result: ok. 3 passed; 0 failed; 0 skipped; finished in 5.66ms (3.25ms CPU time)</span>
+    <span data-ty>Ran 1 test suite in 124.80ms (5.66ms CPU time): 3 tests passed, 0 failed, 0 skipped (3 total tests)</span>
+    <span data-ty="input"><span class="file-path"></span></span>
+</div></p>
+</li>
+</ol>
+<h2 id="prepare-for-contract-deployment">Prepare for Contract Deployment<a class="headerlink" href="#prepare-for-contract-deployment" title="Permanent link">＃</a></h2>
+<p>This project relies on two <a href="https://github.com/wormhole-foundation/wormhole-solidity-sdk" target="_blank">Wormhole Solidity SDK-based</a> smart contracts:</p>
+<ul>
+<li><strong>MessageSender.sol</strong> - sends a message to the target chain. You will deploy this contract to Avalanche Fuji</li>
+<li><strong>MessageReceiver.sol</strong> - receives and logs the message on the target chain. You will deploy this contract to Celo Alfajores</li>
+</ul>
+<p>The <code>chains.json</code> configuration defines properties for supported chains, including the Wormhole relayer addresses, RPC URLs, and chain IDs, and provides this information to the deployment scripts when you run them.</p>
+<h3 id="encrypt-private-key">Encrypt Private Key<a class="headerlink" href="#encrypt-private-key" title="Permanent link">＃</a></h3>
+<p>Foundry supports multiple options for <a href="https://book.getfoundry.sh/reference/cast/cast-wallet-import" target="_blank">creating a keystore</a>. This example uses the <code>--privatekey</code> option. As long as you have a decryption password to enter when prompted, you can use your preferred options when creating your Foundry keystore.</p>
+<ol>
+<li>
+<p>Create a Foundry keystore to encrypt your wallet private key using the following command: </p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>cast<span class="w"> </span>wallet<span class="w"> </span>import<span class="w"> </span>CELO_AVAX<span class="w"> </span>--privatekey<span class="w"> </span>INSERT_PRIVATE_KEY
+</span></code></pre></div>
+</li>
+<li>
+<p>Enter the password you wish to use to decrypt your private key at the prompt. You will not see the password in the terminal as you type:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>Enter<span class="w"> </span>password:<span class="w"> </span>INSERT_DECRYPTION_PASSWORD
+</span></code></pre></div>
+</li>
+<li>
+<p>Select return to save your password, and you will see a success message confirming that the keystore was saved successfully. Keep this password. You will be prompted to enter it in the terminal when a wallet signature is required</p>
+</li>
+</ol>
+<h2 id="deploy-sender-contract">Deploy Sender Contract<a class="headerlink" href="#deploy-sender-contract" title="Permanent link">＃</a></h2>
+<p>Follow these steps to deploy <code>MessageSender.sol</code> to Avalanche Fuji:</p>
+<ol>
+<li>
+<p>Run the deployment script command in your terminal:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>npm<span class="w"> </span>run<span class="w"> </span>deploy:sender
+</span></code></pre></div>
+</li>
+<li>
+<p>Enter your Foundry keystore password in the terminal when prompted</p>
+</li>
+<li>
+<p>You will see terminal output similar to the following:</p>
+<p><div id="termynal" data-termynal>
+    <span data-ty="input"><span class="file-path"></span>npm run deploy:sender</span>
+    <span data-ty>Enter keystore password: XXXXXXXXXXXX</span>
+    <span data-ty>MessageSender deployed to: 0x32fDaD190eC54578713cEFB1787AfE688eab4420</span>
+    <span data-ty="input"><span class="file-path"></span></span>
+</div></p>
+<p>The address you see in your terminal is the Avalanche Fuji address for your deployed sender contract. Your deployed contract addresses are also output to the <code>deployedContracts.json</code> file.</p>
+</li>
+</ol>
+<h2 id="deploy-receiver-contract">Deploy Receiver Contract<a class="headerlink" href="#deploy-receiver-contract" title="Permanent link">＃</a></h2>
+<p>Follow these steps to deploy <code>MessageReceiver.sol</code> to Celo Alforjes:</p>
+<ol>
+<li>
+<p>Run the deployment script command in your terminal:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>npm<span class="w"> </span>run<span class="w"> </span>deploy:receiver
+</span></code></pre></div>
+</li>
+<li>
+<p>Enter your Foundry keystore password in the terminal when prompted</p>
+</li>
+<li>
+<p>You will see terminal output similar to the following:</p>
+<p><div id="termynal" data-termynal>
+    <span data-ty="input"><span class="file-path"></span>npm run deploy:receiver</span>
+    <span data-ty>Enter keystore password: XXXXXXXXXXXX</span>
+    <span data-ty>MessageReceiver deployed to: 0x4Ed1F630c5EbB7A7913aF18052b1A636dA12Eb05</span>
+    <span data-ty>Registered MessageSender (0x32fDaD190eC54578713cEFB1787AfE688eab4420) for Avalanche chain (6)</span>
+    <span data-ty="input"><span class="file-path"></span></span>
+</div></p>
+<ul>
+<li>The Celo Alforjes address for your deployed receiver contract. Your deployed contract addresses are also output to the <code>deployedContracts.json</code> file</li>
+<li>Confirmation that a <code>MessageSender</code> contract is now registered as authorized to send messages to your receiver contract. This address should match the sender contract you deployed to Avalanche Fuji</li>
+</ul>
+</li>
+</ol>
+<h2 id="send-your-first-message">Send Your First Message<a class="headerlink" href="#send-your-first-message" title="Permanent link">＃</a></h2>
+<p>Follow these steps to use your deployed contracts and send your first message:</p>
+<ol>
+<li>
+<p>Run the <code>sendMessage.ts</code> script using the following command:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>npm<span class="w"> </span>run<span class="w"> </span>send:message
+</span></code></pre></div>
+</li>
+<li>
+<p>Enter your Foundry keystore password in the terminal when prompted</p>
+</li>
+<li>
+<p>You will see terminal output similar to the following:</p>
+<p><div id="termynal" data-termynal>
+    <span data-ty="input"><span class="file-path"></span>npm run send:message</span>
+    <span data-ty>Enter keystore password: XXXXXXXXXXXX</span>
+    <span data-ty>Transaction sent, waiting for confirmation...</span>
+    <span data-ty>...</span>
+    <span data-ty>Message sent! Transaction hash: 0xeb922bfe66ad38c9ed582a80038ba0687df4abf55ade04e6d1e102cd8cec8a54</span>
+    <span data-ty>You may see the transaction status on the Wormhole Explorer: https://wormholescan.io/#/tx/0xeb922bfe66ad38c9ed582a80038ba0687df4abf55ade04e6d1e102cd8cec8a54?network=TESTNET</span>
+    <span data-ty="input"><span class="file-path"></span></span>
+</div></p>
+</li>
+<li>
+<p>You can also use the <a href="https://alfajores.celoscan.io/" target="_blank">Celo Alfajores Testnet Explorer</a> to view your <code>MessageReceiver</code> contract. Select <strong>Events</strong> to see the events emitted by the contract when your message was received. You can use the dropdowns to change <strong>Hex</strong> to <strong>Text</strong> to read the message. It will look similar to the image below:</p>
+<p><a class="glightbox" href="/wormhole-mkdocs/images/products/messaging/get-started/messaging-get-started01.webp" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Contract events on Celo Alfajores Testnet Explorer" src="/wormhole-mkdocs/images/products/messaging/get-started/messaging-get-started01.webp" /></a></p>
+</li>
+</ol>
+<p>Congratulations! You've successfully sent and received a message across networks using Wormhole Solidity SDK-based smart contracts. </p>
+<h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">＃</a></h2>
+<!--TODO: links to other guides and tutorials-->
 
 <!-- Source file information -->
 <div class="md-source-file">
