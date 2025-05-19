@@ -39,6 +39,11 @@
   margin-bottom: 0;
 }
 
+.hero a {
+  margin-top: 2em;
+  margin-bottom: .3em;
+}
+
 .row {
   display: flex;
   flex-direction: row;

@@ -553,17 +553,27 @@
 }
 
 /* Button styling */
+.md-typeset a:has(.md-button) {
+  background-color: var(--md-default-bg-color);
+  border-radius: var(--border-radius);
+}
+
 .md-typeset .md-button {
   border: var(--border-width) solid var(--border-color);
   border-radius: var(--border-radius);
   padding: 0.75em 1.5em;
+  color: var(--dark);
+  background-color: var(--plum);
+  font-weight: 400;
 }
 
 .md-typeset .md-button:focus,
 .md-typeset .md-button:hover {
-  opacity: 0.7;
+  opacity: 1;
   border-color: var(--border-color);
-  background-color: var(--md-default-fg-color--lightest);
+  border-radius: var(--border-radius);
+  background-color: var(--md-accent-fg-color--active);
+  color: var(--md-default-fg-color);
 }
 
 /* Code element styling */
