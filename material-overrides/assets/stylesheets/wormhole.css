@@ -64,7 +64,6 @@
   --border-color: var(--grey-80);
   --border: var(--border-width) solid var(--border-color);
 
-
   --md-accent-fg-color: #5b4fc9;
   --md-accent-fg-color--active: var(--plum-transparent-30);
   --md-accent-fg-color--transparent: var(--plum-transparent-30);
@@ -396,7 +395,23 @@
 @media screen and (min-width: 76.25em) {
   .md-nav {
     font-size: 0.64rem;
+    transition: opacity 0.2s ease;
+    opacity: 0;
   }
+
+  /* --- To better handle page reloads and minimize flickering */
+  :not(.js-loading) .md-nav {
+    opacity: 1;
+  }
+
+  .js-loading nav.md-nav {
+    display: none !important;
+  }
+
+  .nav__item--section:not(.expanded) > nav.md-nav {
+    display: none;
+  }
+  /* --- */
 
   .nav__item--section
     > .md-nav__link[for]
@@ -434,7 +449,7 @@
     color: var(--md-default-fg-color);
   }
 
-  .md-nav__link[for]:hover{
+  .md-nav__link[for]:hover {
     color: var(--md-accent-fg-color);
   }
 
@@ -898,8 +913,8 @@ a.md-content__button.md-icon:hover {
   background: var(--md-default-bg-color);
   border: var(--border-width) solid var(--border-color);
   border-radius: 100%;
-  width: 3em;
-  height: 3em;
+  width: 4em;
+  height: 4em;
   box-sizing: border-box;
   display: flex;
   align-items: center;
@@ -911,8 +926,8 @@ a.md-content__button.md-icon:hover {
 }
 
 .md-social__link svg {
-  width: 1.5em;
-  height: 1.5em;
+  width: auto;
+  max-height: 1.5em;
 }
 
 .md-social__link svg path {
@@ -1015,9 +1030,14 @@ html .md-footer-meta.md-typeset .llms button.md-clipboard--inline {
   align-items: center;
   gap: 1em;
   color: var(--md-default-fg-color);
+  background-color: var(--md-default-bg-color);
   font-weight: 400;
   font-size: 1.1em;
   margin-top: 0.4em;
+}
+
+html .md-footer-meta.md-typeset .llms button.md-clipboard--inline:hover {
+  background-color: var(--md-default-fg-color--lightest);
 }
 
 /* Bottom of footer styling (i.e. copyright, terms of use, etc.) */

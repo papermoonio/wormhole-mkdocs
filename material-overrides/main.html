@@ -36,6 +36,42 @@
 {%- endblock -%} 
 
 {% block libs %}
+  <script>
+    document.documentElement.classList.add('js-loading');
+
+    (() => {
+      const sections = [];
+
+      document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('.nav__item--section').forEach((section) => {
+          const id = section.id;
+          if (!id) return;
+
+          const toggle = section.querySelector(':scope > .md-nav__toggle');
+          const nav = section.querySelector(':scope > nav.md-nav');
+          if (!toggle || !nav) return;
+
+          const saved = localStorage.getItem(id);
+          const isExpanded = saved === null ? true : saved === 'true';
+
+          toggle.checked = isExpanded;
+          nav.setAttribute('aria-expanded', isExpanded);
+          section.classList.toggle('expanded', isExpanded);
+
+          toggle.addEventListener('change', () => {
+            const checked = toggle.checked;
+            localStorage.setItem(id, checked);
+            nav.setAttribute('aria-expanded', checked);
+            section.classList.toggle('expanded', checked);
+          });
+
+          sections.push(section);
+        });
+
+        document.documentElement.classList.remove('js-loading');
+      });
+    })();
+  </script>
   {{ super() }}
 
   <link rel="preload" href="https://cdn.jsdelivr.net/npm/@cookbookdev/docsbot/dist/standalone/index.cjs.js" as="script">
