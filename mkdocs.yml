@@ -7,8 +7,6 @@ extra_css:
   - assets/stylesheets/terminal.css
   - assets/stylesheets/spantable-neoteroi.css
   - assets/stylesheets/timeline-neoteroi.css
-extra_javascript:
-  - js/tool-selector.js
 theme:
   name: material
   custom_dir: material-overrides
