@@ -30,6 +30,11 @@
       "mainnet": false,
       "testnet": true,
       "devnet": false
+    },
+    "multigov": {
+      "mainnet": true,
+      "testnet": true,
+      "devnet": true
     }
   }
 }

@@ -44,6 +44,11 @@
       "mainnet": true,
       "testnet": true,
       "devnet": false
+    },
+    "multigov": {
+      "mainnet": true,
+      "testnet": true,
+      "devnet": true
     }
   }
 }

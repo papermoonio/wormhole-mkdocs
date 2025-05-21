@@ -16,5 +16,11 @@
     }
   ],
   "devDocs": "https://docs.soniclabs.com/",
-  "products": {}
+  "products": {
+    "multigov": {
+      "mainnet": true,
+      "testnet": true,
+      "devnet": true
+    }
+  }
 }
