@@ -161,6 +161,17 @@ function getChainDetails(chainName: string): ExtraDetails {
       if (!products.ntt) products.ntt = { mainnet: false, testnet: false, devnet: false };
       products.ntt[net.toLowerCase() as keyof ProductSupport] = true;
     }
+
+    // Multigov
+    const isMultigovEligible =
+    chainType === 'EVM' || (chainType === 'SVM' && chainName === 'Solana');
+
+    if (isMultigovEligible) {
+      if (!products.multigov) {
+        products.multigov = { mainnet: false, testnet: false, devnet: false };
+      }
+      products.multigov[net.toLowerCase() as keyof ProductSupport] = true;
+    }
   }
 
   // Only write if something was added
