@@ -138,14 +138,28 @@ function getChainDetails(chainName: string): ExtraDetails {
   for (const net of networks) {
     const contracts = getContracts(net, chainName as Chain);
 
+    // Token Bridge
     if (contracts.tokenBridge) {
       if (!products.tokenBridge) products.tokenBridge = { mainnet: false, testnet: false, devnet: false };
       products.tokenBridge[net.toLowerCase() as keyof ProductSupport] = true;
     }
 
+    // CCTP
     if (contracts.cctp?.wormhole) {
       if (!products.cctp) products.cctp = { mainnet: false, testnet: false, devnet: false };
       products.cctp[net.toLowerCase() as keyof ProductSupport] = true;
+    }
+
+    // NTT
+    const platform = chainToPlatform(chainName as Chain);
+    const chainType = getChainType(platform);
+
+    // Only allow EVM and Solana (not other SVMs like Pythnet)
+    const isSupportedForNTT =
+      chainType === 'EVM' || (chainType === 'SVM' && chainName === 'Solana');
+    if (contracts.coreBridge && isSupportedForNTT) {
+      if (!products.ntt) products.ntt = { mainnet: false, testnet: false, devnet: false };
+      products.ntt[net.toLowerCase() as keyof ProductSupport] = true;
     }
   }
 
