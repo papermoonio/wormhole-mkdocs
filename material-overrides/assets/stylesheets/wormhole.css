@@ -85,7 +85,6 @@
   --md-code-fg-color: var(--grey-10);
   --md-code-bg-color: var(--grey-85);
   --code-filename-divider: var(--grey-60);
-  /** Code highlighting color shades **/
   /* Numbers */
   --md-code-hl-number-color: var(--grey-10);
   /* Python function names */
@@ -148,7 +147,6 @@
   --md-code-fg-color: var(--yellow-transparent-90);
   --md-code-bg-color: var(--grey-08);
   --code-filename-divider: var(--grey-40);
-  /** Code highlighting color shades **/
   /* Numbers */
   --md-code-hl-number-color: var(--light);
   /* Python function names */
@@ -172,6 +170,11 @@
   --md-code-hl-color--light: var(--plum-transparent-10);
   --md-code-hl-color: var(--plum);
 
+  /** Mermaid diagrams */
+  --md-mermaid-edge-color: var(--md-default-fg-color);
+  --md-mermaid-label-fg-color: var(--md-default-fg-color);
+
+  /** Admonitions */
   --md-admonition-icon--code: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZD0iTTE0LjYsMTYuNkwxOS4yLDEyTDE0LjYsNy40TDE2LDZMMjIsMTJMMTYsMThMMTQuNiwxNi42TTkuNCwxNi42TDQuOCwxMkw5LjQsNy40TDgsNkwyLDEyTDgsMThMOS40LDE2LjZaIiAvPjwvc3ZnPg==");
 }
 
@@ -857,6 +860,12 @@ a.md-content__button.md-icon:hover {
 
 .md-typeset .grid.cards .twemoji.lg {
   --md-icon-size: 1.2em;
+}
+
+/* Mermaid diagram styling */
+div.mermaid {
+  display: flex !important;
+  justify-content: center !important;
 }
 
 /* Footer */
