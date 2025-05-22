@@ -21,5 +21,17 @@
       "url": "https://gnosisscan.io/",
       "description": "GnosisScan"
     }
-  ]
+  ],
+  "products": {
+    "ntt": {
+      "mainnet": true,
+      "testnet": true,
+      "devnet": false
+    },
+    "multigov": {
+      "mainnet": true,
+      "testnet": true,
+      "devnet": true
+    }
+  }
 }

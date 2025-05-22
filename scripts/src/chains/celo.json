@@ -27,5 +27,27 @@
     "url": "https://faucet.celo.org/alfajores",
     "token": "CELO",
     "description": "Official Celo Faucet"
+  },
+  "products": {
+    "connect": {
+      "mainnet": true,
+      "testnet": true,
+      "devnet": false
+    },
+    "ntt": {
+      "mainnet": true,
+      "testnet": true,
+      "devnet": false
+    },
+    "tokenBridge": {
+      "mainnet": true,
+      "testnet": true,
+      "devnet": false
+    },
+    "multigov": {
+      "mainnet": true,
+      "testnet": true,
+      "devnet": true
+    }
   }
 }

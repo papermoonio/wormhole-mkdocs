@@ -21,5 +21,37 @@
       "url": "https://polygonscan.com/",
       "description": "Polygonscan"
     }
-  ]
+  ],
+  "products": {
+    "connect": {
+      "mainnet": true,
+      "testnet": false,
+      "devnet": false
+    },
+    "ntt": {
+      "mainnet": true,
+      "testnet": true,
+      "devnet": false
+    },
+    "tokenBridge": {
+      "mainnet": true,
+      "testnet": true,
+      "devnet": false
+    },
+    "cctp": {
+      "mainnet": true,
+      "testnet": true,
+      "devnet": false
+    },
+    "settlement": {
+      "mainnet": true,
+      "testnet": false,
+      "devnet": false
+    },
+    "multigov": {
+      "mainnet": true,
+      "testnet": true,
+      "devnet": true
+    }
+  }
 }

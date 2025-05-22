@@ -25,5 +25,32 @@
     "url": "https://faucet.quicknode.com/unichain/sepolia",
     "token": "ETH",
     "description": "QuickNode Faucet"
+  },
+  "products": {
+    "connect": {
+      "mainnet": true,
+      "testnet": true,
+      "devnet": false
+    },
+    "ntt": {
+      "mainnet": true,
+      "testnet": true,
+      "devnet": false
+    },
+    "tokenBridge": {
+      "mainnet": true,
+      "testnet": true,
+      "devnet": false
+    },
+    "settlement": {
+      "mainnet": true,
+      "testnet": false,
+      "devnet": false
+    },
+    "multigov": {
+      "mainnet": true,
+      "testnet": true,
+      "devnet": true
+    }
   }
 }

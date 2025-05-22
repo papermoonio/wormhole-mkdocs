@@ -19,5 +19,17 @@
     {
       "url": "https://www.docs.sei.io/dev-ecosystem-providers/explorers#sei-explorers"
     }
-  ]
+  ],
+  "products": {
+    "tokenBridge": {
+      "mainnet": true,
+      "testnet": true,
+      "devnet": false
+    },
+    "multigov": {
+      "mainnet": true,
+      "testnet": true,
+      "devnet": true
+    }
+  }
 }

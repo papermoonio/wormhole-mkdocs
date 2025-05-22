@@ -19,5 +19,17 @@
     {
       "url": "https://classic-docs.terra.money/docs/ecosystem/explore.html?highlight=explorer#block-explorers"
     }
-  ]
+  ],
+  "products": {
+    "connect": {
+      "mainnet": false,
+      "testnet": false,
+      "devnet": true
+    },
+    "tokenBridge": {
+      "mainnet": true,
+      "testnet": true,
+      "devnet": true
+    }
+  }
 }

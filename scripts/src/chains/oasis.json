@@ -24,5 +24,22 @@
     {
       "url": "https://docs.oasis.io/dapp/cipher/#block-explorers"
     }
-  ]
+  ],
+  "products": {
+    "ntt": {
+      "mainnet": true,
+      "testnet": true,
+      "devnet": false
+    },
+    "tokenBridge": {
+      "mainnet": true,
+      "testnet": true,
+      "devnet": false
+    },
+    "multigov": {
+      "mainnet": true,
+      "testnet": true,
+      "devnet": true
+    }
+  }
 }

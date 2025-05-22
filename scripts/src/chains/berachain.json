@@ -20,5 +20,27 @@
       "url": "https://bartio.beratrail.io/",
       "description": "Beratrail"
     }
-  ]
+  ],
+  "products": {
+    "connect": {
+      "mainnet": true,
+      "testnet": false,
+      "devnet": false
+    },
+    "ntt": {
+      "mainnet": true,
+      "testnet": true,
+      "devnet": false
+    },
+    "tokenBridge": {
+      "mainnet": true,
+      "testnet": true,
+      "devnet": false
+    },
+    "multigov": {
+      "mainnet": true,
+      "testnet": true,
+      "devnet": true
+    }
+  }
 }

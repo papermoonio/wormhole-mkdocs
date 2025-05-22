@@ -17,5 +17,27 @@
     "url": "https://docs.base.org/docs/tools/network-faucets/",
     "token": "ETH",
     "description": "List of Faucets"
+  },
+  "products": {
+    "tokenBridge": {
+      "mainnet": false,
+      "testnet": true,
+      "devnet": false
+    },
+    "cctp": {
+      "mainnet": false,
+      "testnet": true,
+      "devnet": false
+    },
+    "ntt": {
+      "mainnet": false,
+      "testnet": true,
+      "devnet": false
+    },
+    "multigov": {
+      "mainnet": true,
+      "testnet": true,
+      "devnet": true
+    }
   }
 }

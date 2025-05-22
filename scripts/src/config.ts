@@ -28,7 +28,16 @@ export type DocChain = {
   mainnet: ChainDetails; // MainNet details
   testnets: ChainDetails[]; // TestNet details
   devnets: ChainDetails[]; // DevNet details
+  products?: Products; // Supported products
 };
+
+export type ProductSupport = {
+  mainnet: boolean;
+  testnet: boolean;
+  devnet: boolean;
+};
+
+export type Products = Record<string, ProductSupport>;
 
 export type ChainDetails = {
   name: string; // Chain name
@@ -76,6 +85,7 @@ export interface ExtraDetails {
   examples?: SiteDescription[];
   testnet?: NetworkDescription;
   mainnet?: NetworkDescription;
+  products?: Products;
 }
 
 export function networkString(net?: NetworkDescription): string {
@@ -105,42 +115,74 @@ function getChainType(platformName: Platform): ChainType {
 }
 
 function getChainDetails(chainName: string): ExtraDetails {
+  let existingDetails: ExtraDetails = {} as ExtraDetails;
+
   try {
-    const details = fs.readFileSync(`./src/chains/${chainName}.json`);
-    return JSON.parse(details.toString()) as ExtraDetails;
+    const raw = fs.readFileSync(`./src/chains/${chainName}.json`);
+    existingDetails = JSON.parse(raw.toString()) as ExtraDetails;
   } catch (e) {
     console.error('No detail file for ', chainName);
 
-    const testnetId = nativeChainIds.networkChainToNativeChainId.get(
-      'Testnet',
-      chainName
-    );
-    const testnet = testnetId
-      ? {
-          name: 'Testnet',
-          id: testnetId.toString(),
-        }
-      : undefined;
+    const testnetId = nativeChainIds.networkChainToNativeChainId.get('Testnet', chainName);
+    const mainnetId = nativeChainIds.networkChainToNativeChainId.get('Mainnet', chainName);
 
-    const mainnetId = nativeChainIds.networkChainToNativeChainId.get(
-      'Mainnet',
-      chainName
-    );
-    const mainnet = mainnetId
-      ? {
-          name: 'Mainnet',
-          id: mainnetId.toString(),
-        }
-      : undefined;
-
-    const deets: ExtraDetails = {
-      title: chainName,
-      testnet,
-      mainnet,
-    };
-    fs.writeFileSync(`./src/chains/${chainName}.json`, JSON.stringify(deets));
+    existingDetails.title = chainName;
+    existingDetails.testnet = testnetId ? { name: 'Testnet', id: testnetId.toString() } : undefined;
+    existingDetails.mainnet = mainnetId ? { name: 'Mainnet', id: mainnetId.toString() } : undefined;
   }
-  return {} as ExtraDetails;
+
+  // Compute new product support based on SDK contracts
+  const products: Products = existingDetails.products || {};
+  const networks = ['Mainnet', 'Testnet', 'Devnet'] as const;
+
+  for (const net of networks) {
+    const contracts = getContracts(net, chainName as Chain);
+
+    // Token Bridge
+    if (contracts.tokenBridge) {
+      if (!products.tokenBridge) products.tokenBridge = { mainnet: false, testnet: false, devnet: false };
+      products.tokenBridge[net.toLowerCase() as keyof ProductSupport] = true;
+    }
+
+    // CCTP
+    if (contracts.cctp?.wormhole) {
+      if (!products.cctp) products.cctp = { mainnet: false, testnet: false, devnet: false };
+      products.cctp[net.toLowerCase() as keyof ProductSupport] = true;
+    }
+
+    // NTT
+    const platform = chainToPlatform(chainName as Chain);
+    const chainType = getChainType(platform);
+
+    // Only allow EVM and Solana (not other SVMs like Pythnet)
+    const isSupportedForNTT =
+      chainType === 'EVM' || (chainType === 'SVM' && chainName === 'Solana');
+    if (contracts.coreBridge && isSupportedForNTT) {
+      if (!products.ntt) products.ntt = { mainnet: false, testnet: false, devnet: false };
+      products.ntt[net.toLowerCase() as keyof ProductSupport] = true;
+    }
+
+    // Multigov
+    const isMultigovEligible =
+    chainType === 'EVM' || (chainType === 'SVM' && chainName === 'Solana');
+
+    if (isMultigovEligible) {
+      if (!products.multigov) {
+        products.multigov = { mainnet: false, testnet: false, devnet: false };
+      }
+      products.multigov[net.toLowerCase() as keyof ProductSupport] = true;
+    }
+  }
+
+  // Only write if something was added
+  const updatedDetails = {
+    ...existingDetails,
+    products,
+  };
+
+  fs.writeFileSync(`./src/chains/${chainName}.json`, JSON.stringify(updatedDetails, null, 2));
+
+  return updatedDetails;
 }
 
 export async function getDocChains(): Promise<DocChain[]> {
@@ -166,6 +208,8 @@ export async function getDocChains(): Promise<DocChain[]> {
     const platform = chainToPlatform(c);
     const chainType = getChainType(platform);
 
+    const details = getChainDetails(c);
+
     // Get Contracts
     const mainnetContracts = getContracts('Mainnet', c);
     const testnetContracts = getContracts('Testnet', c);
@@ -178,7 +222,7 @@ export async function getDocChains(): Promise<DocChain[]> {
       contracts: {
         ...mainnetContracts,
       },
-      extraDetails: getChainDetails(c),
+      extraDetails: details,
     };
 
     // Get testnet configs
@@ -190,7 +234,7 @@ export async function getDocChains(): Promise<DocChain[]> {
         name: c,
         id: testnetConfigs.chainId,
         contracts: testnetContracts,
-        extraDetails: getChainDetails(c),
+        extraDetails: details,
       });
     }
 
@@ -203,7 +247,7 @@ export async function getDocChains(): Promise<DocChain[]> {
         name: c,
         id: devnetConfigs?.chainId,
         contracts: devnetContracts,
-        extraDetails: getChainDetails(c),
+        extraDetails: details,
       });
     }
 
@@ -212,6 +256,7 @@ export async function getDocChains(): Promise<DocChain[]> {
       mainnet,
       testnets,
       devnets,
+      products: details.products || {},
     });
   }
 

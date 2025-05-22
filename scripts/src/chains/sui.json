@@ -25,5 +25,22 @@
     "url": "https://docs.sui.io/build/faucet",
     "token": "SUI",
     "description": "List of Faucets"
+  },
+  "products": {
+    "connect": {
+      "mainnet": true,
+      "testnet": true,
+      "devnet": false
+    },
+    "tokenBridge": {
+      "mainnet": true,
+      "testnet": true,
+      "devnet": true
+    },
+    "settlement": {
+      "mainnet": true,
+      "testnet": false,
+      "devnet": false
+    }
   }
 }

@@ -21,5 +21,22 @@
       "description": "Neonscan"
     }
   ],
-  "contractSource": "ethereum/contracts/bridge/Bridge.sol"
+  "contractSource": "ethereum/contracts/bridge/Bridge.sol",
+  "products": {
+    "tokenBridge": {
+      "mainnet": false,
+      "testnet": true,
+      "devnet": false
+    },
+    "ntt": {
+      "mainnet": false,
+      "testnet": true,
+      "devnet": false
+    },
+    "multigov": {
+      "mainnet": true,
+      "testnet": true,
+      "devnet": true
+    }
+  }
 }
