@@ -5,6 +5,22 @@ Neoteroi Mkdocs timeline extension: https://github.com/Neoteroi/mkdocs-plugins/b
 
 /* displays if timeline doesn't render properly 
 (bad file path to JSON, etc)*/
+[data-md-color-scheme="custom-light"] {
+  --gradient-before-color-1: rgba(193, 187, 246, 1) 0%;
+  --gradient-before-color-2: rgba(193, 187, 246, 1) 100%;
+
+  --gradient-after-color-1: var(--md-default-bg-color) 0%;
+  --gradient-after-color-2: var(--md-default-bg-color) 100%;
+}
+
+[data-md-color-scheme="custom-dark"] {
+  --gradient-before-color-1: rgba(193, 187, 246, 1) 0%;
+  --gradient-before-color-2: rgba(193, 187, 246, 1) 100%;
+
+  --gradient-after-color-1: var(--md-default-bg-color) 0%;
+  --gradient-after-color-2: var(--md-default-bg-color) 100%;
+}
+
 .nt-error {
   border: 2px dashed darkred;
   padding: 0 1rem;
@@ -52,8 +68,8 @@ Neoteroi Mkdocs timeline extension: https://github.com/Neoteroi/mkdocs-plugins/b
     &.center {
       .nt-timeline-before {
         background-image: linear-gradient(
-          rgba(193, 187, 246, 1) 0%,
-          rgba(193, 187, 246, 1) 100%
+          var(--gradient-before-color-1),
+          var(--gradient-before-color-2)
         );
         background-repeat: no-repeat;
         background-size: 100% 2px;
@@ -63,8 +79,8 @@ Neoteroi Mkdocs timeline extension: https://github.com/Neoteroi/mkdocs-plugins/b
       .nt-timeline-after {
         background-image: linear-gradient(
           180deg,
-          rgba(0, 0, 0, 0) 0%,
-          rgba(17, 17, 18, 1) 100%
+          var(--gradient-after-color-1),
+          var(--gradient-after-color-2)
         );
         background-repeat: no-repeat;
         background-size: 100% 2px;
@@ -74,8 +90,8 @@ Neoteroi Mkdocs timeline extension: https://github.com/Neoteroi/mkdocs-plugins/b
       .nt-timeline-items {
         background-image: radial-gradient(
           circle,
-          rgba(193, 187, 246, 1) 0%,
-          rgba(17, 17, 18, 1) 100%
+          var(--gradient-before-color-1),
+          var(--gradient-after-color-2)
         );
         background-repeat: no-repeat;
         background-size: 100% 2px;
@@ -118,16 +134,16 @@ Neoteroi Mkdocs timeline extension: https://github.com/Neoteroi/mkdocs-plugins/b
       /* px here control left margin/width of timeline */
       .nt-timeline-before {
         background: linear-gradient(
-            rgba(193, 187, 246, 1) 0%,
-            rgba(193, 187, 246, 1) 100%
+            var(--gradient-before-color-1),
+            var(--gradient-before-color-2)
           )
           no-repeat 30px/2px 100%;
       }
 
       .nt-timeline-after {
         background: linear-gradient(
-            rgba(0, 0, 0, 0) 0%,
-            rgba(17, 17, 18, 1) 100%
+            var(--gradient-after-color-1),
+            var(--gradient-after-color-2)
           )
           no-repeat 30px/2px 100%;
         display: none;
@@ -135,8 +151,8 @@ Neoteroi Mkdocs timeline extension: https://github.com/Neoteroi/mkdocs-plugins/b
 
       .nt-timeline-items {
         background: linear-gradient(
-            rgba(193, 187, 246, 1) 0%,
-            rgba(17, 17, 18, 1) 100%
+            var(--gradient-before-color-1),
+            var(--gradient-after-color-2)
           )
           no-repeat 30px/2px 100%;
       }
@@ -148,7 +164,7 @@ Neoteroi Mkdocs timeline extension: https://github.com/Neoteroi/mkdocs-plugins/b
         &.bigger {
           top: 0px;
           left: 10px;
-          background: #000000;
+          background: var(--md-default-bg-color);
         }
       }
     }
@@ -169,7 +185,7 @@ Neoteroi Mkdocs timeline extension: https://github.com/Neoteroi/mkdocs-plugins/b
 
 /* set height for timeline gradient above the first item */
 .nt-timeline-before {
-  content: '';
+  content: "";
   height: 15px;
 }
 
@@ -185,7 +201,7 @@ Neoteroi Mkdocs timeline extension: https://github.com/Neoteroi/mkdocs-plugins/b
   height: 20px;
 
   border-radius: 100%;
-  background-color: #000000;
+  background-color: var(--md-default-fg-color);
   position: absolute;
   top: 0px;
   z-index: 2;
@@ -195,7 +211,7 @@ Neoteroi Mkdocs timeline extension: https://github.com/Neoteroi/mkdocs-plugins/b
   align-items: center;
 
   /* border around each icon */
-  border: 2px solid white;
+  border: 2px solid var(--md-default-fg-color);
 
   &:not(.bigger) {
     .icon {
@@ -210,7 +226,7 @@ Neoteroi Mkdocs timeline extension: https://github.com/Neoteroi/mkdocs-plugins/b
   }
 
   .icon {
-    color: white;
+    color: var(--md-default-fg-color);
     position: relative;
     bottom: 1px;
   }

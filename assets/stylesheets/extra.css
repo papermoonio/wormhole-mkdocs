@@ -1,4 +1,8 @@
-@font-face {
+/**
+These styles are not currently being used. Keeping here for future reference.
+**/
+
+/* @font-face {
   font-family: 'Druk';
   src: url('fonts/DrukText-Medium.otf') format('opentype');
 }
@@ -6,4 +10,4 @@
 @font-face {
   font-family: 'Druk Wide';
   src: url('fonts/DrukWide-Medium.otf') format('opentype');
-}
+} */
