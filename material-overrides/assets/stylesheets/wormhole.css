@@ -101,6 +101,12 @@
   --md-code-hl-variable-color: #e65c3d;
   --md-code-hl-color--light: var(--plum-transparent-50);
   --md-code-hl-color: #5b4fc9;
+
+  /** Mermaid diagrams */
+  --md-mermaid-edge-color: var(--md-default-fg-color);
+  --md-mermaid-label-fg-color: var(--md-default-fg-color);
+  --md-mermaid-sequence-actor-line-color: var(--grey-75);
+  --md-mermaid-sequence-actor-bg-color: rgb(227, 226, 242);
 }
 
 [data-md-color-scheme="custom-dark"] {
@@ -173,6 +179,8 @@
   /** Mermaid diagrams */
   --md-mermaid-edge-color: var(--md-default-fg-color);
   --md-mermaid-label-fg-color: var(--md-default-fg-color);
+  --md-mermaid-sequence-actor-line-color: var(--grey-35);
+  --md-mermaid-sequence-actor-bg-color: rgb(51, 50, 58);
 
   /** Admonitions */
   --md-admonition-icon--code: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZD0iTTE0LjYsMTYuNkwxOS4yLDEyTDE0LjYsNy40TDE2LDZMMjIsMTJMMTYsMThMMTQuNiwxNi42TTkuNCwxNi42TDQuOCwxMkw5LjQsNy40TDgsNkwyLDEyTDgsMThMOS40LDE2LjZaIiAvPjwvc3ZnPg==");
