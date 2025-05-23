@@ -27,5 +27,27 @@
     "url": "https://testnet.binance.org/faucet-smart/",
     "token": "BNB",
     "description": "Official BNB Faucet"
+  },
+  "products": {
+    "connect": {
+      "mainnet": true,
+      "testnet": true,
+      "devnet": false
+    },
+    "multigov": {
+      "mainnet": true,
+      "testnet": true,
+      "devnet": true
+    },
+    "tokenBridge": {
+      "mainnet": true,
+      "testnet": true,
+      "devnet": true
+    },
+    "ntt": {
+      "mainnet": true,
+      "testnet": true,
+      "devnet": true
+    }
   }
 }

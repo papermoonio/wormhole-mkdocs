@@ -15,5 +15,22 @@
       "url": "https://explorer.snaxchain.io/",
       "description": "SNAXchain Explorer"
     }
-  ]
+  ],
+  "products": {
+    "ntt": {
+      "mainnet": true,
+      "testnet": true,
+      "devnet": false
+    },
+    "tokenBridge": {
+      "mainnet": true,
+      "testnet": true,
+      "devnet": false
+    },
+    "multigov": {
+      "mainnet": true,
+      "testnet": true,
+      "devnet": true
+    }
+  }
 }

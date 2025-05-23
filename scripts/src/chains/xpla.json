@@ -20,5 +20,12 @@
       "url": "https://explorer.xpla.io/",
       "description": "XPLA Explorer"
     }
-  ]
+  ],
+  "products": {
+    "tokenBridge": {
+      "mainnet": true,
+      "testnet": true,
+      "devnet": false
+    }
+  }
 }
