@@ -625,6 +625,32 @@ code.md-code__content {
   border-color: var(--code-filename-divider);
 }
 
+/* Admonition styling */
+details.interface > summary::before {
+  display: none;
+}
+
+.md-typeset details.interface {
+  border: 1px solid var(--border-color);
+  box-shadow: none;
+  width: auto;
+}
+
+[dir='ltr'] .md-typeset details.interface > summary {
+  padding: 1em 0 1em 1em;
+  background-color: var(--table-header-bg-color);
+}
+
+.md-typeset details.interface > summary:after {
+  top: auto;
+}
+
+.md-typeset details.interface:has(~ details.interface),
+.md-typeset details.interface ~ details.interface {
+  margin-top: 0;
+  margin-bottom: 0.5em;
+}
+
 /* Tabbed element styling */
 .md-typeset .tabbed-labels {
   border-top-left-radius: 0.5em;
