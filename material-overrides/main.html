@@ -36,100 +36,99 @@
 {%- endblock -%} 
 
 {% block libs %}
-<script>
-  document.documentElement.classList.add('js-loading');
+  <script>
+    document.documentElement.classList.add('js-loading');
 
-  (() => {
-    const BREAKPOINT_EM = 76.25;
-    const BREAKPOINT_PX = BREAKPOINT_EM * 16;
+    (() => {
+      const BREAKPOINT_EM = 76.25;
+      const BREAKPOINT_PX = BREAKPOINT_EM * 16;
 
-    function isLargeScreen() {
-      return window.innerWidth >= BREAKPOINT_PX;
-    }
-
-    function getActiveSectionId() {
-      const activeLink = document.querySelector('.md-nav__link--active');
-      const section = activeLink?.closest('.nav__item--section');
-      return section?.id || null;
-    }
-
-    function applySectionState(section, isExpanded) {
-      const toggle = section.querySelector(':scope > .md-nav__toggle');
-      const nav = section.querySelector(':scope > nav.md-nav');
-      if (!toggle || !nav) return;
-
-      toggle.checked = isExpanded;
-      nav.setAttribute('aria-expanded', isExpanded);
-      section.classList.toggle('expanded', isExpanded);
-    }
-
-    const sections = [];
-    const toggles = new Map();
-
-    function setupSection(section) {
-      const id = section.id;
-      if (!id) return;
-
-      const toggle = section.querySelector(':scope > .md-nav__toggle');
-      const nav = section.querySelector(':scope > nav.md-nav');
-      if (!toggle || !nav) return;
-
-      // Save toggle ref for later updates
-      toggles.set(section, { toggle, nav });
-
-      // Attach listener once
-      if (!toggle.dataset.listenerAttached) {
-        toggle.addEventListener('change', () => {
-          const checked = toggle.checked;
-          if (isLargeScreen()) {
-            localStorage.setItem(id, checked);
-          }
-          applySectionState(section, checked);
-        });
-        toggle.dataset.listenerAttached = 'true';
+      function isLargeScreen() {
+        return window.innerWidth >= BREAKPOINT_PX;
       }
 
-      sections.push(section);
-    }
+      function getActiveSectionId() {
+        const activeLink = document.querySelector('.md-nav__link--active');
+        const section = activeLink?.closest('.nav__item--section');
+        return section?.id || null;
+      }
 
-    function applyInitialState() {
-      const large = isLargeScreen();
-      const activeId = getActiveSectionId();
+      function applySectionState(section, isExpanded) {
+        const toggle = section.querySelector(':scope > .md-nav__toggle');
+        const nav = section.querySelector(':scope > nav.md-nav');
+        if (!toggle || !nav) return;
 
-      sections.forEach((section) => {
+        toggle.checked = isExpanded;
+        nav.setAttribute('aria-expanded', isExpanded);
+        section.classList.toggle('expanded', isExpanded);
+      }
+
+      const sections = [];
+      const toggles = new Map();
+
+      function setupSection(section) {
         const id = section.id;
-        let isExpanded = false;
+        if (!id) return;
 
-        if (large) {
-          const saved = localStorage.getItem(id);
-          isExpanded = saved === null ? true : saved === 'true';
+        const toggle = section.querySelector(':scope > .md-nav__toggle');
+        const nav = section.querySelector(':scope > nav.md-nav');
+        if (!toggle || !nav) return;
 
-          // Always expand the active section, even if localStorage says false
-          if (id === activeId) {
-            isExpanded = true;
-            localStorage.setItem(id, 'true');
-          }
-        } else {
-          // On small screens, only expand the active section
-          isExpanded = id === activeId;
+        // Save toggle ref for later updates
+        toggles.set(section, { toggle, nav });
+
+        // Attach listener once
+        if (!toggle.dataset.listenerAttached) {
+          toggle.addEventListener('change', () => {
+            const checked = toggle.checked;
+            if (isLargeScreen()) {
+              localStorage.setItem(id, checked);
+            }
+            applySectionState(section, checked);
+          });
+          toggle.dataset.listenerAttached = 'true';
         }
 
-        applySectionState(section, isExpanded);
+        sections.push(section);
+      }
+
+      function applyInitialState() {
+        const large = isLargeScreen();
+        const activeId = getActiveSectionId();
+
+        sections.forEach((section) => {
+          const id = section.id;
+          let isExpanded = false;
+
+          if (large) {
+            const saved = localStorage.getItem(id);
+            isExpanded = saved === null ? true : saved === 'true';
+
+            // Always expand the active section, even if localStorage says false
+            if (id === activeId) {
+              isExpanded = true;
+              localStorage.setItem(id, 'true');
+            }
+          } else {
+            // On small screens, only expand the active section
+            isExpanded = id === activeId;
+          }
+
+          applySectionState(section, isExpanded);
+        });
+      }
+
+      document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('.nav__item--section').forEach(setupSection);
+        applyInitialState();
+        document.documentElement.classList.remove('js-loading');
       });
-    }
 
-
-    document.addEventListener('DOMContentLoaded', () => {
-      document.querySelectorAll('.nav__item--section').forEach(setupSection);
-      applyInitialState();
-      document.documentElement.classList.remove('js-loading');
-    });
-
-    window.addEventListener('resize', () => {
-      applyInitialState();
-    });
-  })();
-</script>
+      window.addEventListener('resize', () => {
+        applyInitialState();
+      });
+    })();
+  </script>
 
   {{ super() }}
 
