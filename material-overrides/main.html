@@ -36,42 +36,101 @@
 {%- endblock -%} 
 
 {% block libs %}
-  <script>
-    document.documentElement.classList.add('js-loading');
+<script>
+  document.documentElement.classList.add('js-loading');
 
-    (() => {
-      const sections = [];
+  (() => {
+    const BREAKPOINT_EM = 76.25;
+    const BREAKPOINT_PX = BREAKPOINT_EM * 16;
 
-      document.addEventListener('DOMContentLoaded', () => {
-        document.querySelectorAll('.nav__item--section').forEach((section) => {
-          const id = section.id;
-          if (!id) return;
+    function isLargeScreen() {
+      return window.innerWidth >= BREAKPOINT_PX;
+    }
 
-          const toggle = section.querySelector(':scope > .md-nav__toggle');
-          const nav = section.querySelector(':scope > nav.md-nav');
-          if (!toggle || !nav) return;
+    function getActiveSectionId() {
+      const activeLink = document.querySelector('.md-nav__link--active');
+      const section = activeLink?.closest('.nav__item--section');
+      return section?.id || null;
+    }
 
-          const saved = localStorage.getItem(id);
-          const isExpanded = saved === null ? true : saved === 'true';
+    function applySectionState(section, isExpanded) {
+      const toggle = section.querySelector(':scope > .md-nav__toggle');
+      const nav = section.querySelector(':scope > nav.md-nav');
+      if (!toggle || !nav) return;
 
-          toggle.checked = isExpanded;
-          nav.setAttribute('aria-expanded', isExpanded);
-          section.classList.toggle('expanded', isExpanded);
+      toggle.checked = isExpanded;
+      nav.setAttribute('aria-expanded', isExpanded);
+      section.classList.toggle('expanded', isExpanded);
+    }
 
-          toggle.addEventListener('change', () => {
-            const checked = toggle.checked;
+    const sections = [];
+    const toggles = new Map();
+
+    function setupSection(section) {
+      const id = section.id;
+      if (!id) return;
+
+      const toggle = section.querySelector(':scope > .md-nav__toggle');
+      const nav = section.querySelector(':scope > nav.md-nav');
+      if (!toggle || !nav) return;
+
+      // Save toggle ref for later updates
+      toggles.set(section, { toggle, nav });
+
+      // Attach listener once
+      if (!toggle.dataset.listenerAttached) {
+        toggle.addEventListener('change', () => {
+          const checked = toggle.checked;
+          if (isLargeScreen()) {
             localStorage.setItem(id, checked);
-            nav.setAttribute('aria-expanded', checked);
-            section.classList.toggle('expanded', checked);
-          });
-
-          sections.push(section);
+          }
+          applySectionState(section, checked);
         });
+        toggle.dataset.listenerAttached = 'true';
+      }
 
-        document.documentElement.classList.remove('js-loading');
+      sections.push(section);
+    }
+
+    function applyInitialState() {
+      const large = isLargeScreen();
+      const activeId = getActiveSectionId();
+
+      sections.forEach((section) => {
+        const id = section.id;
+        let isExpanded = false;
+
+        if (large) {
+          const saved = localStorage.getItem(id);
+          isExpanded = saved === null ? true : saved === 'true';
+
+          // Always expand the active section, even if localStorage says false
+          if (id === activeId) {
+            isExpanded = true;
+            localStorage.setItem(id, 'true');
+          }
+        } else {
+          // On small screens, only expand the active section
+          isExpanded = id === activeId;
+        }
+
+        applySectionState(section, isExpanded);
       });
-    })();
-  </script>
+    }
+
+
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.nav__item--section').forEach(setupSection);
+      applyInitialState();
+      document.documentElement.classList.remove('js-loading');
+    });
+
+    window.addEventListener('resize', () => {
+      applyInitialState();
+    });
+  })();
+</script>
+
   {{ super() }}
 
   <link rel="preload" href="https://cdn.jsdelivr.net/npm/@cookbookdev/docsbot/dist/standalone/index.cjs.js" as="script">
