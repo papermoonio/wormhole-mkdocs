@@ -39,23 +39,16 @@
 {% endmacro %}
 
 <!-- Render navigation link content -->
-{% macro render_content(nav_item, ref) %}
-  {% set ref = ref or nav_item %}
+{% macro render_content(nav_item, ref = nav_item) %}
 
   <!-- Navigation link icon -->
-  {% if nav_item.meta and nav_item.meta.icon %}
+  {% if nav_item.is_page and nav_item.meta.icon %}
     {% include ".icons/" ~ nav_item.meta.icon ~ ".svg" %}
   {% endif %}
 
   <!-- Navigation link title -->
   <span class="md-ellipsis">
     {{ ref.title }}
-
-    <!-- Navigation link subtitle -->
-    {% if nav_item.meta and nav_item.meta.subtitle %}
-      <br />
-      <small>{{ nav_item.meta.subtitle }}</small>
-    {% endif %}
   </span>
 
   <!-- Navigation link status -->
@@ -65,8 +58,7 @@
 {% endmacro %}
 
 <!-- Render navigation item (pruned) -->
-{% macro render_pruned(nav_item, ref) %}
-  {% set ref = ref or nav_item %}
+{% macro render_pruned(nav_item, ref = nav_item) %}
   {% set first = nav_item.children | first %}
 
   <!-- Recurse, if the first item has further nested items -->
@@ -87,7 +79,7 @@
 {% endmacro %}
 
 <!-- Render navigation item -->
-{% macro render(nav_item, path, level, parent, loop_index) %}
+{% macro render(nav_item, path, level, loop_index) %}
 
   <!-- Determine classes -->
   {% set class = "md-nav__item" %}
@@ -106,15 +98,14 @@
   {% if nav_item.children %}
 
     <!-- Determine all nested items that are index pages -->
-    {% set _ = namespace(index = none) %}
+    {% set indexes = [] %}
     {% if "navigation.indexes" in features %}
-      {% for item in nav_item.children %}
-        {% if item.is_index and _.index is none %}
-          {% set _.index = item %}
+      {% for nav_item in nav_item.children %}
+        {% if nav_item.is_index and not index is defined %}
+          {% set _ = indexes.append(nav_item) %}
         {% endif %}
       {% endfor %}
     {% endif %}
-    {% set index = _.index %}
 
     <!-- Navigation tabs -->
     {% if "navigation.tabs" in features %}
@@ -129,7 +120,7 @@
       {% if "navigation.sections" in features %}
 
         <!-- Render 2nd level items with nested items as sections -->
-        {% if level == 2 and parent.active %}
+        {% if level == 2 and nav_item.parent.active %}
           {% set class = class ~ " md-nav__item--section" %}
           {% set is_section = true %}
         {% endif %}
@@ -155,10 +146,11 @@
       {% endif %}
     {% endif %}
 
-    <!-- Nested navigation item -->
     {% if level == 2 %}
       {% set class = class ~ " nav__item--section" %}
     {% endif %}
+
+    <!-- Nested navigation item -->
     <li class="{{ class }} md-nav__item--nested" id="{{ loop_index }}">
       {% if not is_pruned %}
         {% set checked = "checked" if nav_item.active %}
@@ -185,6 +177,7 @@
             id="{{ path }}_label"
             tabindex="{{ tabindex }}"
           >
+
             {% if level == 2 %}
               <span class="nav__icon md-icon plus">{% include ".icons/material/plus-box-outline.svg" %}</span>
               <span class="nav__icon md-icon minus">{% include ".icons/material/minus-box.svg" %}</span>
@@ -198,6 +191,7 @@
 
         <!-- Toggle to expand nested items with link to index page -->
         {% else %}
+          {% set index = indexes | first %}
           {% set class = "md-nav__link--active" if index == page %}
           <div class="md-nav__link md-nav__container">
             <a
@@ -238,9 +232,9 @@
             {% set id_title = nav_item.title | lower | replace(" ", "_") ~ "_" %}
 
             <!-- Nested navigation item -->
-            {% for item in nav_item.children %}
-              {% if not index or item != index %}
-                {{ render(item, path ~ "_" ~ loop.index, level + 1, nav_item, id_title ~ loop.index) }}
+            {% for nav_item in nav_item.children %}
+              {% if not index or nav_item != indexes | first %}
+                {{ render(nav_item, path ~ "_" ~ loop.index, level + 1, id_title ~ loop.index) }}
               {% endif %}
             {% endfor %}
           </ul>
