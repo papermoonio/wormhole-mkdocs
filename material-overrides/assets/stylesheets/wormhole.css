@@ -1198,3 +1198,8 @@ html .md-footer-meta.md-typeset .md-footer-copyright a {
     gap: 0.5em;
   }
 }
+
+/* Cookie consent */
+.md-consent__inner {
+  z-index: 206;
+}
