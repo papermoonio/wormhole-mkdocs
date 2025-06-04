@@ -9,7 +9,7 @@
 /** Span Table CSS **/
 
 .span-table-wrapper table {
-  border-collapse: collapse;
+  border-collapse: separate;
   margin-bottom: 2rem;
   border-radius: var(--border-radius);
 }
@@ -21,9 +21,12 @@
   max-width: 100%;
   overflow: auto;
   touch-action: auto;
-  border-bottom: 0.05rem solid var(--md-typeset-table-color);
   padding: 0.9375em 1.25em;
   vertical-align: top;
+}
+
+table.span-table tr > *:first-child {
+  border-left: none;
 }
 
 .span-table tr:first-child  {
