@@ -7,6 +7,9 @@
 **/
 
 /** Span Table CSS **/
+.span-table-wrapper {
+  overflow-x: scroll;
+}
 
 .span-table-wrapper table {
   border-collapse: separate;

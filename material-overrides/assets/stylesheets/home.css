@@ -107,4 +107,8 @@
   .md-typeset a.card {
     min-width: 100%;
   }
+
+  .md-typeset .hero p {
+    max-width: 100%;
+  }
 }
