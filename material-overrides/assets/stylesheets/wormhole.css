@@ -266,9 +266,21 @@
   scrollbar-color: var(--md-primary-bg-color--light) #0000 !important;
 }
 
+@media screen and (min-width: 100em) {
+  html {
+    font-size: 125%;
+  }
+}
+
 @media screen and (min-width: 125em) {
   html {
-    font-size: 137.5%;
+    font-size: 130%;
+  }
+}
+
+@media (min-resolution: 2dppx) {
+  html {
+    font-size: clamp(1rem, 125%, 1.25rem);
   }
 }
 
