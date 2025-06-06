@@ -23,5 +23,32 @@
     "confirmed": 0,
     "finalized": 1
   },
-  "devDocs": "https://solana.com/docs"
+  "devDocs": "https://solana.com/docs",
+  "products": {
+    "connect": {
+      "mainnet": true,
+      "testnet": true,
+      "devnet": false
+    },
+    "ntt": {
+      "mainnet": true,
+      "testnet": true,
+      "devnet": true
+    },
+    "tokenBridge": {
+      "mainnet": true,
+      "testnet": true,
+      "devnet": true
+    },
+    "settlement": {
+      "mainnet": true,
+      "testnet": true,
+      "devnet": false
+    },
+    "multigov": {
+      "mainnet": true,
+      "testnet": true,
+      "devnet": true
+    }
+  }
 }

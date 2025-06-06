@@ -663,6 +663,34 @@ details.interface > summary::before {
   margin-bottom: 0.5em;
 }
 
+/* Child admonition styling */
+details.child summary::before {
+  display: none;
+}
+
+details.child {
+  width: fit-content;
+}
+
+[dir='ltr'] .md-typeset details.child summary {
+  width: fit-content;
+  padding-left: 1em;
+}
+
+[dir='ltr'] .md-typeset details.child[open] {
+  width: auto;
+}
+
+.md-typeset details.child summary {
+  background-color: unset;
+}
+
+.md-typeset details.child {
+  width: fit-content;
+  border: var(--border);
+  box-shadow: none;
+}
+
 /* Tabbed element styling */
 .md-typeset .tabbed-labels {
   border-top-left-radius: 0.5em;
@@ -733,6 +761,7 @@ details.interface > summary::before {
 .md-typeset table:not([class]) td,
 .md-typeset table:not([class]) th {
   vertical-align: middle;
+  padding: .9375em;
 }
 
 /* Apply borders at a table cell level */

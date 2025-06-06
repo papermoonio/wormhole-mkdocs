@@ -21,5 +21,22 @@
     "url": "https://discord.gg/5JJgXKSznc",
     "token": "ACA",
     "description": "Discord Faucet"
+  },
+  "products": {
+    "ntt": {
+      "mainnet": true,
+      "testnet": true,
+      "devnet": false
+    },
+    "tokenBridge": {
+      "mainnet": true,
+      "testnet": true,
+      "devnet": false
+    },
+    "multigov": {
+      "mainnet": true,
+      "testnet": true,
+      "devnet": true
+    }
   }
 }

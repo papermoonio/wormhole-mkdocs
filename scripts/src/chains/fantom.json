@@ -24,5 +24,27 @@
     "url": "https://faucet.fantom.network/",
     "token": "FTM",
     "description": "Official Fantom Faucet"
+  },
+  "products": {
+    "connect": {
+      "mainnet": true,
+      "testnet": true,
+      "devnet": false
+    },
+    "ntt": {
+      "mainnet": true,
+      "testnet": true,
+      "devnet": false
+    },
+    "tokenBridge": {
+      "mainnet": true,
+      "testnet": true,
+      "devnet": false
+    },
+    "multigov": {
+      "mainnet": true,
+      "testnet": true,
+      "devnet": true
+    }
   }
 }

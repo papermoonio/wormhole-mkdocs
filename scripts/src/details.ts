@@ -394,3 +394,68 @@ export function generateTestnetFaucetsTable(dc: cfg.DocChain[]): string {
     '\n\n'
   )}\n\n</div>`;
 }
+
+export function generateProductSupportTables(chains: cfg.DocChain[]): Record<string, string> {
+  const products = ['connect', 'ntt', 'tokenBridge', 'multigov', 'settlement', 'cctp'];
+
+  const tableHeader = `
+  <thead>
+    <th>Blockchain</th>
+    <th>Environment</th>
+    <th>Mainnet</th>
+    <th>Testnet</th>
+    <th>Devnet</th>
+    <th>Quick Links</th>
+  </thead>`;
+
+  const productDisplayNames: Record<string, string> = {
+    connect: 'Connect',
+    ntt: 'NTT',
+    tokenBridge: 'Token Bridge',
+    multigov: 'MultiGov',
+    settlement: 'Settlement',
+    cctp: 'CCTP',
+  };
+
+  const tables: Record<string, string> = {};
+
+  for (const product of products) {
+    const rows: string[] = [];
+
+    for (const chain of chains) {
+      const productData = chain.products?.[product];
+      if (!productData) continue;
+
+      const mainnet = productData.mainnet ? ':white_check_mark:' : ':x:';
+      const testnet = productData.testnet ? ':white_check_mark:' : ':x:';
+      const devnet = productData.devnet ? ':white_check_mark:' : ':x:';
+
+      const website = chain.mainnet.extraDetails?.homepage
+        ? `:material-web: <a href="${chain.mainnet.extraDetails.homepage}" target="_blank">Website</a><br>`
+        : '';
+      const devDocs = chain.mainnet.extraDetails?.devDocs
+        ? `:material-file-document: <a href="${chain.mainnet.extraDetails.devDocs}" target="_blank">Developer Docs</a><br>`
+        : '';
+      const explorer = chain.mainnet.extraDetails?.explorer?.[0]?.url
+        ? `:octicons-package-16: <a href="${chain.mainnet.extraDetails.explorer[0].url}" target="_blank">Block Explorer</a>`
+        : '';
+
+      rows.push(`<tr>
+        <td>${chain.mainnet.extraDetails?.title ?? chain.mainnet.name}</td>
+        <td>${chain.chainType}</td>
+        <td>${mainnet}</td>
+        <td>${testnet}</td>
+        <td>${devnet}</td>
+        <td>${website}${devDocs}${explorer}</td>
+      </tr>`);
+    }
+
+    const content = `### ${productDisplayNames[product]}\n\n${formatHTMLTable(
+      buildHTMLTable(tableHeader, rows.join('\n'))
+    )}`;
+
+    tables[product] = `<div class="full-width" markdown>\n\n${content}\n\n</div>`;
+  }
+
+  return tables;
+}

@@ -29,5 +29,37 @@
     "url": "https://core.app/tools/testnet-faucet/?subnet=c&token=c",
     "token": "AVAX",
     "description": "Official Avalanche Faucet"
+  },
+  "products": {
+    "connect": {
+      "mainnet": true,
+      "testnet": true,
+      "devnet": false
+    },
+    "ntt": {
+      "mainnet": true,
+      "testnet": true,
+      "devnet": false
+    },
+    "cctp": {
+      "mainnet": true,
+      "testnet": true,
+      "devnet": false
+    },
+    "settlement": {
+      "mainnet": true,
+      "testnet": false,
+      "devnet": false
+    },
+    "multigov": {
+      "mainnet": true,
+      "testnet": true,
+      "devnet": true
+    },
+    "tokenBridge": {
+      "mainnet": true,
+      "testnet": true,
+      "devnet": false
+    }
   }
 }
