@@ -684,14 +684,17 @@ details.interface > summary::before {
   margin: 1em;
 }
 
-.md-typeset .tabbed-block:has(.md-typeset__scrollwrap > .md-typeset__table) p ~ div,
+.md-typeset
+  .tabbed-block:has(.md-typeset__scrollwrap > .md-typeset__table)
+  p
+  ~ div,
 .md-typeset .tabbed-block ul p,
 .md-typeset .tabbed-block ol p {
   margin: 0;
 }
 
 @media screen and (max-width: 44.9844em) {
-  .md-content__inner>.tabbed-set .tabbed-labels {
+  .md-content__inner > .tabbed-set .tabbed-labels {
     margin: 0;
     scroll-padding-inline-start: 0;
   }
