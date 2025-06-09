@@ -139,8 +139,8 @@ plugins:
         build/contract-integrations/native-token-transfers/index.md: products/native-token-transfers/overview.md
         build/contract-integrations/native-token-transfers/managers-transceivers.md: products/native-token-transfers/reference/managers-transceivers.md
         build/contract-integrations/settlement/index.md: products/settlement/overview.md
-        build/contract-integrations/settlement/liquidity-layer.md: products/settlement/guides/liquidity-layer.md
-        build/contract-integrations/settlement/solver.md: products/settlement/guides/solver.md
+        build/contract-integrations/settlement/liquidity-layer.md: products/settlement/overview.md
+        build/contract-integrations/settlement/solver.md: products/settlement/overview.md
         build/contract-integrations/token-bridge.md: products/token-bridge/guides/token-bridge-contracts.md
         build/contract-integrations/wormhole-relayers.md: products/messaging/guides/wormhole-relayers.md
         build/core-messaging/core-contracts.md: products/messaging/guides/core-contracts.md
@@ -222,8 +222,8 @@ plugins:
         build/transfers/native-token-transfers/managers-transceivers.md: products/native-token-transfers/reference/managers-transceivers.md
         build/transfers/settlement/faqs.md: products/settlement/faqs.md
         build/transfers/settlement/index.md: products/settlement/overview.md
-        build/transfers/settlement/liquidity-layer.md: products/settlement/guides/liquidity-layer.md
-        build/transfers/settlement/solver.md: products/settlement/guides/solver.md
+        build/transfers/settlement/liquidity-layer.md: products/settlement/overview.md
+        build/transfers/settlement/solver.md: products/settlement/overview.md
         build/transfers/token-bridge.md: products/token-bridge/guides/token-bridge-contracts.md
         infrastructure/index.md: protocol/infrastructure-guides/run-relayer.md
         infrastructure/relayers/index.md: protocol/infrastructure-guides/run-relayer.md
@@ -306,7 +306,7 @@ plugins:
         tutorials/solidity-sdk/cross-chain-contracts.md: products/messaging/tutorials/cross-chain-contracts.md
         tutorials/solidity-sdk/cross-chain-token-contracts.md: products/messaging/tutorials/cross-chain-token-contracts.md
         tutorials/solidity-sdk/index.md: tools/solidity-sdk/get-started.md
-        tutorials/typescript-sdk/index.md: tools/typescript-sdk/get-started/.md
+        tutorials/typescript-sdk/index.md: tools/typescript-sdk/get-started.md
         tutorials/typescript-sdk/tokens-via-token-bridge.md: products/token-bridge/tutorials/transfer-workflow.md
         tutorials/typescript-sdk/usdc-via-cctp.md: products/cctp-bridge/tutorials/complete-usdc-transfer.md
         tutorials/wormholescan/index.md: products/messaging/tutorials/replace-signatures.md
