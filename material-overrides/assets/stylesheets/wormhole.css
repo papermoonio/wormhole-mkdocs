@@ -1306,3 +1306,12 @@ html .md-footer-meta.md-typeset .md-footer-copyright a {
 .md-consent__inner {
   z-index: 206;
 }
+
+/* Images */
+@media screen and (min-width: 45em) {
+  .md-typeset img.half {
+    width: 50%;
+    display: flex;
+    justify-self: center;
+  }
+}
