@@ -11,7 +11,7 @@
   },
   "explorer": [
     {
-      "url": "https://ftmscan.com/"
+      "url": "https://explorer.fantom.network/"
     }
   ],
   "contractSource": "ethereum/contracts/bridge/Bridge.sol",
