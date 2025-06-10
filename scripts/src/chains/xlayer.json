@@ -1,7 +1,7 @@
 {
   "title": "X Layer",
-  "homepage": "https://www.okx.com/xlayer",
-  "devDocs": "https://www.okx.com/xlayer/docs/developer/build-on-xlayer/about-xlayer",
+  "homepage": "https://web3.okx.com/xlayer",
+  "devDocs": "https://web3.okx.com/xlayer/docs/developer/build-on-xlayer/about-xlayer",
   "testnet": {
     "name": "Testnet",
     "id": "195"
@@ -16,14 +16,14 @@
     "otherwise": "finalized"
   },
   "faucet": {
-    "url": "https://www.okx.com/xlayer/faucet",
+    "url": "https://web3.okx.com/xlayer/faucet",
     "token": "OKB",
     "description": "X Layer Official Faucet"
   },
   "explorer": [
     {
-      "url": "https://zksync.l2scan.co/",
-      "description": "L2Scan"
+      "url": "https://web3.okx.com/explorer/x-layer",
+      "description": "X Layer Explorer"
     }
   ],
   "products": {

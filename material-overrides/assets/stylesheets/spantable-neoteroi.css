@@ -7,11 +7,14 @@
 **/
 
 /** Span Table CSS **/
+.span-table-wrapper {
+  overflow-x: scroll;
+}
 
 .span-table-wrapper table {
-  border-collapse: collapse;
+  border-collapse: separate;
   margin-bottom: 2rem;
-  border-radius: var(--md-border-radius);
+  border-radius: var(--border-radius);
 }
 
 .span-table td,
@@ -21,9 +24,12 @@
   max-width: 100%;
   overflow: auto;
   touch-action: auto;
-  border-bottom: 0.05rem solid var(--md-typeset-table-color);
   padding: 0.9375em 1.25em;
   vertical-align: top;
+}
+
+table.span-table tr > *:first-child {
+  border-left: none;
 }
 
 .span-table tr:first-child  {
@@ -31,7 +37,7 @@
 }
 
 .span-table tr:first-child td:first-child {
-  border-top-left-radius: var(--md-border-radius);
+  border-top-left-radius: var(--border-radius);
 }
 
 .span-table tr:first-child td:last-child {
@@ -48,7 +54,7 @@
 
 /* This is only applicable to 6 column tables */
 /* Might need to make this more dynamic in the future */
-.span-table tr:not(:first-child):has(:nth-child(6)) > td:first-child {
+.span-table tr:not(:first-child):has(:nth-child(5)) > td:first-child {
   border-left: 0.05rem solid var(--md-typeset-table-color);
   border-right: 0.05rem solid var(--md-typeset-table-color);
   font-weight: bold;
