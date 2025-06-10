@@ -36,6 +36,100 @@
 {%- endblock -%} 
 
 {% block libs %}
+  <script>
+    document.documentElement.classList.add('js-loading');
+
+    (() => {
+      const BREAKPOINT_EM = 76.25;
+      const BREAKPOINT_PX = BREAKPOINT_EM * 16;
+
+      function isLargeScreen() {
+        return window.innerWidth >= BREAKPOINT_PX;
+      }
+
+      function getActiveSectionId() {
+        const activeLink = document.querySelector('.md-nav__link--active');
+        const section = activeLink?.closest('.nav__item--section');
+        return section?.id || null;
+      }
+
+      function applySectionState(section, isExpanded) {
+        const toggle = section.querySelector(':scope > .md-nav__toggle');
+        const nav = section.querySelector(':scope > nav.md-nav');
+        if (!toggle || !nav) return;
+
+        toggle.checked = isExpanded;
+        nav.setAttribute('aria-expanded', isExpanded);
+        section.classList.toggle('expanded', isExpanded);
+      }
+
+      const sections = [];
+      const toggles = new Map();
+
+      function setupSection(section) {
+        const id = section.id;
+        if (!id) return;
+
+        const toggle = section.querySelector(':scope > .md-nav__toggle');
+        const nav = section.querySelector(':scope > nav.md-nav');
+        if (!toggle || !nav) return;
+
+        // Save toggle ref for later updates
+        toggles.set(section, { toggle, nav });
+
+        // Attach listener once
+        if (!toggle.dataset.listenerAttached) {
+          toggle.addEventListener('change', () => {
+            const checked = toggle.checked;
+            if (isLargeScreen()) {
+              localStorage.setItem(id, checked);
+            }
+            applySectionState(section, checked);
+          });
+          toggle.dataset.listenerAttached = 'true';
+        }
+
+        sections.push(section);
+      }
+
+      function applyInitialState() {
+        const large = isLargeScreen();
+        const activeId = getActiveSectionId();
+
+        sections.forEach((section) => {
+          const id = section.id;
+          let isExpanded = false;
+
+          if (large) {
+            const saved = localStorage.getItem(id);
+            isExpanded = saved === null ? true : saved === 'true';
+
+            // Always expand the active section, even if localStorage says false
+            if (id === activeId) {
+              isExpanded = true;
+              localStorage.setItem(id, 'true');
+            }
+          } else {
+            // On small screens, only expand the active section
+            isExpanded = id === activeId;
+          }
+
+          applySectionState(section, isExpanded);
+        });
+      }
+
+      document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('.nav__item--section').forEach(setupSection);
+        applyInitialState();
+        document.documentElement.classList.remove('js-loading');
+      });
+
+      window.addEventListener('resize', () => {
+        applyInitialState();
+      });
+    })();
+  </script>
+
   {{ super() }}
 
   <link rel="preload" href="https://cdn.jsdelivr.net/npm/@cookbookdev/docsbot/dist/standalone/index.cjs.js" as="script">
@@ -103,22 +197,25 @@
       {{ hidden }}
     >
       <div class="md-sidebar__scrollwrap">
+        <div class="page-actions">
+          <label class="md-nav__title" for="__page_actions">
+            Page Actions
+          </label>
+          <div class="actions-container">
+            {#- Edit this Page Section -#}
+            <div class="edit-section">
+              {% include "partials/actions.html" %}
+            </div>
+            {#- Feedback Section -#}
+            <div class="feedback-section">
+              {% include "partials/feedback.html" %}
+            </div>
+          </div>
+        </div>
+        
         <div class="md-sidebar__inner">
           {#- TOC -#}
           {% include "partials/toc.html" %}
-        </div>
-
-        {#- Feedback and Edit this page container -#}
-        <div class="feedback-actions-container">
-          {#- Feedback Section -#}
-          <div class="feedback-section">
-            {% include "partials/feedback.html" %}
-          </div>
-
-          {#- Edit this Page Section -#}
-          <div class="edit-section">
-            {% include "partials/actions.html" %}
-          </div>
         </div>
       </div>
     </div>
@@ -143,18 +240,17 @@
     document.addEventListener('DOMContentLoaded', () => {
       function setTableHeaderOffset(navbarSelector, tableSelector) {
         const navbar = document.querySelector(navbarSelector);
-        const navbarHeight = navbar ? navbar.offsetHeight : 0;
+        const navbarHeight = navbar ? navbar.offsetHeight - 1 : 0;
 
         // Loop through each table
         document.querySelectorAll(tableSelector).forEach((tableWrapper) => {
           const thead = tableWrapper.querySelector('thead');
-          const tbody = tableWrapper.querySelector('tbody');
           const table = tableWrapper.querySelector('table');
 
           // This blocking div is used to prevent the left and right borders from
           // sticking out of the top of the table
           const blockingDiv = tableWrapper.querySelector('.header-blocker');
-          thead.style.top = `${navbarHeight}px`;
+          thead.style.top = `${navbarHeight + 20}px`;
           if (blockingDiv) {
             // If the blocker div already exists, modify the styles          
             blockingDiv.style.top = `${navbarHeight}px`;
@@ -232,15 +328,3 @@
     });
   </script>
 {% endblock %}
-
-{%- block container -%} 
-  <div class="md-content" data-md-component="content">
-    {% set class = "index-page" if not page.content and not page.is_homepage %}
-    <article class="md-content__inner md-typeset {{ class }}">
-      {% block content %}
-        {% include "partials/content.html" %}
-      {% endblock %}
-    </article>
-  </div>
-{%- endblock -%} 
-
