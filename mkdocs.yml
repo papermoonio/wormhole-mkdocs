@@ -100,7 +100,7 @@ plugins:
         build/applications/connect/overview.md: products/connect/overview.md
         build/applications/connect/routes.md: products/connect/concepts/routes.md
         build/applications/connect/upgrade.md: products/connect/guides/upgrade.md
-        build/applications/index.md: products/products.md
+        build/applications/index.md: products/overview.md
         build/applications/queries/faqs.md: products/queries/faqs.md
         build/applications/queries/index.md: products/queries/overview.md
         build/applications/queries/overview.md: products/queries/overview.md
@@ -113,9 +113,9 @@ plugins:
         build/contract-integrations/cctp.md: products/cctp-bridge/guides/cctp-contracts.md
         build/contract-integrations/core-contracts.md: products/messaging/guides/core-contracts.md
         build/contract-integrations/dev-env.md: tools/dev-env.md
-        build/contract-integrations/faqs.md: products/products.md
-        build/contract-integrations/gateway.md: products/products.md
-        build/contract-integrations/index.md: products/products.md
+        build/contract-integrations/faqs.md: products/overview.md
+        build/contract-integrations/gateway.md: products/overview.md
+        build/contract-integrations/index.md: products/overview.md
         build/contract-integrations/multigov/deploy-to-evm.md: products/multigov/guides/deploy-to-evm.md
         build/contract-integrations/multigov/deploy-to-solana.md: products/multigov/guides/deploy-to-solana.md
         build/contract-integrations/multigov/deployment.md: products/multigov/guides/deploy-to-evm.md
@@ -146,7 +146,7 @@ plugins:
         build/core-messaging/core-contracts.md: products/messaging/guides/core-contracts.md
         build/core-messaging/index.md: products/messaging/overview.md
         build/core-messaging/wormhole-relayers.md: products/messaging/guides/wormhole-relayers.md
-        build/index.md: products/products.md
+        build/index.md: products/overview.md
         build/infrastructure/index.md: protocol/infrastructure-guides/run-relayer.md
         build/infrastructure/relayers/index.md: protocol/infrastructure-guides/run-relayer.md
         build/infrastructure/relayers/run-relayer.md: protocol/infrastructure-guides/run-relayer.md
@@ -167,9 +167,9 @@ plugins:
         build/reference/contract-addresses.md: products/reference/contract-addresses.md
         build/reference/index.md: products/reference/chain-ids.md
         build/reference/wormhole-formatted-addresses.md: products/reference/wormhole-formatted-addresses.md
-        build/start-building/demos.md: products/products.md
-        build/start-building/index.md: products/products.md
-        build/start-building/products.md: products/products.md
+        build/start-building/demos.md: products/overview.md
+        build/start-building/index.md: products/overview.md
+        build/start-building/products.md: products/overview.md
         build/start-building/supported-networks.md: products/reference/supported-networks.md
         build/start-building/supported-networks/algorand.md: products/reference/supported-networks.md
         build/start-building/supported-networks/aptos.md: products/reference/supported-networks.md
@@ -181,7 +181,7 @@ plugins:
         build/start-building/supported-networks/solana.md: products/reference/supported-networks.md
         build/start-building/supported-networks/sui.md: products/reference/supported-networks.md
         build/start-building/testnet-faucets.md: products/reference/testnet-faucets.md
-        build/start-building/use-cases.md: products/products.md
+        build/start-building/use-cases.md: products/overview.md
         build/toolkit/cli.md: tools/cli/get-started.md
         build/toolkit/dev-env.md: tools/dev-env.md
         build/toolkit/faqs.md: tools/faqs.md
@@ -205,7 +205,7 @@ plugins:
         build/transfers/connect/overview.md: products/connect/overview.md
         build/transfers/connect/routes.md: products/connect/concepts/routes.md
         build/transfers/connect/upgrade.md: products/connect/guides/upgrade.md
-        build/transfers/index.md: products/products.md
+        build/transfers/index.md: products/overview.md
         build/transfers/native-token-transfers/cli-commands.md: products/native-token-transfers/reference/cli-commands.md
         build/transfers/native-token-transfers/configuration/access-control.md: products/native-token-transfers/configuration/access-control.md
         build/transfers/native-token-transfers/configuration/index.md: products/native-token-transfers/configuration/access-control.md
@@ -250,7 +250,7 @@ plugins:
         learn/infrastructure/vaas.md: protocol/infrastructure/vaas.md
         learn/introduction.md: protocol/introduction.md
         learn/messaging/cctp.md: products/cctp-bridge/overview.md
-        learn/messaging/gateway.md: products/products.md
+        learn/messaging/gateway.md: products/overview.md
         learn/messaging/index.md: protocol/introduction.md
         learn/messaging/native-token-transfers/architecture.md: products/native-token-transfers/concepts/architecture.md
         learn/messaging/native-token-transfers/deployment.md: products/native-token-transfers/overview.md
@@ -263,7 +263,7 @@ plugins:
         learn/messaging/wormhole-settlement/overview.md: products/settlement/overview.md
         learn/security.md: protocol/security.md
         learn/transfers/cctp.md: products/cctp-bridge/overview.md
-        learn/transfers/index.md: products/products.md
+        learn/transfers/index.md: products/overview.md
         learn/transfers/native-token-transfers/architecture.md: products/native-token-transfers/concepts/architecture.md
         learn/transfers/native-token-transfers/deployment.md: products/native-token-transfers/overview.md
         learn/transfers/native-token-transfers/index.md: products/native-token-transfers/overview.md
@@ -277,8 +277,8 @@ plugins:
         tutorials/by-product/connect/react-dapp.md: products/connect/tutorials/react-dapp.md
         tutorials/by-product/contract-integrations/cross-chain-contracts.md: products/messaging/tutorials/cross-chain-contracts.md
         tutorials/by-product/contract-integrations/cross-chain-token-contracts.md: products/messaging/tutorials/cross-chain-token-contracts.md
-        tutorials/by-product/contract-integrations/index.md: products/products.md
-        tutorials/by-product/index.md: products/products.md
+        tutorials/by-product/contract-integrations/index.md: products/overview.md
+        tutorials/by-product/index.md: products/overview.md
         tutorials/by-product/multichain-assets/index.md: products/token-bridge/tutorials/multichain-token.md
         tutorials/by-product/multichain-assets/multichain-token.md: products/token-bridge/tutorials/multichain-token.md
         tutorials/by-product/multigov/index.md: products/multigov/tutorials/treasury-proposal.md
@@ -292,7 +292,7 @@ plugins:
         tutorials/by-product/wormholescan/replace-signatures.md: products/messaging/tutorials/replace-signatures.md
         tutorials/connect/index.md: products/connect/tutorials/react-dapp.md
         tutorials/connect/react-dapp.md: products/connect/tutorials/react-dapp.md
-        tutorials/index.md: products/products.md
+        tutorials/index.md: products/overview.md
         tutorials/messaging/cctp.md: products/cctp-bridge/tutorials/complete-usdc-transfer.md
         tutorials/messaging/cross-chain-contracts.md: products/messaging/tutorials/cross-chain-contracts.md
         tutorials/messaging/cross-chain-token-contracts.md: products/messaging/tutorials/cross-chain-token-contracts.md
