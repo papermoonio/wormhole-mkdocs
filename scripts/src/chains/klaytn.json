@@ -1,5 +1,5 @@
 {
-  "title": "Kaia",
+  "title": "Klaytn",
   "homepage": "https://kaia.io/",
   "contractSource": "ethereum/contracts/bridge/Bridge.sol",
   "mainnet": {
@@ -36,15 +36,15 @@
       "testnet": true,
       "devnet": false
     },
-    "ntt": {
-      "mainnet": true,
-      "testnet": true,
-      "devnet": false
-    },
     "multigov": {
       "mainnet": true,
       "testnet": true,
       "devnet": true
+    },
+    "ntt": {
+      "mainnet": true,
+      "testnet": false,
+      "devnet": false
     }
   }
 }
