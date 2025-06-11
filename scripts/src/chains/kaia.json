@@ -16,7 +16,6 @@
 	},
 	"products": {
 		"connect": { "mainnet": true, "testnet": true, "devnet": false },
-		"ntt": { "mainnet": true, "testnet": true, "devnet": false },
 		"tokenBridge": { "mainnet": true, "testnet": true, "devnet": false }
 	}
 }

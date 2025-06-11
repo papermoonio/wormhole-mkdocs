@@ -10,6 +10,7 @@ import {
   Chain,
 } from '@wormhole-foundation/sdk';
 import fs from 'fs';
+import nttSupport from './generated/ntt-support.json';
 
 // Many chains have the same underlying runtime
 export type ChainType =
@@ -151,18 +152,20 @@ function getChainDetails(chainName: string): ExtraDetails {
     }
 
     // NTT
+    // Only allow EVM and Solana (not other SVMs like Pythnet)
+    const isNTTSupported = (nttSupport[net] || []).includes(chainName) || (chainName === 'Solana' && net === 'Devnet');
+
+    // Ensure `products.ntt` is initialized even if unsupported
+    if (!products.ntt) {
+      products.ntt = { mainnet: false, testnet: false, devnet: false };
+    }
+
+    products.ntt[net.toLowerCase() as keyof ProductSupport] = isNTTSupported;
+
+    // Multigov
     const platform = chainToPlatform(chainName as Chain);
     const chainType = getChainType(platform);
 
-    // Only allow EVM and Solana (not other SVMs like Pythnet)
-    const isSupportedForNTT =
-      chainType === 'EVM' || (chainType === 'SVM' && chainName === 'Solana');
-    if (contracts.coreBridge && isSupportedForNTT) {
-      if (!products.ntt) products.ntt = { mainnet: false, testnet: false, devnet: false };
-      products.ntt[net.toLowerCase() as keyof ProductSupport] = true;
-    }
-
-    // Multigov
     const isMultigovEligible =
     chainType === 'EVM' || (chainType === 'SVM' && chainName === 'Solana');
 
@@ -171,6 +174,14 @@ function getChainDetails(chainName: string): ExtraDetails {
         products.multigov = { mainnet: false, testnet: false, devnet: false };
       }
       products.multigov[net.toLowerCase() as keyof ProductSupport] = true;
+    }
+  }
+
+  // Remove any product with no support in any environment
+  for (const productKey of Object.keys(products) as (keyof Products)[]) {
+    const product = products[productKey];
+    if (!product?.mainnet && !product?.testnet && !product?.devnet) {
+      delete products[productKey];
     }
   }
 

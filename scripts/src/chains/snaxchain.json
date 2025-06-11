@@ -19,7 +19,7 @@
   "products": {
     "ntt": {
       "mainnet": true,
-      "testnet": true,
+      "testnet": false,
       "devnet": false
     },
     "tokenBridge": {
