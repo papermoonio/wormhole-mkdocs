@@ -423,16 +423,22 @@
   }
 
   /* --- To better handle page reloads and minimize flickering */
-  :not(.js-loading) .md-nav {
+  :not(.js-loading) .md-nav,
+  :not(.js-loading) .md-tabs__list {
     opacity: 1;
   }
 
-  .js-loading nav.md-nav {
+  .js-loading nav.md-nav,
+  .js-loading .md-tabs__list {
     display: none !important;
   }
 
   .nav__item--section:not(.expanded) > nav.md-nav {
     display: none;
+  }
+
+  .md-header--shadow {
+    min-height: 107px;
   }
   /* --- */
 
