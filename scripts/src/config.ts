@@ -152,11 +152,8 @@ function getChainDetails(chainName: string): ExtraDetails {
     }
 
     // NTT
-    const platform = chainToPlatform(chainName as Chain);
-    const chainType = getChainType(platform);
-
     // Only allow EVM and Solana (not other SVMs like Pythnet)
-    const isNTTSupported = (nttSupport[net] || []).includes(chainName);
+    const isNTTSupported = (nttSupport[net] || []).includes(chainName) || (chainName === 'Solana' && net === 'Devnet');
 
     // Ensure `products.ntt` is initialized even if unsupported
     if (!products.ntt) {
@@ -166,6 +163,9 @@ function getChainDetails(chainName: string): ExtraDetails {
     products.ntt[net.toLowerCase() as keyof ProductSupport] = isNTTSupported;
 
     // Multigov
+    const platform = chainToPlatform(chainName as Chain);
+    const chainType = getChainType(platform);
+
     const isMultigovEligible =
     chainType === 'EVM' || (chainType === 'SVM' && chainName === 'Solana');
 
