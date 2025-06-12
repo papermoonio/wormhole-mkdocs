@@ -1321,3 +1321,15 @@ html .md-footer-meta.md-typeset .md-footer-copyright a {
     justify-self: center;
   }
 }
+
+/* Tooltip */
+.md-tooltip {
+  font-weight: 400;
+  max-width: 25em;
+  background-color: var(--table-header-bg-color);
+  border: var(--border);
+}
+
+.md-tooltip--inline .md-tooltip__inner {
+  font-size: 12px;
+}
