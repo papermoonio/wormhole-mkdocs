@@ -111,6 +111,10 @@ const chainTypeMapping: Record<Platform, ChainType> = {
   Btc: 'BTC',
 };
 
+const chainNameOverrides: Record<string, string> = {
+  Klaytn: 'Kaia',
+};
+
 function getChainType(platformName: Platform): ChainType {
   return chainTypeMapping[platformName] ?? '';
 }
@@ -153,7 +157,8 @@ function getChainDetails(chainName: string): ExtraDetails {
 
     // NTT
     // Only allow EVM and Solana (not other SVMs like Pythnet)
-    const isNTTSupported = (nttSupport[net] || []).includes(chainName) || (chainName === 'Solana' && net === 'Devnet');
+    const effectiveChainName = chainNameOverrides[chainName] || chainName;
+    const isNTTSupported = (nttSupport[net] || []).includes(effectiveChainName) || (chainName === 'Solana' && net === 'Devnet');
 
     // Ensure `products.ntt` is initialized even if unsupported
     if (!products.ntt) {
