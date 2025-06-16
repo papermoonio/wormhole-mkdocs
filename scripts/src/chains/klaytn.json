@@ -1,5 +1,5 @@
 {
-  "title": "Klaytn",
+  "title": "Kaia",
   "homepage": "https://kaia.io/",
   "contractSource": "ethereum/contracts/bridge/Bridge.sol",
   "mainnet": {
