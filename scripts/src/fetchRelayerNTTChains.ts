@@ -12,7 +12,7 @@ const chainNameOverrides: Record<string, string> = {
 // The URL to the relayer file in the Wormhole SDK repository.
 const RELAYER_FILE_URL =  'https://raw.githubusercontent.com/wormhole-foundation/wormhole-sdk-ts/main/core/base/src/constants/contracts/relayer.ts';
 
-	async function extractRelayerNTTChains() {
+async function extractRelayerNTTChains() {
   const res = await axios.get(RELAYER_FILE_URL);
   const text = res.data;
 
