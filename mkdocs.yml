@@ -85,6 +85,13 @@ plugins:
   - glightbox:
       skip_classes:
         - no-lightbox
+  - minify:
+      minify_html: true
+      minify_css: true
+      css_file:
+        - assets/stylesheets/terminal.css
+        - assets/stylesheets/spantable-neoteroi.css
+        - assets/stylesheets/timeline-neoteroi.css
 
   - redirects:
       redirect_maps:
@@ -327,7 +334,7 @@ extra:
       link: https://twitter.com/wormhole
       name: Twitter
     - icon: fontawesome/brands/discord
-      link: https://discord.gg/wormholecrypto
+      link: https://discord.com/invite/wormholecrypto
       name: Discord
     - icon: telegram
       link: https://t.me/wormholecrypto
