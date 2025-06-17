@@ -36,15 +36,15 @@
       "testnet": true,
       "devnet": false
     },
-    "ntt": {
-      "mainnet": true,
-      "testnet": true,
-      "devnet": false
-    },
     "multigov": {
       "mainnet": true,
       "testnet": true,
       "devnet": true
+    },
+    "ntt": {
+      "mainnet": true,
+      "testnet": false,
+      "devnet": false
     }
   }
 }

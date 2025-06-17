@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "update": "npx npm-check-updates -u && npm install --silent",
-    "generate": "npx tsx src/index.ts",
+    "generate": "npx tsx src/fetchRelayerNTTChains.ts && npx tsx src/index.ts",
     "check:consts": "npx tsx src/check.ts",
     "check:links": "find ../docs -name \\*.md -print0 | xargs -0 -n1 npx markdown-link-check"
   },
