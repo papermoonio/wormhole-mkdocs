@@ -89,6 +89,9 @@ plugins:
       minify_html: true
       minify_css: true
       css_file:
+        -assets/stylesheets/extra.css
+        -assets/stylesheets/home.css
+        - assets/stylesheets/wormhole.css
         - assets/stylesheets/terminal.css
         - assets/stylesheets/spantable-neoteroi.css
         - assets/stylesheets/timeline-neoteroi.css
