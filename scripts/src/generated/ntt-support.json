@@ -1,0 +1,53 @@
+{
+  "Mainnet": [
+    "Ethereum",
+    "Bsc",
+    "Polygon",
+    "Avalanche",
+    "Fantom",
+    "Kaia",
+    "Celo",
+    "Moonbeam",
+    "Base",
+    "Arbitrum",
+    "Optimism",
+    "Blast",
+    "Scroll",
+    "Mantle",
+    "Xlayer",
+    "Berachain",
+    "Seievm",
+    "Ink",
+    "Worldchain",
+    "Snaxchain",
+    "Unichain",
+    "Solana"
+  ],
+  "Testnet": [
+    "Ethereum",
+    "Bsc",
+    "Polygon",
+    "Avalanche",
+    "Fantom",
+    "Celo",
+    "Seievm",
+    "Moonbeam",
+    "Arbitrum",
+    "Optimism",
+    "Base",
+    "Sepolia",
+    "ArbitrumSepolia",
+    "BaseSepolia",
+    "OptimismSepolia",
+    "Berachain",
+    "Unichain",
+    "Ink",
+    "Monad",
+    "PolygonSepolia",
+    "Solana"
+  ],
+  "Devnet": [
+    "Ethereum",
+    "Bsc"
+  ]
+}
