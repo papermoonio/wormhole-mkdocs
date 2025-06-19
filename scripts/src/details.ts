@@ -450,9 +450,9 @@ export function generateProductSupportTables(chains: cfg.DocChain[]): Record<str
       </tr>`);
     }
 
-    const content = `### ${productDisplayNames[product]}\n\n${formatHTMLTable(
+    const content = formatHTMLTable(
       buildHTMLTable(tableHeader, rows.join('\n'))
-    )}`;
+    );
 
     tables[product] = `<div class="full-width" markdown>\n\n${content}\n\n</div>`;
   }
