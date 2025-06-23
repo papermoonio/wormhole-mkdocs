@@ -4,12 +4,9 @@ docs_dir: wormhole-docs
 copyright: 2025 © Wormhole Foundation. All Rights Reserved.
 edit_uri: https://github.com/wormhole-foundation/wormhole-docs/edit/main/
 extra_css:
-  - assets/stylesheets/extra.css
-  - assets/stylesheets/home.css
   - assets/stylesheets/terminal.css
   - assets/stylesheets/spantable-neoteroi.css
   - assets/stylesheets/timeline-neoteroi.css
-  - assets/stylesheets/wormhole.css
 theme:
   name: material
   custom_dir: material-overrides
@@ -88,16 +85,6 @@ plugins:
   - glightbox:
       skip_classes:
         - no-lightbox
-  - minify:
-      minify_html: true
-      minify_css: true
-      css_file:
-        -assets/stylesheets/extra.css
-        -assets/stylesheets/home.css
-        - assets/stylesheets/wormhole.css
-        - assets/stylesheets/terminal.css
-        - assets/stylesheets/spantable-neoteroi.css
-        - assets/stylesheets/timeline-neoteroi.css
 
   - redirects:
       redirect_maps:
