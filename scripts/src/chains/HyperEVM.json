@@ -1,5 +1,5 @@
 {
-  "title": "HyperEVM",
+  "title": "HyperEVM :material-information-outline:{ title='⚠️ The HyperEVM integration is experimental, as its node software is not open source. Use Wormhole messaging on HyperEVM with caution.' }",
   "testnet": {
     "name": "Testnet",
     "id": "998"
