@@ -22,9 +22,9 @@
   "finality": {
     "instant": 200,
     "otherwise": "finalized",
-    "details": "https://docs.avax.network/dapps/advanced-tutorials/exchange-integration#determining-finality"
+    "details": "https://build.avax.network/docs/dapps/advanced-tutorials/exchange-integration#determining-finality"
   },
-  "devDocs": "https://docs.avax.network/",
+  "devDocs": "https://build.avax.network/docs/",
   "faucet": {
     "url": "https://core.app/tools/testnet-faucet/?subnet=c&token=c",
     "token": "AVAX",
