@@ -6,5 +6,5 @@ localhost
 https://fonts.gstatic.com/**
 https://fonts.googleapis.com/**
 
-# Ignore links that are working
+# Allowlist known working URLs
 https://atlantic-2.app.sei.io/faucet
