@@ -24,7 +24,7 @@
     "otherwise": "finalized",
     "details": "https://build.avax.network/docs/dapps/advanced-tutorials/exchange-integration#determining-finality"
   },
-  "devDocs": "https://build.avax.network/docs",
+  "devDocs": "https://build.avax.network/docs/",
   "faucet": {
     "url": "https://core.app/tools/testnet-faucet/?subnet=c&token=c",
     "token": "AVAX",
