@@ -11,10 +11,6 @@
   },
   "explorer": [
     {
-      "url": "https://goerli.basescan.org/",
-      "description": "Etherscan"
-    },
-    {
       "url": "https://base-goerli.blockscout.com/",
       "description": "Blockscout"
     }
