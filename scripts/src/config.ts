@@ -10,7 +10,7 @@ import {
 } from '@wormhole-foundation/sdk';
 import fs from 'fs';
 import { nttSupport, cctpSupport } from './generated';
-import { NetworkDescription, ChainType, ExtraDetails, Products, ProductSupport, DocChain, ChainDetails } from './types';
+import { NetworkDescription, ChainType, ExtraDetails, Products, ProductSupport, DocChain, ChainDetails } from './types/chains';
 
 export function networkString(net?: NetworkDescription): string {
   if (!net) return '';

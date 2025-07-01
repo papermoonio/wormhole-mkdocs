@@ -1,5 +1,6 @@
 import { Chain, finality, toChain } from '@wormhole-foundation/sdk';
-import * as cfg from './config';
+import * as types from './types/chains';
+import { networkString } from './config';
 import {
   fmtNum,
   fmtCodeStr,
@@ -10,7 +11,7 @@ import {
   sortChainTypes,
 } from './util';
 
-export function generateAllChainIdsTable(dc: cfg.DocChain[]): string {
+export function generateAllChainIdsTable(dc: types.DocChain[]): string {
   // Create Mainnet Chain Table
   const orderedDc = sortMainnets(dc);
   const tableHeader = `
@@ -24,7 +25,7 @@ export function generateAllChainIdsTable(dc: cfg.DocChain[]): string {
 
   for (const c of orderedDc) {
     // Assemble the Mainnet table data
-    const mainnetAlias = cfg.networkString(c.mainnet.extraDetails?.mainnet);
+    const mainnetAlias = networkString(c.mainnet.extraDetails?.mainnet);
     const mainnetName = c.mainnet.extraDetails?.title
       ? c.mainnet.extraDetails.title
       : c.mainnet.name;
@@ -37,9 +38,9 @@ export function generateAllChainIdsTable(dc: cfg.DocChain[]): string {
       </tr>`
     );
 
-    function processTestnets(testnets: cfg.ChainDetails[]) {
+    function processTestnets(testnets: types.ChainDetails[]) {
       testnets.forEach((testnet) => {
-        const testnetAlias = cfg.networkString(testnet.extraDetails?.testnet);
+        const testnetAlias = networkString(testnet.extraDetails?.testnet);
 
         testNetTableBody.push(`
           <tr>
@@ -72,7 +73,7 @@ export function generateAllChainIdsTable(dc: cfg.DocChain[]): string {
 `;
 }
 
-export function generateAllConsistencyLevelsTable(dc: cfg.DocChain[]): string {
+export function generateAllConsistencyLevelsTable(dc: types.DocChain[]): string {
   const orderedDc = sortMainnets(dc);
 
   const tableHeader = `
@@ -159,7 +160,7 @@ export function generateAllConsistencyLevelsTable(dc: cfg.DocChain[]): string {
 }
 
 export function generateAllContractsTable(
-  chains: cfg.DocChain[],
+  chains: types.DocChain[],
   module: string
 ): string {
   const orderedChains = sortMainnets(chains);
@@ -170,17 +171,17 @@ export function generateAllContractsTable(
   </thead>`;
 
   // If addresses aren't yet available in the SDK, we can manually add them here
-  const newMainnetAddresses: Partial<cfg.ChainDetails>[] = [
+  const newMainnetAddresses: Partial<types.ChainDetails>[] = [
     {
       name: 'Worldchain',
       contracts: { relayer: '0x1520cc9e779c56dab5866bebfb885c86840c33d3' },
     },
   ];
-  const newTestnetAddresses: Partial<cfg.ChainDetails>[] = []
-  const newDevnetAddress: Partial<cfg.ChainDetails>[] = [];
+  const newTestnetAddresses: Partial<types.ChainDetails>[] = []
+  const newDevnetAddress: Partial<types.ChainDetails>[] = [];
 
   // Helper function to generate table rows
-  const generateRows = (networks: cfg.ChainDetails[], chainType: string): string[] => {
+  const generateRows = (networks: types.ChainDetails[], chainType: string): string[] => {
     return networks
       .map((network) => {
         let address =
@@ -189,7 +190,7 @@ export function generateAllContractsTable(
             : network.contracts?.[module];
   
         if (!address) {
-          let newAddress: Partial<cfg.ChainDetails> | undefined;
+          let newAddress: Partial<types.ChainDetails> | undefined;
 
           if (chainType === 'mainnet') {
             newAddress = newMainnetAddresses.find((chain) => chain?.name === network.name);
@@ -249,11 +250,11 @@ export function generateAllContractsTable(
   `;
 }
 
-export function generateSupportedNetworksTable(dc: cfg.DocChain[]): string {
+export function generateSupportedNetworksTable(dc: types.DocChain[]): string {
   const orderedDc = sortChainTypes(dc);
 
   // Group chains by their chainType
-  const chainsByType: Record<string, cfg.DocChain[]> = {};
+  const chainsByType: Record<string, types.DocChain[]> = {};
   for (const chain of orderedDc) {
     if (!chainsByType[chain.chainType]) {
       chainsByType[chain.chainType] = [];
@@ -334,11 +335,11 @@ export function generateSupportedNetworksTable(dc: cfg.DocChain[]): string {
   )}\n\n</div>`;
 }
 
-export function generateTestnetFaucetsTable(dc: cfg.DocChain[]): string {
+export function generateTestnetFaucetsTable(dc: types.DocChain[]): string {
   const orderedDc = sortChainTypes(dc);
 
   // Group chains by their chainType
-  const chainsByType: Record<string, cfg.DocChain[]> = {};
+  const chainsByType: Record<string, types.DocChain[]> = {};
   for (const chain of orderedDc) {
     if (!chainsByType[chain.chainType]) {
       chainsByType[chain.chainType] = [];
@@ -395,7 +396,7 @@ export function generateTestnetFaucetsTable(dc: cfg.DocChain[]): string {
   )}\n\n</div>`;
 }
 
-export function generateProductSupportTables(chains: cfg.DocChain[]): Record<string, string> {
+export function generateProductSupportTables(chains: types.DocChain[]): Record<string, string> {
   const products = ['connect', 'ntt', 'tokenBridge', 'multigov', 'settlement', 'cctp'];
 
   const tableHeader = `
