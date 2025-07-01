@@ -1,5 +1,5 @@
 import axios from 'axios';
-import fs from 'fs';
+import { promises as fs } from 'fs';
 
 const chainNameOverrides: Record<string, string> = {
 	Klaytn: 'Kaia',
@@ -78,8 +78,8 @@ export async function generateProductSupport({
 	productChains.Testnet = [...new Set(productChains.Testnet)];
 
 	try {
-		await fs.mkdirSync('./src/generated', { recursive: true });
-		await fs.writeFileSync(outputFile, JSON.stringify(productChains, null, 2));
+		await fs.mkdir('./src/generated', { recursive: true });
+		await fs.writeFile(outputFile, JSON.stringify(productChains, null, 2));
 		console.log(`Wrote ${product} support to ${outputFile}`);
 	} catch (error) {
 		console.error(`Failed to write ${product} support to ${outputFile}:`, error);
