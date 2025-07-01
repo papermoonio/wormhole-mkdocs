@@ -77,7 +77,12 @@ export async function generateProductSupport({
 	mergeTestnets(productChains);
 	productChains.Testnet = [...new Set(productChains.Testnet)];
 
-	fs.mkdirSync('./src/generated', { recursive: true });
-	fs.writeFileSync(outputFile, JSON.stringify(productChains, null, 2));
-	console.log(`Wrote ${product} support to ${outputFile}`);
+	try {
+		await fs.mkdirSync('./src/generated', { recursive: true });
+		await fs.writeFileSync(outputFile, JSON.stringify(productChains, null, 2));
+		console.log(`Wrote ${product} support to ${outputFile}`);
+	} catch (error) {
+		console.error(`Failed to write ${product} support to ${outputFile}:`, error);
+		throw error;
+	}
 }
