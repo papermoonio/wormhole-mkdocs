@@ -1,0 +1,36 @@
+{
+  "Mainnet": [
+    "Ethereum",
+    "Avalanche",
+    "Optimism",
+    "Arbitrum",
+    "Solana",
+    "Base",
+    "Polygon",
+    "Sui",
+    "Aptos",
+    "Unichain",
+    "Sonic",
+    "Linea",
+    "Worldchain"
+  ],
+  "Testnet": [
+    "Sepolia",
+    "Avalanche",
+    "OptimismSepolia",
+    "ArbitrumSepolia",
+    "Solana",
+    "BaseSepolia",
+    "Polygon",
+    "Sui",
+    "Aptos",
+    "Unichain",
+    "Sonic",
+    "Linea",
+    "Ethereum",
+    "Optimism",
+    "Arbitrum",
+    "Base"
+  ],
+  "Devnet": []
+}

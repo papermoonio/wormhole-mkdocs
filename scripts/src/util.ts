@@ -1,4 +1,4 @@
-import * as cfg from './config';
+import * as types from './types/chains';
 
 export function fmtNum(n?: number): string {
   return n === undefined ? " " : n.toString();
@@ -68,7 +68,7 @@ export function formatHTMLTable(htmlTable: string): string {
   return result.join('\n').trim();
 }
 
-export function sortMainnets(dc: cfg.DocChain[]): cfg.DocChain[] {
+export function sortMainnets(dc: types.DocChain[]): types.DocChain[] {
   return dc.sort((a, b) => {
     const aTitle =
       a.mainnet.extraDetails && a.mainnet.extraDetails.title
@@ -88,8 +88,8 @@ export function sortMainnets(dc: cfg.DocChain[]): cfg.DocChain[] {
 }
 
 export function sortTestnets (
-  testnets: cfg.ChainDetails[]
-): cfg.ChainDetails[] {
+  testnets: types.ChainDetails[]
+): types.ChainDetails[] {
   return testnets.sort((a, b) => {
     const aTitle = a.extraDetails?.title || 'N/A';
     const bTitle = b.extraDetails?.title || 'N/A';
@@ -101,7 +101,7 @@ export function sortTestnets (
   });
 }
 
-export function sortChainTypes(dc: cfg.DocChain[]): cfg.DocChain[] {
+export function sortChainTypes(dc: types.DocChain[]): types.DocChain[] {
   return dc.sort((a, b) => {
     // Define chain type priorities
     const chainTypePriority: Record<string, number> = {
