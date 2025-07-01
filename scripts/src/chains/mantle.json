@@ -14,7 +14,7 @@
     "safe": 201,
     "otherwise": "finalized"
   },
-  "devDocs": "https://docs.mantle.xyz/network/introduction/overview",
+  "devDocs": "https://docs.mantle.xyz/network/",
   "faucet": {
     "url": "https://faucet.sepolia.mantle.xyz/",
     "token": "MNT",
