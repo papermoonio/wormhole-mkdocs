@@ -67,8 +67,7 @@
       {% set section_content = section[h2_end + 5:] %}
       
       {# Generate unique details ID #}
-      {% set details_id = page.url + section_counter | string %}
-      
+      {% set details_id = (page.url ~ section_counter) | replace('?', '') | replace('#', '') %}      
       <details class="interface faq" id="{{ details_id }}">
         <summary>
           <h2{% if h2_id %} id="{{ h2_id }}"{% endif %}>{{ h2_text | safe }}</h2>

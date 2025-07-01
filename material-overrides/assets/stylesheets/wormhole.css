@@ -683,7 +683,7 @@ details.interface > summary::before {
   opacity: 0;
 }
 
-/* Fix link anchor positioning for the h2s inside the FAQ admos */
+/* Fix link anchor positioning for the h2s inside the FAQ admonitions */
 .md-typeset details.faq.interface > summary {
   display: block;
   position: relative;
@@ -694,15 +694,10 @@ details.interface > summary::before {
 
 .md-typeset details.faq.interface > summary h2 {
   margin: 0 1em;
-  padding: 1em 0;
+  padding: 1em 1em 1em 0;
   font-size: 0.8rem;
   font-weight: 400;
   line-height: 1.2;
-}
-
-.md-typeset details.faq.interface > summary {
-  display: flex;
-  align-items: center;
 }
 
 /* Child admonition styling */
