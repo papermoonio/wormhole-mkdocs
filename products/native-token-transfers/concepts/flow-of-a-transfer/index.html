@@ -7,17 +7,17 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Learn how to use deep-linking on Portal Bridge and send tokens to any wallet address with simple URL parameters and custom recipient fields.">
+        <meta name="description" content="Explore the roles of Managers and Transceivers in NTT cross-chain token transfers, including key functions, lifecycle events, and rate-limiting mechanisms.">
       
       
       
-        <link rel="canonical" href="https://wormhole.com/docs/products/token-bridge/portal/faqs/">
+        <link rel="canonical" href="https://wormhole.com/docs/products/native-token-transfers/concepts/flow-of-a-transfer/">
       
       
-        <link rel="prev" href="../../guides/token-bridge-contracts/">
+        <link rel="prev" href="../architecture/">
       
       
-        <link rel="next" href="../../reference/supported-networks/">
+        <link rel="next" href="../security/">
       
       
       <link rel="icon" href="../../../../assets/images/favicon.webp">
@@ -25,7 +25,7 @@
     
   
 
-    <title>Portal Bridge FAQs | Wormhole Docs</title>
+    <title>Managers and Transceivers | Wormhole Docs</title>
     
 	
       <link rel="stylesheet" href="../../../../assets/stylesheets/main.6543a935.min.css">
@@ -272,7 +272,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#faqs" class="md-skip">
+        <a href="#flow-of-an-ntt-transfer" class="md-skip">
           Skip to content
         </a>
       
@@ -331,7 +331,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Portal Bridge FAQs
+              Managers and Transceivers
             
           </span>
         </div>
@@ -1712,40 +1712,6 @@
   <!-- Navigation item with nested items -->
   
     <li class="md-nav__item">
-      <a href="../../../connect/reference/supported-networks/" class="md-nav__link">
-        
-
-  <!-- Navigation link icon -->
-  
-
-  <!-- Navigation link title -->
-  <span class="md-ellipsis">
-    Supported Networks
-  </span>
-
-  <!-- Navigation link status -->
-  
-
-        
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-
-  <!-- Determine classes -->
-  
-  
-
-  <!-- Determine active page for paginated views -->
-  
-
-  <!-- Navigation item with nested items -->
-  
-    <li class="md-nav__item">
       <a href="../../../connect/reference/support-matrix/" class="md-nav__link">
         
 
@@ -1754,7 +1720,7 @@
 
   <!-- Navigation link title -->
   <span class="md-ellipsis">
-    Supported Features
+    Support Matrix
   </span>
 
   <!-- Navigation link status -->
@@ -1796,6 +1762,8 @@
 
   <!-- Determine classes -->
   
+  
+    
   
 
   <!-- Determine active page for paginated views -->
@@ -1828,7 +1796,7 @@
     
 
     <!-- Nested navigation item -->
-    <li class="md-nav__item nav__item--section md-nav__item--nested" id="products_3">
+    <li class="md-nav__item md-nav__item--active nav__item--section md-nav__item--nested" id="products_3">
       
         
 
@@ -1840,7 +1808,7 @@
           class="md-nav__toggle md-toggle "
           type="checkbox"
           id="__nav_1_3"
-          
+          checked
         />
 
         <!-- Toggle to expand nested items -->
@@ -1881,7 +1849,7 @@
           class="md-nav"
           data-md-level="2"
           aria-labelledby="__nav_1_3_label"
-          aria-expanded="false"
+          aria-expanded="true"
         >
           <label class="md-nav__title" for="__nav_1_3">
             <span class="md-nav__icon md-icon"></span>
@@ -1906,7 +1874,7 @@
   <!-- Navigation item with nested items -->
   
     <li class="md-nav__item">
-      <a href="../../../native-token-transfers/overview/" class="md-nav__link">
+      <a href="../../overview/" class="md-nav__link">
         
 
   <!-- Navigation link icon -->
@@ -1940,7 +1908,7 @@
   <!-- Navigation item with nested items -->
   
     <li class="md-nav__item">
-      <a href="../../../native-token-transfers/get-started/" class="md-nav__link">
+      <a href="../../get-started/" class="md-nav__link">
         
 
   <!-- Navigation link icon -->
@@ -2072,7 +2040,7 @@
   <!-- Navigation item with nested items -->
   
     <li class="md-nav__item">
-      <a href="../../../native-token-transfers/guides/deploy-to-evm/" class="md-nav__link">
+      <a href="../../guides/deploy-to-evm/" class="md-nav__link">
         
 
   <!-- Navigation link icon -->
@@ -2106,7 +2074,7 @@
   <!-- Navigation item with nested items -->
   
     <li class="md-nav__item">
-      <a href="../../../native-token-transfers/guides/evm-launchpad/" class="md-nav__link">
+      <a href="../../guides/evm-launchpad/" class="md-nav__link">
         
 
   <!-- Navigation link icon -->
@@ -2140,7 +2108,7 @@
   <!-- Navigation item with nested items -->
   
     <li class="md-nav__item">
-      <a href="../../../native-token-transfers/guides/deploy-to-solana/" class="md-nav__link">
+      <a href="../../guides/deploy-to-solana/" class="md-nav__link">
         
 
   <!-- Navigation link icon -->
@@ -2174,7 +2142,7 @@
   <!-- Navigation item with nested items -->
   
     <li class="md-nav__item">
-      <a href="../../../native-token-transfers/guides/troubleshoot/" class="md-nav__link">
+      <a href="../../guides/troubleshoot/" class="md-nav__link">
         
 
   <!-- Navigation link icon -->
@@ -2208,7 +2176,7 @@
   <!-- Navigation item with nested items -->
   
     <li class="md-nav__item">
-      <a href="../../../native-token-transfers/guides/post-deployment/" class="md-nav__link">
+      <a href="../../guides/post-deployment/" class="md-nav__link">
         
 
   <!-- Navigation link icon -->
@@ -2352,7 +2320,7 @@
   <!-- Navigation item with nested items -->
   
     <li class="md-nav__item">
-      <a href="../../../native-token-transfers/configuration/access-control/" class="md-nav__link">
+      <a href="../../configuration/access-control/" class="md-nav__link">
         
 
   <!-- Navigation link icon -->
@@ -2386,7 +2354,7 @@
   <!-- Navigation item with nested items -->
   
     <li class="md-nav__item">
-      <a href="../../../native-token-transfers/configuration/rate-limiting/" class="md-nav__link">
+      <a href="../../configuration/rate-limiting/" class="md-nav__link">
         
 
   <!-- Navigation link icon -->
@@ -2425,6 +2393,8 @@
   <!-- Determine classes -->
   
   
+    
+  
 
   <!-- Determine active page for paginated views -->
   
@@ -2454,7 +2424,7 @@
     
 
     <!-- Nested navigation item -->
-    <li class="md-nav__item md-nav__item--nested" id="native_token_transfers_5">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested" id="native_token_transfers_5">
       
         
 
@@ -2466,7 +2436,7 @@
           class="md-nav__toggle md-toggle "
           type="checkbox"
           id="__nav_1_3_5"
-          
+          checked
         />
 
         <!-- Toggle to expand nested items -->
@@ -2505,7 +2475,7 @@
           class="md-nav"
           data-md-level="3"
           aria-labelledby="__nav_1_3_5_label"
-          aria-expanded="false"
+          aria-expanded="true"
         >
           <label class="md-nav__title" for="__nav_1_3_5">
             <span class="md-nav__icon md-icon"></span>
@@ -2530,7 +2500,7 @@
   <!-- Navigation item with nested items -->
   
     <li class="md-nav__item">
-      <a href="../../../native-token-transfers/concepts/architecture/" class="md-nav__link">
+      <a href="../architecture/" class="md-nav__link">
         
 
   <!-- Navigation link icon -->
@@ -2557,6 +2527,233 @@
   <!-- Determine classes -->
   
   
+    
+  
+
+  <!-- Determine active page for paginated views -->
+  
+
+  <!-- Navigation item with nested items -->
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+
+      <!-- State toggle -->
+      <input
+        class="md-nav__toggle md-toggle"
+        type="checkbox"
+        id="__toc"
+      />
+
+      <!-- Hack: see partials/toc.html for more information -->
+      
+      
+        
+      
+
+      <!-- Navigation link to table of contents -->
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+
+  <!-- Navigation link icon -->
+  
+
+  <!-- Navigation link title -->
+  <span class="md-ellipsis">
+    Flow of a Transfer
+  </span>
+
+  <!-- Navigation link status -->
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a
+        href="./"
+        class="md-nav__link md-nav__link--active"
+      >
+        
+
+  <!-- Navigation link icon -->
+  
+
+  <!-- Navigation link title -->
+  <span class="md-ellipsis">
+    Flow of a Transfer
+  </span>
+
+  <!-- Navigation link status -->
+  
+
+      </a>
+
+      <!-- Table of contents -->
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="Sections">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Sections
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#lifecycle-of-a-message-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lifecycle of a Message Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#evm-chains" class="md-nav__link">
+    <span class="md-ellipsis">
+      EVM Chains
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="EVM Chains">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#transfer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Transfer
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rate-limit" class="md-nav__link">
+    <span class="md-ellipsis">
+      Rate Limit
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#send" class="md-nav__link">
+    <span class="md-ellipsis">
+      Send
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#receive" class="md-nav__link">
+    <span class="md-ellipsis">
+      Receive
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mint-or-unlock" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mint or Unlock
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solana" class="md-nav__link">
+    <span class="md-ellipsis">
+      Solana
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Solana">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#transfer_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Transfer
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rate-limit_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Rate Limit
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#send_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Send
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#receive_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Receive
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mint-or-unlock_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mint or Unlock
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+
+  <!-- Navigation item -->
+  
+
+              
+            
+              
+                
+
+  <!-- Determine classes -->
+  
+  
 
   <!-- Determine active page for paginated views -->
   
@@ -2564,7 +2761,7 @@
   <!-- Navigation item with nested items -->
   
     <li class="md-nav__item">
-      <a href="../../../native-token-transfers/concepts/security/" class="md-nav__link">
+      <a href="../security/" class="md-nav__link">
         
 
   <!-- Navigation link icon -->
@@ -2610,7 +2807,7 @@
   <!-- Navigation item with nested items -->
   
     <li class="md-nav__item">
-      <a href="../../../native-token-transfers/faqs/" class="md-nav__link">
+      <a href="../../faqs/" class="md-nav__link">
         
 
   <!-- Navigation link icon -->
@@ -2742,7 +2939,7 @@
   <!-- Navigation item with nested items -->
   
     <li class="md-nav__item">
-      <a href="../../../native-token-transfers/reference/supported-networks/" class="md-nav__link">
+      <a href="../../reference/cli-commands/" class="md-nav__link">
         
 
   <!-- Navigation link icon -->
@@ -2750,7 +2947,139 @@
 
   <!-- Navigation link title -->
   <span class="md-ellipsis">
-    Supported Networks
+    NTT CLI Commands
+  </span>
+
+  <!-- Navigation link status -->
+  
+
+        
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+
+  <!-- Determine classes -->
+  
+  
+
+  <!-- Determine active page for paginated views -->
+  
+
+  <!-- Navigation item with nested items -->
+  
+
+    <!-- Determine all nested items that are index pages -->
+    
+    
+
+    <!-- Navigation tabs -->
+    
+
+      <!-- Render 1st level active item as section -->
+      
+
+      <!-- Navigation tabs + sections -->
+      
+
+    <!-- Navigation sections -->
+    
+
+    <!-- Navigation pruning -->
+    
+
+    
+
+    <!-- Nested navigation item -->
+    <li class="md-nav__item md-nav__item--nested" id="reference_2">
+      
+        
+
+        <!-- Determine checked and indeterminate state -->
+        
+
+        <!-- Active checkbox expands items contained within nested section -->
+        <input
+          class="md-nav__toggle md-toggle "
+          type="checkbox"
+          id="__nav_1_3_7_2"
+          
+        />
+
+        <!-- Toggle to expand nested items -->
+        
+          
+          <label
+            class="md-nav__link"
+            for="__nav_1_3_7_2"
+            id="__nav_1_3_7_2_label"
+            tabindex="0"
+          >
+
+            
+              
+
+  <!-- Navigation link icon -->
+  
+
+  <!-- Navigation link title -->
+  <span class="md-ellipsis">
+    NTT Manager
+  </span>
+
+  <!-- Navigation link status -->
+  
+
+              <span class="md-nav__icon md-icon"></span>
+            
+          </label>
+
+        <!-- Toggle to expand nested items with link to index page -->
+        
+
+        <!-- Nested navigation -->
+        <nav
+          class="md-nav"
+          data-md-level="4"
+          aria-labelledby="__nav_1_3_7_2_label"
+          aria-expanded="false"
+        >
+          <label class="md-nav__title" for="__nav_1_3_7_2">
+            <span class="md-nav__icon md-icon"></span>
+            NTT Manager
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+            
+
+            <!-- Nested navigation item -->
+            
+              
+                
+
+  <!-- Determine classes -->
+  
+  
+
+  <!-- Determine active page for paginated views -->
+  
+
+  <!-- Navigation item with nested items -->
+  
+    <li class="md-nav__item">
+      <a href="../../reference/manager/evm/" class="md-nav__link">
+        
+
+  <!-- Navigation link icon -->
+  
+
+  <!-- Navigation link title -->
+  <span class="md-ellipsis">
+    EVM Chains
   </span>
 
   <!-- Navigation link status -->
@@ -2776,7 +3105,7 @@
   <!-- Navigation item with nested items -->
   
     <li class="md-nav__item">
-      <a href="../../../native-token-transfers/reference/cli-commands/" class="md-nav__link">
+      <a href="../../reference/manager/solana/" class="md-nav__link">
         
 
   <!-- Navigation link icon -->
@@ -2784,7 +3113,7 @@
 
   <!-- Navigation link title -->
   <span class="md-ellipsis">
-    NTT CLI Commands
+    Solana
   </span>
 
   <!-- Navigation link status -->
@@ -2793,6 +3122,196 @@
         
       </a>
     </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+
+      <!-- Pruned navigation item -->
+      
+    </li>
+
+  <!-- Currently active page -->
+  
+
+              
+            
+              
+                
+
+  <!-- Determine classes -->
+  
+  
+
+  <!-- Determine active page for paginated views -->
+  
+
+  <!-- Navigation item with nested items -->
+  
+
+    <!-- Determine all nested items that are index pages -->
+    
+    
+
+    <!-- Navigation tabs -->
+    
+
+      <!-- Render 1st level active item as section -->
+      
+
+      <!-- Navigation tabs + sections -->
+      
+
+    <!-- Navigation sections -->
+    
+
+    <!-- Navigation pruning -->
+    
+
+    
+
+    <!-- Nested navigation item -->
+    <li class="md-nav__item md-nav__item--nested" id="reference_3">
+      
+        
+
+        <!-- Determine checked and indeterminate state -->
+        
+
+        <!-- Active checkbox expands items contained within nested section -->
+        <input
+          class="md-nav__toggle md-toggle "
+          type="checkbox"
+          id="__nav_1_3_7_3"
+          
+        />
+
+        <!-- Toggle to expand nested items -->
+        
+          
+          <label
+            class="md-nav__link"
+            for="__nav_1_3_7_3"
+            id="__nav_1_3_7_3_label"
+            tabindex="0"
+          >
+
+            
+              
+
+  <!-- Navigation link icon -->
+  
+
+  <!-- Navigation link title -->
+  <span class="md-ellipsis">
+    Transceivers
+  </span>
+
+  <!-- Navigation link status -->
+  
+
+              <span class="md-nav__icon md-icon"></span>
+            
+          </label>
+
+        <!-- Toggle to expand nested items with link to index page -->
+        
+
+        <!-- Nested navigation -->
+        <nav
+          class="md-nav"
+          data-md-level="4"
+          aria-labelledby="__nav_1_3_7_3_label"
+          aria-expanded="false"
+        >
+          <label class="md-nav__title" for="__nav_1_3_7_3">
+            <span class="md-nav__icon md-icon"></span>
+            Transceivers
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+            
+
+            <!-- Nested navigation item -->
+            
+              
+                
+
+  <!-- Determine classes -->
+  
+  
+
+  <!-- Determine active page for paginated views -->
+  
+
+  <!-- Navigation item with nested items -->
+  
+    <li class="md-nav__item">
+      <a href="../../reference/transceivers/evm/" class="md-nav__link">
+        
+
+  <!-- Navigation link icon -->
+  
+
+  <!-- Navigation link title -->
+  <span class="md-ellipsis">
+    EVM Chains
+  </span>
+
+  <!-- Navigation link status -->
+  
+
+        
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+
+  <!-- Determine classes -->
+  
+  
+
+  <!-- Determine active page for paginated views -->
+  
+
+  <!-- Navigation item with nested items -->
+  
+    <li class="md-nav__item">
+      <a href="../../reference/transceivers/solana/" class="md-nav__link">
+        
+
+  <!-- Navigation link icon -->
+  
+
+  <!-- Navigation link title -->
+  <span class="md-ellipsis">
+    Solana
+  </span>
+
+  <!-- Navigation link status -->
+  
+
+        
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+
+      <!-- Pruned navigation item -->
+      
+    </li>
+
+  <!-- Currently active page -->
   
 
               
@@ -3169,6 +3688,18 @@
 
               
             
+          </ul>
+        </nav>
+
+      <!-- Pruned navigation item -->
+      
+    </li>
+
+  <!-- Currently active page -->
+  
+
+              
+            
               
                 
 
@@ -3202,169 +3733,11 @@
     
 
     
-
-    <!-- Nested navigation item -->
-    <li class="md-nav__item md-nav__item--nested" id="settlement_5">
-      
-        
-
-        <!-- Determine checked and indeterminate state -->
-        
-
-        <!-- Active checkbox expands items contained within nested section -->
-        <input
-          class="md-nav__toggle md-toggle "
-          type="checkbox"
-          id="__nav_1_4_5"
-          
-        />
-
-        <!-- Toggle to expand nested items -->
-        
-          
-          <label
-            class="md-nav__link"
-            for="__nav_1_4_5"
-            id="__nav_1_4_5_label"
-            tabindex="0"
-          >
-
-            
-              
-
-  <!-- Navigation link icon -->
-  
-
-  <!-- Navigation link title -->
-  <span class="md-ellipsis">
-    Reference
-  </span>
-
-  <!-- Navigation link status -->
-  
-
-              <span class="md-nav__icon md-icon"></span>
-            
-          </label>
-
-        <!-- Toggle to expand nested items with link to index page -->
-        
-
-        <!-- Nested navigation -->
-        <nav
-          class="md-nav"
-          data-md-level="3"
-          aria-labelledby="__nav_1_4_5_label"
-          aria-expanded="false"
-        >
-          <label class="md-nav__title" for="__nav_1_4_5">
-            <span class="md-nav__icon md-icon"></span>
-            Reference
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-            
-
-            <!-- Nested navigation item -->
-            
-              
-                
-
-  <!-- Determine classes -->
-  
-  
-
-  <!-- Determine active page for paginated views -->
-  
-
-  <!-- Navigation item with nested items -->
-  
-    <li class="md-nav__item">
-      <a href="../../../settlement/reference/supported-networks/" class="md-nav__link">
-        
-
-  <!-- Navigation link icon -->
-  
-
-  <!-- Navigation link title -->
-  <span class="md-ellipsis">
-    Supported Networks
-  </span>
-
-  <!-- Navigation link status -->
-  
-
-        
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-
-      <!-- Pruned navigation item -->
-      
-    </li>
-
-  <!-- Currently active page -->
-  
-
-              
-            
-          </ul>
-        </nav>
-
-      <!-- Pruned navigation item -->
-      
-    </li>
-
-  <!-- Currently active page -->
-  
-
-              
-            
-              
-                
-
-  <!-- Determine classes -->
-  
-  
-    
-  
-
-  <!-- Determine active page for paginated views -->
-  
-
-  <!-- Navigation item with nested items -->
-  
-
-    <!-- Determine all nested items that are index pages -->
-    
-    
-
-    <!-- Navigation tabs -->
-    
-
-      <!-- Render 1st level active item as section -->
-      
-
-      <!-- Navigation tabs + sections -->
-      
-
-    <!-- Navigation sections -->
-    
-
-    <!-- Navigation pruning -->
-    
-
-    
       
     
 
     <!-- Nested navigation item -->
-    <li class="md-nav__item md-nav__item--active nav__item--section md-nav__item--nested" id="products_5">
+    <li class="md-nav__item nav__item--section md-nav__item--nested" id="products_5">
       
         
 
@@ -3376,7 +3749,7 @@
           class="md-nav__toggle md-toggle "
           type="checkbox"
           id="__nav_1_5"
-          checked
+          
         />
 
         <!-- Toggle to expand nested items -->
@@ -3417,7 +3790,7 @@
           class="md-nav"
           data-md-level="2"
           aria-labelledby="__nav_1_5_label"
-          aria-expanded="true"
+          aria-expanded="false"
         >
           <label class="md-nav__title" for="__nav_1_5">
             <span class="md-nav__icon md-icon"></span>
@@ -3442,7 +3815,7 @@
   <!-- Navigation item with nested items -->
   
     <li class="md-nav__item">
-      <a href="../../overview/" class="md-nav__link">
+      <a href="../../../token-bridge/overview/" class="md-nav__link">
         
 
   <!-- Navigation link icon -->
@@ -3476,7 +3849,7 @@
   <!-- Navigation item with nested items -->
   
     <li class="md-nav__item">
-      <a href="../../get-started/" class="md-nav__link">
+      <a href="../../../token-bridge/get-started/" class="md-nav__link">
         
 
   <!-- Navigation link icon -->
@@ -3608,7 +3981,7 @@
   <!-- Navigation item with nested items -->
   
     <li class="md-nav__item">
-      <a href="../../guides/token-bridge-contracts/" class="md-nav__link">
+      <a href="../../../token-bridge/guides/token-bridge-contracts/" class="md-nav__link">
         
 
   <!-- Navigation link icon -->
@@ -3752,7 +4125,7 @@
   <!-- Navigation item with nested items -->
   
     <li class="md-nav__item">
-      <a href="../../tutorials/transfer-workflow/" class="md-nav__link">
+      <a href="../../../token-bridge/tutorials/transfer-workflow/" class="md-nav__link">
         
 
   <!-- Navigation link icon -->
@@ -3786,7 +4159,7 @@
   <!-- Navigation item with nested items -->
   
     <li class="md-nav__item">
-      <a href="../../tutorials/multichain-token/" class="md-nav__link">
+      <a href="../../../token-bridge/tutorials/multichain-token/" class="md-nav__link">
         
 
   <!-- Navigation link icon -->
@@ -3930,7 +4303,7 @@
   <!-- Navigation item with nested items -->
   
     <li class="md-nav__item">
-      <a href="../../concepts/transfer-flow/" class="md-nav__link">
+      <a href="../../../token-bridge/concepts/transfer-flow/" class="md-nav__link">
         
 
   <!-- Navigation link icon -->
@@ -3964,7 +4337,7 @@
   <!-- Navigation item with nested items -->
   
     <li class="md-nav__item">
-      <a href="../../concepts/payload-structure/" class="md-nav__link">
+      <a href="../../../token-bridge/concepts/payload-structure/" class="md-nav__link">
         
 
   <!-- Navigation link icon -->
@@ -4010,7 +4383,7 @@
   <!-- Navigation item with nested items -->
   
     <li class="md-nav__item">
-      <a href="../../faqs/" class="md-nav__link">
+      <a href="../../../token-bridge/faqs/" class="md-nav__link">
         
 
   <!-- Navigation link icon -->
@@ -4027,150 +4400,6 @@
         
       </a>
     </li>
-  
-
-              
-            
-              
-                
-
-  <!-- Determine classes -->
-  
-  
-
-  <!-- Determine active page for paginated views -->
-  
-
-  <!-- Navigation item with nested items -->
-  
-
-    <!-- Determine all nested items that are index pages -->
-    
-    
-
-    <!-- Navigation tabs -->
-    
-
-      <!-- Render 1st level active item as section -->
-      
-
-      <!-- Navigation tabs + sections -->
-      
-
-    <!-- Navigation sections -->
-    
-
-    <!-- Navigation pruning -->
-    
-
-    
-
-    <!-- Nested navigation item -->
-    <li class="md-nav__item md-nav__item--nested" id="token_bridge_7">
-      
-        
-
-        <!-- Determine checked and indeterminate state -->
-        
-
-        <!-- Active checkbox expands items contained within nested section -->
-        <input
-          class="md-nav__toggle md-toggle "
-          type="checkbox"
-          id="__nav_1_5_7"
-          
-        />
-
-        <!-- Toggle to expand nested items -->
-        
-          
-          <label
-            class="md-nav__link"
-            for="__nav_1_5_7"
-            id="__nav_1_5_7_label"
-            tabindex="0"
-          >
-
-            
-              
-
-  <!-- Navigation link icon -->
-  
-
-  <!-- Navigation link title -->
-  <span class="md-ellipsis">
-    Reference
-  </span>
-
-  <!-- Navigation link status -->
-  
-
-              <span class="md-nav__icon md-icon"></span>
-            
-          </label>
-
-        <!-- Toggle to expand nested items with link to index page -->
-        
-
-        <!-- Nested navigation -->
-        <nav
-          class="md-nav"
-          data-md-level="3"
-          aria-labelledby="__nav_1_5_7_label"
-          aria-expanded="false"
-        >
-          <label class="md-nav__title" for="__nav_1_5_7">
-            <span class="md-nav__icon md-icon"></span>
-            Reference
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-            
-
-            <!-- Nested navigation item -->
-            
-              
-                
-
-  <!-- Determine classes -->
-  
-  
-
-  <!-- Determine active page for paginated views -->
-  
-
-  <!-- Navigation item with nested items -->
-  
-    <li class="md-nav__item">
-      <a href="../../reference/supported-networks/" class="md-nav__link">
-        
-
-  <!-- Navigation link icon -->
-  
-
-  <!-- Navigation link title -->
-  <span class="md-ellipsis">
-    Supported Networks
-  </span>
-
-  <!-- Navigation link status -->
-  
-
-        
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-
-      <!-- Pruned navigation item -->
-      
-    </li>
-
-  <!-- Currently active page -->
   
 
               
@@ -4657,150 +4886,6 @@
   <!-- Navigation link title -->
   <span class="md-ellipsis">
     Complete USDC Transfer Flow
-  </span>
-
-  <!-- Navigation link status -->
-  
-
-        
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-
-      <!-- Pruned navigation item -->
-      
-    </li>
-
-  <!-- Currently active page -->
-  
-
-              
-            
-              
-                
-
-  <!-- Determine classes -->
-  
-  
-
-  <!-- Determine active page for paginated views -->
-  
-
-  <!-- Navigation item with nested items -->
-  
-
-    <!-- Determine all nested items that are index pages -->
-    
-    
-
-    <!-- Navigation tabs -->
-    
-
-      <!-- Render 1st level active item as section -->
-      
-
-      <!-- Navigation tabs + sections -->
-      
-
-    <!-- Navigation sections -->
-    
-
-    <!-- Navigation pruning -->
-    
-
-    
-
-    <!-- Nested navigation item -->
-    <li class="md-nav__item md-nav__item--nested" id="cctp_bridge_5">
-      
-        
-
-        <!-- Determine checked and indeterminate state -->
-        
-
-        <!-- Active checkbox expands items contained within nested section -->
-        <input
-          class="md-nav__toggle md-toggle "
-          type="checkbox"
-          id="__nav_1_6_5"
-          
-        />
-
-        <!-- Toggle to expand nested items -->
-        
-          
-          <label
-            class="md-nav__link"
-            for="__nav_1_6_5"
-            id="__nav_1_6_5_label"
-            tabindex="0"
-          >
-
-            
-              
-
-  <!-- Navigation link icon -->
-  
-
-  <!-- Navigation link title -->
-  <span class="md-ellipsis">
-    Reference
-  </span>
-
-  <!-- Navigation link status -->
-  
-
-              <span class="md-nav__icon md-icon"></span>
-            
-          </label>
-
-        <!-- Toggle to expand nested items with link to index page -->
-        
-
-        <!-- Nested navigation -->
-        <nav
-          class="md-nav"
-          data-md-level="3"
-          aria-labelledby="__nav_1_6_5_label"
-          aria-expanded="false"
-        >
-          <label class="md-nav__title" for="__nav_1_6_5">
-            <span class="md-nav__icon md-icon"></span>
-            Reference
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-            
-
-            <!-- Nested navigation item -->
-            
-              
-                
-
-  <!-- Determine classes -->
-  
-  
-
-  <!-- Determine active page for paginated views -->
-  
-
-  <!-- Navigation item with nested items -->
-  
-    <li class="md-nav__item">
-      <a href="../../../cctp-bridge/reference/supported-networks/" class="md-nav__link">
-        
-
-  <!-- Navigation link icon -->
-  
-
-  <!-- Navigation link title -->
-  <span class="md-ellipsis">
-    Supported Networks
   </span>
 
   <!-- Navigation link status -->
@@ -5571,150 +5656,6 @@
         
       </a>
     </li>
-  
-
-              
-            
-              
-                
-
-  <!-- Determine classes -->
-  
-  
-
-  <!-- Determine active page for paginated views -->
-  
-
-  <!-- Navigation item with nested items -->
-  
-
-    <!-- Determine all nested items that are index pages -->
-    
-    
-
-    <!-- Navigation tabs -->
-    
-
-      <!-- Render 1st level active item as section -->
-      
-
-      <!-- Navigation tabs + sections -->
-      
-
-    <!-- Navigation sections -->
-    
-
-    <!-- Navigation pruning -->
-    
-
-    
-
-    <!-- Nested navigation item -->
-    <li class="md-nav__item md-nav__item--nested" id="multigov_7">
-      
-        
-
-        <!-- Determine checked and indeterminate state -->
-        
-
-        <!-- Active checkbox expands items contained within nested section -->
-        <input
-          class="md-nav__toggle md-toggle "
-          type="checkbox"
-          id="__nav_1_7_7"
-          
-        />
-
-        <!-- Toggle to expand nested items -->
-        
-          
-          <label
-            class="md-nav__link"
-            for="__nav_1_7_7"
-            id="__nav_1_7_7_label"
-            tabindex="0"
-          >
-
-            
-              
-
-  <!-- Navigation link icon -->
-  
-
-  <!-- Navigation link title -->
-  <span class="md-ellipsis">
-    Reference
-  </span>
-
-  <!-- Navigation link status -->
-  
-
-              <span class="md-nav__icon md-icon"></span>
-            
-          </label>
-
-        <!-- Toggle to expand nested items with link to index page -->
-        
-
-        <!-- Nested navigation -->
-        <nav
-          class="md-nav"
-          data-md-level="3"
-          aria-labelledby="__nav_1_7_7_label"
-          aria-expanded="false"
-        >
-          <label class="md-nav__title" for="__nav_1_7_7">
-            <span class="md-nav__icon md-icon"></span>
-            Reference
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-            
-
-            <!-- Nested navigation item -->
-            
-              
-                
-
-  <!-- Determine classes -->
-  
-  
-
-  <!-- Determine active page for paginated views -->
-  
-
-  <!-- Navigation item with nested items -->
-  
-    <li class="md-nav__item">
-      <a href="../../../multigov/reference/supported-networks/" class="md-nav__link">
-        
-
-  <!-- Navigation link icon -->
-  
-
-  <!-- Navigation link title -->
-  <span class="md-ellipsis">
-    Supported Networks
-  </span>
-
-  <!-- Navigation link status -->
-  
-
-        
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-
-      <!-- Pruned navigation item -->
-      
-    </li>
-
-  <!-- Currently active page -->
   
 
               
@@ -8835,7 +8776,7 @@
           <div class="actions-container"><div class="edit-section">
               
     
-      <a href="https://github.com/wormhole-foundation/wormhole-docs/edit/main/products/token-bridge/portal/faqs.md" title="Edit this page" class="md-content__button md-icon">
+      <a href="https://github.com/wormhole-foundation/wormhole-docs/edit/main/products/native-token-transfers/concepts/flow-of-a-transfer.md" title="Edit this page" class="md-content__button md-icon">
         
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2Z"/></svg> Edit this page
       </a>
@@ -8939,7 +8880,7 @@
                 
                 
               
-              Thanks for your feedback! Help us improve this page by submitting <a href="https://docs.google.com/forms/d/e/1FAIpQLSdRjp_CJ2jEC0gPvK242zRzJoN_x9-Nlt_KXkCy7QPYiD4OlA/viewform?usp=pp_url&entry.2090824420=[Feedback]+Portal%20Bridge%20FAQs+-+/products/token-bridge/portal/faqs/" target="_blank" rel="noopener">additional feedback</a>.
+              Thanks for your feedback! Help us improve this page by submitting <a href="https://docs.google.com/forms/d/e/1FAIpQLSdRjp_CJ2jEC0gPvK242zRzJoN_x9-Nlt_KXkCy7QPYiD4OlA/viewform?usp=pp_url&entry.2090824420=[Feedback]+Managers%20and%20Transceivers+-+/products/native-token-transfers/concepts/flow-of-a-transfer/" target="_blank" rel="noopener">additional feedback</a>.
             </div>
           
         </div>
@@ -8969,20 +8910,131 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#how-do-i-use-deep-linking-with-portal" class="md-nav__link">
+  <a href="#lifecycle-of-a-message-overview" class="md-nav__link">
     <span class="md-ellipsis">
-      How do I use deep-linking with Portal?
+      Lifecycle of a Message Overview
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#what-does-the-send-to-a-wallet-address-field-do" class="md-nav__link">
+  <a href="#evm-chains" class="md-nav__link">
     <span class="md-ellipsis">
-      What does the "Send to a wallet address" field do?
+      EVM Chains
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="EVM Chains">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#transfer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Transfer
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rate-limit" class="md-nav__link">
+    <span class="md-ellipsis">
+      Rate Limit
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#send" class="md-nav__link">
+    <span class="md-ellipsis">
+      Send
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#receive" class="md-nav__link">
+    <span class="md-ellipsis">
+      Receive
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mint-or-unlock" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mint or Unlock
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solana" class="md-nav__link">
+    <span class="md-ellipsis">
+      Solana
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Solana">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#transfer_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Transfer
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rate-limit_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Rate Limit
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#send_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Send
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#receive_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Receive
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mint-or-unlock_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mint or Unlock
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -9033,154 +9085,94 @@
 
 
 
-  
-  
-  
-  
-  
-  
-    <h1 id="faqs">FAQs<a class="headerlink" href="#faqs" title="Permanent link">＃</a></h1>
-
-  
-  
-  
-  
-    
-    
-    
-    
-    
-    
-      
-      
-      
-      
-      
-      
-      
-      
-      
-        
-        
-        
-      
-      
-      
-      
-      
-      
-            
-      <details class="interface faq" id="products/token-bridge/portal/faqs/1">
-        <summary>
-          <h2 id="how-do-i-use-deep-linking-with-portal">How do I use deep-linking with Portal?<a class="headerlink" href="#how-do-i-use-deep-linking-with-portal" title="Permanent link">＃</a></h2>
-        </summary>
-        
-<p>You can create a direct link to pre-fill chain and asset selections on <a href="https://portalbridge.com" target="_blank">Portal Bridge</a> using URL parameters.</p>
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>sourceChain</code></td>
-<td>A source chain that will be pre-selected</td>
-</tr>
-<tr>
-<td><code>targetChain</code></td>
-<td>A target chain that will be pre-selected</td>
-</tr>
-<tr>
-<td><code>asset</code></td>
-<td>The asset key on the source chain (e.g., SOL, USDC, etc.)</td>
-</tr>
-<tr>
-<td><code>targetAsset</code></td>
-<td>The asset key on the destination chain</td>
-</tr>
-</tbody>
-</table>
-<p>Example:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>https://portalbridge.com/?sourceChain<span class="o">=</span>solana<span class="p">&amp;</span><span class="nv">targetChain</span><span class="o">=</span>ethereum<span class="p">&amp;</span><span class="nv">asset</span><span class="o">=</span>SOL<span class="p">&amp;</span><span class="nv">targetAsset</span><span class="o">=</span>WSOL
-</span></code></pre></div>
-<p>This link will open Portal with:</p>
-<ul>
-<li><strong><code>sourceChain</code></strong> pre-selected as <code>solana</code></li>
-<li><strong><code>targetChain</code></strong> pre-selected as <code>ethereum</code></li>
-<li><strong><code>asset</code></strong> pre-selected as <code>SOL</code></li>
-<li><strong><code>targetAsset</code></strong> pre-selected as <code>WSOL</code></li>
-</ul>
+  <h1 id="flow-of-an-ntt-transfer">Flow of an NTT Transfer<a class="headerlink" href="#flow-of-an-ntt-transfer" title="Permanent link">＃</a></h1>
+<p>This page outlines the full lifecycle of an NTT message, covering how transfers are initiated, sent, verified, and completed across supported chains. It highlights the distinct roles of the NTT Manager and Transceivers.</p>
+<p><em>NTT Managers</em> oversee transfers, handle rate-limiting and attestations, and manage multiple transceivers per token. They ensure tokens are locked or burned on the source chain before minting or unlocking on the destination chain.</p>
+<p><em>Transceivers</em> route transfers between source and destination managers, ensuring accurate message delivery and token transfers. They operate independently of Wormhole’s core and can support various verification backends.</p>
+<h2 id="lifecycle-of-a-message-overview">Lifecycle of a Message Overview<a class="headerlink" href="#lifecycle-of-a-message-overview" title="Permanent link">＃</a></h2>
+<p>This section outlines the high-level NTT message lifecycle common to both EVM-compatible chains and Solana.</p>
+<ol>
+<li><strong>Transfer</strong>: The client initiates the transfer, specifying the amount, recipient chain, and address, which is then forwarded to the transceiver on the source chain. Transfers on both source and destination chains can be rate-limited, causing them to be queued if limits are reached.</li>
+<li><strong>Send</strong>: The transceiver takes the forwarded message and sends it using its own method (like Wormhole relaying). </li>
+<li><strong>Receive</strong>: An off-chain relayer delivers the message to the destination transceiver, which then processes it and passes it on to the destination manager. It also covers validation through multiple attestations and protections against replay.</li>
+<li><strong>Mint or Unlock</strong>: After verification, the tokens are either minted or unlocked to the recipient on the destination chain, completing the transfer.</li>
+</ol>
+<p>While the core steps are similar, platform-specific implementation details—such as contract methods and program instructions differ.</p>
+<h2 id="evm-chains">EVM Chains<a class="headerlink" href="#evm-chains" title="Permanent link">＃</a></h2>
+<h3 id="transfer">Transfer<a class="headerlink" href="#transfer" title="Permanent link">＃</a></h3>
+<p>A client calls on <code>transfer</code> to initiate an NTT transfer. The client must specify, at minimum, the transfer amount, the recipient chain, and the recipient address on the recipient chain. <code>transfer</code> also supports a flag to specify whether the <code>NttManager</code> should queue rate-limited transfers or revert. Clients can also include additional instructions to forward along to the transceiver on the source chain. Depending on the mode set in the initial configuration of the <code>NttManager</code> contract, transfers are either "locked" or "burned." Once the transfer has been forwarded to the transceiver, the <code>NttManager</code> emits the <code>TransferSent</code> event.</p>
+<h3 id="rate-limit">Rate Limit<a class="headerlink" href="#rate-limit" title="Permanent link">＃</a></h3>
+<p>A transfer can be rate-limited on both the source and destination chains. If a transfer is rate-limited on the source chain and the <code>shouldQueue</code> flag is enabled, it is added to an outbound queue. The transfer can be released after the configured <code>_rateLimitDuration</code> has expired via the <code>completeOutboundQueuedTransfer</code> method. The <code>OutboundTransferQueued</code> and <code>OutboundTransferRateLimited</code> events are emitted.</p>
+<p>If the client attempts to release the transfer from the queue before the expiry of the <code>rateLimitDuration</code>, the contract reverts with an <code>OutboundQueuedTransferStillQueued</code> error.</p>
+<p>Similarly, rate-limited transfers on the destination chain are added to an inbound queue. These transfers can be released from the queue via the <code>completeInboundQueuedTransfer</code> method, and the <code>InboundTransferQueued</code> event is emitted.</p>
+<p>If the client attempts to release the transfer from the queue before the <code>rateLimitDuration</code> expires, the contract reverts with an <code>InboundQueuedTransferStillQueued</code> error.</p>
+<p>To deactivate the rate limiter, set <code>_rateLimitDuration</code> to 0 and enable the <code>_skipRateLimiting</code> field in the <code>NttManager</code> constructor. Configuring this incorrectly will throw an error. If the rate limiter is deactivated, the inbound and outbound rate limits can be set to 0.</p>
+<h3 id="send">Send<a class="headerlink" href="#send" title="Permanent link">＃</a></h3>
+<p>Once the <code>NttManager</code> forwards the message to the transceiver, the message is transmitted via the <code>sendMessage method</code>. The method signature is enforced by the transceiver but transceivers are free to determine their own implementation for transmitting messages. (e.g. a message routed through the Wormhole transceiver can be sent via Wormhole relaying, a custom relayer, or manually published via the core bridge).</p>
+<p>Once the message has been transmitted, the contract emits the <code>SendTransceiverMessage</code> event.</p>
+<h3 id="receive">Receive<a class="headerlink" href="#receive" title="Permanent link">＃</a></h3>
+<p>Once a message has been emitted by a transceiver on the source chain, an off-chain process (for example, a relayer) will forward the message to the corresponding transceiver on the recipient chain. The relayer interacts with the transceiver via an entry point to receive messages. For example, the relayer will call the <code>receiveWormholeMessage</code> method on the <code>WormholeTransceiver</code> contract to execute the message. The <code>ReceiveRelayedMessage</code> event is emitted during this process.</p>
+<p>This method should also forward the message to the <code>NttManager</code> on the destination chain. Note that the transceiver interface doesn't declare a signature for this method because receiving messages is specific to each transceiver, and a one-size-fits-all solution would be overly restrictive.</p>
+<p>The <code>NttManager</code> contract allows an M of N threshold for transceiver attestations to determine whether a message can be safely executed. For example, if the threshold requirement is 1, the message will be executed after a single transceiver delivers a valid attestation. If the threshold requirement is 2, the message will only be executed after two transceivers deliver valid attestations. When a transceiver attests to a message, the contract emits the <code>MessageAttestedTo</code> event.</p>
+<p>NTT implements replay protection, so if a given transceiver attempts to deliver a message attestation twice, the contract reverts with <code>TransceiverAlreadyAttestedToMessage</code> error. NTT also implements replay protection against re-executing messages. This check also acts as reentrancy protection as well.</p>
+<p>If a message has already been executed, the contract ends execution early and emits the <code>MessageAlreadyExecuted</code> event instead of reverting via an error. This mitigates the possibility of race conditions from transceivers attempting to deliver the same message when the threshold is less than the total number of available of transceivers (i.e. threshold &lt; totalTransceivers) and notifies the client (off-chain process) so they don't attempt redundant message delivery.</p>
+<h3 id="mint-or-unlock">Mint or Unlock<a class="headerlink" href="#mint-or-unlock" title="Permanent link">＃</a></h3>
+<p>Once a transfer has been successfully verified, the tokens can be minted (if the mode is "burning") or unlocked (if the mode is "locking") to the recipient on the destination chain. Note that the source token decimals are bounded between <code>0</code> and <code>TRIMMED_DECIMALS</code> as enforced in the wire format. The transfer amount is untrimmed (scaled-up) if the destination chain token decimals exceed <code>TRIMMED_DECIMALS</code>. Once the appropriate number of tokens have been minted or unlocked to the recipient, the <code>TransferRedeemed</code> event is emitted.</p>
+<h2 id="solana">Solana<a class="headerlink" href="#solana" title="Permanent link">＃</a></h2>
+<h3 id="transfer_1">Transfer<a class="headerlink" href="#transfer_1" title="Permanent link">＃</a></h3>
+<p>A client calls the <code>transfer_lock</code> or <code>transfer_burn</code> instruction based on whether the program is in <code>LOCKING</code> or <code>BURNING</code> mode. The program mode is set during initialization. When transferring, the client must specify the amount of the transfer, the recipient chain, the recipient address on the recipient chain, and the boolean flag <code>should_queue</code> to specify whether the transfer should be queued if it hits the outbound rate limit. If <code>should_queue</code> is set to false, the transfer reverts instead of queuing if the rate limit were to be hit.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>For <a href="/docs/products/native-token-transfers/overview/" target="_blank"><strong>NTT tokens</strong></a>, you can define just one asset if the same token exists across chains.</p>
-<p>Example: <a href="https://portalbridge.com/?sourceChain=ethereum&amp;targetChain=solana&amp;asset=W" target="_blank">https://portalbridge.com/?sourceChain=ethereum&amp;targetChain=solana&amp;asset=W</a></p>
+<p>Using the wrong transfer instruction, i.e. <code>transfer_lock</code> for a program that is in <code>BURNING</code> mode, will result in an <code>InvalidMode</code> error.</p>
 </div>
-
-      </details>
-    
-  
-    
-    
-    
-    
-    
-    
-      
-      
-      
-      
-      
-      
-      
-      
-      
-        
-        
-        
-      
-      
-      
-      
-      
-      
-            
-      <details class="interface faq" id="products/token-bridge/portal/faqs/2">
-        <summary>
-          <h2 id="what-does-the-send-to-a-wallet-address-field-do">What does the "Send to a wallet address" field do?<a class="headerlink" href="#what-does-the-send-to-a-wallet-address-field-do" title="Permanent link">＃</a></h2>
-        </summary>
-        
-<p>After selecting your tokens and connecting your source wallet on <a href="https://portalbridge.com/" target="_blank">Portal</a>, you'll be prompted to connect your destination wallet. At this step, alongside wallet options like MetaMask or Phantom, you'll also see an option labeled "Send to a wallet address".
-This flexibility allows you to enter any wallet address as the recipient rather than connecting a destination wallet, enabling you to send tokens to a predefined recipient, such as a team wallet, treasury address, or cold storage wallet.</p>
-<p><a class="glightbox" href="/docs/images/products/token-bridge/portal-bridge/faqs/portal-wallet-address.webp" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" class="half" src="/docs/images/products/token-bridge/portal-bridge/faqs/portal-wallet-address.webp" /></a></p>
-<p>This field is optional. If left empty, the tokens will be sent to your connected wallet.</p>
-      </details>
-    
-  
-  <script>
-  // Use the existing MkDocs analytics function
-  function n() {
-    window.dataLayer.push(arguments);
-  }
-
-  document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('.faq').forEach(faq => {
-      const faqId = faq.id || 'unknown';
-      const summary = faq.querySelector('summary')?.textContent.trim() || 'Unknown';
-
-      faq.addEventListener('toggle', () => {
-        const isOpen = faq.open;
-        n('event', 'faq_viewed', {
-          section_id: faqId,
-          faq_name: summary,
-          expanded: isOpen,
-          source: 'toggle',
-        });
-      });
-    });
-  });
-  </script>
+<p>Depending on the mode and instruction, the following will be produced in the program logs:</p>
+<div class="language-ts highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nx">Program</span><span class="w"> </span><span class="nx">log</span><span class="o">:</span><span class="w"> </span><span class="kt">Instruction</span><span class="o">:</span><span class="w"> </span><span class="nx">TransferLock</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nx">Program</span><span class="w"> </span><span class="nx">log</span><span class="o">:</span><span class="w"> </span><span class="kt">Instruction</span><span class="o">:</span><span class="w"> </span><span class="nx">TransferBurn</span>
+</span></code></pre></div>
+<p>Outbound transfers are always added to an Outbox via the <code>insert_into_outbox</code> method. This method checks the transfer against the configured outbound rate limit amount to determine whether the transfer should be rate-limited. An <code>OutboxItem</code> is a Solana Account that holds details of the outbound transfer. The transfer can be released from the Outbox immediately if no rate limit is hit. The transfer can be released from the Outbox immediately unless a rate limit is hit, in which case it will only be released after the delay duration associated with the rate limit has expired.</p>
+<h3 id="rate-limit_1">Rate Limit<a class="headerlink" href="#rate-limit_1" title="Permanent link">＃</a></h3>
+<p>During the transfer process, the program checks rate limits via the <code>consume_or_delay</code> function. The Solana rate-limiting logic is equivalent to the EVM rate-limiting logic.</p>
+<p>If the transfer amount fits within the current capacity:</p>
+<ul>
+<li>Reduce the current capacity</li>
+<li>Refill the inbound capacity for the destination chain</li>
+<li>Add the transfer to the Outbox with <code>release_timestamp</code> set to the current timestamp, so it can be released immediately.</li>
+</ul>
+<p>If the transfer amount doesn't fit within the current capacity:</p>
+<ul>
+<li>If <code>shouldQueue = true</code>, add the transfer to the Outbox with <code>release_timestamp</code> set to the current timestamp plus the configured <code>RATE_LIMIT_DURATION</code>.</li>
+<li>If <code>shouldQueue = false</code>, revert with a <code>TransferExceedsRateLimit</code> error</li>
+</ul>
+<h3 id="send_1">Send<a class="headerlink" href="#send_1" title="Permanent link">＃</a></h3>
+<p>The caller then needs to request each transceiver to send messages via the <code>release_outbound</code> instruction. To execute this instruction, the caller needs to pass the account of the Outbox item to be released. The instruction will then verify that the transceiver is one of the specified senders for the message. Transceivers then send the messages based on the verification backend they are using.</p>
+<p>For example, the Wormhole transceiver will send by calling <code>post_message</code> on the Wormhole program, so that the Wormhole Guardians can observe and verify the message.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When <code>revert_on_delay</code> is true, the transaction will revert if the release timestamp hasn't been reached. When <code>revert_on_delay</code> is false, the transaction succeeds, but the outbound release isn't performed.</p>
+</div>
+<p>The following will be produced in the program logs:</p>
+<div class="language-ts highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nx">Program</span><span class="w"> </span><span class="nx">log</span><span class="o">:</span><span class="w"> </span><span class="kt">Instruction</span><span class="o">:</span><span class="w"> </span><span class="nx">ReleaseOutbound</span>
+</span></code></pre></div>
+<h3 id="receive_1">Receive<a class="headerlink" href="#receive_1" title="Permanent link">＃</a></h3>
+<p>Similar to EVM, transceivers vary in how they receive messages since message relaying and verification methods may differ between implementations.</p>
+<p>The Wormhole transceiver receives a verified Wormhole message on Solana via the <code>receive_message</code> entrypoint instruction. Callers can use the <code>receive_wormhole_message</code> Anchor library function to execute this instruction. The instruction verifies the Wormhole Verified Action Approvals (VAAs) and stores it in a <code>VerifiedTransceiverMessage</code> account.</p>
+<p>The following will be produced in the program logs:</p>
+<div class="language-ts highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nx">Program</span><span class="w"> </span><span class="nx">log</span><span class="o">:</span><span class="w"> </span><span class="kt">Instruction</span><span class="o">:</span><span class="w"> </span><span class="nx">ReceiveMessage</span>
+</span></code></pre></div>
+<p><code>redeem</code> checks the inbound rate limit and places the message in an Inbox. Logic works the same as the outbound rate limit mentioned previously.</p>
+<p>The following will be produced in the program logs:</p>
+<div class="language-ts highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nx">Program</span><span class="w"> </span><span class="nx">log</span><span class="o">:</span><span class="w"> </span><span class="kt">Instruction</span><span class="o">:</span><span class="w"> </span><span class="nx">Redeem</span>
+</span></code></pre></div>
+<h3 id="mint-or-unlock_1">Mint or Unlock<a class="headerlink" href="#mint-or-unlock_1" title="Permanent link">＃</a></h3>
+<p>The inbound transfer is released and the tokens are unlocked or minted to the recipient through either <code>release_inbound_mint</code> if the mode is <code>BURNING</code>, or <code>release_inbound_unlock</code> if the mode is <code>LOCKING</code>. Similar to transfer, using the wrong transfer instruction (such as <code>release_inbound_mint</code> for a program that is in locking mode) will result in <code>InvalidMode</code> error.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When <code>revert_on_delay</code> is true, the transaction will revert if the release timestamp hasn't been reached. When <code>revert_on_delay</code> is false, the transaction succeeds, but the minting/unlocking isn't performed.</p>
+</div>
+<p>Depending on the mode and instruction, the following will be produced in the program logs:</p>
+<div class="language-ts highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nx">Program</span><span class="w"> </span><span class="nx">log</span><span class="o">:</span><span class="w"> </span><span class="kt">Instruction</span><span class="o">:</span><span class="w"> </span><span class="nx">ReleaseInboundMint</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="nx">Program</span><span class="w"> </span><span class="nx">log</span><span class="o">:</span><span class="w"> </span><span class="kt">Instruction</span><span class="o">:</span><span class="w"> </span><span class="nx">ReleaseInboundUnlock</span>
+</span></code></pre></div>
 
 
 <!-- Source file information -->
@@ -9541,7 +9533,7 @@ This flexibility allows you to enter any wallet address as the recipient rather 
             ? fileName 
             : `llms-files/${fileName}`;
 
-          const url = `https://wormhole.com/docs/${filePath}`;
+          const url = `https://wormhole.com/wormhole-mkdocs/${filePath}`;
 
           if (action === 'copy') {
             copyTxtFile(url, fileName);

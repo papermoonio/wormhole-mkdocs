@@ -31,11 +31,6 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://wormhole.com/docs/products/cctp-bridge/reference/supported-networks/</loc>
-         <lastmod>2025-07-09</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
          <loc>https://wormhole.com/docs/products/cctp-bridge/tutorials/complete-usdc-transfer/</loc>
          <lastmod>2025-07-09</lastmod>
          <changefreq>daily</changefreq>
@@ -87,11 +82,6 @@
     </url>
     <url>
          <loc>https://wormhole.com/docs/products/connect/reference/support-matrix/</loc>
-         <lastmod>2025-07-09</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://wormhole.com/docs/products/connect/reference/supported-networks/</loc>
          <lastmod>2025-07-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
@@ -176,11 +166,6 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://wormhole.com/docs/products/multigov/reference/supported-networks/</loc>
-         <lastmod>2025-07-09</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
          <loc>https://wormhole.com/docs/products/multigov/tutorials/treasury-proposal/</loc>
          <lastmod>2025-07-09</lastmod>
          <changefreq>daily</changefreq>
@@ -202,6 +187,11 @@
     </url>
     <url>
          <loc>https://wormhole.com/docs/products/native-token-transfers/concepts/architecture/</loc>
+         <lastmod>2025-07-09</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://wormhole.com/docs/products/native-token-transfers/concepts/flow-of-a-transfer/</loc>
          <lastmod>2025-07-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
@@ -251,12 +241,22 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://wormhole.com/docs/products/native-token-transfers/reference/managers-transceivers/</loc>
+         <loc>https://wormhole.com/docs/products/native-token-transfers/reference/manager/evm/</loc>
          <lastmod>2025-07-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://wormhole.com/docs/products/native-token-transfers/reference/supported-networks/</loc>
+         <loc>https://wormhole.com/docs/products/native-token-transfers/reference/manager/solana/</loc>
+         <lastmod>2025-07-09</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://wormhole.com/docs/products/native-token-transfers/reference/transceivers/evm/</loc>
+         <lastmod>2025-07-09</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://wormhole.com/docs/products/native-token-transfers/reference/transceivers/solana/</loc>
          <lastmod>2025-07-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
@@ -346,11 +346,6 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://wormhole.com/docs/products/settlement/reference/supported-networks/</loc>
-         <lastmod>2025-07-09</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
          <loc>https://wormhole.com/docs/products/token-bridge/faqs/</loc>
          <lastmod>2025-07-09</lastmod>
          <changefreq>daily</changefreq>
@@ -377,16 +372,6 @@
     </url>
     <url>
          <loc>https://wormhole.com/docs/products/token-bridge/guides/token-bridge-contracts/</loc>
-         <lastmod>2025-07-09</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://wormhole.com/docs/products/token-bridge/portal/faqs/</loc>
-         <lastmod>2025-07-09</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://wormhole.com/docs/products/token-bridge/reference/supported-networks/</loc>
          <lastmod>2025-07-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
