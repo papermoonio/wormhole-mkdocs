@@ -81,11 +81,10 @@ markdown_extensions:
       permalink: ＃
 plugins:
   - search
-  - awesome-pages
+  - awesome-nav
   - glightbox:
       skip_classes:
         - no-lightbox
-
   - redirects:
       redirect_maps:
         ai-resources.md: ai-resources/ai-resources.md
