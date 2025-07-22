@@ -12,7 +12,8 @@
     "Unichain",
     "Sonic",
     "Linea",
-    "Worldchain"
+    "Worldchain",
+    "Seievm"
   ],
   "Testnet": [
     "Sepolia",
@@ -27,6 +28,7 @@
     "Unichain",
     "Sonic",
     "Linea",
+    "Seievm",
     "Ethereum",
     "Optimism",
     "Arbitrum",
