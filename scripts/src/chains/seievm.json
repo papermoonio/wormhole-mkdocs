@@ -1,5 +1,17 @@
 {
   "title": "Seievm",
+  "homepage": "https://www.sei.io/",
+  "devDocs": "https://docs.sei.io/evm",
+  "faucet": {
+    "url": "https://atlantic-2.app.sei.io/faucet",
+    "token": "SEI",
+    "description": "Sei Atlantic-2 Faucet"
+  },
+  "explorer": [
+    {
+      "url": "https://seistream.app/"
+    }
+  ],
   "products": {
     "tokenBridge": {
       "mainnet": true,
@@ -15,6 +27,11 @@
       "mainnet": true,
       "testnet": true,
       "devnet": true
+    },
+    "cctp": {
+      "mainnet": true,
+      "testnet": true,
+      "devnet": false
     }
   }
 }
