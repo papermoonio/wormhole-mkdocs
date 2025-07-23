@@ -17,11 +17,6 @@
     }
   ],
   "products": {
-    "ntt": {
-      "mainnet": true,
-      "testnet": false,
-      "devnet": false
-    },
     "tokenBridge": {
       "mainnet": true,
       "testnet": true,

@@ -31,11 +31,6 @@
       "testnet": true,
       "devnet": false
     },
-    "ntt": {
-      "mainnet": true,
-      "testnet": false,
-      "devnet": false
-    },
     "tokenBridge": {
       "mainnet": true,
       "testnet": true,
