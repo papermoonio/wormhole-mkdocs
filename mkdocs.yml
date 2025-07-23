@@ -81,7 +81,7 @@ markdown_extensions:
       permalink: ＃
 plugins:
   - search
-  - awesome-pages
+  - awesome-nav
   - glightbox:
       skip_classes:
         - no-lightbox
