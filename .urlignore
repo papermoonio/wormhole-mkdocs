@@ -8,6 +8,7 @@ https://fonts.googleapis.com/**
 
 # Allowlist known working URLs
 https://atlantic-2.app.sei.io/faucet
+https://metamask.io/
 
 # Ignore sites that block scrapers (403s or 400s)
 https://x.com/
