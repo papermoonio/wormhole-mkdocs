@@ -5,7 +5,7 @@
 		"outputFile": "./src/generated/ntt-support.json",
 		"customChains": {
 			"Mainnet": ["Solana"],
-			"Testnet": ["Solana"]
+			"Testnet": ["Solana", "Fogo"]
 		}
 	},
 	{
