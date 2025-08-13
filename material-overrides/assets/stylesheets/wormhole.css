@@ -284,7 +284,7 @@
   }
 }
 
-@media screen and (min-width: 76.25em) {
+@media screen and (min-width: 86.25em) {
   [dir="ltr"]
     .md-sidebar--secondary:not([hidden])
     ~ .md-content
@@ -302,7 +302,9 @@
     > .md-content__inner {
     margin-left: 3rem;
   }
+}
 
+@media screen and (min-width: 76.25em) {
   .md-grid {
     padding: 0 5.75em;
   }
@@ -846,6 +848,7 @@ table th:last-child {
 }
 
 /* Supported blockchains tables */
+.full-width .span-table,
 .full-width .md-typeset__scrollwrap .md-typeset__table {
   width: 100%;
 }
