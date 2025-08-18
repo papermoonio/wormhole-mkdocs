@@ -412,7 +412,7 @@ export function generateProductSupportTables(chains: types.DocChain[]): Record<s
   const productDisplayNames: Record<string, string> = {
     connect: 'Connect',
     ntt: 'NTT',
-    tokenBridge: 'Token Bridge',
+    tokenBridge: 'WTT',
     multigov: 'MultiGov',
     settlement: 'Settlement',
     cctp: 'CCTP',

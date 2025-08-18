@@ -88,7 +88,7 @@ async function overwriteGenerated(tag: string, content: string) {
     generateAllContractsTable(chains, 'coreBridge')
   );
   await overwriteGenerated(
-    'TOKEN_BRIDGE_ADDRESS',
+    'WTT_ADDRESS',
     generateAllContractsTable(chains, 'tokenBridge')
   );
   await overwriteGenerated(

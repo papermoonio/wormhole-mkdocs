@@ -66,7 +66,7 @@ function getChainDetails(chainName: string): ExtraDetails {
   for (const net of networks) {
     const contracts = getContracts(net, chainName as Chain);
 
-    // Token Bridge
+    // WTT (Token Bridge)
     if (contracts.tokenBridge) {
       if (!products.tokenBridge) products.tokenBridge = { mainnet: false, testnet: false, devnet: false };
       products.tokenBridge[net.toLowerCase() as keyof ProductSupport] = true;
