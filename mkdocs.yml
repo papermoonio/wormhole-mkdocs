@@ -311,6 +311,11 @@ plugins:
         tutorials/typescript-sdk/usdc-via-cctp.md: products/cctp-bridge/tutorials/complete-usdc-transfer.md
         tutorials/wormholescan/index.md: products/messaging/tutorials/replace-signatures.md
         tutorials/wormholescan/replace-signatures.md: products/messaging/tutorials/replace-signatures.md
+        products/token-bridge/overview.md: products/token-transfers/wrapped-token-transfers/overview.md
+        products/token-bridge/guides/token-bridge-contracts.md: products/token-transfers/wrapped-token-transfers/guides/wtt-contracts.md
+        products/token-bridge/guides/wtt-contracts.md: products/token-transfers/wrapped-token-transfers/guides/wtt-contracts.md
+        products/token-bridge/tutorials/transfer-workflow.md: products/token-transfers/wrapped-token-transfers/tutorials/transfer-workflow.md
+        products/token-bridge/tutorials/multichain-token.md: products/token-transfers/wrapped-token-transfers/tutorials/multichain-token.md
   - macros:
       include_yaml:
         - wormhole-docs/variables.yml
