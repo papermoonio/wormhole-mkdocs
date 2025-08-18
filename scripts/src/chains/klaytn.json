@@ -1,6 +1,6 @@
 {
   "title": "Kaia",
-  "homepage": "https://kaia.io/",
+  "homepage": "https://www.kaia.io/",
   "contractSource": "ethereum/contracts/bridge/Bridge.sol",
   "mainnet": {
     "name": "Mainnet",
@@ -26,7 +26,7 @@
   },
   "devDocs": "https://docs.kaia.io/",
   "faucet": {
-    "url": "https://faucet.kaia.io",
+    "url": "https://www.kaia.io/faucet",
     "token": "KAIA",
     "description": "Official Kaia Faucet"
   },
