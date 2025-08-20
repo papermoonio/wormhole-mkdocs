@@ -1,0 +1,41 @@
+{
+  "title": "XRPLEVM",
+  "homepage": "https://www.xrplevm.org/",
+  "devDocs": "https://docs.xrplevm.org/",
+  "testnet": {
+    "name": "Testnet",
+    "id": "1449000"
+  },
+  "mainnet": {
+    "name": "Mainnet",
+    "id": "1440000"
+  },
+  "faucet": {
+    "url": "https://faucet.xrplevm.org/",
+    "token": "XRP",
+    "description": "XRPL Official Faucet"
+  },
+  "explorer": [
+    {
+      "url": "https://explorer.xrplevm.org/",
+      "description": "XRPL Explorer"
+    }
+  ],
+  "products": {
+    "tokenBridge": {
+      "mainnet": true,
+      "testnet": true,
+      "devnet": false
+    },
+    "ntt": {
+      "mainnet": false,
+      "testnet": true,
+      "devnet": false
+    },
+    "multigov": {
+      "mainnet": true,
+      "testnet": true,
+      "devnet": true
+    }
+  }
+}
