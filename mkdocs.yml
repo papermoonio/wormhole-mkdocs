@@ -274,6 +274,25 @@ plugins:
         learn/transfers/settlement/index.md: products/settlement/overview.md
         learn/transfers/settlement/overview.md: products/settlement/overview.md
         learn/transfers/token-bridge.md: products/token-transfers/wrapped-token-transfers/overview.md
+        products/native-token-transfers/configuration/access-control.md: products/token-transfers/native-token-transfers/configuration/access-control.md
+        products/native-token-transfers/configuration/rate-limiting.md: products/token-transfers/native-token-transfers/configuration/rate-limiting.md
+        products/native-token-transfers/concepts/architecture.md: products/token-transfers/native-token-transfers/concepts/architecture.md
+        products/native-token-transfers/concepts/security.md: products/token-transfers/native-token-transfers/concepts/security.md
+        products/native-token-transfers/faqs.md: products/token-transfers/native-token-transfers/faqs.md
+        products/native-token-transfers/guides/deploy-to-evm.md: products/token-transfers/native-token-transfers/guides/deploy-to-evm.md
+        products/native-token-transfers/guides/deploy-to-solana.md: products/token-transfers/native-token-transfers/guides/deploy-to-solana.md
+        products/native-token-transfers/guides/evm-launchpad.md: products/token-transfers/native-token-transfers/guides/evm-launchpad.md
+        products/native-token-transfers/guides/post-deployment.md: products/token-transfers/native-token-transfers/guides/post-deployment.md
+        products/native-token-transfers/guides/troubleshoot.md: products/token-transfers/native-token-transfers/guides/troubleshoot.md
+        products/native-token-transfers/get-started.md: products/token-transfers/native-token-transfers/get-started.md
+        products/native-token-transfers/overview.md: products/token-transfers/native-token-transfers/overview.md
+        products/native-token-transfers/reference/cli-commands.md: products/token-transfers/native-token-transfers/reference/cli-commands.md
+        # products/native-token-transfers/reference/managers-transceivers.md: TODO AFTER PR DEPLOYMENT
+        products/token-bridge/guides/token-bridge-contracts.md: products/token-transfers/wrapped-token-transfers/guides/wtt-contracts.md
+        products/token-bridge/guides/wtt-contracts.md: products/token-transfers/wrapped-token-transfers/guides/wtt-contracts.md
+        products/token-bridge/overview.md: products/token-transfers/wrapped-token-transfers/overview.md
+        products/token-bridge/tutorials/multichain-token.md: products/token-transfers/wrapped-token-transfers/tutorials/multichain-token.md
+        products/token-bridge/tutorials/transfer-workflow.md: products/token-transfers/wrapped-token-transfers/tutorials/transfer-workflow.md
         tutorials/by-product/connect/index.md: products/connect/tutorials/react-dapp.md
         tutorials/by-product/connect/react-dapp.md: products/connect/tutorials/react-dapp.md
         tutorials/by-product/contract-integrations/cross-chain-contracts.md: products/messaging/tutorials/cross-chain-contracts.md
@@ -312,25 +331,6 @@ plugins:
         tutorials/typescript-sdk/usdc-via-cctp.md: products/cctp-bridge/tutorials/complete-usdc-transfer.md
         tutorials/wormholescan/index.md: products/messaging/tutorials/replace-signatures.md
         tutorials/wormholescan/replace-signatures.md: products/messaging/tutorials/replace-signatures.md
-        products/token-bridge/overview.md: products/token-transfers/wrapped-token-transfers/overview.md
-        products/token-bridge/guides/token-bridge-contracts.md: products/token-transfers/wrapped-token-transfers/guides/wtt-contracts.md
-        products/token-bridge/guides/wtt-contracts.md: products/token-transfers/wrapped-token-transfers/guides/wtt-contracts.md
-        products/token-bridge/tutorials/transfer-workflow.md: products/token-transfers/wrapped-token-transfers/tutorials/transfer-workflow.md
-        products/token-bridge/tutorials/multichain-token.md: products/token-transfers/wrapped-token-transfers/tutorials/multichain-token.md
-        products/native-token-transfers/overview.md: products/token-transfers/native-token-transfers/overview.md
-        products/native-token-transfers/get-started.md: products/token-transfers/native-token-transfers/get-started.md
-        products/native-token-transfers/guides/deploy-to-evm.md: products/token-transfers/native-token-transfers/guides/deploy-to-evm.md
-        products/native-token-transfers/guides/evm-launchpad.md: products/token-transfers/native-token-transfers/guides/evm-launchpad.md
-        products/native-token-transfers/guides/deploy-to-solana.md: products/token-transfers/native-token-transfers/guides/deploy-to-solana.md
-        products/native-token-transfers/guides/troubleshoot.md: products/token-transfers/native-token-transfers/guides/troubleshoot.md
-        products/native-token-transfers/guides/post-deployment.md: products/token-transfers/native-token-transfers/guides/post-deployment.md
-        products/native-token-transfers/configuration/access-control.md: products/token-transfers/native-token-transfers/configuration/access-control.md
-        products/native-token-transfers/configuration/rate-limiting.md: products/token-transfers/native-token-transfers/configuration/rate-limiting.md
-        products/native-token-transfers/reference/cli-commands.md: products/token-transfers/native-token-transfers/reference/cli-commands.md
-        # products/native-token-transfers/reference/managers-transceivers.md: TODO AFTER PR DEPLOYMENT
-        products/native-token-transfers/concepts/architecture.md: products/token-transfers/native-token-transfers/concepts/architecture.md
-        products/native-token-transfers/concepts/security.md: products/token-transfers/native-token-transfers/concepts/security.md
-        products/native-token-transfers/faqs.md: products/token-transfers/native-token-transfers/faqs.md
   - macros:
       include_yaml:
         - wormhole-docs/variables.yml
