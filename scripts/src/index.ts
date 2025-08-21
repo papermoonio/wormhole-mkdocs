@@ -118,8 +118,11 @@ async function overwriteGenerated(tag: string, content: string) {
   const productTables = generateProductSupportTables(chains);
 
   for (const [product, table] of Object.entries(productTables)) {
+    // New Token Bridge name to WTT
+    const tagSuffix = product === 'tokenBridge' ? 'WTT' : product.toUpperCase();
+
     await overwriteGenerated(
-      `SUPPORTED_BLOCKCHAIN_${product.toUpperCase()}`,
+      `SUPPORTED_BLOCKCHAIN_${tagSuffix}`,
       table
     );
   }
