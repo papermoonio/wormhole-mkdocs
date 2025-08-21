@@ -142,6 +142,7 @@ plugins:
         build/contract-integrations/settlement/liquidity-layer.md: products/settlement/overview.md
         build/contract-integrations/settlement/solver.md: products/settlement/overview.md
         build/contract-integrations/token-bridge.md: products/token-bridge/guides/token-bridge-contracts.md
+        build/contract-integrations/token-bridge.md: products/token-transfers/wrapped-token-transfers/guides/wtt-contracts.md
         build/contract-integrations/wormhole-relayers.md: products/messaging/guides/wormhole-relayers.md
         build/core-messaging/core-contracts.md: products/messaging/guides/core-contracts.md
         build/core-messaging/index.md: products/messaging/overview.md
@@ -225,6 +226,7 @@ plugins:
         build/transfers/settlement/liquidity-layer.md: products/settlement/overview.md
         build/transfers/settlement/solver.md: products/settlement/overview.md
         build/transfers/token-bridge.md: products/token-bridge/guides/token-bridge-contracts.md
+        build/transfers/token-bridge.md: products/token-transfers/wrapped-token-transfers/guides/wtt-contracts.md
         infrastructure/index.md: protocol/infrastructure-guides/run-relayer.md
         infrastructure/relayers/index.md: protocol/infrastructure-guides/run-relayer.md
         infrastructure/relayers/run-relayer.md: protocol/infrastructure-guides/run-relayer.md
@@ -258,6 +260,7 @@ plugins:
         learn/messaging/native-token-transfers/overview.md: products/native-token-transfers/overview.md
         learn/messaging/native-token-transfers/security.md: products/native-token-transfers/concepts/security.md
         learn/messaging/token-bridge.md: products/token-bridge/overview.md
+        learn/messaging/token-bridge.md: products/token-transfers/wrapped-token-transfers/overview.md
         learn/messaging/wormhole-settlement/architecture.md: products/settlement/concepts/architecture.md
         learn/messaging/wormhole-settlement/index.md: products/settlement/overview.md
         learn/messaging/wormhole-settlement/overview.md: products/settlement/overview.md
@@ -280,13 +283,16 @@ plugins:
         tutorials/by-product/contract-integrations/index.md: products/overview.md
         tutorials/by-product/index.md: products/overview.md
         tutorials/by-product/multichain-assets/index.md: products/token-bridge/tutorials/multichain-token.md
+        tutorials/by-product/multichain-assets/index.md: products/token-transfers/wrapped-token-transfers/tutorials/multichain-token.md
         tutorials/by-product/multichain-assets/multichain-token.md: products/token-bridge/tutorials/multichain-token.md
+        tutorials/by-product/multichain-assets/multichain-token.md: products/token-transfers/wrapped-token-transfers/tutorials/multichain-token.md
         tutorials/by-product/multigov/index.md: products/multigov/tutorials/treasury-proposal.md
         tutorials/by-product/multigov/treasury-proposal.md: products/multigov/tutorials/treasury-proposal.md
         tutorials/by-product/native-token-transfers/index.md: products/native-token-transfers/overview.md
         tutorials/by-product/native-token-transfers/multichain-token.md: products/native-token-transfers/overview.md
         tutorials/by-product/wormhole-sdk/index.md: tools/typescript-sdk/get-started.md
         tutorials/by-product/wormhole-sdk/tokens-via-token-bridge.md: products/token-bridge/tutorials/transfer-workflow.md
+        tutorials/by-product/wormhole-sdk/tokens-via-token-bridge.md: products/token-transfers/wrapped-token-transfers/tutorials/transfer-workflow.md
         tutorials/by-product/wormhole-sdk/usdc-via-cctp.md: products/cctp-bridge/tutorials/complete-usdc-transfer.md
         tutorials/by-product/wormholescan/index.md: products/messaging/tutorials/replace-signatures.md
         tutorials/by-product/wormholescan/replace-signatures.md: products/messaging/tutorials/replace-signatures.md
@@ -299,8 +305,11 @@ plugins:
         tutorials/messaging/index.md: products/messaging/tutorials/cross-chain-contracts.md
         tutorials/messaging/sui-connect.md: products/connect/tutorials/react-dapp.md
         tutorials/messaging/token-bridge.md: products/token-bridge/tutorials/transfer-workflow.md
+        tutorials/messaging/token-bridge.md: products/token-transfers/wrapped-token-transfers/tutorials/transfer-workflow.md
         tutorials/multichain-assets/index.md: products/token-bridge/tutorials/multichain-token.md
+        tutorials/multichain-assets/index.md: products/token-transfers/wrapped-token-transfers/tutorials/multichain-token.md
         tutorials/multichain-assets/multichain-token.md: products/token-bridge/tutorials/multichain-token.md
+        tutorials/multichain-assets/multichain-token.md: products/token-transfers/wrapped-token-transfers/tutorials/multichain-token.md
         tutorials/multigov/index.md: products/multigov/overview.md
         tutorials/multigov/treasury-proposal.md: products/multigov/tutorials/treasury-proposal.md
         tutorials/solidity-sdk/cross-chain-contracts.md: products/messaging/tutorials/cross-chain-contracts.md
@@ -308,6 +317,7 @@ plugins:
         tutorials/solidity-sdk/index.md: tools/solidity-sdk/get-started.md
         tutorials/typescript-sdk/index.md: tools/typescript-sdk/get-started.md
         tutorials/typescript-sdk/tokens-via-token-bridge.md: products/token-bridge/tutorials/transfer-workflow.md
+        tutorials/typescript-sdk/tokens-via-token-bridge.md: products/token-transfers/wrapped-token-transfers/tutorials/transfer-workflow.md
         tutorials/typescript-sdk/usdc-via-cctp.md: products/cctp-bridge/tutorials/complete-usdc-transfer.md
         tutorials/wormholescan/index.md: products/messaging/tutorials/replace-signatures.md
         tutorials/wormholescan/replace-signatures.md: products/messaging/tutorials/replace-signatures.md
