@@ -297,7 +297,6 @@ plugins:
         products/token-bridge/guides/fetch-signed-vaa.md: products/token-transfers/wrapped-token-transfers/guides/fetch-signed-vaa.md
         products/token-bridge/guides/token-bridge-contracts.md: products/token-transfers/wrapped-token-transfers/guides/wtt-contracts.md
         products/token-bridge/guides/transfer-wrapped-assets.md: products/token-transfers/wrapped-token-transfers/guides/transfer-wrapped-assets.md
-        products/token-bridge/guides/wtt-contracts.md: products/token-transfers/wrapped-token-transfers/guides/wtt-contracts.md
         products/token-bridge/overview.md: products/token-transfers/wrapped-token-transfers/overview.md
         products/token-bridge/portal/faqs.md: products/token-transfers/wrapped-token-transfers/portal/faqs.md
         products/token-bridge/reference/supported-networks.md: products/token-transfers/wrapped-token-transfers/reference/supported-networks.md
