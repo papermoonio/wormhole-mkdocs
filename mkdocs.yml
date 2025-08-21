@@ -288,9 +288,18 @@ plugins:
         products/native-token-transfers/overview.md: products/token-transfers/native-token-transfers/overview.md
         products/native-token-transfers/reference/cli-commands.md: products/token-transfers/native-token-transfers/reference/cli-commands.md
         # products/native-token-transfers/reference/managers-transceivers.md: TODO AFTER PR DEPLOYMENT
+        products/token-bridge/concepts/payload-structure.md: products/token-transfers/wrapped-token-transfers/concepts/payload-structure.md
+        products/token-bridge/concepts/transfer-flow.md: products/token-transfers/wrapped-token-transfers/concepts/transfer-flow.md
+        products/token-bridge/faqs.md: products/token-transfers/wrapped-token-transfers/faqs.md
+        products/token-bridge/get-started.md: products/token-transfers/wrapped-token-transfers/get-started.md
+        products/token-bridge/guides/attest-tokens.md: products/token-transfers/wrapped-token-transfers/guides/attest-tokens.md
+        products/token-bridge/guides/fetch-signed-vaa.md: products/token-transfers/wrapped-token-transfers/guides/fetch-signed-vaa.md
         products/token-bridge/guides/token-bridge-contracts.md: products/token-transfers/wrapped-token-transfers/guides/wtt-contracts.md
+        products/token-bridge/guides/transfer-wrapped-assets.md: products/token-transfers/wrapped-token-transfers/guides/transfer-wrapped-assets.md
         products/token-bridge/guides/wtt-contracts.md: products/token-transfers/wrapped-token-transfers/guides/wtt-contracts.md
         products/token-bridge/overview.md: products/token-transfers/wrapped-token-transfers/overview.md
+        products/token-bridge/portal/faqs.md: products/token-transfers/wrapped-token-transfers/portal/faqs.md
+        products/token-bridge/reference/supported-networks.md: products/token-transfers/wrapped-token-transfers/reference/supported-networks.md
         products/token-bridge/tutorials/multichain-token.md: products/token-transfers/wrapped-token-transfers/tutorials/multichain-token.md
         products/token-bridge/tutorials/transfer-workflow.md: products/token-transfers/wrapped-token-transfers/tutorials/transfer-workflow.md
         tutorials/by-product/connect/index.md: products/connect/tutorials/react-dapp.md
