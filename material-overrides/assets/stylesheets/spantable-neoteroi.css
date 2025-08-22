@@ -8,12 +8,12 @@
 
 /** Span Table CSS **/
 .span-table-wrapper {
-  overflow-x: scroll;
+  overflow-x: auto;
+  margin-bottom: 1rem;
 }
 
 .span-table-wrapper table {
   border-collapse: separate;
-  margin-bottom: 2rem;
   border-radius: var(--border-radius);
 }
 
