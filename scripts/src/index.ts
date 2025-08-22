@@ -88,7 +88,7 @@ async function overwriteGenerated(tag: string, content: string) {
     generateAllContractsTable(chains, 'coreBridge')
   );
   await overwriteGenerated(
-    'TOKEN_BRIDGE_ADDRESS',
+    'WTT_ADDRESS',
     generateAllContractsTable(chains, 'tokenBridge')
   );
   await overwriteGenerated(
@@ -118,8 +118,11 @@ async function overwriteGenerated(tag: string, content: string) {
   const productTables = generateProductSupportTables(chains);
 
   for (const [product, table] of Object.entries(productTables)) {
+    // Use WTT (Wormhole Token Transfer) as the tag suffix for the tokenBridge product
+    const tagSuffix = product === 'tokenBridge' ? 'WTT' : product.toUpperCase();
+
     await overwriteGenerated(
-      `SUPPORTED_BLOCKCHAIN_${product.toUpperCase()}`,
+      `SUPPORTED_BLOCKCHAIN_${tagSuffix}`,
       table
     );
   }
