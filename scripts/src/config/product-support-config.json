@@ -1,12 +1,11 @@
 [
 	{
 		"product": "NTT",
-		"url": "https://raw.githubusercontent.com/wormhole-foundation/wormhole-sdk-ts/main/core/base/src/constants/contracts/relayer.ts",
-		"outputFile": "./src/generated/ntt-support.json",
-		"customChains": {
-			"Mainnet": ["Solana"],
-			"Testnet": ["Solana", "Fogo"]
-		}
+		"urls": [
+			"https://raw.githubusercontent.com/wormhole-foundation/wormhole-sdk-ts/main/core/base/src/constants/contracts/relayer.ts",
+			"https://raw.githubusercontent.com/wormhole-foundation/wormhole-sdk-ts/main/core/base/src/constants/contracts/executor.ts"
+		],
+		"outputFile": "./src/generated/ntt-support.json"
 	},
 	{
 		"product": "CCTP",
