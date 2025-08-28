@@ -17,7 +17,7 @@
     },
     "ntt": {
       "mainnet": true,
-      "testnet": false,
+      "testnet": true,
       "devnet": false
     }
   },
