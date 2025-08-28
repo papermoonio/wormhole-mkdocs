@@ -21,7 +21,12 @@
     "Unichain",
     "Mezo",
     "Plume",
-    "Solana"
+    "Aptos",
+    "HyperEVM",
+    "Linea",
+    "Solana",
+    "Sonic",
+    "Sui"
   ],
   "Testnet": [
     "Ethereum",
@@ -46,8 +51,12 @@
     "XRPLEVM",
     "Monad",
     "PolygonSepolia",
+    "Aptos",
+    "Converge",
+    "Fogo",
+    "Plume",
     "Solana",
-    "Fogo"
+    "Sui"
   ],
   "Devnet": [
     "Ethereum",
