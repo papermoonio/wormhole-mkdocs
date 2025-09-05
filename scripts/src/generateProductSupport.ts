@@ -13,7 +13,7 @@ const NETWORK_CANON_MAP: Record<string, 'Mainnet' | 'Testnet' | 'Devnet'> = {
 };
 const ALLOWED_NETWORKS = new Set<'Mainnet' | 'Testnet' | 'Devnet'>(Object.values(NETWORK_CANON_MAP));
 
-const canonicalizeNetwork = (s: string) => NETWORK_CANON_MAP[s.toLowerCase()] ?? (s as any);
+const canonicalizeNetwork = (s: string): 'Mainnet' | 'Testnet' | 'Devnet' | string => NETWORK_CANON_MAP[s.toLowerCase()] ?? s;
 
 function mergeTestnets(productChains: Record<string, string[]>) {
   const add = (base: string) => {
