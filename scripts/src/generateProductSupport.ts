@@ -5,14 +5,15 @@ const chainNameOverrides: Record<string, string> = {
   Klaytn: 'Kaia',
 };
 
-const canonicalizeNetwork = (s: string): string => {
-  const map: Record<string, 'Mainnet' | 'Testnet' | 'Devnet'> = {
-    mainnet: 'Mainnet',
-    testnet: 'Testnet',
-    devnet: 'Devnet',
-  };
-  return map[s.toLowerCase()] ?? s;
+// --- Single source of truth for networks ---
+const NETWORK_CANON_MAP: Record<string, 'Mainnet' | 'Testnet' | 'Devnet'> = {
+  mainnet: 'Mainnet',
+  testnet: 'Testnet',
+  devnet: 'Devnet',
 };
+const ALLOWED_NETWORKS = new Set<'Mainnet' | 'Testnet' | 'Devnet'>(Object.values(NETWORK_CANON_MAP));
+
+const canonicalizeNetwork = (s: string) => NETWORK_CANON_MAP[s.toLowerCase()] ?? (s as any);
 
 function mergeTestnets(productChains: Record<string, string[]>) {
   const add = (base: string) => {
@@ -31,11 +32,11 @@ function mergeTestnets(productChains: Record<string, string[]>) {
 
 export async function generateProductSupport({
   product,
-  url, // single source (still supported)
-  urls, // multiple sources (new)
+  url,
+  urls,
   outputFile,
-  customChains, // still supported for other products
-  excludeChains, // NEW: global excludes for this product
+  customChains,
+  excludeChains,
 }: {
   product: string;
   url?: string;
@@ -44,7 +45,6 @@ export async function generateProductSupport({
   customChains?: Record<string, string[]>;
   excludeChains?: string[];
 }) {
-  // Build an exclusion set (normalize to lowercase after overrides later)
   const exclusionSet = new Set((excludeChains ?? []).map((s) => s.toLowerCase()));
 
   // --- fetch one or many sources ---
@@ -61,8 +61,8 @@ export async function generateProductSupport({
     throw new Error(`No url(s) provided for ${product}`);
   }
 
-  // Aggregated chains across sources
-  const productChains: Record<string, string[]> = {
+  // Aggregated chains across sources (initialize only allowed keys)
+  const productChains: Record<'Mainnet' | 'Testnet' | 'Devnet', string[]> = {
     Mainnet: [],
     Testnet: [],
     Devnet: [],
@@ -75,9 +75,8 @@ export async function generateProductSupport({
     let match;
     while ((match = networkBlockRegex.exec(text)) !== null) {
       const net = canonicalizeNetwork(match[1]);
-      if (net !== 'Mainnet' && net !== 'Testnet' && net !== 'Devnet') continue;
+      if (!ALLOWED_NETWORKS.has(net)) continue;
 
-      if (!productChains[net]) productChains[net] = [];
       const body = match[2];
 
       // Each element: ["ChainName", "0xAddressOrWhatever"]
@@ -96,20 +95,23 @@ export async function generateProductSupport({
     }
   }
 
-  // Add any manual chains (for other products) then apply excludes again
+  // Add any manual chains (for other products) with same rules + canonical net
   if (customChains) {
-    for (const net of Object.keys(customChains)) {
-      if (!productChains[net]) productChains[net] = [];
-      for (const name of customChains[net]) {
-        if (!exclusionSet.has((chainNameOverrides[name] || name).toLowerCase())) {
-          productChains[net].push(chainNameOverrides[name] || name);
+    for (const netRaw of Object.keys(customChains)) {
+      const net = canonicalizeNetwork(netRaw);
+      if (!ALLOWED_NETWORKS.has(net)) continue;
+
+      for (const name of customChains[netRaw]) {
+        const normalized = chainNameOverrides[name] || name;
+        if (!exclusionSet.has(normalized.toLowerCase())) {
+          productChains[net].push(normalized);
         }
       }
     }
   }
 
   // Deduplicate per environment
-  for (const net of Object.keys(productChains)) {
+  for (const net of ALLOWED_NETWORKS) {
     productChains[net] = [...new Set(productChains[net])];
   }
 
