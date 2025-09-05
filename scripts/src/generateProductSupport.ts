@@ -5,6 +5,15 @@ const chainNameOverrides: Record<string, string> = {
   Klaytn: 'Kaia',
 };
 
+const canonicalizeNetwork = (s: string) => {
+  const map: Record<string, 'Mainnet' | 'Testnet' | 'Devnet'> = {
+    mainnet: 'Mainnet',
+    testnet: 'Testnet',
+    devnet: 'Devnet',
+  };
+  return map[s.toLowerCase()] ?? (s as any);
+};
+
 function mergeTestnets(productChains: Record<string, string[]>) {
   const add = (base: string) => {
     if (!productChains.Testnet.includes(base)) productChains.Testnet.push(base);
@@ -12,11 +21,9 @@ function mergeTestnets(productChains: Record<string, string[]>) {
 
   for (const name of [...productChains.Testnet]) {
     if (name.endsWith('Sepolia')) {
-      // Strip the suffix → base chain.  "Sepolia" alone maps to "Ethereum".
       const base = name.replace(/Sepolia$/, '') || 'Ethereum';
       add(base);
     } else if (name.endsWith('Holesky')) {
-      // Holesky is an Ethereum testnet
       add('Ethereum');
     }
   }
@@ -24,18 +31,23 @@ function mergeTestnets(productChains: Record<string, string[]>) {
 
 export async function generateProductSupport({
   product,
-  url,
-  urls,
+  url, // single source (still supported)
+  urls, // multiple sources (new)
   outputFile,
-  customChains,
+  customChains, // still supported for other products
+  excludeChains, // NEW: global excludes for this product
 }: {
   product: string;
   url?: string;
   urls?: string[];
   outputFile: string;
   customChains?: Record<string, string[]>;
+  excludeChains?: string[];
 }) {
-  // --- NEW: fetch one or many sources ---------------------------------------
+  // Build an exclusion set (normalize to lowercase after overrides later)
+  const exclusionSet = new Set((excludeChains ?? []).map((s) => s.toLowerCase()));
+
+  // --- fetch one or many sources ---
   const sources: string[] = [];
   if (urls && urls.length > 0) {
     for (const u of urls) {
@@ -49,7 +61,7 @@ export async function generateProductSupport({
     throw new Error(`No url(s) provided for ${product}`);
   }
 
-  // Holder for aggregated chains across sources
+  // Aggregated chains across sources
   const productChains: Record<string, string[]> = {
     Mainnet: [],
     Testnet: [],
@@ -62,9 +74,13 @@ export async function generateProductSupport({
   for (const text of sources) {
     let match;
     while ((match = networkBlockRegex.exec(text)) !== null) {
-      const network = match[1];
+      const net = canonicalizeNetwork(match[1]);
+      if (net !== 'Mainnet' && net !== 'Testnet' && net !== 'Devnet') continue;
+
+      if (!productChains[net]) productChains[net] = [];
       const body = match[2];
 
+      // Each element: ["ChainName", "0xAddressOrWhatever"]
       const chainRegex = /\[\s*["']([^"']+)["']\s*,\s*["'][^"']+["']\s*\]/g;
 
       let chainMatch;
@@ -72,16 +88,23 @@ export async function generateProductSupport({
         const originalName = chainMatch[1];
         const normalizedName = chainNameOverrides[originalName] || originalName;
 
-        if (!productChains[network]) productChains[network] = [];
-        productChains[network].push(normalizedName);
+        // Skip excluded chains (compare post-normalization, case-insensitive)
+        if (exclusionSet.has(normalizedName.toLowerCase())) continue;
+
+        productChains[net].push(normalizedName);
       }
     }
   }
 
-  // Add any extra manual entries (still works for other products)
+  // Add any manual chains (for other products) then apply excludes again
   if (customChains) {
     for (const net of Object.keys(customChains)) {
-      productChains[net].push(...customChains[net]);
+      if (!productChains[net]) productChains[net] = [];
+      for (const name of customChains[net]) {
+        if (!exclusionSet.has((chainNameOverrides[name] || name).toLowerCase())) {
+          productChains[net].push(chainNameOverrides[name] || name);
+        }
+      }
     }
   }
 
