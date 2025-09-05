@@ -5,13 +5,13 @@ const chainNameOverrides: Record<string, string> = {
   Klaytn: 'Kaia',
 };
 
-const canonicalizeNetwork = (s: string) => {
+const canonicalizeNetwork = (s: string): string => {
   const map: Record<string, 'Mainnet' | 'Testnet' | 'Devnet'> = {
     mainnet: 'Mainnet',
     testnet: 'Testnet',
     devnet: 'Devnet',
   };
-  return map[s.toLowerCase()] ?? (s as any);
+  return map[s.toLowerCase()] ?? s;
 };
 
 function mergeTestnets(productChains: Record<string, string[]>) {
