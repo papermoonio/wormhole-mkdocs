@@ -5,6 +5,7 @@
 			"https://raw.githubusercontent.com/wormhole-foundation/wormhole-sdk-ts/main/core/base/src/constants/contracts/relayer.ts",
 			"https://raw.githubusercontent.com/wormhole-foundation/wormhole-sdk-ts/main/core/base/src/constants/contracts/executor.ts"
 		],
+		"excludeChains": ["Aptos"],
 		"outputFile": "./src/generated/ntt-support.json"
 	},
 	{

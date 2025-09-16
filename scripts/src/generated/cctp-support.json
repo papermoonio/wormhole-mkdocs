@@ -13,7 +13,8 @@
     "Sonic",
     "Linea",
     "Worldchain",
-    "Seievm"
+    "Seievm",
+    "HyperEVM"
   ],
   "Testnet": [
     "Sepolia",
@@ -29,6 +30,7 @@
     "Sonic",
     "Linea",
     "Seievm",
+    "HyperEVM",
     "Ethereum",
     "Optimism",
     "Arbitrum",

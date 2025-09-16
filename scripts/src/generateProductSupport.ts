@@ -5,6 +5,16 @@ const chainNameOverrides: Record<string, string> = {
   Klaytn: 'Kaia',
 };
 
+// --- Single source of truth for networks ---
+const NETWORK_CANON_MAP: Record<string, 'Mainnet' | 'Testnet' | 'Devnet'> = {
+  mainnet: 'Mainnet',
+  testnet: 'Testnet',
+  devnet: 'Devnet',
+};
+const ALLOWED_NETWORKS = new Set<'Mainnet' | 'Testnet' | 'Devnet'>(Object.values(NETWORK_CANON_MAP));
+
+const canonicalizeNetwork = (s: string): 'Mainnet' | 'Testnet' | 'Devnet' | string => NETWORK_CANON_MAP[s.toLowerCase()] ?? s;
+
 function mergeTestnets(productChains: Record<string, string[]>) {
   const add = (base: string) => {
     if (!productChains.Testnet.includes(base)) productChains.Testnet.push(base);
@@ -12,11 +22,9 @@ function mergeTestnets(productChains: Record<string, string[]>) {
 
   for (const name of [...productChains.Testnet]) {
     if (name.endsWith('Sepolia')) {
-      // Strip the suffix → base chain.  "Sepolia" alone maps to "Ethereum".
       const base = name.replace(/Sepolia$/, '') || 'Ethereum';
       add(base);
     } else if (name.endsWith('Holesky')) {
-      // Holesky is an Ethereum testnet
       add('Ethereum');
     }
   }
@@ -28,14 +36,18 @@ export async function generateProductSupport({
   urls,
   outputFile,
   customChains,
+  excludeChains,
 }: {
   product: string;
   url?: string;
   urls?: string[];
   outputFile: string;
   customChains?: Record<string, string[]>;
+  excludeChains?: string[];
 }) {
-  // --- NEW: fetch one or many sources ---------------------------------------
+  const exclusionSet = new Set((excludeChains ?? []).map((s) => s.toLowerCase()));
+
+  // --- fetch one or many sources ---
   const sources: string[] = [];
   if (urls && urls.length > 0) {
     for (const u of urls) {
@@ -49,8 +61,8 @@ export async function generateProductSupport({
     throw new Error(`No url(s) provided for ${product}`);
   }
 
-  // Holder for aggregated chains across sources
-  const productChains: Record<string, string[]> = {
+  // Aggregated chains across sources (initialize only allowed keys)
+  const productChains: Record<'Mainnet' | 'Testnet' | 'Devnet', string[]> = {
     Mainnet: [],
     Testnet: [],
     Devnet: [],
@@ -62,9 +74,12 @@ export async function generateProductSupport({
   for (const text of sources) {
     let match;
     while ((match = networkBlockRegex.exec(text)) !== null) {
-      const network = match[1];
+      const net = canonicalizeNetwork(match[1]);
+      if (!ALLOWED_NETWORKS.has(net)) continue;
+
       const body = match[2];
 
+      // Each element: ["ChainName", "0xAddressOrWhatever"]
       const chainRegex = /\[\s*["']([^"']+)["']\s*,\s*["'][^"']+["']\s*\]/g;
 
       let chainMatch;
@@ -72,21 +87,31 @@ export async function generateProductSupport({
         const originalName = chainMatch[1];
         const normalizedName = chainNameOverrides[originalName] || originalName;
 
-        if (!productChains[network]) productChains[network] = [];
-        productChains[network].push(normalizedName);
+        // Skip excluded chains (compare post-normalization, case-insensitive)
+        if (exclusionSet.has(normalizedName.toLowerCase())) continue;
+
+        productChains[net].push(normalizedName);
       }
     }
   }
 
-  // Add any extra manual entries (still works for other products)
+  // Add any manual chains (for other products) with same rules + canonical net
   if (customChains) {
-    for (const net of Object.keys(customChains)) {
-      productChains[net].push(...customChains[net]);
+    for (const netRaw of Object.keys(customChains)) {
+      const net = canonicalizeNetwork(netRaw);
+      if (!ALLOWED_NETWORKS.has(net)) continue;
+
+      for (const name of customChains[netRaw]) {
+        const normalized = chainNameOverrides[name] || name;
+        if (!exclusionSet.has(normalized.toLowerCase())) {
+          productChains[net].push(normalized);
+        }
+      }
     }
   }
 
   // Deduplicate per environment
-  for (const net of Object.keys(productChains)) {
+  for (const net of ALLOWED_NETWORKS) {
     productChains[net] = [...new Set(productChains[net])];
   }
 
