@@ -26,6 +26,11 @@
       "mainnet": true,
       "testnet": false,
       "devnet": false
+    },
+    "cctp": {
+      "mainnet": true,
+      "testnet": true,
+      "devnet": false
     }
   }
 }
