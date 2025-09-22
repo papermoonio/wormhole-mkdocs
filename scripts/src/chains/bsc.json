@@ -48,6 +48,11 @@
       "mainnet": true,
       "testnet": true,
       "devnet": true
+    },
+    "executor": {
+      "mainnet": true,
+      "testnet": false,
+      "devnet": false
     }
   }
 }

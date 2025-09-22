@@ -99,6 +99,10 @@ async function overwriteGenerated(tag: string, content: string) {
     'CCTP_ADDRESS',
     generateAllContractsTable(chains, 'cctp')
   );
+  await overwriteGenerated(
+    'EXECUTOR_ADDRESS',
+    generateAllContractsTable(chains, 'executor')
+  );
 
   // Consistency levels
   await overwriteGenerated(
