@@ -19,6 +19,11 @@
       "mainnet": true,
       "testnet": true,
       "devnet": false
+    },
+    "executor": {
+      "mainnet": false,
+      "testnet": true,
+      "devnet": false
     }
   },
   "devDocs": "https://docs.plume.org/plume",
