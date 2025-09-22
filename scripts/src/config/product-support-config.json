@@ -5,7 +5,14 @@
 			"https://raw.githubusercontent.com/wormhole-foundation/wormhole-sdk-ts/main/core/base/src/constants/contracts/relayer.ts",
 			"https://raw.githubusercontent.com/wormhole-foundation/wormhole-sdk-ts/main/core/base/src/constants/contracts/executor.ts"
 		],
+		"filterUrls": [
+			"https://raw.githubusercontent.com/wormhole-foundation/wormhole-sdk-ts/main/core/base/src/constants/contracts/core.ts"
+		],
 		"excludeChains": ["Aptos"],
+		"manualAdd": {
+			"Mainnet": ["Solana", "Sui", "Fogo"],
+			"Testnet": ["Solana", "Sui", "Fogo"]
+		},
 		"outputFile": "./src/generated/ntt-support.json"
 	},
 	{

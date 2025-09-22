@@ -24,9 +24,9 @@
     "HyperEVM",
     "Linea",
     "Solana",
-    "Sonic",
     "Sui",
-    "XRPLEVM"
+    "XRPLEVM",
+    "Fogo"
   ],
   "Testnet": [
     "Ethereum",
