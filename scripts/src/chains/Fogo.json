@@ -12,7 +12,7 @@
       "devnet": false
     },
     "ntt": {
-      "mainnet": false,
+      "mainnet": true,
       "testnet": true,
       "devnet": false
     }
