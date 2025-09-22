@@ -1,21 +1,26 @@
 import axios from 'axios';
 import { promises as fs } from 'fs';
 
-const chainNameOverrides: Record<string, string> = {
-  Klaytn: 'Kaia',
-};
+// --- Local, file-scoped network canonicalization ---
+type Network = 'Mainnet' | 'Testnet' | 'Devnet';
 
-// --- Single source of truth for networks ---
-const NETWORK_CANON_MAP: Record<string, 'Mainnet' | 'Testnet' | 'Devnet'> = {
+const NETWORK_CANON_MAP: Record<string, Network> = {
   mainnet: 'Mainnet',
   testnet: 'Testnet',
   devnet: 'Devnet',
 };
-const ALLOWED_NETWORKS = new Set<'Mainnet' | 'Testnet' | 'Devnet'>(Object.values(NETWORK_CANON_MAP));
+const ALLOWED_NETWORKS = new Set<Network>(['Mainnet', 'Testnet', 'Devnet']);
 
-const canonicalizeNetwork = (s: string): 'Mainnet' | 'Testnet' | 'Devnet' | string => NETWORK_CANON_MAP[s.toLowerCase()] ?? s;
+const canonicalizeNetwork = (s: string): Network | undefined => NETWORK_CANON_MAP[s.toLowerCase()];
 
-function mergeTestnets(productChains: Record<string, string[]>) {
+// Map SDK chain names to doc-preferred names
+const chainNameOverrides: Record<string, string> = {
+  Klaytn: 'Kaia',
+};
+
+const normalizeChainName = (name: string) => chainNameOverrides[name] || name;
+
+function mergeTestnets(productChains: Record<Network, string[]>) {
   const add = (base: string) => {
     if (!productChains.Testnet.includes(base)) productChains.Testnet.push(base);
   };
@@ -30,24 +35,23 @@ function mergeTestnets(productChains: Record<string, string[]>) {
   }
 }
 
-export async function generateProductSupport({
-  product,
-  url,
-  urls,
-  outputFile,
-  customChains,
-  excludeChains,
-}: {
+type GenArgs = {
   product: string;
-  url?: string;
-  urls?: string[];
+  url?: string; // single source
+  urls?: string[]; // multiple sources
   outputFile: string;
   customChains?: Record<string, string[]>;
-  excludeChains?: string[];
-}) {
+  excludeChains?: string[]; // optional: global excludes for this product
+  filterUrls?: string[]; // optional: final allowlist sources (e.g., NTT)
+  manualAdd?: Record<string, string[]>; // NEW: force-include chains per network at the end
+};
+
+export async function generateProductSupport({ product, url, urls, outputFile, customChains, excludeChains, filterUrls, manualAdd }: GenArgs) {
   const exclusionSet = new Set((excludeChains ?? []).map((s) => s.toLowerCase()));
 
-  // --- fetch one or many sources ---
+  // -------------------
+  // Fetch one or many sources for the main product discovery
+  // -------------------
   const sources: string[] = [];
   if (urls && urls.length > 0) {
     for (const u of urls) {
@@ -61,33 +65,32 @@ export async function generateProductSupport({
     throw new Error(`No url(s) provided for ${product}`);
   }
 
-  // Aggregated chains across sources (initialize only allowed keys)
-  const productChains: Record<'Mainnet' | 'Testnet' | 'Devnet', string[]> = {
+  // Aggregated chains across sources (keyed by canonical network)
+  const productChains: Record<Network, string[]> = {
     Mainnet: [],
     Testnet: [],
     Devnet: [],
   };
 
-  // Matches entries like: ["Mainnet", [[ "Ethereum", "0x..." ], ...]]
+  // Matches tuples like: ["Mainnet", [[ "Ethereum", "0x..." ], ...]]
   const networkBlockRegex = /\[\s*["'](\w+)["']\s*,\s*\[\s*((?:\s*\[[^\]]+\]\s*,?\s*)+)\s*\]\s*\]/gm;
 
   for (const text of sources) {
     let match;
     while ((match = networkBlockRegex.exec(text)) !== null) {
       const net = canonicalizeNetwork(match[1]);
-      if (!ALLOWED_NETWORKS.has(net)) continue;
+      if (!net || !ALLOWED_NETWORKS.has(net)) continue;
 
       const body = match[2];
 
-      // Each element: ["ChainName", "0xAddressOrWhatever"]
+      // Each entry: ["ChainName","0xAddressOrSomething"]
       const chainRegex = /\[\s*["']([^"']+)["']\s*,\s*["'][^"']+["']\s*\]/g;
 
       let chainMatch;
       while ((chainMatch = chainRegex.exec(body)) !== null) {
         const originalName = chainMatch[1];
-        const normalizedName = chainNameOverrides[originalName] || originalName;
+        const normalizedName = normalizeChainName(originalName);
 
-        // Skip excluded chains (compare post-normalization, case-insensitive)
         if (exclusionSet.has(normalizedName.toLowerCase())) continue;
 
         productChains[net].push(normalizedName);
@@ -95,14 +98,14 @@ export async function generateProductSupport({
     }
   }
 
-  // Add any manual chains (for other products) with same rules + canonical net
+  // Add any manual chains from config.customChains (legacy behavior for other products)
   if (customChains) {
     for (const netRaw of Object.keys(customChains)) {
       const net = canonicalizeNetwork(netRaw);
-      if (!ALLOWED_NETWORKS.has(net)) continue;
+      if (!net || !ALLOWED_NETWORKS.has(net)) continue;
 
       for (const name of customChains[netRaw]) {
-        const normalized = chainNameOverrides[name] || name;
+        const normalized = normalizeChainName(name);
         if (!exclusionSet.has(normalized.toLowerCase())) {
           productChains[net].push(normalized);
         }
@@ -110,23 +113,81 @@ export async function generateProductSupport({
     }
   }
 
-  // Deduplicate per environment
+  // Deduplicate early
   for (const net of ALLOWED_NETWORKS) {
     productChains[net] = [...new Set(productChains[net])];
   }
 
-  // Merge Sepolia/Holesky into base
+  // Merge Sepolia/Holesky into base (existing behavior)
   mergeTestnets(productChains);
 
-  // Final dedupe
+  // Final dedupe after merge
   productChains.Testnet = [...new Set(productChains.Testnet)];
 
-  try {
-    await fs.mkdir('./src/generated', { recursive: true });
-    await fs.writeFile(outputFile, JSON.stringify(productChains, null, 2));
-    console.log(`Wrote ${product} support to ${outputFile}`);
-  } catch (error) {
-    console.error(`Failed to write ${product} support to ${outputFile}:`, error);
-    throw error;
+  // -------------------
+  // FINAL FILTER (ALLOWLIST): only if filterUrls provided (e.g., for NTT)
+  // Keep ONLY chains that also appear in the filter sources. Do not add new ones here.
+  // -------------------
+  if (filterUrls && filterUrls.length > 0) {
+    const filterSources: string[] = [];
+    for (const u of filterUrls) {
+      const res = await axios.get(u);
+      filterSources.push(res.data);
+    }
+
+    const allowed: Record<Network, Set<string>> = {
+      Mainnet: new Set<string>(),
+      Testnet: new Set<string>(),
+      Devnet: new Set<string>(),
+    };
+
+    for (const text of filterSources) {
+      let match;
+      while ((match = networkBlockRegex.exec(text)) !== null) {
+        const net = canonicalizeNetwork(match[1]);
+        if (!net || !ALLOWED_NETWORKS.has(net)) continue;
+
+        const body = match[2];
+        const chainRegex = /\[\s*["']([^"']+)["']\s*,\s*["'][^"']+["']\s*\]/g;
+
+        let chainMatch;
+        while ((chainMatch = chainRegex.exec(body)) !== null) {
+          const normalizedName = normalizeChainName(chainMatch[1]);
+          allowed[net].add(normalizedName);
+        }
+      }
+    }
+
+    for (const net of ALLOWED_NETWORKS) {
+      productChains[net] = productChains[net].filter((name) => allowed[net].has(name));
+    }
   }
+
+  // -------------------
+  // MANUAL ADD (FORCE INCLUDE): applied at the very end so it survives allowlist
+  // -------------------
+  if (manualAdd) {
+    for (const netRaw of Object.keys(manualAdd)) {
+      const net = canonicalizeNetwork(netRaw);
+      if (!net || !ALLOWED_NETWORKS.has(net)) continue;
+
+      const names = manualAdd[netRaw] || [];
+      for (const name of names) {
+        const normalized = normalizeChainName(name);
+        if (!productChains[net].includes(normalized)) {
+          productChains[net].push(normalized);
+        }
+      }
+    }
+  }
+
+  // Final dedupe (in case manualAdd introduced duplicates)
+  for (const net of ALLOWED_NETWORKS) {
+    productChains[net] = [...new Set(productChains[net])];
+  }
+
+  // Write output
+  await fs.mkdir('./src/generated', { recursive: true });
+  await fs.writeFile(outputFile, JSON.stringify(productChains, null, 2));
+  console.log(`Wrote ${product} support to ${outputFile}`);
 }
