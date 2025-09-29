@@ -21,12 +21,12 @@
     "Unichain",
     "Mezo",
     "Plume",
+    "CreditCoin",
     "HyperEVM",
     "Linea",
     "Solana",
     "Sui",
-    "XRPLEVM",
-    "Fogo"
+    "XRPLEVM"
   ],
   "Testnet": [
     "Ethereum",
