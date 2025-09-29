@@ -130,7 +130,7 @@ export function extractArrayAfterConst(src: string, constName: string): string |
 }
 
 // 3) JSON-ify TS array literal (remove trailing commas)
-export function toJsonArray(text: string): any[] {
+export function toJsonArray<T = unknown>(text: string): T[] {
   const noTrailingCommas = text.replace(/,\s*([\]\}])/g, '$1');
   return JSON.parse(noTrailingCommas);
 }
