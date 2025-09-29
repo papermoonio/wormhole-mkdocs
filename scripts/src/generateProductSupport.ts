@@ -1,30 +1,34 @@
-import axios from 'axios';
 import { promises as fs } from 'fs';
+import { extractArrayAfterConst, stripCommentsPreserveStrings, toJsonArray } from './utils/parsing.ts';
+import { fetchText } from './utils/http.ts';
 
-// --- Local, file-scoped network canonicalization ---
+// -------------------- Networks + helpers --------------------
 type Network = 'Mainnet' | 'Testnet' | 'Devnet';
-
+const NETWORKS: Network[] = ['Mainnet', 'Testnet', 'Devnet'];
 const NETWORK_CANON_MAP: Record<string, Network> = {
   mainnet: 'Mainnet',
+  mainnets: 'Mainnet',
   testnet: 'Testnet',
+  testnets: 'Testnet',
   devnet: 'Devnet',
+  devnets: 'Devnet',
 };
-const ALLOWED_NETWORKS = new Set<Network>(['Mainnet', 'Testnet', 'Devnet']);
 
 const canonicalizeNetwork = (s: string): Network | undefined => NETWORK_CANON_MAP[s.toLowerCase()];
 
-// Map SDK chain names to doc-preferred names
-const chainNameOverrides: Record<string, string> = {
-  Klaytn: 'Kaia',
-};
+function createEmptyNetworkRecord<T>(init: () => T): Record<Network, T> {
+  return { Mainnet: init(), Testnet: init(), Devnet: init() };
+}
 
+// -------------------- Chain normalization --------------------
+const chainNameOverrides: Record<string, string> = { Klaytn: 'Kaia' };
 const normalizeChainName = (name: string) => chainNameOverrides[name] || name;
 
+// -------------------- Main logic --------------------
 function mergeTestnets(productChains: Record<Network, string[]>) {
   const add = (base: string) => {
     if (!productChains.Testnet.includes(base)) productChains.Testnet.push(base);
   };
-
   for (const name of [...productChains.Testnet]) {
     if (name.endsWith('Sepolia')) {
       const base = name.replace(/Sepolia$/, '') || 'Ethereum';
@@ -37,157 +41,128 @@ function mergeTestnets(productChains: Record<Network, string[]>) {
 
 type GenArgs = {
   product: string;
-  url?: string; // single source
-  urls?: string[]; // multiple sources
+  url?: string;
+  urls?: string[];
+  consts?: string[];
   outputFile: string;
   customChains?: Record<string, string[]>;
-  excludeChains?: string[]; // optional: global excludes for this product
-  filterUrls?: string[]; // optional: final allowlist sources (e.g., NTT)
-  manualAdd?: Record<string, string[]>; // NEW: force-include chains per network at the end
+  excludeChains?: string[];
+  filterUrls?: string[]; // optional: final allowlist sources
+  filterConsts?: string[]; // optional: target constants in allowlist sources
+  manualAdd?: Record<string, string[]>; // optional: force include at end
 };
 
-export async function generateProductSupport({ product, url, urls, outputFile, customChains, excludeChains, filterUrls, manualAdd }: GenArgs) {
-  const exclusionSet = new Set((excludeChains ?? []).map((s) => s.toLowerCase()));
+function pickConstCandidates(product: string): string[] {
+  // Heuristics by product; add more if you need
+  if (product.toUpperCase() === 'CCTP') return ['usdcContracts'];
+  if (product.toUpperCase() === 'NTT') return ['relayerContracts', 'executorContracts'];
+  // default: any "*Contracts" is acceptable
+  return ['relayerContracts', 'executorContracts', 'coreBridgeContracts', 'tokenBridgeContracts', 'usdcContracts'];
+}
 
-  // -------------------
-  // Fetch one or many sources for the main product discovery
-  // -------------------
-  const sources: string[] = [];
-  if (urls && urls.length > 0) {
-    for (const u of urls) {
-      const res = await axios.get(u);
-      sources.push(res.data);
-    }
+function parseContractsArray(rawSource: string, product: string, preferredConsts?: string[]): Array<[string, Array<[string, unknown]>]> {
+  const srcNoComments = stripCommentsPreserveStrings(rawSource);
+  const candidates = preferredConsts?.length ? preferredConsts : pickConstCandidates(product);
+  let arrayText: string | undefined;
+  for (const name of candidates) {
+    arrayText = extractArrayAfterConst(srcNoComments, name);
+    if (arrayText) break;
+  }
+  if (!arrayText) return [];
+  try {
+    return toJsonArray(arrayText) as any;
+  } catch {
+    return [];
+  }
+}
+
+export async function generateProductSupport(args: GenArgs) {
+  const { outputFile, product, url, urls, consts, filterUrls, filterConsts, excludeChains, customChains, manualAdd } = args;
+  const exclusionSet = new Set((excludeChains ?? []).map((s) => s.toLowerCase()));
+  const productChains = createEmptyNetworkRecord<string[]>(() => []);
+
+  // ---- 1) Fetch sources and parse only the target constant array
+  const allSources: string[] = [];
+  if (urls?.length) {
+    for (const u of urls) allSources.push(await fetchText(u));
   } else if (url) {
-    const res = await axios.get(url);
-    sources.push(res.data);
+    allSources.push(await fetchText(url));
   } else {
     throw new Error(`No url(s) provided for ${product}`);
   }
 
-  // Aggregated chains across sources (keyed by canonical network)
-  const productChains: Record<Network, string[]> = {
-    Mainnet: [],
-    Testnet: [],
-    Devnet: [],
-  };
-
-  // Matches tuples like: ["Mainnet", [[ "Ethereum", "0x..." ], ...]]
-  const networkBlockRegex = /\[\s*["'](\w+)["']\s*,\s*\[\s*((?:\s*\[[^\]]+\]\s*,?\s*)+)\s*\]\s*\]/gm;
-
-  for (const text of sources) {
-    let match;
-    while ((match = networkBlockRegex.exec(text)) !== null) {
-      const net = canonicalizeNetwork(match[1]);
-      if (!net || !ALLOWED_NETWORKS.has(net)) continue;
-
-      const body = match[2];
-
-      // Each entry: ["ChainName","0xAddressOrSomething"]
-      const chainRegex = /\[\s*["']([^"']+)["']\s*,\s*["'][^"']+["']\s*\]/g;
-
-      let chainMatch;
-      while ((chainMatch = chainRegex.exec(body)) !== null) {
-        const originalName = chainMatch[1];
-        const normalizedName = normalizeChainName(originalName);
-
-        if (exclusionSet.has(normalizedName.toLowerCase())) continue;
-
-        productChains[net].push(normalizedName);
+  for (const src of allSources) {
+    const entries = parseContractsArray(src, product, consts);
+    for (const [netRaw, pairs] of entries) {
+      const net = canonicalizeNetwork(String(netRaw));
+      if (!net || !Array.isArray(pairs)) continue;
+      for (const item of pairs) {
+        if (!Array.isArray(item) || item.length < 2) continue;
+        const chain = normalizeChainName(String(item[0]));
+        if (exclusionSet.has(chain.toLowerCase())) continue;
+        productChains[net].push(chain);
       }
     }
   }
 
-  // Add any manual chains from config.customChains (legacy behavior for other products)
+  // ---- 2) Legacy customChains (other products)
   if (customChains) {
     for (const netRaw of Object.keys(customChains)) {
       const net = canonicalizeNetwork(netRaw);
-      if (!net || !ALLOWED_NETWORKS.has(net)) continue;
-
+      if (!net) continue;
       for (const name of customChains[netRaw]) {
-        const normalized = normalizeChainName(name);
-        if (!exclusionSet.has(normalized.toLowerCase())) {
-          productChains[net].push(normalized);
-        }
+        const chain = normalizeChainName(name);
+        if (!exclusionSet.has(chain.toLowerCase())) productChains[net].push(chain);
       }
     }
   }
 
-  // Deduplicate early
-  for (const net of ALLOWED_NETWORKS) {
-    productChains[net] = [...new Set(productChains[net])];
-  }
-
-  // Merge Sepolia/Holesky into base (existing behavior)
+  // ---- 3) Dedup + merge testnet bases
+  for (const n of NETWORKS) productChains[n] = [...new Set(productChains[n])];
   mergeTestnets(productChains);
-
-  // Final dedupe after merge
   productChains.Testnet = [...new Set(productChains.Testnet)];
 
-  // -------------------
-  // FINAL FILTER (ALLOWLIST): only if filterUrls provided (e.g., for NTT)
-  // Keep ONLY chains that also appear in the filter sources. Do not add new ones here.
-  // -------------------
-  if (filterUrls && filterUrls.length > 0) {
-    const filterSources: string[] = [];
+  // ---- 4) Final allowlist (filterUrls): keep-only what appears in those files
+  if (filterUrls?.length) {
+    const allowed = createEmptyNetworkRecord<Set<string>>(() => new Set<string>());
     for (const u of filterUrls) {
-      const res = await axios.get(u);
-      filterSources.push(res.data);
-    }
-
-    const allowed: Record<Network, Set<string>> = {
-      Mainnet: new Set<string>(),
-      Testnet: new Set<string>(),
-      Devnet: new Set<string>(),
-    };
-
-    for (const text of filterSources) {
-      let match;
-      while ((match = networkBlockRegex.exec(text)) !== null) {
-        const net = canonicalizeNetwork(match[1]);
-        if (!net || !ALLOWED_NETWORKS.has(net)) continue;
-
-        const body = match[2];
-        const chainRegex = /\[\s*["']([^"']+)["']\s*,\s*["'][^"']+["']\s*\]/g;
-
-        let chainMatch;
-        while ((chainMatch = chainRegex.exec(body)) !== null) {
-          const normalizedName = normalizeChainName(chainMatch[1]);
-          allowed[net].add(normalizedName);
+      const raw = await fetchText(u);
+      const entries = parseContractsArray(raw, product, filterConsts);
+      if (!entries.length) {
+        console.warn(`[${product}] No filter const(s) ${filterConsts?.join(', ')} found in ${u}; ignoring this file for allow-list.`);
+        continue;
+      } else {
+        for (const [netRaw, pairs] of entries) {
+          const net = canonicalizeNetwork(String(netRaw));
+          if (!net) continue;
+          for (const item of pairs || []) {
+            if (!Array.isArray(item) || item.length < 2) continue;
+            allowed[net].add(normalizeChainName(String(item[0])));
+          }
         }
       }
     }
-
-    for (const net of ALLOWED_NETWORKS) {
-      productChains[net] = productChains[net].filter((name) => allowed[net].has(name));
+    for (const n of NETWORKS) {
+      productChains[n] = productChains[n].filter((name) => allowed[n].has(name));
     }
   }
 
-  // -------------------
-  // MANUAL ADD (FORCE INCLUDE): applied at the very end so it survives allowlist
-  // -------------------
+  // ---- 5) Manual additions (force include at the end)
   if (manualAdd) {
     for (const netRaw of Object.keys(manualAdd)) {
       const net = canonicalizeNetwork(netRaw);
-      if (!net || !ALLOWED_NETWORKS.has(net)) continue;
-
-      const names = manualAdd[netRaw] || [];
-      for (const name of names) {
-        const normalized = normalizeChainName(name);
-        if (!productChains[net].includes(normalized)) {
-          productChains[net].push(normalized);
-        }
+      if (!net) continue;
+      for (const name of manualAdd[netRaw] || []) {
+        const chain = normalizeChainName(name);
+        if (!productChains[net].includes(chain)) productChains[net].push(chain);
       }
     }
   }
 
-  // Final dedupe (in case manualAdd introduced duplicates)
-  for (const net of ALLOWED_NETWORKS) {
-    productChains[net] = [...new Set(productChains[net])];
-  }
+  // ---- 6) Final dedupe + write
+  for (const n of NETWORKS) productChains[n] = [...new Set(productChains[n])];
 
-  // Write output
   await fs.mkdir('./src/generated', { recursive: true });
   await fs.writeFile(outputFile, JSON.stringify(productChains, null, 2));
-  console.log(`Wrote ${product} support to ${outputFile}`);
+  console.log(`[${product}] wrote -> ${outputFile}`);
 }
