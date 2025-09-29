@@ -70,7 +70,7 @@ function parseContractsArray(rawSource: string, product: string, preferredConsts
   }
   if (!arrayText) return [];
   try {
-    return toJsonArray(arrayText) as any;
+    return toJsonArray(arrayText);
   } catch {
     return [];
   }
