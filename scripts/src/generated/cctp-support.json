@@ -14,7 +14,10 @@
     "Linea",
     "Worldchain",
     "Seievm",
-    "HyperEVM"
+    "HyperEVM",
+    "Plume",
+    "Ink",
+    "HyperCore"
   ],
   "Testnet": [
     "Sepolia",
