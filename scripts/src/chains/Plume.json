@@ -32,6 +32,11 @@
       "testnet": true,
       "devnet": false
     },
+    "executor": {
+      "mainnet": false,
+      "testnet": true,
+      "devnet": false
+    },
     "cctp": {
       "mainnet": true,
       "testnet": false,
