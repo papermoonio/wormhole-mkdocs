@@ -26,7 +26,7 @@
   },
   "products": {
     "tokenBridge": {
-      "mainnet": false,
+      "mainnet": true,
       "testnet": true,
       "devnet": false
     },
@@ -41,6 +41,11 @@
       "devnet": false
     },
     "ntt": {
+      "mainnet": true,
+      "testnet": false,
+      "devnet": false
+    },
+    "executor": {
       "mainnet": true,
       "testnet": false,
       "devnet": false

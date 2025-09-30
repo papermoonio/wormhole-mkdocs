@@ -72,6 +72,12 @@ function getChainDetails(chainName: string): ExtraDetails {
       products.tokenBridge[net.toLowerCase() as keyof ProductSupport] = true;
     }
 
+    // Executor
+    if (contracts.executor) {
+      if (!products.executor) products.executor = { mainnet: false, testnet: false, devnet: false };
+      products.executor[net.toLowerCase() as keyof ProductSupport] = true;
+    }
+
     // CCTP
     const effectiveChainName = chainNameOverrides[chainName] || chainName;
     const isCctpSupported = (cctpSupport[net] || []).includes(effectiveChainName);
@@ -129,6 +135,8 @@ function getChainDetails(chainName: string): ExtraDetails {
 export async function getDocChains(): Promise<DocChain[]> {
   // We need to get a list of all of the chains.
   const chainsList = chain.chains;
+  const testnetWh = await wormhole('Testnet', []);
+  const devnetWh  = await wormhole('Devnet', []);
 
   // Chains we don't want to appear on the docs
   const skipChains = ['Wormchain', 'Btc', 'Aurora'];
@@ -167,7 +175,6 @@ export async function getDocChains(): Promise<DocChain[]> {
     };
 
     // Get testnet configs
-    let testnetWh = await wormhole('Testnet', []);
     const testnetConfigs = testnetWh.config.chains[c];
     const testnets: ChainDetails[] = [];
     if (testnetConfigs) {
@@ -180,7 +187,6 @@ export async function getDocChains(): Promise<DocChain[]> {
     }
 
     // Get devnet configs
-    const devnetWh = await wormhole('Devnet', []);
     const devnetConfigs = devnetWh.config.chains[c];
     const devnets: ChainDetails[] = [];
     if (devnetConfigs) {

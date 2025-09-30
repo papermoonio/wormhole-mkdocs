@@ -7,7 +7,7 @@ import {
 } from '@wormhole-foundation/sdk';
 
 (async function () {
-  const chains = cfg.getDocChains();
+  const chains = await cfg.getDocChains();
   for (const chain of chains) {
     const sdkName = chainIdToChain.get(chain.mainnet.id)!;
 
