@@ -89,7 +89,7 @@ This config is only used today for CCTP and NTT. It tells the generator which fi
 
 **Example**
 
-```jsonc
+```json
 [
   {
     "product": "NTT",
