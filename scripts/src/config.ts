@@ -72,12 +72,6 @@ function getChainDetails(chainName: string): ExtraDetails {
       products.tokenBridge[net.toLowerCase() as keyof ProductSupport] = true;
     }
 
-    // Executor
-    if (contracts.executor) {
-      if (!products.executor) products.executor = { mainnet: false, testnet: false, devnet: false };
-      products.executor[net.toLowerCase() as keyof ProductSupport] = true;
-    }
-
     // CCTP
     const effectiveChainName = chainNameOverrides[chainName] || chainName;
     const isCctpSupported = (cctpSupport[net] || []).includes(effectiveChainName);
