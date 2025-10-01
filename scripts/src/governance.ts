@@ -1,6 +1,6 @@
 import { readFile } from 'fs/promises';
 import { fetchText } from './utils/http';
-import { buildHTMLTable, formatHTMLTable, makePrioritizedAlphaCompare } from './util';
+import { buildHTMLTable, formatHTMLTable, makePrioritizedAlphaCompare, escapeHtml, fmtCodeStr } from './util';
 
 type GeneralPurposeGovernance = { address: string; chainId: number };
 type ContractsJson = {
@@ -89,13 +89,15 @@ export async function generateGovernanceTestnetTable(): Promise<string> {
   </thead>`;
 
   const body = uniqueSorted
-    .map(
-      (r) => `\
+    .map((r) => {
+      const name = escapeHtml(r.name);
+      const addr = escapeHtml(r.address);
+      return `\
 <tr>
-  <td>${r.name}</td>
-  <td><code>${r.address}</code></td>
-</tr>`,
-    )
+  <td>${name}</td>
+  <td>${fmtCodeStr(addr)}</td>
+</tr>`;
+    })
     .join('\n');
 
   return formatHTMLTable(buildHTMLTable(tableHeader, body));

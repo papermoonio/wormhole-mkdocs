@@ -165,3 +165,14 @@ export function makePrioritizedAlphaCompare(priorities: string[]) {
     return a.localeCompare(b, 'en', { sensitivity: 'base' });
   };
 }
+
+// Escapes HTML special characters in a string to prevent HTML injection
+export function escapeHtml(s: string): string {
+  const str = String(s);
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
