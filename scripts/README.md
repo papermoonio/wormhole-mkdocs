@@ -132,6 +132,36 @@ This config is only used today for CCTP and NTT. It tells the generator which fi
 4. Pick an `outputFile` under `src/generated/`.
 5. Run `npm run generate` and review the changes.
 
+---
+
+## Guardian Governance (Testnet) Table
+
+We also auto-generate the Guardian Governance (Testnet) table and inject it into the "Contract Addresses" docs page.
+
+### What it does
+
+- Reads the source URLs from **`scripts/src/config/contracts-config.json`**.
+- Fetches governance addresses from NTT’s `contracts.json` and chain metadata from `chains.json`.
+- Builds a table from the `GeneralPurposeGovernances` section using the chain name mapped from `chainId`.
+- Normalizes a couple of display names for consistency in the docs (e.g., `Sepolia → Ethereum Sepolia`, `XRPL EVM Testnet → XRPL-EVM`).
+- Renders HTML using the same helpers as the other tables.
+
+- **Generator:** `scripts/src/governance.ts`  
+  Exposes `generateGovernanceTestnetTable()` which returns the rendered `<table>` HTML.
+
+- **Config (source of truth):** `scripts/src/config/contracts-config.json`  
+  Example:
+  ```json
+  {
+    "sources": {
+      "ntt_testnet": {
+        "contracts_url": "https://raw.githubusercontent.com/wormhole-foundation/native-token-transfers/deployment-scripts/evm/ts-scripts/config/testnet/contracts.json",
+        "chains_url": "https://raw.githubusercontent.com/wormhole-foundation/native-token-transfers/deployment-scripts/evm/ts-scripts/config/testnet/chains.json"
+      }
+    }
+  }
+  ```
+
 ## Troubleshooting
 
 - **A tag didn't update**: Make sure both opening and closing `<!--TAG-->` markers exist in the same file and match exactly.
