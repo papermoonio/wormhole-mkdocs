@@ -1,0 +1,8 @@
+{
+	"sources": {
+		"ntt_testnet": {
+			"contracts_url": "https://raw.githubusercontent.com/wormhole-foundation/native-token-transfers/deployment-scripts/evm/ts-scripts/config/testnet/contracts.json",
+			"chains_url": "https://raw.githubusercontent.com/wormhole-foundation/native-token-transfers/deployment-scripts/evm/ts-scripts/config/testnet/chains.json"
+		}
+	}
+}
