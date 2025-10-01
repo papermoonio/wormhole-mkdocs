@@ -143,3 +143,25 @@ export function sortChainTypes(dc: types.DocChain[]): types.DocChain[] {
     return aTitle.localeCompare(bTitle);
   });
 }
+
+// Indents each line in a block of text by the specified number of spaces
+export function indentBlock(s: string, spaces = 4): string {
+  const pad = ' '.repeat(spaces);
+  return s
+    .replace(/^\s+|\s+$/g, '')
+    .split('\n')
+    .map(line => pad + line)
+    .join('\n');
+}
+
+// Testnet Ethereum first for governance contracts (governance.ts)
+export function makePrioritizedAlphaCompare(priorities: string[]) {
+  const set = new Set(priorities.map(p => p.toLowerCase()));
+  return (a: string, b: string) => {
+    const aHit = set.has(a.toLowerCase());
+    const bHit = set.has(b.toLowerCase());
+    if (aHit && !bHit) return -1;
+    if (bHit && !aHit) return 1;
+    return a.localeCompare(b, 'en', { sensitivity: 'base' });
+  };
+}
