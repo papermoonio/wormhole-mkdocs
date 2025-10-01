@@ -52,32 +52,28 @@ type GenArgs = {
   manualAdd?: Record<string, string[]>; // optional: force include at end
 };
 
-function pickConstCandidates(product: string): string[] {
-  // Heuristics by product; add more if you need
-  if (product.toUpperCase() === 'CCTP') return ['usdcContracts'];
-  if (product.toUpperCase() === 'NTT') return ['relayerContracts', 'executorContracts'];
-  // default: any "*Contracts" is acceptable
-  return ['relayerContracts', 'executorContracts', 'coreBridgeContracts', 'tokenBridgeContracts', 'usdcContracts'];
-}
-
-function parseContractsArray(rawSource: string, product: string, preferredConsts?: string[]): Array<[string, Array<[string, unknown]>]> {
+function parseContractsArray(rawSource: string, constNames: string[]): Array<[string, Array<[string, unknown]>]> {
   const srcNoComments = stripCommentsPreserveStrings(rawSource);
-  const candidates = preferredConsts?.length ? preferredConsts : pickConstCandidates(product);
-  let arrayText: string | undefined;
-  for (const name of candidates) {
-    arrayText = extractArrayAfterConst(srcNoComments, name);
-    if (arrayText) break;
+
+  for (const name of constNames) {
+    const arrayText = extractArrayAfterConst(srcNoComments, name);
+    if (!arrayText) continue;
+    try {
+      return toJsonArray(arrayText);
+    } catch {
+      // fall through to try next const name
+    }
   }
-  if (!arrayText) return [];
-  try {
-    return toJsonArray(arrayText);
-  } catch {
-    return [];
-  }
+  return [];
 }
 
 export async function generateProductSupport(args: GenArgs) {
   const { outputFile, product, url, urls, consts, filterUrls, filterConsts, excludeChains, customChains, manualAdd } = args;
+
+  if (!consts?.length) {
+    throw new Error(`[${product}] No 'consts' provided. Define 'consts' in product-support-config.json.`);
+  }
+
   const exclusionSet = new Set((excludeChains ?? []).map((s) => s.toLowerCase()));
   const productChains = createEmptyNetworkRecord<string[]>(() => []);
 
@@ -92,7 +88,7 @@ export async function generateProductSupport(args: GenArgs) {
   }
 
   for (const src of allSources) {
-    const entries = parseContractsArray(src, product, consts);
+    const entries = parseContractsArray(src, consts);
     for (const [netRaw, pairs] of entries) {
       const net = canonicalizeNetwork(String(netRaw));
       if (!net || !Array.isArray(pairs)) continue;
@@ -124,26 +120,34 @@ export async function generateProductSupport(args: GenArgs) {
 
   // ---- 4) Final allowlist (filterUrls): keep-only what appears in those files
   if (filterUrls?.length) {
-    const allowed = createEmptyNetworkRecord<Set<string>>(() => new Set<string>());
-    for (const u of filterUrls) {
-      const raw = await fetchText(u);
-      const entries = parseContractsArray(raw, product, filterConsts);
-      if (!entries.length) {
-        console.warn(`[${product}] No filter const(s) ${filterConsts?.join(', ')} found in ${u}; ignoring this file for allow-list.`);
-        continue;
-      } else {
+    if (!filterConsts?.length) {
+      console.warn(`[${product}] 'filterUrls' provided without 'filterConsts'; skipping allow-list step.`);
+    } else {
+      const allowed = createEmptyNetworkRecord<Set<string>>(() => new Set<string>());
+
+      for (const u of filterUrls) {
+        const raw = await fetchText(u);
+        const entries = parseContractsArray(raw, filterConsts);
+
+        if (!entries.length) {
+          console.warn(`[${product}] No filter const(s) ${filterConsts.join(', ')} found in ${u}; ignoring this file for allow-list.`);
+          continue;
+        }
+
         for (const [netRaw, pairs] of entries) {
           const net = canonicalizeNetwork(String(netRaw));
           if (!net) continue;
+
           for (const item of pairs || []) {
             if (!Array.isArray(item) || item.length < 2) continue;
             allowed[net].add(normalizeChainName(String(item[0])));
           }
         }
       }
-    }
-    for (const n of NETWORKS) {
-      productChains[n] = productChains[n].filter((name) => allowed[n].has(name));
+
+      for (const n of NETWORKS) {
+        productChains[n] = productChains[n].filter((name) => allowed[n].has(name));
+      }
     }
   }
 

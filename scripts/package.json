@@ -13,10 +13,10 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@types/node": "^24.6.0",
+    "@types/node": "^24.6.1",
     "markdown-link-check": "^3.13.7",
     "tsx": "^4.20.6",
-    "typescript": "^5.9.2"
+    "typescript": "^5.9.3"
   },
   "dependencies": {
     "@wormhole-foundation/sdk": "3.8.3",

@@ -8,6 +8,8 @@ import {
   generateTestnetFaucetsTable,
 } from './details';
 import * as fs from 'fs';
+import { generateGovernanceTestnetTable } from './governance';
+import { indentBlock } from './util';
 
 // Matches for tag search
 type Match = {
@@ -130,4 +132,13 @@ async function overwriteGenerated(tag: string, content: string) {
       table
     );
   }
+
+  // Guardian Governance (Testnet)
+  const govTestnetTable = await generateGovernanceTestnetTable();
+  // Tabs expect 4-space indentation for HTML blocks
+  await overwriteGenerated(
+    'GOVERNANCE_TESTNET',
+    indentBlock(govTestnetTable, 4)
+  );
+
 })();
