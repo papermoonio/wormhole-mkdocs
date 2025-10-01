@@ -156,10 +156,10 @@ export function generateAllContractsTable(chains: types.DocChain[], module: stri
           module === 'cctp'
             ? network.contracts?.cctp?.wormhole
             : module === 'tokenBridgeRelayer'
-            ? (network.contracts as any)?.executorTokenBridge?.relayer ?? network.contracts?.tokenBridgeRelayer
+            ? network.contracts?.executorTokenBridge?.relayer ?? network.contracts?.tokenBridgeRelayer
             : module === 'tokenBridgeRelayerWithReferrer'
-            ? (network.contracts as any)?.executorTokenBridge?.relayerWithReferrer
-            : (network.contracts as any)?.[module];
+            ? network.contracts?.executorTokenBridge?.relayerWithReferrer
+            : network.contracts?.[module];
 
         if (!address) {
           let newAddress: Partial<types.ChainDetails> | undefined;
