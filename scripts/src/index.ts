@@ -99,9 +99,18 @@ async function overwriteGenerated(tag: string, content: string) {
     'CCTP_ADDRESS',
     generateAllContractsTable(chains, 'cctp')
   );
+  // Executors
   await overwriteGenerated(
     'EXECUTOR_ADDRESS',
     generateAllContractsTable(chains, 'executor')
+  );
+  await overwriteGenerated(
+    'WTT_EXECUTOR_ADDRESS',
+    generateAllContractsTable(chains, 'tokenBridgeRelayer')
+  );
+  await overwriteGenerated(
+    'WTT_EXECUTOR_WITH_REFERRER_ADDRESS',
+    generateAllContractsTable(chains, 'tokenBridgeRelayerWithReferrer')
   );
 
   // Consistency levels

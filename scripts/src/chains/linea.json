@@ -44,11 +44,6 @@
       "mainnet": true,
       "testnet": false,
       "devnet": false
-    },
-    "executor": {
-      "mainnet": true,
-      "testnet": false,
-      "devnet": false
     }
   }
 }
