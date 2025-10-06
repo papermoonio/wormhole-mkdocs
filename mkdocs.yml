@@ -90,7 +90,6 @@ plugins:
         - assets/stylesheets/terminal.css
         - assets/stylesheets/spantable-neoteroi.css
         - assets/stylesheets/timeline-neoteroi.css
-        - assets/stylesheets/wormhole.css
       scoped_css_templates:
         home.html:
           - assets/stylesheets/home.css
