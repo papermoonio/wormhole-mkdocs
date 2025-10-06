@@ -82,6 +82,21 @@ markdown_extensions:
 plugins:
   - search
   - awesome-nav
+  - minify:
+      minify_html: true
+      minify_css: true
+      cache_safe: true
+      css_files:
+        - assets/stylesheets/terminal.css
+        - assets/stylesheets/spantable-neoteroi.css
+        - assets/stylesheets/timeline-neoteroi.css
+      scoped_css_templates:
+        home.html:
+          - assets/stylesheets/home.css
+        index-page.html:
+          - assets/stylesheets/index-page.css
+        main.html:
+          - assets/stylesheets/wormhole.css
   - glightbox:
       skip_classes:
         - no-lightbox
