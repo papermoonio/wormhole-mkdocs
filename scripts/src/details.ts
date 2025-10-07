@@ -152,7 +152,14 @@ export function generateAllContractsTable(chains: types.DocChain[], module: stri
   const generateRows = (networks: types.ChainDetails[], chainType: string): string[] => {
     return networks
       .map((network) => {
-        let address = module === 'cctp' ? network.contracts?.[module]?.wormhole : network.contracts?.[module];
+        let address =
+          module === 'cctp'
+            ? network.contracts?.cctp?.wormhole
+            : module === 'tokenBridgeRelayer'
+            ? network.contracts?.executorTokenBridge?.relayer ?? network.contracts?.tokenBridgeRelayer
+            : module === 'tokenBridgeRelayerWithReferrer'
+            ? network.contracts?.executorTokenBridge?.relayerWithReferrer
+            : network.contracts?.[module];
 
         if (!address) {
           let newAddress: Partial<types.ChainDetails> | undefined;
@@ -193,20 +200,19 @@ export function generateAllContractsTable(chains: types.DocChain[], module: stri
 
   const devNetTableBody = orderedChains.flatMap((chain) => generateRows(chain.devnets || [], 'devnet'));
 
-  // Combine everything into the final table
-  return `
-=== "Mainnet"
+  // Render each tab
+  const mainnetHtml = formatHTMLTable(buildHTMLTable(tableHeader, mainNetTableBody.join('')));
+  const testnetHtml = formatHTMLTable(buildHTMLTable(tableHeader, testNetTableBody.join('')));
+  const devnetHtml = devNetTableBody.length > 0 ? formatHTMLTable(buildHTMLTable(tableHeader, devNetTableBody.join(''))) : '';
 
-    ${formatHTMLTable(buildHTMLTable(tableHeader, mainNetTableBody.join('')))}
+  // Assemble tabs; only include Devnet if it has rows
+  const parts: string[] = [`=== "Mainnet"\n\n    ${mainnetHtml}`, `=== "Testnet"\n\n    ${testnetHtml}`];
 
-=== "Testnet"
+  if (devnetHtml) {
+    parts.push(`=== "Devnet"\n\n    ${devnetHtml}`);
+  }
 
-    ${formatHTMLTable(buildHTMLTable(tableHeader, testNetTableBody.join('')))}
-
-=== "Devnet"
-
-    ${formatHTMLTable(buildHTMLTable(tableHeader, devNetTableBody.join('')))}
-  `;
+  return parts.join('\n\n');
 }
 
 export function generateSupportedNetworksTable(dc: types.DocChain[]): string {
