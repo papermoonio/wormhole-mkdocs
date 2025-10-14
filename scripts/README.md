@@ -24,6 +24,7 @@ Day-to-day operators do not need to touch the TypeScript—just run `npm run upd
 3. `npm run generate`
    - Pulls contract data, regenerates JSON, and rewrites snippets. Watch for unmatched-tag warnings.
 4. Review and commit changes in both `scripts/` and `wormhole-docs/.snippets/text`.
+5. Open two PRs: one targeting `wormhole-mkdocs` for the mkdocs updates and another targeting `wormhole` if that repo picked up changes; make sure each PR links to the other.
 
 (Optional) Run `npm run typecheck` if you modified the scripts or need extra confidence.
 
