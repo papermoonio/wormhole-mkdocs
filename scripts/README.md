@@ -123,6 +123,6 @@ Follow the quick-start steps above (`npm run update` then `npm run generate`). A
 
 ## Covering for the Owner
 
-1. Follow the quick-start runbook. Resolve any warnings before moving on.
+1. Follow the [quick-start](#quick-start) runbook. Resolve any warnings before moving on.
 2. Review changes in both this directory and `wormhole-docs/.snippets/text`.
 3. Open a PR with all modified files (scripts, configs, generated JSON, and snippets). Please mention any manual edits or new tags that have been introduced.
