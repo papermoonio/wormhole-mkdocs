@@ -1,9 +1,29 @@
-import { promises as fs } from 'fs';
-import { extractArrayAfterConst, stripCommentsPreserveStrings, toJsonArray } from './utils/parsing.ts';
-import { fetchText } from './utils/http.ts';
+import path from 'node:path';
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
 
-// -------------------- Networks + helpers --------------------
+import {
+  extractArrayAfterConst,
+  stripCommentsPreserveStrings,
+  toJsonArray,
+} from './utils/parsing';
+import { fetchText } from './utils/http';
+
 type Network = 'Mainnet' | 'Testnet' | 'Devnet';
+type NetworkRecord<T> = Record<Network, T>;
+
+export type ProductConfig = {
+  product: string;
+  url?: string;
+  urls?: string[];
+  consts: string[];
+  outputFile: string;
+  customChains?: Record<string, string[]>;
+  excludeChains?: string[];
+  filterUrls?: string[];
+  filterConsts?: string[];
+  manualAdd?: Record<string, string[]>;
+};
+
 const NETWORKS: Network[] = ['Mainnet', 'Testnet', 'Devnet'];
 const NETWORK_CANON_MAP: Record<string, Network> = {
   mainnet: 'Mainnet',
@@ -14,159 +34,217 @@ const NETWORK_CANON_MAP: Record<string, Network> = {
   devnets: 'Devnet',
 };
 
-const canonicalizeNetwork = (s: string): Network | undefined => NETWORK_CANON_MAP[s.toLowerCase()];
+const canonicalizeNetwork = (input: string): Network | undefined =>
+  NETWORK_CANON_MAP[input.toLowerCase()];
 
-function createEmptyNetworkRecord<T>(init: () => T): Record<Network, T> {
-  return { Mainnet: init(), Testnet: init(), Devnet: init() };
-}
-
-// -------------------- Chain normalization --------------------
-const chainNameOverrides: Record<string, string> = { Klaytn: 'Kaia' };
-const normalizeChainName = (name: string) => chainNameOverrides[name] || name;
-
-// -------------------- Main logic --------------------
-function mergeTestnets(productChains: Record<Network, string[]>) {
-  const add = (base: string) => {
-    if (!productChains.Testnet.includes(base)) productChains.Testnet.push(base);
-  };
-  for (const name of [...productChains.Testnet]) {
-    if (name.endsWith('Sepolia')) {
-      const base = name.replace(/Sepolia$/, '') || 'Ethereum';
-      add(base);
-    } else if (name.endsWith('Holesky')) {
-      add('Ethereum');
-    }
-  }
-}
-
-type GenArgs = {
-  product: string;
-  url?: string;
-  urls?: string[];
-  consts?: string[];
-  outputFile: string;
-  customChains?: Record<string, string[]>;
-  excludeChains?: string[];
-  filterUrls?: string[]; // optional: final allowlist sources
-  filterConsts?: string[]; // optional: target constants in allowlist sources
-  manualAdd?: Record<string, string[]>; // optional: force include at end
+const CHAIN_NAME_OVERRIDES: Record<string, string> = {
+  Klaytn: 'Kaia',
 };
 
-function parseContractsArray(rawSource: string, constNames: string[]): Array<[string, Array<[string, unknown]>]> {
-  const srcNoComments = stripCommentsPreserveStrings(rawSource);
+const normalizeChainName = (name: string): string =>
+  CHAIN_NAME_OVERRIDES[name] ?? name;
+
+function createNetworkRecord<T>(factory: () => T): NetworkRecord<T> {
+  return {
+    Mainnet: factory(),
+    Testnet: factory(),
+    Devnet: factory(),
+  };
+}
+
+function parseContractsArray(
+  rawSource: string,
+  constNames: string[]
+): Array<[string, Array<[string, unknown]>]> {
+  const withoutComments = stripCommentsPreserveStrings(rawSource);
 
   for (const name of constNames) {
-    const arrayText = extractArrayAfterConst(srcNoComments, name);
+    const arrayText = extractArrayAfterConst(withoutComments, name);
     if (!arrayText) continue;
     try {
       return toJsonArray(arrayText);
-    } catch {
-      // fall through to try next const name
+    } catch (err) {
+      console.warn(`Failed to parse array for ${name}: ${(err as Error).message}`);
     }
   }
   return [];
 }
 
-export async function generateProductSupport(args: GenArgs) {
-  const { outputFile, product, url, urls, consts, filterUrls, filterConsts, excludeChains, customChains, manualAdd } = args;
+function mergeEthereumTestnets(chains: NetworkRecord<string[]>) {
+  const ensure = (testnet: string) => {
+    if (!chains.Testnet.includes(testnet)) chains.Testnet.push(testnet);
+  };
+
+  for (const name of [...chains.Testnet]) {
+    if (name.endsWith('Sepolia')) {
+      const base = name.replace(/Sepolia$/, '') || 'Ethereum';
+      ensure(base);
+    } else if (name.endsWith('Holesky')) {
+      ensure('Ethereum');
+    }
+  }
+}
+
+function sortAndDedupe(record: NetworkRecord<string[]>) {
+  for (const net of NETWORKS) {
+    record[net] = Array.from(new Set(record[net])).sort((a, b) =>
+      a.localeCompare(b)
+    );
+  }
+}
+
+async function fetchAll(urls: string[]): Promise<string[]> {
+  return Promise.all(urls.map((u) => fetchText(u)));
+}
+
+function resolveOutputPath(outputFile: string): { absolute: string; relative: string } {
+  const absolute = path.resolve(outputFile);
+  const relative = path.relative(process.cwd(), absolute) || outputFile;
+  return { absolute, relative };
+}
+
+async function writeJsonIfChanged(
+  targetPath: string,
+  data: NetworkRecord<string[]>
+): Promise<'created' | 'updated' | 'noop'> {
+  const payload = JSON.stringify(data, null, 2) + '\n';
+  try {
+    const current = await readFile(targetPath, 'utf8');
+    if (current === payload) {
+      return 'noop';
+    }
+  } catch (err) {
+    if ((err as NodeJS.ErrnoException).code !== 'ENOENT') {
+      throw err;
+    }
+  }
+
+  await mkdir(path.dirname(targetPath), { recursive: true });
+  await writeFile(targetPath, payload);
+  return 'updated';
+}
+
+export async function generateProductSupport(config: ProductConfig) {
+  const {
+    product,
+    url,
+    urls,
+    consts,
+    outputFile,
+    customChains,
+    excludeChains,
+    filterUrls,
+    filterConsts,
+    manualAdd,
+  } = config;
 
   if (!consts?.length) {
-    throw new Error(`[${product}] No 'consts' provided. Define 'consts' in product-support-config.json.`);
+    throw new Error(
+      `[${product}] No 'consts' provided. Define 'consts' in product-support-config.json.`
+    );
   }
 
-  const exclusionSet = new Set((excludeChains ?? []).map((s) => s.toLowerCase()));
-  const productChains = createEmptyNetworkRecord<string[]>(() => []);
-
-  // ---- 1) Fetch sources and parse only the target constant array
-  const allSources: string[] = [];
-  if (urls?.length) {
-    for (const u of urls) allSources.push(await fetchText(u));
-  } else if (url) {
-    allSources.push(await fetchText(url));
-  } else {
-    throw new Error(`No url(s) provided for ${product}`);
+  const sourceUrls = urls?.length ? urls : url ? [url] : undefined;
+  if (!sourceUrls?.length) {
+    throw new Error(`[${product}] No url(s) provided.`);
   }
 
-  for (const src of allSources) {
+  const exclusionSet = new Set(
+    (excludeChains ?? []).map((name) => name.toLowerCase())
+  );
+  const productChains = createNetworkRecord<string[]>(() => []);
+
+  // 1) Fetch product contract sources
+  const sources = await fetchAll(sourceUrls);
+
+  for (const src of sources) {
     const entries = parseContractsArray(src, consts);
-    for (const [netRaw, pairs] of entries) {
-      const net = canonicalizeNetwork(String(netRaw));
-      if (!net || !Array.isArray(pairs)) continue;
-      for (const item of pairs) {
+    for (const [networkRaw, values] of entries) {
+      const network = canonicalizeNetwork(String(networkRaw));
+      if (!network || !Array.isArray(values)) continue;
+
+      for (const item of values) {
         if (!Array.isArray(item) || item.length < 2) continue;
         const chain = normalizeChainName(String(item[0]));
         if (exclusionSet.has(chain.toLowerCase())) continue;
-        productChains[net].push(chain);
+        productChains[network].push(chain);
       }
     }
   }
 
-  // ---- 2) Legacy customChains (other products)
+  // 2) Custom overrides (legacy)
   if (customChains) {
-    for (const netRaw of Object.keys(customChains)) {
-      const net = canonicalizeNetwork(netRaw);
-      if (!net) continue;
-      for (const name of customChains[netRaw]) {
+    for (const [networkRaw, names] of Object.entries(customChains)) {
+      const network = canonicalizeNetwork(networkRaw);
+      if (!network) continue;
+      for (const name of names ?? []) {
         const chain = normalizeChainName(name);
-        if (!exclusionSet.has(chain.toLowerCase())) productChains[net].push(chain);
+        if (!exclusionSet.has(chain.toLowerCase())) {
+          productChains[network].push(chain);
+        }
       }
     }
   }
 
-  // ---- 3) Dedup + merge testnet bases
-  for (const n of NETWORKS) productChains[n] = [...new Set(productChains[n])];
-  mergeTestnets(productChains);
-  productChains.Testnet = [...new Set(productChains.Testnet)];
+  sortAndDedupe(productChains);
+  mergeEthereumTestnets(productChains);
+  sortAndDedupe(productChains);
 
-  // ---- 4) Final allowlist (filterUrls): keep-only what appears in those files
+  // 3) Filter by allow-list (if provided)
   if (filterUrls?.length) {
     if (!filterConsts?.length) {
-      console.warn(`[${product}] 'filterUrls' provided without 'filterConsts'; skipping allow-list step.`);
+      console.warn(
+        `[${product}] 'filterUrls' provided without 'filterConsts'; skipping allow-list step.`
+      );
     } else {
-      const allowed = createEmptyNetworkRecord<Set<string>>(() => new Set<string>());
+      const allowed = createNetworkRecord<Set<string>>(() => new Set<string>());
+      const filterSources = await fetchAll(filterUrls);
 
-      for (const u of filterUrls) {
-        const raw = await fetchText(u);
-        const entries = parseContractsArray(raw, filterConsts);
+      for (const src of filterSources) {
+        const entries = parseContractsArray(src, filterConsts);
+        if (!entries.length) continue;
 
-        if (!entries.length) {
-          console.warn(`[${product}] No filter const(s) ${filterConsts.join(', ')} found in ${u}; ignoring this file for allow-list.`);
-          continue;
-        }
+        for (const [networkRaw, values] of entries) {
+          const network = canonicalizeNetwork(String(networkRaw));
+          if (!network || !Array.isArray(values)) continue;
 
-        for (const [netRaw, pairs] of entries) {
-          const net = canonicalizeNetwork(String(netRaw));
-          if (!net) continue;
-
-          for (const item of pairs || []) {
+          for (const item of values) {
             if (!Array.isArray(item) || item.length < 2) continue;
-            allowed[net].add(normalizeChainName(String(item[0])));
+            allowed[network].add(normalizeChainName(String(item[0])));
           }
         }
       }
 
-      for (const n of NETWORKS) {
-        productChains[n] = productChains[n].filter((name) => allowed[n].has(name));
+      for (const network of NETWORKS) {
+        productChains[network] = productChains[network].filter((name) =>
+          allowed[network].has(name)
+        );
       }
     }
   }
 
-  // ---- 5) Manual additions (force include at the end)
+  // 4) Manual inclusions (force add back)
   if (manualAdd) {
-    for (const netRaw of Object.keys(manualAdd)) {
-      const net = canonicalizeNetwork(netRaw);
-      if (!net) continue;
-      for (const name of manualAdd[netRaw] || []) {
+    for (const [networkRaw, names] of Object.entries(manualAdd)) {
+      const network = canonicalizeNetwork(networkRaw);
+      if (!network) continue;
+      for (const name of names ?? []) {
         const chain = normalizeChainName(name);
-        if (!productChains[net].includes(chain)) productChains[net].push(chain);
+        if (!productChains[network].includes(chain)) {
+          productChains[network].push(chain);
+        }
       }
     }
   }
 
-  // ---- 6) Final dedupe + write
-  for (const n of NETWORKS) productChains[n] = [...new Set(productChains[n])];
+  sortAndDedupe(productChains);
 
-  await fs.mkdir('./src/generated', { recursive: true });
-  await fs.writeFile(outputFile, JSON.stringify(productChains, null, 2));
-  console.log(`[${product}] wrote -> ${outputFile}`);
+  const { absolute, relative } = resolveOutputPath(outputFile);
+  const result = await writeJsonIfChanged(absolute, productChains);
+
+  if (result === 'noop') {
+    console.log(`[${product}] ${relative} is up to date.`);
+  } else {
+    console.log(`[${product}] wrote -> ${relative}`);
+  }
 }
