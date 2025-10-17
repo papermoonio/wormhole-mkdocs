@@ -7,19 +7,21 @@
     "update": "npx npm-check-updates -u && npm install --silent",
     "generate": "node --import tsx src/fetchAllProductChains.ts && node --import tsx src/index.ts",
     "check:consts": "npx tsx src/check.ts",
-    "check:links": "find ../docs -name \\*.md -print0 | xargs -0 -n1 npx markdown-link-check"
+    "check:links": "find ../docs -name \\*.md -print0 | xargs -0 -n1 npx markdown-link-check",
+    "typecheck": "tsc --noEmit"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@types/node": "^24.6.2",
-    "markdown-link-check": "^3.13.7",
+    "@types/node": "^24.8.1",
+    "markdown-link-check": "^3.14.1",
     "tsx": "^4.20.6",
     "typescript": "^5.9.3"
   },
   "dependencies": {
-    "@wormhole-foundation/sdk": "3.8.5",
+    "@wormhole-foundation/sdk": "3.8.8",
+    "axios": "^1.12.2",
     "sharp": "^0.34.4",
     "swagger-markdown": "^3.0.0"
   }
