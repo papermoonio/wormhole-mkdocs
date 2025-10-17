@@ -83,7 +83,9 @@ function getChainDetails(chainName: string): ExtraDetails {
 
     // NTT
     // Only allow EVM and Solana (not other SVMs like Pythnet)
-    const isNTTSupported = (nttSupport[net] || []).includes(effectiveChainName) || (chainName === 'Solana' && net === 'Devnet');
+    const isNTTSupported =
+      (nttSupport[net] || []).includes(effectiveChainName) ||
+      (chainName === 'Solana' && net === 'Devnet');
 
     // Ensure `products.ntt` is initialized even if unsupported
     if (!products.ntt) {

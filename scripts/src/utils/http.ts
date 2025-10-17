@@ -1,4 +1,6 @@
 import axios from 'axios';
+import { readFile } from 'node:fs/promises';
+import path from 'node:path';
 
 // -------------------- Networking (timeouts + retries) --------------------
 const http = axios.create({
@@ -11,6 +13,16 @@ const http = axios.create({
 });
 
 export async function fetchText(url: string, tries = 3): Promise<string> {
+  const isHttp = /^https?:\/\//i.test(url);
+  const isFileUrl = url.startsWith('file://');
+
+  if (!isHttp) {
+    const targetPath = isFileUrl
+      ? new URL(url)
+      : path.resolve(process.cwd(), url);
+    return readFile(targetPath, 'utf8');
+  }
+
   let lastErr: any;
   for (let i = 1; i <= tries; i++) {
     try {

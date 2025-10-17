@@ -1,16 +1,27 @@
-import fs from 'fs';
-import path from 'path';
-import { generateProductSupport } from './generateProductSupport';
+import path from 'node:path';
+import { readFile } from 'node:fs/promises';
 
-const configPath = path.resolve(__dirname, 'config/product-support-config.json');
+import {
+  generateProductSupport,
+  type ProductConfig,
+} from './generateProductSupport';
+
+const configPath = path.resolve(
+  __dirname,
+  'config/product-support-config.json'
+);
 
 async function main() {
-	const raw = fs.readFileSync(configPath, 'utf-8');
-	const configs = JSON.parse(raw);
+  const raw = await readFile(configPath, 'utf8');
+  const configs = JSON.parse(raw) as ProductConfig[];
 
-	for (const entry of configs) {
-		await generateProductSupport(entry);
-	}
+  if (!Array.isArray(configs)) {
+    throw new Error('product-support-config.json must export an array');
+  }
+
+  for (const entry of configs) {
+    await generateProductSupport(entry);
+  }
 }
 
-main();
+void main();

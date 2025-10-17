@@ -7,7 +7,8 @@
     "update": "npx npm-check-updates -u && npm install --silent",
     "generate": "node --import tsx src/fetchAllProductChains.ts && node --import tsx src/index.ts",
     "check:consts": "npx tsx src/check.ts",
-    "check:links": "find ../docs -name \\*.md -print0 | xargs -0 -n1 npx markdown-link-check"
+    "check:links": "find ../docs -name \\*.md -print0 | xargs -0 -n1 npx markdown-link-check",
+    "typecheck": "tsc --noEmit"
   },
   "keywords": [],
   "author": "",
@@ -20,6 +21,7 @@
   },
   "dependencies": {
     "@wormhole-foundation/sdk": "3.8.8",
+    "axios": "^1.12.2",
     "sharp": "^0.34.4",
     "swagger-markdown": "^3.0.0"
   }
