@@ -7,6 +7,7 @@ extra_css:
   - assets/stylesheets/terminal.css
   - assets/stylesheets/spantable-neoteroi.css
   - assets/stylesheets/timeline-neoteroi.css
+  - assets/stylesheets/wormhole.css
 theme:
   name: material
   custom_dir: material-overrides
@@ -90,13 +91,12 @@ plugins:
         - assets/stylesheets/terminal.css
         - assets/stylesheets/spantable-neoteroi.css
         - assets/stylesheets/timeline-neoteroi.css
+        - assets/stylesheets/wormhole.css
       scoped_css_templates:
         home.html:
           - assets/stylesheets/home.css
         index-page.html:
           - assets/stylesheets/index-page.css
-        main.html:
-          - assets/stylesheets/wormhole.css
   - glightbox:
       skip_classes:
         - no-lightbox
