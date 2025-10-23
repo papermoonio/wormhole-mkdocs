@@ -83,6 +83,9 @@ markdown_extensions:
 plugins:
   - search
   - awesome-nav
+  - copy_md:
+      source_dir: wormhole-docs/.ai
+      target_dir: ai
   - minify:
       minify_html: true
       minify_css: true
