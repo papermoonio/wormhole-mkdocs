@@ -8,6 +8,7 @@ extra_css:
   - assets/stylesheets/spantable-neoteroi.css
   - assets/stylesheets/timeline-neoteroi.css
   - assets/stylesheets/wormhole.css
+  - assets/stylesheets/copy-to-llm.css
 extra_javascript:
   - js/copy-to-llms.js
 theme:
@@ -100,6 +101,7 @@ plugins:
         - assets/stylesheets/spantable-neoteroi.css
         - assets/stylesheets/timeline-neoteroi.css
         - assets/stylesheets/wormhole.css
+        - assets/stylesheets/copy-to-llm.css
       scoped_css_templates:
         home.html:
           - assets/stylesheets/home.css
