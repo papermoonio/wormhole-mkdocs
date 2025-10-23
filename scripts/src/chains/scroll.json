@@ -15,7 +15,7 @@
   },
   "devDocs": "https://docs.scroll.io/en/home/",
   "faucet": {
-    "url": "https://docs.scroll.io/en/user-guide/faucet/",
+    "url": "https://docs.scroll.io/en/developers/faq/#testnet-eth",
     "token": "ETH",
     "description": "List of Faucets"
   },
