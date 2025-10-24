@@ -853,6 +853,13 @@ table th:last-child {
   width: 100%;
 }
 
+/** Icons in tables styling **/
+/* Download LLM Files table */
+.actions {
+  display: flex;
+  gap: 4px;
+}
+
 /* Fixed table headers */
 @media screen and (min-width: 45em) {
   .md-typeset table:not([class]) {
