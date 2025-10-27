@@ -181,9 +181,9 @@
   bottom: 2rem;
   left: 50%;
   transform: translateX(-50%) translateY(100px);
-  background-color: var(--md-default-bg-color);
+  background-color: var(--plum);
+  color: var(--dark);
   padding: 0.75rem 1.5rem;
-  border: 1px solid var(--border-color);
   border-radius: 6px;
   font-size: 0.875rem;
   box-shadow: 0 2px 4px rgba(193, 187, 246, 0.15);
