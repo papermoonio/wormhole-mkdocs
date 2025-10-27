@@ -17,7 +17,6 @@
 /* Split button container */
 .copy-to-llm-split-container {
   display: inline-flex;
-  margin-top: 0.5rem;
   margin-left: auto;
   border: 1px solid var(--border-color);
   border-radius: 6px;
@@ -28,8 +27,8 @@
 /* Common styles for both parts */
 .copy-to-llm-section {
   padding: 0.6em 0.9em;
-  background-color: var(--md-footer-bg-color);
-  color: var(--md-footer-fg-color);
+  background-color: var(--md-default-bg-color);
+  color: var(--md-default-fg-color);
   border: none;
   cursor: pointer;
   transition: all 0.2s;
@@ -47,7 +46,6 @@
 
 .copy-to-llm-left:hover {
   background-color: var(--md-accent-fg-color--active);
-  color: var(--md-footer-fg-color);
 }
 
 /* Right button (dropdown) */
@@ -61,7 +59,6 @@
 .copy-to-llm-right:hover,
 .copy-to-llm-right.active {
   background-color: var(--md-accent-fg-color--active);
-  color: var(--md-footer-bg-color);
 }
 
 .copy-to-llm-right:focus {
@@ -74,13 +71,16 @@
 .copy-to-llm-section .copy-icon {
   width: 1.1em;
   height: 1.1em;
-  fill: var(--md-footer-fg-color);
+  fill: var(--md-default-fg-color
+
+);
   margin-right: 2px;
 }
 
 /* Color of copy icon on hover */
 .copy-to-llm-section:hover .copy-icon {
-  fill: var(--md-footer-fg-color);
+  fill: var(--md-default-fg-color
+);
 }
 
 /* Color, size, and animation for chevron */
@@ -88,17 +88,17 @@
   width: 1em;
   height: 1em;
   transition: transform 0.2s;
-  fill: var(--md-footer-fg-color);
+  fill: var(--md-default-fg-color);
 }
 
 /* Color of chevron while left button is hovered */
 .copy-to-llm-section:hover .chevron-icon {
-  fill: var(--md-footer-fg-color);
+  fill: var(--md-default-fg-color);
 }
 
 /* Color of chevron while left button is active */
 .copy-to-llm-right.active svg.chevron-icon {
-  fill: var(--md-footer-fg-color);
+  fill: var(--md-default-fg-color);
 }
 
 /* Dropdown menu */
@@ -106,7 +106,7 @@
   position: absolute;
   top: calc(100% + 4px);
   right: 0;
-  background-color: var(--md-footer-bg-color);
+  background-color: var(--md-default-bg-color);
   border: 1px solid var(--border-color);
   border-radius: 6px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -130,7 +130,7 @@
   padding: 0.475rem 0.625rem;
   border: none;
   text-align: left;
-  color: var(--md-footer-fg-color);
+  color: var(--md-default-fg-color);
   font-size: 16px;
   cursor: pointer;
   transition: all 0.2s;
@@ -144,23 +144,21 @@
 
 .copy-to-llm-dropdown-item:hover {
   background-color: var(--md-accent-fg-color--active);
-  color: var(--md-footer-fg-color);
 }
 
 .copy-to-llm-dropdown-item:active {
   background-color: var(--athens-gray);
-  color: var(--md-footer-bg-color);
 }
 
 .copy-to-llm-dropdown-item svg {
   width: 1em;
   height: 1em;
   flex-shrink: 0;
-  fill: var(--md-footer-fg-color);
+  fill: var(--md-default-fg-color);
 }
 
 .copy-to-llm-dropdown-item:hover svg {
-  fill: var(--md-footer-fg-color);
+  fill: var(--md-default-fg-color);
 }
 
 /* Loading spinner animation */
@@ -183,12 +181,12 @@
   bottom: 2rem;
   left: 50%;
   transform: translateX(-50%) translateY(100px);
-  background-color: var(--md-footer-bg-color);
+  background-color: var(--md-default-bg-color);
   padding: 0.75rem 1.5rem;
+  border: 1px solid var(--border-color);
   border-radius: 6px;
   font-size: 0.875rem;
-  font-family: var(--md-text-font-family);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 2px 4px rgba(193, 187, 246, 0.3);
   opacity: 0;
   transition: all 0.3s ease;
   z-index: 10000;
