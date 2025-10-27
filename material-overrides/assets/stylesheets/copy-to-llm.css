@@ -186,7 +186,7 @@
   border: 1px solid var(--border-color);
   border-radius: 6px;
   font-size: 0.875rem;
-  box-shadow: 0 2px 4px rgba(193, 187, 246, 0.3);
+  box-shadow: 0 2px 4px rgba(193, 187, 246, 0.15);
   opacity: 0;
   transition: all 0.3s ease;
   z-index: 10000;
