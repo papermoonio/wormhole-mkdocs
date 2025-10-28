@@ -711,12 +711,12 @@ details.child {
   width: fit-content;
 }
 
-[dir='ltr'] .md-typeset details.child summary {
+[dir="ltr"] .md-typeset details.child summary {
   width: fit-content;
   padding-left: 1em;
 }
 
-[dir='ltr'] .md-typeset details.child[open] {
+[dir="ltr"] .md-typeset details.child[open] {
   width: auto;
 }
 
@@ -800,7 +800,7 @@ details.child {
 .md-typeset table:not([class]) td,
 .md-typeset table:not([class]) th {
   vertical-align: middle;
-  padding: .9375em;
+  padding: 0.9375em;
 }
 
 /* Apply borders at a table cell level */
