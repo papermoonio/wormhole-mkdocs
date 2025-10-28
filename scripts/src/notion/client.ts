@@ -12,7 +12,7 @@ export class NotionClient {
 
     this.http = axios.create({
       baseURL: 'https://api.notion.com/v1',
-      timeout: 20_000,
+      timeout: 20000,
       maxRedirects: 5,
       headers: {
         Authorization: `Bearer ${apiKey}`,
