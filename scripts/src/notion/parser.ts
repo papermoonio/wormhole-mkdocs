@@ -14,7 +14,7 @@ export function extractRichText(property: NotionPropertyValue | undefined): { te
   const text = joinPlainText(property.rich_text);
   if (!text || text.trim().length === 0) return undefined;
 
-  const href = property.rich_text.find((entry) => entry.href)?.href ?? undefined;
+  const href = property.rich_text.find((entry) => entry.href)?.href;
 
   return { text: text.trim(), href };
 }
@@ -31,13 +31,15 @@ export function extractContractRows(
     const chainName = extractTitle(page.properties?.[chainProp]);
     if (!chainName) continue;
 
+    const normalizedChain = chainName.replace(/\bTesnet\b/gi, 'Testnet');
+
     const property = extractRichText(page.properties?.[propertyName]);
     if (!property) continue;
 
     const normalized = property.text.trim();
     if (!normalized || normalized.toLowerCase() === 'n/a') continue;
 
-    const key = chainName.trim();
+    const key = normalizedChain.trim();
     const row: ContractRow = {
       chain: key,
       address: normalized,

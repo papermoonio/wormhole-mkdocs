@@ -18,6 +18,8 @@ export const CONTRACT_TABLE_HEADER = `
     <th>Contract Address</th>
   </thead>`;
 
+const ETHEREUM_ADDRESS_PATTERN = /0x[a-fA-F0-9]{40}/g;
+
 export function buildHTMLTable(tableHeader: string, tableBody: string): string {
   if (tableBody.trim() == "") {
     return 'N/A';
@@ -117,7 +119,7 @@ function formatContractCell(raw: string): string {
   const extras = rest
     .map((line) => {
       const escaped = escapeHtml(line);
-      return escaped.replace(/0x[a-fA-F0-9]{40}/g, (match) => fmtCodeStr(match));
+      return escaped.replace(ETHEREUM_ADDRESS_PATTERN, (match) => fmtCodeStr(match));
     })
     .filter((line) => line.length > 0)
     .join('<br>');
