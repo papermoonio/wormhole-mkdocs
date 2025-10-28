@@ -12,6 +12,12 @@ export function fmtCodeStr(s?: string): string {
   return s === undefined ? "<code>-</code>" : `<code>${s}</code>`;
 }
 
+export const CONTRACT_TABLE_HEADER = `
+  <thead>
+    <th>Chain Name</th>
+    <th>Contract Address</th>
+  </thead>`;
+
 export function buildHTMLTable(tableHeader: string, tableBody: string): string {
   if (tableBody.trim() == "") {
     return 'N/A';
@@ -66,6 +72,58 @@ export function formatHTMLTable(htmlTable: string): string {
 
   // Handle the case where the last line is not properly closed
   return result.join('\n').trim();
+}
+
+export type ContractTableRow = {
+  chain: string;
+  address: string;
+  href?: string;
+};
+
+export function renderSimpleContractTable(rows: ContractTableRow[]): string {
+  if (rows.length === 0) {
+    return 'N/A';
+  }
+
+  const body = rows
+    .map(({ chain, address }) => {
+      const safeChain = escapeHtml(chain);
+      const cell = formatContractCell(address);
+
+      return `
+          <tr>
+            <td>${safeChain}</td>
+            <td>${cell}</td>
+          </tr>`;
+    })
+    .join('');
+
+  return formatHTMLTable(buildHTMLTable(CONTRACT_TABLE_HEADER, body));
+}
+
+function formatContractCell(raw: string): string {
+  const parts = raw.split(/\n+/).map((p) => p.trim()).filter((p) => p.length > 0);
+  if (parts.length === 0) {
+    return fmtCodeStr(raw.trim());
+  }
+
+  const [primary, ...rest] = parts;
+  const primaryHtml = fmtCodeStr(primary);
+
+  if (rest.length === 0) {
+    return primaryHtml;
+  }
+
+  const extras = rest
+    .map((line) => {
+      if (!line) return '';
+      const escaped = escapeHtml(line);
+      return escaped.replace(/0x[a-fA-F0-9]{40}/g, (match) => fmtCodeStr(match));
+    })
+    .filter((line) => line.length > 0)
+    .join('<br>');
+
+  return extras.length > 0 ? `${primaryHtml}<br>${extras}` : primaryHtml;
 }
 
 export function sortMainnets(dc: types.DocChain[]): types.DocChain[] {

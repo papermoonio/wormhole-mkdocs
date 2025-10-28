@@ -1,7 +1,7 @@
 import { Chain, finality, toChain } from '@wormhole-foundation/sdk';
 import * as types from './types/chains';
 import { networkString } from './config';
-import { fmtNum, fmtCodeStr, buildHTMLTable, formatHTMLTable, sortMainnets, sortTestnets, sortChainTypes } from './util';
+import { fmtNum, fmtCodeStr, buildHTMLTable, formatHTMLTable, sortMainnets, sortTestnets, sortChainTypes, CONTRACT_TABLE_HEADER } from './util';
 
 export function generateAllChainIdsTable(dc: types.DocChain[]): string {
   // Create Mainnet Chain Table
@@ -132,11 +132,6 @@ export function generateAllConsistencyLevelsTable(dc: types.DocChain[]): string 
 
 export function generateAllContractsTable(chains: types.DocChain[], module: string): string {
   const orderedChains = sortMainnets(chains);
-  const tableHeader = `
-  <thead>
-    <th>Chain Name</th>
-    <th>Contract Address</th>
-  </thead>`;
 
   // If addresses aren't yet available in the SDK, we can manually add them here
   const newMainnetAddresses: Partial<types.ChainDetails>[] = [
@@ -201,9 +196,12 @@ export function generateAllContractsTable(chains: types.DocChain[], module: stri
   const devNetTableBody = orderedChains.flatMap((chain) => generateRows(chain.devnets || [], 'devnet'));
 
   // Render each tab
-  const mainnetHtml = formatHTMLTable(buildHTMLTable(tableHeader, mainNetTableBody.join('')));
-  const testnetHtml = formatHTMLTable(buildHTMLTable(tableHeader, testNetTableBody.join('')));
-  const devnetHtml = devNetTableBody.length > 0 ? formatHTMLTable(buildHTMLTable(tableHeader, devNetTableBody.join(''))) : '';
+  const mainnetHtml = formatHTMLTable(buildHTMLTable(CONTRACT_TABLE_HEADER, mainNetTableBody.join('')));
+  const testnetHtml = formatHTMLTable(buildHTMLTable(CONTRACT_TABLE_HEADER, testNetTableBody.join('')));
+  const devnetHtml =
+    devNetTableBody.length > 0
+      ? formatHTMLTable(buildHTMLTable(CONTRACT_TABLE_HEADER, devNetTableBody.join('')))
+      : '';
 
   // Assemble tabs; only include Devnet if it has rows
   const parts: string[] = [`=== "Mainnet"\n\n    ${mainnetHtml}`, `=== "Testnet"\n\n    ${testnetHtml}`];

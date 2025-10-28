@@ -1,4 +1,45 @@
+import fs from 'node:fs';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+let envLoaded = false;
+
+function loadLocalEnv(): void {
+  if (envLoaded) return;
+  envLoaded = true;
+
+  const moduleDir = path.dirname(fileURLToPath(import.meta.url));
+  const projectRoot = path.resolve(moduleDir, '..');
+
+  const candidates = [
+    path.resolve(projectRoot, '.env'),
+    path.resolve(projectRoot, '..', '.env'),
+    path.resolve(process.cwd(), '.env'),
+  ];
+
+  for (const candidate of candidates) {
+    if (!candidate || !fs.existsSync(candidate)) continue;
+
+    const contents = fs.readFileSync(candidate, 'utf8');
+    for (const rawLine of contents.split(/\r?\n/)) {
+      const line = rawLine.trim();
+      if (line.length === 0 || line.startsWith('#')) continue;
+
+      const equals = line.indexOf('=');
+      if (equals <= 0) continue;
+
+      const key = line.slice(0, equals).trim();
+      if (!key || process.env[key] !== undefined) continue;
+
+      const valueRaw = line.slice(equals + 1).trim();
+      const value = valueRaw.replace(/^['"]|['"]$/g, '');
+
+      process.env[key] = value;
+    }
+  }
+}
+
+loadLocalEnv();
 
 const DEFAULT_SNIPPETS_RELATIVE = '../wormhole-docs/.snippets/text';
 
