@@ -35,7 +35,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.4em;
-  font-size: 16px
+  font-size: 16px;
 }
 
 /* Left button (copy) */
@@ -71,16 +71,13 @@
 .copy-to-llm-section .copy-icon {
   width: 1.1em;
   height: 1.1em;
-  fill: var(--md-default-fg-color
-
-);
+  fill: var(--md-default-fg-color);
   margin-right: 2px;
 }
 
 /* Color of copy icon on hover */
 .copy-to-llm-section:hover .copy-icon {
-  fill: var(--md-default-fg-color
-);
+  fill: var(--md-default-fg-color);
 }
 
 /* Color, size, and animation for chevron */
@@ -111,7 +108,7 @@
   border-radius: 6px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   min-width: 160px;
-  z-index: 9999;
+  z-index: 2;
   display: none;
   transform: translateY(0);
   overflow: visible;
