@@ -32,6 +32,7 @@ const chainTypeMapping: Record<Platform, ChainType> = {
   Sui: 'Sui Move VM',
   Aptos: 'Move VM',
   Btc: 'BTC',
+  Stacks: '',
 };
 
 const chainNameOverrides: Record<string, string> = {
