@@ -46,6 +46,9 @@ Day-to-day operators do not need to touch the TypeScript—just run `npm run upd
 | `src/details.ts`                             | Renders HTML tables for contracts, chain IDs, consistency levels, supported networks, and faucets.                   |
 | `src/governance.ts`                          | Fetches Guardian governance data using URLs from `config/contracts-config.json` and turns it into HTML.              |
 | `src/util.ts`                                | Shared formatting helpers (table builder, indentation, sorting).                                                     |
+| `src/notion/client.ts`                       | Minimal Notion API wrapper that handles auth, versioning, and pagination.                                            |
+| `src/notion/parser.ts`                       | Extracts chain names and contract addresses from Notion page payloads.                                               |
+| `src/notion/contractTables.ts`               | Fetches Notion databases and renders executor-style tables with priority sorting and fallback handling.              |
 | `src/utils/http.ts` / `src/utils/parsing.ts` | Lightweight HTTP client (supports HTTP and local file paths) and TypeScript array parsing utilities.                 |
 | `src/tagManager.ts`                          | Indexes snippet files once, tracks matching tag markers, and replaces the content between them.                      |
 | `src/env.ts`                                 | Resolves environment-dependent paths such as the snippets directory.                                                 |
