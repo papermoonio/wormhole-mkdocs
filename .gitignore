@@ -1,5 +1,6 @@
 venv
 .DS_Store
 scripts/node_modules
+scripts/.env
 site
 .github/instructions/
