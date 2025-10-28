@@ -83,12 +83,7 @@ async function main() {
     const modifications = tagManager.getModifications();
 
     if (notionTags.size > 0) {
-      const notionModified: string[] = [];
-      for (const tag of Object.keys(modifications)) {
-        if (notionTags.has(tag)) {
-          notionModified.push(tag);
-        }
-      }
+      const notionModified = Object.keys(modifications).filter((tag) => notionTags.has(tag));
 
       if (notionModified.length === 0) {
         console.log('[notion] is up to date.');

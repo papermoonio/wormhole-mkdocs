@@ -77,11 +77,13 @@ export async function generateNotionContractTables(_chains: DocChain[]): Promise
       });
       if (rows.length === 0) continue;
 
-      if (!propertyData.has(property.property)) {
-        propertyData.set(property.property, new Map());
+      let envMap = propertyData.get(property.property);
+      if (!envMap) {
+        envMap = new Map();
+        propertyData.set(property.property, envMap);
       }
 
-      propertyData.get(property.property)!.set(database.label, rows);
+      envMap.set(database.label, rows);
     }
   }
 

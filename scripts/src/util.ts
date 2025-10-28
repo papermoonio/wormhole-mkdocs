@@ -116,7 +116,6 @@ function formatContractCell(raw: string): string {
 
   const extras = rest
     .map((line) => {
-      if (!line) return '';
       const escaped = escapeHtml(line);
       return escaped.replace(/0x[a-fA-F0-9]{40}/g, (match) => fmtCodeStr(match));
     })
