@@ -19,12 +19,12 @@
   ],
   "products": {
     "tokenBridge": {
-      "mainnet": false,
+      "mainnet": true,
       "testnet": true,
       "devnet": false
     },
     "ntt": {
-      "mainnet": false,
+      "mainnet": true,
       "testnet": true,
       "devnet": false
     },
@@ -32,6 +32,11 @@
       "mainnet": true,
       "testnet": true,
       "devnet": true
+    },
+    "cctp": {
+      "mainnet": true,
+      "testnet": false,
+      "devnet": false
     }
   }
 }
