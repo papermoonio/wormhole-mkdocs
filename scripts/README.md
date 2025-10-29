@@ -15,6 +15,10 @@ Day-to-day operators do not need to touch the TypeScript—just run `npm run upd
 - This repo checked out with **`wormhole-docs` cloned alongside it** (`wormhole-mkdocs/wormhole-docs`).
 - Network access for fetching contract constants from the Wormhole SDK (unless you point to local files).
 - Optional environment variable: `DOCS_SNIPPETS_DIR` to override the default snippets path (`../wormhole-docs/.snippets/text`).
+- Notion credentials (required for executor-style contract tables):
+  - `NOTION_API_KEY`
+  - Use environment variables `NOTION_CONTRACTS_MAINNET_DB_ID` / `NOTION_CONTRACTS_TESTNET_DB_ID` **or** populate `src/config/notion-database-ids.json` with your database IDs.
+  - Optional: `NOTION_VERSION` (defaults to `2022-06-28`)
 
 ## Quick Start
 
@@ -42,6 +46,9 @@ Day-to-day operators do not need to touch the TypeScript—just run `npm run upd
 | `src/details.ts`                             | Renders HTML tables for contracts, chain IDs, consistency levels, supported networks, and faucets.                   |
 | `src/governance.ts`                          | Fetches Guardian governance data using URLs from `config/contracts-config.json` and turns it into HTML.              |
 | `src/util.ts`                                | Shared formatting helpers (table builder, indentation, sorting).                                                     |
+| `src/notion/client.ts`                       | Minimal Notion API wrapper that handles auth, versioning, and pagination.                                            |
+| `src/notion/parser.ts`                       | Extracts chain names and contract addresses from Notion page payloads.                                               |
+| `src/notion/contractTables.ts`               | Fetches Notion databases and renders executor-style tables with priority sorting and fallback handling.              |
 | `src/utils/http.ts` / `src/utils/parsing.ts` | Lightweight HTTP client (supports HTTP and local file paths) and TypeScript array parsing utilities.                 |
 | `src/tagManager.ts`                          | Indexes snippet files once, tracks matching tag markers, and replaces the content between them.                      |
 | `src/env.ts`                                 | Resolves environment-dependent paths such as the snippets directory.                                                 |
@@ -62,8 +69,9 @@ Day-to-day operators do not need to touch the TypeScript—just run `npm run upd
    - Optional allow-lists (`filterUrls`/`filterConsts`) enforce strict chain inclusion.  
    - Generates sorted JSON files in `src/generated/`, filling gaps where the SDK lacks product coverage.
 
-3. **Render tables (`src/details.ts`, `src/governance.ts`)**  
+3. **Render tables (`src/details.ts`, `src/governance.ts`, `src/notion/contractTables.ts`)**  
    - Converts the aggregated data into HTML snippets (contracts, chain IDs, supported networks, governance, etc.).
+   - Executor and executor-adjacent tables pull from Notion databases when the accompanying environment variables are provided.
 
 4. **Inject snippets (`src/tagManager.ts`)**  
    - Finds matching tag pairs across the snippets directory and replaces the interior with the rendered content.  
