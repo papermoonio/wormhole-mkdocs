@@ -7,12 +7,12 @@
   },
   "products": {
     "tokenBridge": {
-      "mainnet": false,
+      "mainnet": true,
       "testnet": true,
       "devnet": false
     },
     "ntt": {
-      "mainnet": false,
+      "mainnet": true,
       "testnet": true,
       "devnet": false
     }
