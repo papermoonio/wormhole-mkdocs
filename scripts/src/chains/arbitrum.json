@@ -16,7 +16,7 @@
     }
   ],
   "finality": {
-    "details": "https://docs.arbitrum.io/how-arbitrum-works/transaction-lifecycle",
+    "details": "https://docs.arbitrum.io/learn-more/faq#how-many-blocks-are-needed-for-a-transaction-to-be-confirmedfinalized-in-arbitrum",
     "instant": 200,
     "safe": 201,
     "otherwise": "finalized"
