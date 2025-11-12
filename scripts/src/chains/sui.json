@@ -22,7 +22,7 @@
   },
   "devDocs": "https://docs.sui.io/",
   "faucet": {
-    "url": "https://docs.sui.io/build/faucet",
+    "url": "https://docs.sui.io/guides/developer/getting-started/get-coins",
     "token": "SUI",
     "description": "List of Faucets"
   },
