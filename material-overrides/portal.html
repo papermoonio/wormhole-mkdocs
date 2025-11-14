@@ -13,6 +13,8 @@
   <!-- Initialize the Scalar API Reference -->
   <script>
     Scalar.createApiReference('#app', {
+      // Configuration can be added here
+      hideClientButton: true,
       // The URL of the OpenAPI/Swagger document
       url: '{{ base_url }}/openapi.yaml',
       // Avoid CORS issues
