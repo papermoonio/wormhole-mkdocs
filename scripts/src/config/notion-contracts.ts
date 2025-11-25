@@ -41,6 +41,21 @@ export type NotionPropertyConfig = {
    * Optional override for tab labels keyed by database label.
    */
   labelOverrides?: Record<string, string>;
+  /**
+   * Optional additional properties that should be merged into the same table cell.
+   */
+  extraProperties?: NotionExtraPropertyConfig[];
+};
+
+export type NotionExtraPropertyConfig = {
+  /**
+   * Property name inside the Notion database.
+   */
+  property: string;
+  /**
+   * Optional label prefix to render before the value.
+   */
+  label?: string;
 };
 
 const BASE_DATABASES: NotionDatabaseConfig[] = [
@@ -70,7 +85,11 @@ for (const [label, override] of Object.entries(overrides)) {
 export const NOTION_CONTRACT_DATABASES = mergedDatabases;
 
 export const NOTION_CONTRACT_PROPERTIES: NotionPropertyConfig[] = [
-  { property: 'NTTWithExecutor', tag: 'NTT_EXECUTOR_ADDRESS' },
+  {
+    property: 'NTTWithExecutor',
+    tag: 'NTT_EXECUTOR_ADDRESS',
+    extraProperties: [{ property: 'MultiTokenNttWithExecutor', label: 'Multi Ntt' }],
+  },
   { property: 'MayanForwarderWithReferrer', tag: 'MAYAN_FORWARDER_WITH_REFERRER_ADDRESS' },
   {
     property: 'CCTPv1WithExecutor',
