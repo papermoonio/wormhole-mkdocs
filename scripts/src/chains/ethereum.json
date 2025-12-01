@@ -12,7 +12,7 @@
   "notes": [
     "Deployed contracts are also available on the [Sepolia](#sepolia) testnet."
   ],
-  "devDocs": "https://ethereum.org/en/developers/docs/",
+  "devDocs": "https://ethereum.org/developers/docs/",
   "explorer": [
     {
       "url": "https://etherscan.io/"
