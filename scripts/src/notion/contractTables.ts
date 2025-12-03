@@ -16,6 +16,12 @@ const IGNORED_UNMAPPED_PROPERTIES = new Set([
   'CCTPv1ReceiveWithGasDropOff',
   'CCTPv2ReceiveWithGasDropOff',
 ]);
+const MAPPED_PROPERTIES = new Set<string>(
+  NOTION_CONTRACT_PROPERTIES.flatMap((entry) => [
+    entry.property,
+    ...(entry.extraProperties?.map((extra) => extra.property) ?? []),
+  ]),
+);
 
 export async function generateNotionContractTables(_chains: DocChain[]): Promise<Map<string, string>> {
   const apiKey = process.env.NOTION_API_KEY;
@@ -74,6 +80,7 @@ export async function generateNotionContractTables(_chains: DocChain[]): Promise
     for (const property of NOTION_CONTRACT_PROPERTIES) {
       const rows = extractContractRows(pages, property.property, {
         chainProperty: database.chainProperty,
+        extraProperties: property.extraProperties,
       });
       if (rows.length === 0) continue;
 
@@ -154,11 +161,9 @@ function sortRows(rows: ContractTableRow[]): ContractTableRow[] {
 function logUnmappedProperties(discovered: Map<string, Set<string>>): void {
   if (discovered.size === 0) return;
 
-  const mapped = new Set(NOTION_CONTRACT_PROPERTIES.map((p) => p.property));
-
   for (const [label, names] of discovered) {
     const unmapped = Array.from(names).filter(
-      (name) => !mapped.has(name) && !IGNORED_UNMAPPED_PROPERTIES.has(name),
+      (name) => !MAPPED_PROPERTIES.has(name) && !IGNORED_UNMAPPED_PROPERTIES.has(name),
     );
     if (unmapped.length === 0) continue;
 
