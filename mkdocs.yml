@@ -370,8 +370,6 @@ plugins:
   - git-revision-date-localized:
       type: date
       enable_creation_date: true
-      exclude:
-        - node_modules/*
       enabled: !ENV [ENABLED_GIT_REVISION_DATE, True]
 extra:
   consent:
