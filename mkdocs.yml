@@ -39,7 +39,7 @@ theme:
         icon: material/weather-sunny
         name: Switch to light mode
     - media: "(prefers-color-scheme: light)"
-      scheme: custom-light 
+      scheme: custom-light
       toggle:
         icon: material/weather-night
         name: Switch to dark mode
@@ -367,6 +367,12 @@ plugins:
   - macros:
       include_yaml:
         - wormhole-docs/variables.yml
+  - git-revision-date-localized:
+      type: date
+      enable_creation_date: true
+      exclude:
+        - node_modules/*
+      enabled: !ENV [ENABLED_GIT_REVISION_DATE, True]
 extra:
   consent:
     title: Cookie consent
