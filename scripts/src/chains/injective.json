@@ -7,8 +7,8 @@
   },
   "explorer": [
     {
-      "url": "https://explorer.injective.network/",
-      "description": "Injective Explorer"
+      "url": "https://injscan.com/",
+      "description": "Injective Scan"
     },
     {
       "url": "https://testnet.explorer.injective.network/",
