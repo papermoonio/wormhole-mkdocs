@@ -1057,6 +1057,37 @@ div.mermaid {
   justify-content: center !important;
 }
 
+/* Document date styling */
+.md-source-file {
+  display: flex;
+  flex-direction: column;
+  margin-top: 40px;
+}
+
+.md-source-file small {
+  display: flex;
+  justify-content: center;
+}
+
+.source-file-label {
+  margin-right: 0.5em;
+}
+
+.source-file-seperator {
+  margin: 0 0.5em;
+}
+
+@media screen and (max-width: 30em) {
+  .source-file-seperator {
+    display: none;
+  }
+
+  .md-source-file small {
+    display: block;
+    text-align: center;
+  }
+}
+
 /* Footer */
 .md-footer {
   border-top: var(--border);
