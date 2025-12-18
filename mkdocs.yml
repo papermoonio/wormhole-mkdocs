@@ -270,7 +270,7 @@ plugins:
         learn/infrastructure/core-contracts.md: protocol/infrastructure/core-contracts.md
         learn/infrastructure/guardians.md: protocol/infrastructure/guardians.md
         learn/infrastructure/index.md: protocol/infrastructure/core-contracts.md
-        learn/infrastructure/relayer.md: protocol/infrastructure/relayers/relayer.md 
+        learn/infrastructure/relayer.md: protocol/infrastructure/relayers/relayer.md
         learn/infrastructure/spy.md: protocol/infrastructure/spy.md
         learn/infrastructure/vaas.md: protocol/infrastructure/vaas.md
         learn/introduction.md: protocol/introduction.md
