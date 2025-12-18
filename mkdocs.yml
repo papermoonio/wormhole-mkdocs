@@ -298,11 +298,11 @@ plugins:
         learn/transfers/settlement/index.md: products/settlement/overview.md
         learn/transfers/settlement/overview.md: products/settlement/overview.md
         learn/transfers/token-bridge.md: products/token-transfers/wrapped-token-transfers/overview.md
-        products/messaging/concepts/executor-framework.md : protocol/infrastructure/relayers/executor-framework.md
-        products/messaging/concepts/executor-overview.md : protocol/infrastructure/relayers/executor-framework.md
-        products/messaging/guides/executor/cctp-executor.md : protocol/infrastructure-guides/cctp-executor.md
-        products/messaging/guides/executor/executor-vs-sr.md : protocol/infrastructure/relayers/executor-vs-sr.md
-        products/messaging/guides/executor/ntt-executor.md : protocol/infrastructure-guides/ntt-executor.md
+        products/messaging/concepts/executor-framework.md: protocol/infrastructure/relayers/executor-framework.md
+        products/messaging/concepts/executor-overview.md: protocol/infrastructure/relayers/executor-framework.md
+        products/messaging/guides/executor/cctp-executor.md: protocol/infrastructure-guides/cctp-executor.md
+        products/messaging/guides/executor/executor-vs-sr.md: protocol/infrastructure/relayers/executor-vs-sr.md
+        products/messaging/guides/executor/ntt-executor.md: protocol/infrastructure-guides/ntt-executor.md
         products/native-token-transfers/configuration/access-control.md: products/token-transfers/native-token-transfers/configuration/access-control.md
         products/native-token-transfers/configuration/rate-limiting.md: products/token-transfers/native-token-transfers/configuration/rate-limiting.md
         products/native-token-transfers/concepts/architecture.md: products/token-transfers/native-token-transfers/concepts/architecture.md
