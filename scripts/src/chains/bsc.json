@@ -24,7 +24,7 @@
   },
   "devDocs": "https://docs.bnbchain.org/",
   "faucet": {
-    "url": "https://testnet.binance.org/faucet-smart/",
+    "url": "https://www.bnbchain.org/en/testnet-faucet",
     "token": "BNB",
     "description": "Official BNB Faucet"
   },
