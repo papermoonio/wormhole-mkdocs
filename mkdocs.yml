@@ -270,7 +270,7 @@ plugins:
         learn/infrastructure/core-contracts.md: protocol/infrastructure/core-contracts.md
         learn/infrastructure/guardians.md: protocol/infrastructure/guardians.md
         learn/infrastructure/index.md: protocol/infrastructure/core-contracts.md
-        learn/infrastructure/relayer.md: protocol/infrastructure/relayer.md
+        learn/infrastructure/relayer.md: protocol/infrastructure/relayers/relayer.md 
         learn/infrastructure/spy.md: protocol/infrastructure/spy.md
         learn/infrastructure/vaas.md: protocol/infrastructure/vaas.md
         learn/introduction.md: protocol/introduction.md
@@ -298,6 +298,11 @@ plugins:
         learn/transfers/settlement/index.md: products/settlement/overview.md
         learn/transfers/settlement/overview.md: products/settlement/overview.md
         learn/transfers/token-bridge.md: products/token-transfers/wrapped-token-transfers/overview.md
+        products/messaging/concepts/executor-framework.md : protocol/infrastructure/relayers/executor-framework.md
+        products/messaging/concepts/executor-overview.md : protocol/infrastructure/relayers/executor-framework.md
+        products/messaging/guides/executor/cctp-executor.md : protocol/infrastructure-guides/cctp-executor.md
+        products/messaging/guides/executor/executor-vs-sr.md : protocol/infrastructure/relayers/executor-vs-sr.md
+        products/messaging/guides/executor/ntt-executor.md : protocol/infrastructure-guides/ntt-executor.md
         products/native-token-transfers/configuration/access-control.md: products/token-transfers/native-token-transfers/configuration/access-control.md
         products/native-token-transfers/configuration/rate-limiting.md: products/token-transfers/native-token-transfers/configuration/rate-limiting.md
         products/native-token-transfers/concepts/architecture.md: products/token-transfers/native-token-transfers/concepts/architecture.md
@@ -326,6 +331,7 @@ plugins:
         products/token-bridge/reference/supported-networks.md: products/token-transfers/wrapped-token-transfers/reference/supported-networks.md
         products/token-bridge/tutorials/multichain-token.md: products/token-transfers/wrapped-token-transfers/tutorials/multichain-token.md
         products/token-bridge/tutorials/transfer-workflow.md: products/token-transfers/wrapped-token-transfers/tutorials/transfer-workflow.md
+        protocol/infrastructure/relayer.md: protocol/infrastructure/relayers/relayer.md
         tutorials/by-product/connect/index.md: products/connect/tutorials/react-dapp.md
         tutorials/by-product/connect/react-dapp.md: products/connect/tutorials/react-dapp.md
         tutorials/by-product/contract-integrations/cross-chain-contracts.md: products/messaging/tutorials/cross-chain-contracts.md
