@@ -4,3 +4,7 @@ scripts/node_modules
 scripts/.env
 site
 .github/instructions/
+
+.github/instructions/kluster-code-verify.instructions.md
+.kluster
+venv-test
