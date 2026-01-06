@@ -930,8 +930,16 @@ table th:last-child {
 }
 
 /* Clipboard */
-.md-clipboard {
+.md-code__button {
   color: var(--md-default-fg-color);
+}
+
+.md-code__nav {
+  background-color: transparent;
+}
+
+pre:hover > .md-code__nav {
+  background: transparent;
 }
 
 /* Type styling */
