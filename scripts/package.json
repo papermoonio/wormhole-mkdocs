@@ -14,13 +14,13 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@types/node": "^25.0.2",
+    "@types/node": "^25.0.3",
     "markdown-link-check": "^3.14.2",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3"
   },
   "dependencies": {
-    "@wormhole-foundation/sdk": "4.7.1",
+    "@wormhole-foundation/sdk": "4.7.2",
     "axios": "^1.13.2",
     "sharp": "^0.34.5",
     "swagger-markdown": "^3.0.0"
