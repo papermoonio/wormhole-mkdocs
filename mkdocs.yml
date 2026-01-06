@@ -1,7 +1,7 @@
 site_name: Wormhole Docs
 site_url: https://wormhole.com/docs/
 docs_dir: wormhole-docs
-copyright: 2025 © Wormhole Foundation. All Rights Reserved.
+copyright: 2026 © Wormhole Foundation. All Rights Reserved.
 edit_uri: https://github.com/wormhole-foundation/wormhole-docs/edit/dev/
 extra_css:
   - assets/stylesheets/terminal.css
