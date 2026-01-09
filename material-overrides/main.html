@@ -360,12 +360,49 @@
         }
       };
 
+      const openTextInNewTab = async (url) => {
+        const newTab = window.open('about:blank', '_blank');
+        if (!newTab) {
+          window.location.href = url;
+          return;
+        }
+        newTab.opener = null;
+
+        try {
+          const res = await fetch(url, { credentials: 'omit' });
+          if (!res.ok) throw new Error(`HTTP ${res.status}`);
+          const text = await res.text();
+          const blob = new Blob([text], { type: 'text/markdown' });
+          const objectUrl = URL.createObjectURL(blob);
+          newTab.location.href = objectUrl;
+          newTab.addEventListener('load', () => URL.revokeObjectURL(objectUrl), {
+            once: true,
+          });
+        } catch (err) {
+          console.error('Failed to open view:', err);
+          newTab.close();
+          window.location.href = url;
+        }
+      };
+
       // COPY buttons
       document.querySelectorAll('.llms-copy').forEach((btn) => {
         btn.addEventListener('click', (e) => {
           e.preventDefault();
           const url = toAbsolute(btn.getAttribute('data-path'));
           if (url) copyTextFromUrl(url);
+        });
+      });
+
+      // VIEW buttons: open markdown in a new tab
+      document.querySelectorAll('.llms-view').forEach((a) => {
+        const abs = toAbsolute(a.getAttribute('data-path'));
+        if (abs) a.setAttribute('href', abs);
+
+        a.addEventListener('click', (e) => {
+          e.preventDefault();
+          const url = toAbsolute(a.getAttribute('data-path'));
+          if (url) openTextInNewTab(url);
         });
       });
 
