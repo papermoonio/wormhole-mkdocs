@@ -11,7 +11,7 @@
   },
   "contractSource": "ethereum/contracts/bridge/Bridge.sol",
   "finality": {
-    "details": "https://docs.polygon.technology/pos/architecture/heimdall/checkpoints/",
+    "details": "https://docs.polygon.technology/pos/architecture/heimdall_v2/checkpoints/",
     "instant": 200,
     "otherwise": "finalized"
   },
