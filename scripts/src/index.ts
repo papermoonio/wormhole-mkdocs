@@ -6,7 +6,7 @@ import {
   generateProductSupportTables,
   generateTestnetFaucetsTable,
 } from './details';
-import { generateGovernanceTestnetTable } from './governance';
+import { generateGovernanceMainnetTable, generateGovernanceTestnetTable } from './governance';
 import { indentBlock } from './util';
 import { TagManager } from './tagManager';
 import { DOCS_SNIPPETS_DIR } from './env';
@@ -73,7 +73,12 @@ async function main() {
       await tagManager.replace(`SUPPORTED_BLOCKCHAIN_${tagSuffix}`, table);
     }
 
+    const govMainnetTable = await generateGovernanceMainnetTable();
     const govTestnetTable = await generateGovernanceTestnetTable();
+    await tagManager.replace(
+      'GOVERNANCE_MAINNET',
+      indentBlock(govMainnetTable, 4)
+    );
     await tagManager.replace(
       'GOVERNANCE_TESTNET',
       indentBlock(govTestnetTable, 4)
