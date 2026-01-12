@@ -103,6 +103,7 @@ export async function generateConnectSupport(): Promise<void> {
     fetchText(cfg.sources.connect_devnet.chains_url),
   ]);
 
+  // mainnet/devnet use sdkName fields from chains.ts; testnet uses CHAIN_ORDER from constants.ts
   const mainnet = ensureStrings('mainnet', parseSdkNamesFromChainsConfig(mainnetRaw));
   const testnet = ensureStrings('testnet', parseChainOrder(testnetRaw));
   const devnet = ensureStrings('devnet', parseSdkNamesFromChainsConfig(devnetRaw));
