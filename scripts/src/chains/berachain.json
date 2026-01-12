@@ -24,7 +24,7 @@
   "products": {
     "connect": {
       "mainnet": true,
-      "testnet": false,
+      "testnet": true,
       "devnet": false
     },
     "ntt": {

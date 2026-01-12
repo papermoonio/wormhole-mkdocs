@@ -14,7 +14,7 @@
   ],
   "products": {
     "connect": {
-      "mainnet": false,
+      "mainnet": true,
       "testnet": true,
       "devnet": false
     },
