@@ -112,8 +112,9 @@ function extractFirstTable(contents: string): string | null {
 }
 
 function extractTableFromSection(contents: string, sectionTitle: string): string | null {
+  const safeSection = escapeRegExp(sectionTitle);
   const sectionPattern = new RegExp(
-    `===\\s*"${sectionTitle}"[\\s\\S]*?(<table[\\s\\S]*?<\\/table>)`
+    `===\\s*"${safeSection}"[\\s\\S]*?(<table[\\s\\S]*?<\\/table>)`
   );
   const match = contents.match(sectionPattern);
   return match ? match[1] : null;
