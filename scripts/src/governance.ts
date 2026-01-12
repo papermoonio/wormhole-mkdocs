@@ -262,8 +262,13 @@ async function loadGovernanceSnippet(): Promise<string | null> {
   const snippetPath = path.join(DOCS_SNIPPETS_DIR, GOVERNANCE_SNIPPET_RELATIVE);
   try {
     return await readFile(snippetPath, 'utf8');
-  } catch {
-    return null;
+  } catch (err: unknown) {
+    const nodeErr = err as NodeJS.ErrnoException;
+    if (nodeErr?.code === 'ENOENT') {
+      return null;
+    }
+    console.warn(`Failed to read governance snippet from ${snippetPath}:`, err);
+    throw err;
   }
 }
 
