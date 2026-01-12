@@ -89,6 +89,10 @@ function stripHtml(input: string): string {
   return input.replace(/<[^>]*>/g, '');
 }
 
+function escapeRegExp(input: string): string {
+  return input.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
 function normalizeChainName(raw: string): string {
   const withoutTags = stripHtml(raw);
   const withoutMaterial = withoutTags.replace(/:material-[^{]+\{[^}]*\}/g, '');
@@ -96,7 +100,8 @@ function normalizeChainName(raw: string): string {
 }
 
 function extractTaggedBlock(contents: string, tag: string): string | null {
-  const pattern = new RegExp(`<!--\\s*${tag}\\s*-->([\\s\\S]*?)<!--\\s*${tag}\\s*-->`);
+  const safeTag = escapeRegExp(tag);
+  const pattern = new RegExp(`<!--\\s*${safeTag}\\s*-->([\\s\\S]*?)<!--\\s*${safeTag}\\s*-->`);
   const match = contents.match(pattern);
   return match ? match[1] : null;
 }
