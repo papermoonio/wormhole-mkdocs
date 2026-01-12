@@ -9,7 +9,7 @@ import {
   Chain,
 } from '@wormhole-foundation/sdk';
 import fs from 'fs';
-import { nttSupport, cctpSupport } from './generated';
+import { nttSupport, cctpSupport, connectSupport } from './generated';
 import { NetworkDescription, ChainType, ExtraDetails, Products, ProductSupport, DocChain, ChainDetails } from './types/chains';
 
 export function networkString(net?: NetworkDescription): string {
@@ -94,6 +94,13 @@ function getChainDetails(chainName: string): ExtraDetails {
     }
 
     products.ntt[net.toLowerCase() as keyof ProductSupport] = isNTTSupported;
+
+    // Connect
+    if (!products.connect) {
+      products.connect = { mainnet: false, testnet: false, devnet: false };
+    }
+    const isConnectSupported = (connectSupport[net] || []).includes(chainName);
+    products.connect[net.toLowerCase() as keyof ProductSupport] = isConnectSupported;
 
     // Multigov
     const platform = chainToPlatform(chainName as Chain);
