@@ -4,7 +4,7 @@
 			"chains_url": "https://raw.githubusercontent.com/wormhole-foundation/wormhole-connect/development/src/config/mainnet/chains.ts"
 		},
 		"connect_testnet": {
-			"chains_url": "https://raw.githubusercontent.com/wormhole-foundation/wormhole-connect/ace9b78d9753d48a4bcbb9cc19d8250d5528ac3e/src/config/constants.ts"
+			"chains_url": "https://raw.githubusercontent.com/wormhole-foundation/wormhole-connect/development/src/config/constants.ts"
 		},
 		"connect_devnet": {
 			"chains_url": "https://raw.githubusercontent.com/wormhole-foundation/wormhole-connect/development/src/config/devnet/chains.ts"
