@@ -11,6 +11,7 @@ import {
 import fs from 'fs';
 import { nttSupport, cctpSupport, connectSupport } from './generated';
 import { NetworkDescription, ChainType, ExtraDetails, Products, ProductSupport, DocChain, ChainDetails } from './types/chains';
+import { normalizeChainName } from './utils/chainNames';
 
 export function networkString(net?: NetworkDescription): string {
   if (!net) return '';
@@ -33,10 +34,6 @@ const chainTypeMapping: Record<Platform, ChainType> = {
   Aptos: 'Move VM',
   Btc: 'BTC',
   Stacks: '',
-};
-
-const chainNameOverrides: Record<string, string> = {
-  Klaytn: 'Kaia',
 };
 
 function getChainType(platformName: Platform): ChainType {
@@ -74,7 +71,7 @@ function getChainDetails(chainName: string): ExtraDetails {
     }
 
     // CCTP
-    const effectiveChainName = chainNameOverrides[chainName] || chainName;
+    const effectiveChainName = normalizeChainName(chainName);
     const isCctpSupported = (cctpSupport[net] || []).includes(effectiveChainName);
 
     if (!products.cctp) {
@@ -99,7 +96,7 @@ function getChainDetails(chainName: string): ExtraDetails {
     if (!products.connect) {
       products.connect = { mainnet: false, testnet: false, devnet: false };
     }
-    const isConnectSupported = (connectSupport[net] || []).includes(chainName);
+    const isConnectSupported = (connectSupport[net] || []).includes(effectiveChainName);
     products.connect[net.toLowerCase() as keyof ProductSupport] = isConnectSupported;
 
     // Multigov

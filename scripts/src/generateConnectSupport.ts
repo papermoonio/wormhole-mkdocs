@@ -3,6 +3,7 @@ import { mkdir, readFile, writeFile } from 'node:fs/promises';
 
 import { fetchText } from './utils/http';
 import { stripCommentsPreserveStrings, extractArrayAfterConst } from './utils/parsing';
+import { normalizeChainName } from './utils/chainNames';
 
 type Network = 'Mainnet' | 'Testnet' | 'Devnet';
 type SupportMap = Record<Network, string[]>;
@@ -31,7 +32,8 @@ function parseSdkNamesFromChainsConfig(raw: string): string[] {
   const re = /sdkName\s*:\s*(['"])([^'"]+)\1/g;
   let match: RegExpExecArray | null;
   while ((match = re.exec(cleaned)) !== null) {
-    out.add(match[2].trim());
+    const name = match[2].trim();
+    out.add(normalizeChainName(name));
   }
   return Array.from(out);
 }
@@ -47,7 +49,8 @@ function parseChainOrder(raw: string): string[] {
   const re = /(['"])([^'"]+)\1/g;
   let match: RegExpExecArray | null;
   while ((match = re.exec(arrayText)) !== null) {
-    out.add(match[2].trim());
+    const name = match[2].trim();
+    out.add(normalizeChainName(name));
   }
   return Array.from(out);
 }
