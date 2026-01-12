@@ -76,20 +76,23 @@ async function writeJsonIfChanged(
   data: SupportMap
 ): Promise<'created' | 'updated' | 'noop'> {
   const payload = JSON.stringify(data, null, 2) + '\n';
+  let fileExisted = true;
   try {
     const current = await readFile(targetPath, 'utf8');
     if (current === payload) {
       return 'noop';
     }
   } catch (err) {
-    if ((err as NodeJS.ErrnoException).code !== 'ENOENT') {
+    if ((err as NodeJS.ErrnoException).code === 'ENOENT') {
+      fileExisted = false;
+    } else {
       throw err;
     }
   }
 
   await mkdir(path.dirname(targetPath), { recursive: true });
   await writeFile(targetPath, payload);
-  return 'updated';
+  return fileExisted ? 'updated' : 'created';
 }
 
 export async function generateConnectSupport(): Promise<void> {
