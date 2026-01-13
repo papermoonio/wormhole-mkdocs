@@ -15,6 +15,13 @@ function escapeRegExp(input: string): string {
   return input.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
+function getLineIndent(source: string, index: number): string {
+  const lineStart = source.lastIndexOf('\n', index - 1);
+  const start = lineStart === -1 ? 0 : lineStart + 1;
+  const prefix = source.slice(start, index);
+  return /^[ \t]*$/.test(prefix) ? prefix : '';
+}
+
 export class TagManager {
   private readonly files = new Map<string, FileRecord>();
   private readonly tags: TagIndex = new Map();
@@ -74,14 +81,19 @@ export class TagManager {
         const insertionStart = open.index + open[0].length;
         const insertionEnd = close.index;
 
+        const closeIndent = getLineIndent(working, close.index);
+        const openIndent = getLineIndent(working, open.index);
+        const indent = closeIndent || openIndent;
+
         const normalized = replacement.replace(/\r\n/g, '\n');
         const withoutOuterNewlines = normalized
           .replace(/^\n+/, '')
           .replace(/\n+$/, '');
+        const trailingIndent = indent.length > 0 ? `\n${indent}` : '\n';
         const replacementBlock =
           withoutOuterNewlines.length > 0
-            ? `\n${withoutOuterNewlines}\n`
-            : '\n\n';
+            ? `\n${withoutOuterNewlines}${trailingIndent}`
+            : `\n${trailingIndent}`;
 
         working =
           working.slice(0, insertionStart) +
