@@ -332,6 +332,7 @@ plugins:
         products/token-bridge/tutorials/multichain-token.md: products/token-transfers/wrapped-token-transfers/tutorials/multichain-token.md
         products/token-bridge/tutorials/transfer-workflow.md: products/token-transfers/wrapped-token-transfers/tutorials/transfer-workflow.md
         protocol/infrastructure/relayer.md: protocol/infrastructure/relayers/relayer.md
+        protocol/infrastructure-guides/run-relayer.md: protocol/infrastructure/relayers/executor-framework.md
         tutorials/by-product/connect/index.md: products/connect/tutorials/react-dapp.md
         tutorials/by-product/connect/react-dapp.md: products/connect/tutorials/react-dapp.md
         tutorials/by-product/contract-integrations/cross-chain-contracts.md: products/messaging/tutorials/cross-chain-contracts.md
