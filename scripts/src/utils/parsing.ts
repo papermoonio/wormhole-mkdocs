@@ -64,10 +64,15 @@ export function stripCommentsPreserveStrings(src: string): string {
 
 // 2) From "const <name> =" find the first '[' and return the balanced array text
 export function extractArrayAfterConst(src: string, constName: string): string | undefined {
-  const re = new RegExp(String.raw`(?:export\s+)?const\s+` + constName + String.raw`\s*=`, 'm');
+  const re = new RegExp(
+    String.raw`(?:export\s+)?const\s+` +
+      constName +
+      String.raw`(?:\s*:[^=]+)?\s*=`,
+    'm'
+  );
   const m = re.exec(src);
   if (!m) return;
-  let i = src.indexOf('[', m.index);
+  let i = src.indexOf('[', m.index + m[0].length);
   if (i < 0) return;
   let depth = 0,
     start = -1,

@@ -15,6 +15,11 @@
       "mainnet": true,
       "testnet": true,
       "devnet": false
+    },
+    "connect": {
+      "mainnet": true,
+      "testnet": true,
+      "devnet": false
     }
   },
   "explorer": [

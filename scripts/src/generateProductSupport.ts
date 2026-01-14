@@ -6,6 +6,7 @@ import {
   stripCommentsPreserveStrings,
   toJsonArray,
 } from './utils/parsing';
+import { normalizeChainName } from './utils/chainNames';
 import { fetchText } from './utils/http';
 
 type Network = 'Mainnet' | 'Testnet' | 'Devnet';
@@ -36,13 +37,6 @@ const NETWORK_CANON_MAP: Record<string, Network> = {
 
 const canonicalizeNetwork = (input: string): Network | undefined =>
   NETWORK_CANON_MAP[input.toLowerCase()];
-
-const CHAIN_NAME_OVERRIDES: Record<string, string> = {
-  Klaytn: 'Kaia',
-};
-
-const normalizeChainName = (name: string): string =>
-  CHAIN_NAME_OVERRIDES[name] ?? name;
 
 function createNetworkRecord<T>(factory: () => T): NetworkRecord<T> {
   return {
