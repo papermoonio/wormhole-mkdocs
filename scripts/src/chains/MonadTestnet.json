@@ -1,11 +1,9 @@
 {
-  "title": "Monad",
-  "homepage": "https://www.monad.xyz/",
+  "title": "Monad Testnet",
   "testnet": {
     "name": "Testnet",
     "id": "10143"
   },
-  "devDocs": "https://docs.monad.xyz/",
   "faucet": {
     "url": "https://testnet.monad.xyz/",
     "token": "MON",
@@ -18,28 +16,13 @@
     }
   ],
   "products": {
-    "tokenBridge": {
-      "mainnet": true,
-      "testnet": true,
-      "devnet": false
-    },
-    "ntt": {
-      "mainnet": true,
-      "testnet": false,
-      "devnet": false
-    },
     "multigov": {
       "mainnet": true,
       "testnet": true,
       "devnet": true
     },
-    "cctp": {
-      "mainnet": true,
-      "testnet": false,
-      "devnet": false
-    },
-    "connect": {
-      "mainnet": true,
+    "tokenBridge": {
+      "mainnet": false,
       "testnet": true,
       "devnet": false
     }
