@@ -233,10 +233,3 @@ export function escapeHtmlText(s: string): string {
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;');
 }
-
-// Escapes HTML special characters for attribute values
-export function escapeHtmlAttr(s: string): string {
-  return escapeHtmlText(s)
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;');
-}
