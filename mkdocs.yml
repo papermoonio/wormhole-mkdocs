@@ -172,9 +172,9 @@ plugins:
         build/core-messaging/index.md: products/messaging/overview.md
         build/core-messaging/wormhole-relayers.md: products/messaging/guides/wormhole-relayers.md
         build/index.md: products/overview.md
-        build/infrastructure/index.md: protocol/infrastructure-guides/run-relayer.md
-        build/infrastructure/relayers/index.md: protocol/infrastructure-guides/run-relayer.md
-        build/infrastructure/relayers/run-relayer.md: protocol/infrastructure-guides/run-relayer.md
+        build/infrastructure/index.md: protocol/infrastructure/relayers/relayer.md
+        build/infrastructure/relayers/index.md: protocol/infrastructure/relayers/relayer.md
+        build/infrastructure/relayers/run-relayer.md: protocol/infrastructure/relayers/executor-framework.md
         build/infrastructure/spy/index.md: protocol/infrastructure-guides/run-spy.md
         build/infrastructure/spy/run-spy.md: protocol/infrastructure-guides/run-spy.md
         build/multigov/deploy-to-evm.md: products/multigov/guides/deploy-to-evm.md
@@ -250,9 +250,9 @@ plugins:
         build/transfers/settlement/liquidity-layer.md: products/settlement/overview.md
         build/transfers/settlement/solver.md: products/settlement/overview.md
         build/transfers/token-bridge.md: products/token-transfers/wrapped-token-transfers/guides/wtt-contracts.md
-        infrastructure/index.md: protocol/infrastructure-guides/run-relayer.md
-        infrastructure/relayers/index.md: protocol/infrastructure-guides/run-relayer.md
-        infrastructure/relayers/run-relayer.md: protocol/infrastructure-guides/run-relayer.md
+        infrastructure/index.md: protocol/infrastructure/relayers/relayer.md
+        infrastructure/relayers/index.md: protocol/infrastructure/relayers/relayer.md
+        infrastructure/relayers/run-relayer.md: protocol/infrastructure/relayers/executor-framework.md
         infrastructure/spy/index.md: protocol/infrastructure-guides/run-spy.md
         infrastructure/spy/run-spy.md: protocol/infrastructure-guides/run-spy.md
         learn/fundamentals/architecture.md: protocol/architecture.md
@@ -332,6 +332,7 @@ plugins:
         products/token-bridge/tutorials/multichain-token.md: products/token-transfers/wrapped-token-transfers/tutorials/multichain-token.md
         products/token-bridge/tutorials/transfer-workflow.md: products/token-transfers/wrapped-token-transfers/tutorials/transfer-workflow.md
         protocol/infrastructure/relayer.md: protocol/infrastructure/relayers/relayer.md
+        protocol/infrastructure-guides/run-relayer.md: protocol/infrastructure/relayers/executor-framework.md
         tutorials/by-product/connect/index.md: products/connect/tutorials/react-dapp.md
         tutorials/by-product/connect/react-dapp.md: products/connect/tutorials/react-dapp.md
         tutorials/by-product/contract-integrations/cross-chain-contracts.md: products/messaging/tutorials/cross-chain-contracts.md
