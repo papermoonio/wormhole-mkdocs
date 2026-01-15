@@ -1,8 +1,10 @@
 import path from 'node:path';
 import { readFile } from 'fs/promises';
 import { DOCS_SNIPPETS_DIR } from './env';
+import type { DocChain } from './types/chains';
 import { fetchText } from './utils/http';
-import { buildHTMLTable, formatHTMLTable, makePrioritizedAlphaCompare, escapeHtml, fmtCodeStr } from './util';
+import { buildHTMLTable, formatHTMLTable, makePrioritizedAlphaCompare, escapeHtmlText, fmtCodeStr } from './util';
+import { buildChainTitleMap, resolveDisplayChainName } from './utils/chainNames';
 
 type GeneralPurposeGovernance = { address: string; chainId: number };
 type ContractsJson = {
@@ -206,8 +208,8 @@ function renderGovernanceTable(rows: GovernanceRow[]): string {
 
   const body = rows
     .map((r) => {
-      const name = r.nameIsRaw ? r.name : escapeHtml(r.name);
-      const addr = escapeHtml(r.address);
+      const name = r.nameIsRaw ? r.name : escapeHtmlText(r.name);
+      const addr = escapeHtmlText(r.address);
       return `\
 <tr>
   <td>${name}</td>
@@ -217,6 +219,13 @@ function renderGovernanceTable(rows: GovernanceRow[]): string {
     .join('\n');
 
   return formatHTMLTable(buildHTMLTable(tableHeader, body));
+}
+
+function applyDisplayNames(rows: GovernanceRow[], chainTitleMap: Map<string, string>): GovernanceRow[] {
+  return rows.map((row) => ({
+    ...row,
+    name: resolveDisplayChainName(row.name, chainTitleMap),
+  }));
 }
 
 async function fetchGovernanceEvmRows(
@@ -272,7 +281,8 @@ async function loadGovernanceSnippet(): Promise<string | null> {
   }
 }
 
-export async function generateGovernanceMainnetTable(): Promise<string> {
+export async function generateGovernanceMainnetTable(chains: DocChain[]): Promise<string> {
+  const chainTitleMap = buildChainTitleMap(chains);
   const cfg = await loadContractsConfig();
   const evmRows = await fetchGovernanceEvmRows(
     cfg.sources.ntt_mainnet.contracts_url,
@@ -284,7 +294,8 @@ export async function generateGovernanceMainnetTable(): Promise<string> {
     'Solana'
   );
 
-  const freshRows = dedupeByName(solanaRow ? [...evmRows, solanaRow] : evmRows);
+  const resolvedRows = applyDisplayNames(solanaRow ? [...evmRows, solanaRow] : evmRows, chainTitleMap);
+  const freshRows = dedupeByName(resolvedRows);
   const existing = await loadGovernanceSnippet();
   const existingRows = existing
     ? parseExistingRows(existing, 'GOVERNANCE_MAINNET', 'Mainnet')
@@ -297,7 +308,8 @@ export async function generateGovernanceMainnetTable(): Promise<string> {
   return renderGovernanceTable(sortedRows);
 }
 
-export async function generateGovernanceTestnetTable(): Promise<string> {
+export async function generateGovernanceTestnetTable(chains: DocChain[]): Promise<string> {
+  const chainTitleMap = buildChainTitleMap(chains);
   const cfg = await loadContractsConfig();
   const evmRows = await fetchGovernanceEvmRows(
     cfg.sources.ntt_testnet.contracts_url,
@@ -309,7 +321,8 @@ export async function generateGovernanceTestnetTable(): Promise<string> {
     'Solana'
   );
 
-  const freshRows = dedupeByName(solanaRow ? [...evmRows, solanaRow] : evmRows);
+  const resolvedRows = applyDisplayNames(solanaRow ? [...evmRows, solanaRow] : evmRows, chainTitleMap);
+  const freshRows = dedupeByName(resolvedRows);
   const existing = await loadGovernanceSnippet();
   const existingRows = existing
     ? parseExistingRows(existing, 'GOVERNANCE_TESTNET', 'Testnet')

@@ -90,6 +90,12 @@ export const NOTION_CONTRACT_PROPERTIES: NotionPropertyConfig[] = [
     tag: 'NTT_EXECUTOR_ADDRESS',
     extraProperties: [{ property: 'MultiTokenNttWithExecutor', label: 'Multi Ntt' }],
   },
+  { property: 'Executor', tag: 'EXECUTOR_ADDRESS' },
+  { property: 'TokenBridgeRelayer', tag: 'WTT_EXECUTOR_ADDRESS' },
+  {
+    property: 'TokenBridgeRelayerWithReferrer',
+    tag: 'WTT_EXECUTOR_WITH_REFERRER_ADDRESS',
+  },
   { property: 'MayanForwarderWithReferrer', tag: 'MAYAN_FORWARDER_WITH_REFERRER_ADDRESS' },
   {
     property: 'CCTPv1WithExecutor',
