@@ -5,6 +5,7 @@ import {
   generateProductSupport,
   type ProductConfig,
 } from './generateProductSupport';
+import { generateConnectSupport } from './generateConnectSupport';
 
 const configPath = path.resolve(
   __dirname,
@@ -22,6 +23,8 @@ async function main() {
   for (const entry of configs) {
     await generateProductSupport(entry);
   }
+
+  await generateConnectSupport();
 }
 
 void main();

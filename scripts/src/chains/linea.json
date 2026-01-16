@@ -44,6 +44,11 @@
       "mainnet": true,
       "testnet": false,
       "devnet": false
+    },
+    "connect": {
+      "mainnet": true,
+      "testnet": false,
+      "devnet": false
     }
   }
 }
