@@ -293,8 +293,7 @@
   
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      const scope = window.__md_scope instanceof URL ? window.__md_scope : new URL('.', location);
-      const SITE_BASE = scope.href.replace(/\/+$/, ''); // origin + docs base path
+      const SITE_BASE = location.origin.replace(/\/+$/, ''); // current host
       const AI_BASE = '/ai'; // relative path to AI content on same host
 
       const stripLeading = (value) => value.replace(/^\/+/, '');
