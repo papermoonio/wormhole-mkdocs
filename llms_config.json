@@ -38,14 +38,7 @@
         "exclusions": {
             "skip_basenames": [
                 "index.md",
-                "README.md",
-                ".CONTRIBUTING.md",
-                "pull-request-template.md",
-                "cookie-policy.md",
-                "LICENSE.md",
-                "ai-chatbot-policy.md",
-                "terms-of-use.md",
-                "privacy-policy.md"
+                "LICENSE.md"
             ],
             "skip_paths": [".snippets", ".github", "venv", ".venv"]
         }
