@@ -89,7 +89,7 @@ export function renderSimpleContractTable(rows: ContractTableRow[]): string {
 
   const body = rows
     .map(({ chain, address }) => {
-      const safeChain = escapeHtml(chain);
+      const safeChain = escapeHtmlText(chain);
       const cell = formatContractCell(address);
 
       return `
@@ -118,7 +118,7 @@ function formatContractCell(raw: string): string {
 
   const extras = rest
     .map((line) => {
-      const escaped = escapeHtml(line);
+      const escaped = escapeHtmlText(line);
       return escaped.replace(ETHEREUM_ADDRESS_PATTERN, (match) => fmtCodeStr(match));
     })
     .filter((line) => line.length > 0)
@@ -226,12 +226,10 @@ export function makePrioritizedAlphaCompare(priorities: string[]) {
 }
 
 // Escapes HTML special characters in a string to prevent HTML injection
-export function escapeHtml(s: string): string {
+export function escapeHtmlText(s: string): string {
   const str = String(s);
   return str
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;');
+    .replace(/>/g, '&gt;');
 }

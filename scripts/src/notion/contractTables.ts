@@ -1,15 +1,13 @@
 import { NOTION_CONTRACT_DATABASES, NOTION_CONTRACT_PROPERTIES } from '../config/notion-contracts';
-import { DocChain } from '../types/chains';
+import type { DocChain } from '../types/chains';
 import { renderSimpleContractTable, ContractTableRow } from '../util';
+import { buildChainTitleMap, resolveDisplayChainName } from '../utils/chainNames';
 import { NotionClient } from './client';
 import { extractContractRows } from './parser';
 import { NotionPage } from './types';
 
 type PropertyEnvironmentMap = Map<string, Map<string, ContractTableRow[]>>;
 const IGNORED_UNMAPPED_PROPERTIES = new Set([
-  'Executor',
-  'TokenBridgeRelayer',
-  'TokenBridgeRelayerWithReferrer',
   'Chain',
   'MultiReceiveWithGasDropOff',
   'VAAv1ReceiveWithGasDropOff',
@@ -23,7 +21,7 @@ const MAPPED_PROPERTIES = new Set<string>(
   ]),
 );
 
-export async function generateNotionContractTables(_chains: DocChain[]): Promise<Map<string, string>> {
+export async function generateNotionContractTables(chains: DocChain[]): Promise<Map<string, string>> {
   const apiKey = process.env.NOTION_API_KEY;
   if (!apiKey) {
     console.warn('[notion] NOTION_API_KEY is not set; skipping Notion-backed contract tables.');
@@ -32,6 +30,7 @@ export async function generateNotionContractTables(_chains: DocChain[]): Promise
 
   const client = new NotionClient(apiKey, process.env.NOTION_VERSION);
   const propertyData: PropertyEnvironmentMap = new Map();
+  const chainTitleMap = buildChainTitleMap(chains);
   const discoveredProperties = new Map<string, Set<string>>();
   const failedSources: Set<string> = new Set();
 
@@ -78,10 +77,13 @@ export async function generateNotionContractTables(_chains: DocChain[]): Promise
     }
 
     for (const property of NOTION_CONTRACT_PROPERTIES) {
-      const rows = extractContractRows(pages, property.property, {
-        chainProperty: database.chainProperty,
-        extraProperties: property.extraProperties,
-      });
+      const rows = normalizeRows(
+        extractContractRows(pages, property.property, {
+          chainProperty: database.chainProperty,
+          extraProperties: property.extraProperties,
+        }),
+        chainTitleMap,
+      );
       if (rows.length === 0) continue;
 
       let envMap = propertyData.get(property.property);
@@ -169,6 +171,23 @@ function logUnmappedProperties(discovered: Map<string, Set<string>>): void {
 
     console.log(`[notion] ${label}: ignoring unmapped properties -> ${unmapped.join(', ')}`);
   }
+}
+
+function normalizeRows(rows: ContractTableRow[], chainTitleMap: Map<string, string>): ContractTableRow[] {
+  const normalized = new Map<string, ContractTableRow>();
+
+  for (const row of rows) {
+    const resolvedName = resolveDisplayChainName(row.chain, chainTitleMap);
+    const key = normalizeChainKey(resolvedName);
+    if (normalized.has(key)) continue;
+    normalized.set(key, { ...row, chain: resolvedName });
+  }
+
+  return Array.from(normalized.values());
+}
+
+function normalizeChainKey(value: string): string {
+  return value.trim().replace(/\s+/g, ' ').toLowerCase();
 }
 
 function getPriorityRank(lowerName: string): number {
