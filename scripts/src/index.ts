@@ -73,8 +73,8 @@ async function main() {
       await tagManager.replace(`SUPPORTED_BLOCKCHAIN_${tagSuffix}`, table);
     }
 
-    const govMainnetTable = await generateGovernanceMainnetTable();
-    const govTestnetTable = await generateGovernanceTestnetTable();
+    const govMainnetTable = await generateGovernanceMainnetTable(chains);
+    const govTestnetTable = await generateGovernanceTestnetTable(chains);
     await tagManager.replace(
       'GOVERNANCE_MAINNET',
       indentBlock(govMainnetTable, 4)

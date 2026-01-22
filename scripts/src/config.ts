@@ -142,9 +142,14 @@ export async function getDocChains(): Promise<DocChain[]> {
   // Chains we don't want to appear on the docs
   const skipChains = ['Wormchain', 'Btc', 'Aurora'];
 
-  // Filter Holesky and Sepolia chains
-  const filteredTestnetChains = chainsList.filter((chain) => {
-    return chain.includes('Sepolia') || chain.includes('Holesky');
+  const testnetChainOverrides: Record<string, Chain> = {
+    Holesky: 'Ethereum',
+    MonadTestnet: 'Monad',
+  };
+
+  // Filter testnet-only chains that should be nested under their mainnet counterpart
+  const filteredTestnetChains = chainsList.filter((chainName) => {
+    return Object.prototype.hasOwnProperty.call(testnetChainOverrides, chainName) || chainName.includes('Sepolia');
   });
 
   const chains: DocChain[] = [];
@@ -212,11 +217,9 @@ export async function getDocChains(): Promise<DocChain[]> {
   // to add them to the mainnet chains
   for (const c of filteredTestnetChains) {
     // Find the mainnet the testnet belongs to
-    let mainnetChain: Chain | string = '';
+    let mainnetChain: Chain | string = testnetChainOverrides[c];
 
-    if (c === 'Holesky') {
-      mainnetChain = 'Ethereum';
-    } else {
+    if (!mainnetChain) {
       mainnetChain =
         c.replace('Sepolia', '') === '' ? 'Ethereum' : c.replace('Sepolia', '');
     }
