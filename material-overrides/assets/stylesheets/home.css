@@ -54,6 +54,11 @@
   flex-direction: column;
 }
 
+.center {
+  align-items: center;
+  text-align: center;
+}
+
 .features .row {
   gap: 1em;
   margin-bottom: 1em;
@@ -94,6 +99,25 @@
 .card p {
   margin-top: 0;
   margin-bottom: 0;
+}
+
+.features.full {
+  padding-top: 1.6em;
+}
+
+.features.full .column {
+  background-color: var(--plum-transparent-10);
+  border: 1px solid var(--plum);
+  border-radius: var(--border-radius);
+  padding: 1rem;
+}
+
+.features.full h2 {
+  margin: 0;
+}
+
+.md-typeset .md-button.secondary:hover {
+  background-color: var(--plum-transparent-30);
 }
 
 @media screen and (max-width: 1064px) {
