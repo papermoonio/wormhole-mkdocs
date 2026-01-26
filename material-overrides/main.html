@@ -294,11 +294,15 @@
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const AI_BASE = '/ai'; // relative path to AI content on same host
+      // Use the configured site_url so AI links stay rooted under /docs (or any base path).
       const CONFIG_SITE_URL = {{ config.site_url | default('', true) | tojson }} || '';
 
       const siteUrl = new URL(CONFIG_SITE_URL);
+      // Full docs root, e.g. https://wormhole.com/docs
       const siteRoot = `${siteUrl.origin}${siteUrl.pathname.replace(/\/+$/, '')}`;
+      // Origin only, e.g. https://wormhole.com
       const siteOrigin = siteUrl.origin;
+      // Path only, e.g. /docs
       const basePath = siteUrl.pathname.replace(/\/+$/, '');
 
       const stripLeading = (value) => value.replace(/^\/+/, '');
