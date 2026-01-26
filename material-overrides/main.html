@@ -294,7 +294,8 @@
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const AI_BASE = '/ai'; // relative path to AI content on same host
-      const CONFIG_SITE_URL = "{{ config.site_url | default('', true) }}";
+      const CONFIG_SITE_URL = {{ config.site_url | default('', true) | tojson }} || '';
+
       const siteUrl = new URL(CONFIG_SITE_URL);
       const siteRoot = `${siteUrl.origin}${siteUrl.pathname.replace(/\/+$/, '')}`;
       const siteOrigin = siteUrl.origin;
