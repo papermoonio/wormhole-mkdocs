@@ -295,32 +295,10 @@
     document.addEventListener('DOMContentLoaded', () => {
       const AI_BASE = '/ai'; // relative path to AI content on same host
       const CONFIG_SITE_URL = "{{ config.site_url | default('', true) }}";
-      const configRoot = (() => {
-        if (!CONFIG_SITE_URL) return '';
-        try {
-          const url = new URL(CONFIG_SITE_URL);
-          return `${url.origin}${url.pathname.replace(/\/+$/, '')}`;
-        } catch (err) {
-          return '';
-        }
-      })();
-      const fallbackRoot = (() => {
-        try {
-          const url = new URL('.', window.location.href);
-          return `${url.origin}${url.pathname.replace(/\/+$/, '')}`;
-        } catch (err) {
-          return '';
-        }
-      })();
-      const siteRoot = configRoot || fallbackRoot;
-      const siteOrigin = (() => {
-        try {
-          return new URL(siteRoot).origin;
-        } catch (err) {
-          return location.origin.replace(/\/+$/, '');
-        }
-      })();
-      const basePath = siteRoot.replace(siteOrigin, '');
+      const siteUrl = new URL(CONFIG_SITE_URL);
+      const siteRoot = `${siteUrl.origin}${siteUrl.pathname.replace(/\/+$/, '')}`;
+      const siteOrigin = siteUrl.origin;
+      const basePath = siteUrl.pathname.replace(/\/+$/, '');
 
       const stripLeading = (value) => value.replace(/^\/+/, '');
 
