@@ -20,8 +20,8 @@
     "typescript": "^5.9.3"
   },
   "dependencies": {
-    "@wormhole-foundation/sdk": "4.9.0",
-    "axios": "^1.13.3",
+    "@wormhole-foundation/sdk": "4.9.1",
+    "axios": "^1.13.4",
     "sharp": "^0.34.5",
     "swagger-markdown": "^3.0.0"
   }
